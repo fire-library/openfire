@@ -1,0 +1,316 @@
+use crate::domain::method::builder::MethodBuilder;
+use crate::domain::method::calculation::{Calculation, CalculationComponent};
+use crate::domain::method::equation::Equation;
+use crate::domain::method::form::FormStep;
+use crate::domain::method::parameter::builder::ParameterBuilder;
+use crate::domain::method::parameter::ArcParameter;
+use crate::domain::method::parameter::ParameterValue;
+use crate::domain::method::parameter::Parameters;
+use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
+use crate::domain::method::MethodType;
+use crate::domain::method::{step::Step, Method};
+use sfpe_handbook::alpert;
+use std::sync::{Arc, RwLock};
+
+pub fn method() -> Method {
+    let args = create_params();
+
+    let mut fields = vec![];
+    for param in args.values().into_iter() {
+        if param.read().unwrap().id == "\\dot{Q}" {
+            continue;
+        }
+        fields.push(param.to_field())
+    }
+
+    let step_1 = FormStep {
+        name: "Ceiling Jet Correlation Input".to_string(),
+        description: "Input required to calculate the heat release rate".to_string(),
+        fields: fields,
+    };
+
+    let q = args.get_parameter("\\dot{Q}");
+    let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new()));
+    let step = Step {
+        name: "Calculate Heat Release Rate from Point of Interest".to_string(),
+        parameters: vec![q],
+    };
+    calc_sheet.write().unwrap().add_step(step);
+
+    MethodBuilder::new("Alpert".to_string())
+        .calc_sheet(calc_sheet)
+        .reference(vec!["SFPE Handbook"])
+        .method_type(MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition)
+        .parameters(args)
+        .quick_calc_compatible(true)
+        .add_form_step(step_1)
+        .build()
+}
+
+pub fn create_params() -> Parameters {
+    let mut params = Parameters::new();
+
+    let temp = ParameterBuilder::float("T")
+        .name("Temperature at position of interest")
+        .units("^{o}C")
+        .default_value(ParameterValue::Float(300.0))
+        .min(0.0)
+        .required()
+        .build();
+
+    let temp_amb = ParameterBuilder::float("T_\\infty")
+        .name("Ambient Temperature")
+        .units("^{o}C")
+        .default_value(ParameterValue::Float(20.0))
+        .min(0.0)
+        .required()
+        .build();
+
+    let h = ParameterBuilder::float("H")
+        .name("Ceiling height")
+        .units("m")
+        .default_value(ParameterValue::Float(2.0))
+        .min(0.0)
+        .required()
+        .build();
+
+    let r = ParameterBuilder::float("r")
+        .name("Radial position")
+        .units("m")
+        .min(0.0)
+        .default_value(ParameterValue::Float(1.0))
+        .required()
+        .build();
+
+    let q = ParameterBuilder::float("\\dot{Q}")
+        .name("Heat release rate")
+        .expression(Box::new(AlpertHeatReleaseFromTempAndPosition::new(
+            temp.clone(),
+            temp_amb.clone(),
+            h.clone(),
+            r.clone(),
+        )))
+        .units("kW")
+        .build();
+
+    params.add(temp);
+    params.add(temp_amb);
+    params.add(h);
+    params.add(r);
+    params.add(q);
+
+    return params;
+}
+
+pub fn evaluate(method: &mut Method) -> Result<(), String> {
+    let temp = method
+        .parameters
+        .get_parameter("T")
+        .read()
+        .unwrap()
+        .value
+        .to_float()
+        .unwrap();
+    let temp_amb = method
+        .parameters
+        .get_parameter("T_\\infty")
+        .read()
+        .unwrap()
+        .value
+        .to_float()
+        .unwrap();
+    let h = method
+        .parameters
+        .get_parameter("H")
+        .read()
+        .unwrap()
+        .value
+        .to_float()
+        .unwrap();
+    let r = method
+        .parameters
+        .get_parameter("r")
+        .read()
+        .unwrap()
+        .value
+        .to_float()
+        .unwrap();
+
+    let q = method.parameters.get_parameter("\\dot{Q}");
+
+    let result = alpert::heat_release::from_temperature_and_position(temp, temp_amb, h, r);
+    q.write().unwrap().value = ParameterValue::Float(result);
+
+    return Ok(());
+}
+
+#[derive(Debug)]
+pub struct AlpertHeatReleaseFromTempAndPosition {
+    pub temp: ArcParameter,
+    pub temp_amb: ArcParameter,
+    pub height: ArcParameter,
+    pub radial_position: ArcParameter,
+}
+
+impl AlpertHeatReleaseFromTempAndPosition {
+    pub fn new(
+        temp: ArcParameter,
+        temp_amb: ArcParameter,
+        height: ArcParameter,
+        radial_position: ArcParameter,
+    ) -> Self {
+        Self {
+            temp,
+            temp_amb,
+            height,
+            radial_position,
+        }
+    }
+}
+
+impl Equation for AlpertHeatReleaseFromTempAndPosition {
+    fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
+        let eq_1 = format!(
+            "\\dot{{Q}} = {}",
+            equation_1(
+                self.temp.read().unwrap().id.clone(),
+                self.temp_amb.read().unwrap().id.clone(),
+                self.height.read().unwrap().id.clone(),
+            ),
+        );
+        let cond_1 = "\\text{if: } \\dfrac{r}{H} \\le 0.18".to_string();
+
+        let eq_2 = format!(
+            "\\dot{{Q}} = {}",
+            equation_2(
+                self.temp.read().unwrap().id.clone(),
+                self.temp_amb.read().unwrap().id.clone(),
+                self.height.read().unwrap().id.clone(),
+                self.radial_position.read().unwrap().id.clone(),
+            ),
+        );
+        let cond_2 = "\\text{if: } \\dfrac{r}{H} \\gt 0.18".to_string();
+
+        vec![
+            vec![
+                CalculationComponent::Equation(eq_1),
+                CalculationComponent::Equation(cond_1),
+            ],
+            vec![
+                CalculationComponent::Equation(eq_2),
+                CalculationComponent::Equation(cond_2),
+            ],
+        ]
+    }
+    fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
+        let r = self
+            .radial_position
+            .read()
+            .unwrap()
+            .value
+            .to_float()
+            .unwrap();
+        let h = self.height.read().unwrap().value.to_float().unwrap();
+        let result = if r / h <= 0.18 {
+            let cond = format!(
+                "\\dfrac{{r}}{{H}} = \\dfrac{{{}}}{{{}}} = {} \\le 0.18",
+                r,
+                h,
+                r / h
+            );
+            let eq = format!(
+                "\\dot{{Q}} = \\left(({}-{}) \\cdot \\dfrac{{{}^{{\\frac{{5}}{{3}}}}}}{{16.9}}\\right)^{{\\frac{{3}}{{2}}}}",
+                self.temp.read().unwrap().value.to_float().unwrap(),
+                self.temp_amb.read().unwrap().value.to_float().unwrap(),
+                self.height.read().unwrap().value.to_float().unwrap()
+            );
+            vec![
+                vec![CalculationComponent::Equation(cond)],
+                vec![(CalculationComponent::Equation("Therefore: ".to_string()))],
+                vec![CalculationComponent::EquationWithResult(eq)],
+            ]
+        } else {
+            let cond = format!(
+                "\\dfrac{{r}}{{H}} = \\dfrac{{{}}}{{{}}} = {} \\gt 0.18",
+                r,
+                h,
+                r / h
+            );
+
+            let eq = format!(
+                "\\dot{{Q}} = {} = {}",
+                equation_2(
+                    self.temp.read().unwrap().id.clone(),
+                    self.temp_amb.read().unwrap().id.clone(),
+                    self.height.read().unwrap().id.clone(),
+                    self.radial_position.read().unwrap().id.clone(),
+                ),
+                equation_2(
+                    self.temp
+                        .read()
+                        .unwrap()
+                        .value
+                        .to_float()
+                        .unwrap()
+                        .to_string(),
+                    self.temp_amb
+                        .read()
+                        .unwrap()
+                        .value
+                        .to_float()
+                        .unwrap()
+                        .to_string(),
+                    self.height
+                        .read()
+                        .unwrap()
+                        .value
+                        .to_float()
+                        .unwrap()
+                        .to_string(),
+                    self.radial_position
+                        .read()
+                        .unwrap()
+                        .value
+                        .to_float()
+                        .unwrap()
+                        .to_string(),
+                ),
+            );
+            vec![
+                vec![CalculationComponent::Equation(cond)],
+                vec![CalculationComponent::Text("Therefore: ".to_string())],
+                vec![CalculationComponent::EquationWithResult(eq)],
+            ]
+        };
+        return result;
+    }
+
+    fn dependencies(&self) -> Vec<ArcParameter> {
+        vec![
+            self.temp.clone(),
+            self.temp_amb.clone(),
+            self.height.clone(),
+            self.radial_position.clone(),
+        ]
+    }
+}
+
+pub fn equation_1(t: String, t_inf: String, h: String) -> String {
+    format!(
+        "\\left(({}-{}) \\cdot \\dfrac{{{}^{{\\frac{{5}}{{3}}}}}}{{16.9}}\\right)^{{\\frac{{3}}{{2}}}}",
+        t,
+        t_inf,
+        h
+    )
+}
+
+pub fn equation_2(t: String, t_inf: String, h: String, r: String) -> String {
+    format!(
+        "\\left(\\dfrac{{({}-{}) \\cdot \\left(\\dfrac{{{}}}{{{}}}\\right)^{{\\frac{{2}}{{3}}}} \\cdot {}^{{\\frac{{5}}{{3}}}}}}{{5.38}}\\right)^{{\\frac{{3}}{{2}}}}",
+        t,
+        t_inf,
+        r,
+        h,
+        h
+    )
+}
