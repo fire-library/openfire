@@ -4,8 +4,6 @@
 mod commands;
 mod config;
 mod domain;
-mod filesystem;
-mod tools;
 
 use commands::forms::{
     calculate_form, get_equation_inputs, get_equation_inputs_symbols, get_equation_with_numbers,
@@ -155,11 +153,8 @@ fn some_setup<R: tauri::Runtime>(
     let wrapped_tab = Arc::new(RwLock::new(initial_tab));
 
     let tabs = WrappedTabState::new(vec![wrapped_tab]);
-    let (client, jar) = tools::cookie_jar::init_client(app.handle()).unwrap();
 
     app.manage(tabs);
-    app.manage(client);
-    app.manage(jar);
 
     Ok(())
 }
