@@ -15,7 +15,7 @@ export default function Example() {
             <div className="flex h-10 items-center justify-between">
               <div className="flex items-center">
                 <div className="flex-shrink-0 text-bold text-white">
-                  Fire Library
+                  OpenFire
                 </div>
               </div>
               <div className="-mr-2 flex sm:hidden">

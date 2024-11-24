@@ -1,11 +1,11 @@
 [package]
-name = "fire_lib"
+name = "OpenFire"
 version = "0.1.0"
 description = "A Tauri App"
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "fire_lib"
+default-run = "OpenFire"
 edition = "2021"
 rust-version = "1.81"
 

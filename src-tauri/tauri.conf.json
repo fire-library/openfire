@@ -40,8 +40,8 @@
       }
     }
   },
-  "productName": "fire_lib",
-  "mainBinaryName": "fire_lib",
+  "productName": "OpenFire",
+  "mainBinaryName": "OpenFire",
   "version": "0.1.0",
   "identifier": "com.firelib.dev",
   "plugins": {
@@ -58,7 +58,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "fire_lib",
+        "title": "OpenFire",
         "width": 800
       }
     ],

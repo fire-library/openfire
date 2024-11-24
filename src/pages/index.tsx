@@ -1,7 +1,9 @@
+import { useState, useCallback } from "react";
 import { FireIcon, WifiIcon } from "@heroicons/react/24/outline";
 import { useTabs } from "src/tabs/tabProvider";
 import { TabState, commands, Result, MethodType } from "src/bindings";
-import { WrenchScrewdriverIcon } from "@heroicons/react/20/solid";
+import fuse from "fuse.js";
+import Fuse from "fuse.js";
 
 type ImplementationType = {
   name: string;
@@ -41,6 +43,17 @@ const implementations: ImplementationType[] = [
 
 function IndexPage() {
   const { updateTab, currentTab } = useTabs();
+  const [search, setSearch] = useState("");
+  const [fuse] = useState(
+    new Fuse(implementations, { keys: ["name", "reference", "tags"] })
+  );
+  const get_methods: () => { item: ImplementationType }[] = useCallback(() => {
+    if (search.trim() === "") {
+      return implementations.map((item) => ({ item }));
+    }
+    return fuse.search(search);
+  }, [fuse, search]);
+
   return (
     <div className="max-w-7xl">
       <form className="max-w-lg mx-auto mt-10">
@@ -116,6 +129,7 @@ function IndexPage() {
               id="search-dropdown"
               className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300"
               placeholder="Search Flows, Methods, and more..."
+              onChange={(e) => setSearch(e.target.value)}
               required
             />
           </div>
@@ -135,7 +149,7 @@ function IndexPage() {
         </div>
       </div>
       <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10">
-        {implementations.map((implementation: ImplementationType, index) => {
+        {get_methods().map(({ item: implementation }, index) => {
           const Icon = implementation.svg;
           return (
             <li
