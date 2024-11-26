@@ -1,9 +1,10 @@
-import { useState, ReactNode, useCallback } from "react";
+import { useState, ReactNode, useCallback, useEffect } from "react";
 import { Tab, Method, commands } from "src/bindings";
 import QuickResults from "./quickResults";
 import FieldInputSection from "src/components/inputSections/FieldInput";
 import Tabs from "../components/Tabs";
 import CalcSheet from "./AutoResults/CalcSheet";
+import ReactGA from "react-ga4";
 
 export default function InputForm({ tab }: { tab: Tab }) {
   const tabs: ReactNode[] = ["Input", "Calculation"];
@@ -14,6 +15,13 @@ export default function InputForm({ tab }: { tab: Tab }) {
       commands.calculateForm();
     }
   }, [state.quick_calc_compatible]);
+
+  useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: state.name,
+    });
+  }, [state.name]);
 
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 

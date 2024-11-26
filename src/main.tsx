@@ -4,6 +4,9 @@ import Root from "./routes/Root";
 import "./styles.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { TabProvider } from "src/tabs/tabProvider";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize(import.meta.env.VITE_GA_TRACKING_ID);
 
 const router = createBrowserRouter([
   {
