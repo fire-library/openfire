@@ -19,7 +19,7 @@ export default function Root() {
 
   const saveCurrentTab = () => {
     if (currentTab?.filename) {
-      commands.save(currentTab.filename);
+      // commands.save(currentTab.filename);
     } else {
       saveDialog({
         filters: [
@@ -30,7 +30,7 @@ export default function Root() {
         ],
       })
         .then((s) => {
-          s && commands.save(s);
+          // s && commands.save(s);
         })
         .catch(() => {});
     }
@@ -100,7 +100,7 @@ export default function Root() {
         <div className="flex grow w-12 bg-gray-800" />
         <div className="flex flex-col w-12 h-12 bg-gray-800">
           <button
-            onClick={commands.runCalculation}
+            // onClick={commands.runCalculation}
             className="flex items-center justify-center h-12 w-12 text-gray-400 hover:text-white"
           >
             <PlayIcon className="h-6 w-6" />
