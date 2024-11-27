@@ -7,6 +7,9 @@
     "devUrl": "http://localhost:3000"
   },
   "bundle": {
+    "bundle": {
+      "createUpdaterArtifacts": true
+    },
     "active": true,
     "category": "DeveloperTool",
     "copyright": "",
@@ -42,13 +45,13 @@
   },
   "productName": "OpenFire",
   "mainBinaryName": "OpenFire",
-  "version": "0.1.0",
-  "identifier": "com.firelib.dev",
+  "version": "0.1.1",
+  "identifier": "com.openfire.dev",
   "plugins": {
     "deep-link": {
-      "mobile": [{ "host": "com.firelib.dev", "pathPrefix": ["/login"] }],
+      "mobile": [{ "host": "com.openfire.dev", "pathPrefix": ["/login"] }],
       "desktop": {
-        "schemes": ["firelib"]
+        "schemes": ["openfire"]
       }
     }
   },
