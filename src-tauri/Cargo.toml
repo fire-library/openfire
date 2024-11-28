@@ -41,6 +41,7 @@ thiserror = "1.0.64"
 
 eurocode_1 = { path = "./crates/eurocode_1" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
+tauri-plugin-process = "2"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
@@ -50,6 +51,7 @@ custom-protocol = ["tauri/custom-protocol"]
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-global-shortcut = "2"
+tauri-plugin-updater = "2"
 
 [target.'cfg(any(target_os = "macos", windows, target_os = "linux"))'.dependencies]
 tauri-plugin-single-instance = { version = "2.0.1", features = ["deep-link"] }

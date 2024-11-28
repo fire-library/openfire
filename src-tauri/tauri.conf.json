@@ -7,6 +7,7 @@
     "devUrl": "http://localhost:3000"
   },
   "bundle": {
+    "createUpdaterArtifacts": true,
     "active": true,
     "category": "DeveloperTool",
     "copyright": "",
@@ -49,6 +50,15 @@
       "mobile": [{ "host": "com.openfire.dev", "pathPrefix": ["/login"] }],
       "desktop": {
         "schemes": ["openfire"]
+      }
+    },
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEU0QkI1RThCNEYyNzcyRUIKUldUcmNpZFBpMTY3NU5pTHhXQXV0OStFRFZNUjQ3OU5ZTWxRUWhFSWZtQ1AvdWhMQUJTMmFydm8K",
+      "endpoints": [
+        "https://github.com/fire-library/openfire/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
       }
     }
   },
