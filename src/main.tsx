@@ -21,35 +21,33 @@ const router = createBrowserRouter([
 function App() {
   useEffect(() => {
     const checkForUpdate = async () => {
-      if (import.meta.env.ENVIRONMENT === "release") {
-        const update = await check();
-        if (update) {
-          console.log(
-            `found update ${update.version} from ${update.date} with notes ${update.body}`
-          );
-          let downloaded = 0;
-          let contentLength: number | undefined = 0;
-          await update.downloadAndInstall((event) => {
-            switch (event.event) {
-              case "Started":
-                contentLength = event.data.contentLength;
-                console.log(
-                  `started downloading ${event.data.contentLength} bytes`
-                );
-                break;
-              case "Progress":
-                downloaded += event.data.chunkLength;
-                console.log(`downloaded ${downloaded} from ${contentLength}`);
-                break;
-              case "Finished":
-                console.log("download finished");
-                alert("Download finished, please restart the app");
-                break;
-            }
-          });
+      const update = await check();
+      if (update) {
+        console.log(
+          `found update ${update.version} from ${update.date} with notes ${update.body}`
+        );
+        let downloaded = 0;
+        let contentLength: number | undefined = 0;
+        await update.downloadAndInstall((event) => {
+          switch (event.event) {
+            case "Started":
+              contentLength = event.data.contentLength;
+              console.log(
+                `started downloading ${event.data.contentLength} bytes`
+              );
+              break;
+            case "Progress":
+              downloaded += event.data.chunkLength;
+              console.log(`downloaded ${downloaded} from ${contentLength}`);
+              break;
+            case "Finished":
+              console.log("download finished");
+              alert("Download finished, please restart the app");
+              break;
+          }
+        });
 
-          await relaunch();
-        }
+        await relaunch();
       }
     };
 
