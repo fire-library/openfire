@@ -1,7 +1,6 @@
 import { Card, CardHeader, CardBody } from "src/components";
 import { Calculation } from "src/bindings";
 import { InlineMath } from "react-katex";
-import { getResultValue } from "./helpers";
 
 export default function MaterialInput({ results }: { results: Calculation }) {
   const displayParam = results.steps[0].parameters[0];

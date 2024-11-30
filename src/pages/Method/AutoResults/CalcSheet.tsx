@@ -3,7 +3,6 @@ import { commands, Step, Method, Parameter } from "src/bindings";
 import { Card, CardBody, CardHeader } from "src/components";
 import Calculation from "./Calculation";
 import { InlineMath } from "react-katex";
-import { getResultValue } from "../helpers";
 
 function RenderStep({ step, index }: { step: Step; index: number }) {
   const [stepInputs, setStepInputs] = useState<Parameter[]>([]);
