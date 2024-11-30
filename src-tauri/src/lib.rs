@@ -5,6 +5,7 @@ mod commands;
 mod config;
 mod domain;
 
+use commands::filesystem::*;
 use commands::forms::{
     calculate_form, get_equation_inputs, get_equation_inputs_symbols, get_equation_with_numbers,
     get_equation_with_symbols, update_field, ValidationErrorEvent,
@@ -34,6 +35,8 @@ pub fn run() {
 
     let specta_builder = Builder::<tauri::Wry>::new()
         .commands(collect_commands![
+            open::<tauri::Wry>,
+            save::<tauri::Wry>,
             new_tab::<tauri::Wry>,
             get_current_tab,
             get_tabs,

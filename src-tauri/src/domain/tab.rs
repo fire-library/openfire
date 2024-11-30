@@ -1,5 +1,6 @@
 pub mod builder;
 
+use crate::domain::filesystem::Filetypes;
 use crate::domain::method::builder::MethodBuilder;
 use crate::domain::method::Method;
 pub use builder::TabBuilder;
@@ -28,9 +29,16 @@ pub struct NoCalc {
 #[serde(tag = "type")]
 pub enum TabState {
     Index(NoCalc),
-    ParametricFireAbout(NoCalc),
     Method(Method),
     MethodBuilder(MethodBuilder),
+}
+
+impl From<Filetypes> for TabState {
+    fn from(filetypes: Filetypes) -> Self {
+        match filetypes {
+            Filetypes::Method(method) => TabState::Method(method.into()),
+        }
+    }
 }
 
 type WrappedTab = Arc<RwLock<Tab>>;

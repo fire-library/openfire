@@ -19,7 +19,7 @@ export default function Root() {
 
   const saveCurrentTab = () => {
     if (currentTab?.filename) {
-      // commands.save(currentTab.filename);
+      commands.save(currentTab.filename);
     } else {
       saveDialog({
         filters: [
@@ -30,7 +30,7 @@ export default function Root() {
         ],
       })
         .then((s) => {
-          // s && commands.save(s);
+          s && commands.save(s);
         })
         .catch(() => {});
     }
@@ -65,9 +65,9 @@ export default function Root() {
               }).then((s) => {
                 if (s && s.constructor === Array) {
                   const b = s[0];
-                  open(b);
+                  commands.open(b);
                 } else {
-                  open(s as string);
+                  commands.open(s as string);
                 }
               })
             }

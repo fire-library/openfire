@@ -5,67 +5,10 @@ import {
   ValidationErrorEvent,
   commands,
   ParameterValue,
-  ParameterType,
 } from "src/bindings";
 import { InlineMath } from "react-katex";
 
-function isStringValue(value: ParameterValue): value is { String: string } {
-  return "String" in value;
-}
-
-function isFloatValue(value: ParameterValue): value is { Float: number } {
-  return "Float" in value;
-}
-
-function isBoolValue(value: ParameterValue): value is { Bool: boolean } {
-  return "Bool" in value;
-}
-
-function isNullValue(value: ParameterValue): value is { Null: ParameterType } {
-  return "Null" in value;
-}
-
-function getType(value: ParameterValue) {
-  if (isStringValue(value)) {
-    return "String";
-  }
-  if (isFloatValue(value)) {
-    return "Float";
-  }
-  if (isBoolValue(value)) {
-    return "Bool";
-  }
-  if (isNullValue(value)) {
-    if (value.Null == "String") {
-      return "String";
-    }
-    if (value.Null == "Float") {
-      return "Float";
-    }
-    if (value.Null == "Bool") {
-      return "Bool";
-    }
-  }
-  return "";
-}
-
-const getFieldValue = (value: ParameterValue) => {
-  if (isStringValue(value)) {
-    return value.String;
-  }
-  if (isFloatValue(value)) {
-    return value.Float;
-  }
-  if (isBoolValue(value)) {
-    return value.Bool.toString();
-  }
-  if (isNullValue(value)) {
-    return "";
-  }
-  return "";
-};
-
-const updateField = (
+const updateField = async (
   id: string,
   value: string | null,
   setError: (_error: string | null) => void
@@ -89,6 +32,9 @@ export default function Input({
   doQuickCalc?: () => void;
 }) {
   const [error, setError] = useState<string | null>(null);
+  const [fieldValue, setFieldValue] = useState<string>(
+    field.value?.toString() || ""
+  );
 
   useEffect(() => {
     const unlisten = listen(
@@ -118,6 +64,15 @@ export default function Input({
     };
   }, []);
 
+  useEffect(() => {
+    async function update() {
+      await updateField(field.id, fieldValue, setError);
+      doQuickCalc && doQuickCalc();
+    }
+
+    update();
+  }, [fieldValue]);
+
   const baseClasses =
     "block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
   const errorClasses = error ? "ring-red-300" : "ring-gray-300";
@@ -131,19 +86,10 @@ export default function Input({
       </label>
       <div className="mt-2">
         <input
-          defaultValue={getFieldValue(field.value)}
+          defaultValue={fieldValue}
           type="text"
           className={`${baseClasses} ${errorClasses}`}
-          onChange={(e) => {
-            if (getType(field.value) == "String") {
-              updateField(field.id, e.target.value, setError);
-            } else {
-              const present = e.target.value != "";
-              updateField(field.id, present ? e.target.value : null, setError);
-            }
-
-            doQuickCalc && doQuickCalc();
-          }}
+          onChange={(e) => setFieldValue(e.target.value)}
         />
       </div>
       {error && (

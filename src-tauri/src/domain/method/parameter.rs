@@ -9,27 +9,19 @@ use std::fmt;
 use std::sync::{Arc, RwLock};
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug, PartialEq)]
+#[serde(untagged)]
 pub enum ParameterValue {
     String(String),
     Float(f64),
     Bool(bool),
-    Null(ParameterType),
 }
 
 impl ParameterValue {
-    pub fn is_some(&self) -> bool {
-        match self {
-            ParameterValue::Null(_) => false,
-            _ => true,
-        }
-    }
-
     pub fn to_string(&self) -> Option<String> {
         match self {
             ParameterValue::String(value) => Some(value.clone()),
             ParameterValue::Float(value) => Some(value.to_string()),
             ParameterValue::Bool(value) => Some(value.to_string()),
-            ParameterValue::Null(_) => None,
         }
     }
 
@@ -58,7 +50,6 @@ pub enum ParameterType {
 impl fmt::Display for ParameterValue {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            ParameterValue::Null(_) => write!(f, ""),
             ParameterValue::String(value) => write!(f, "{}", value),
             ParameterValue::Float(value) => write!(f, "{}", value),
             ParameterValue::Bool(value) => {
@@ -105,7 +96,8 @@ pub struct Parameter {
     #[specta(skip)]
     #[serde(skip)]
     pub expression: Option<Box<dyn Equation>>,
-    pub value: ParameterValue,
+    pub parameter_type: ParameterType,
+    pub value: Option<ParameterValue>,
     pub units: Option<String>,
     pub validations: Vec<Validation>,
 }
@@ -133,15 +125,15 @@ pub trait ParametersTrait {
         let mut parameter = parameter.write().unwrap();
 
         if let Some(value) = value {
-            match parameter.value.clone() {
-                ParameterValue::String(_) => {
-                    parameter.value = ParameterValue::String(value);
+            match parameter.parameter_type {
+                ParameterType::String => {
+                    parameter.value = Some(ParameterValue::String(value));
                 }
-                ParameterValue::Bool(_) => {
+                ParameterType::Bool => {
                     if value.to_lowercase() == "true" {
-                        parameter.value = ParameterValue::Bool(true);
+                        parameter.value = Some(ParameterValue::Bool(true));
                     } else if value.to_lowercase() == "false" {
-                        parameter.value = ParameterValue::Bool(false);
+                        parameter.value = Some(ParameterValue::Bool(false));
                     } else {
                         return Err(ParameterError::new(
                             &parameter.id,
@@ -149,9 +141,9 @@ pub trait ParametersTrait {
                         ));
                     }
                 }
-                ParameterValue::Float(_) => match value.parse::<f64>() {
+                ParameterType::Float => match value.parse::<f64>() {
                     Ok(value) => {
-                        parameter.value = ParameterValue::Float(value);
+                        parameter.value = Some(ParameterValue::Float(value));
                     }
                     Err(_) => {
                         return Err(ParameterError::new(
@@ -160,35 +152,9 @@ pub trait ParametersTrait {
                         ));
                     }
                 },
-                ParameterValue::Null(parameter_type) => match parameter_type {
-                    ParameterType::String => {
-                        parameter.value = ParameterValue::String(value);
-                    }
-                    ParameterType::Bool => {
-                        if value.to_lowercase() == "true" {
-                            parameter.value = ParameterValue::Bool(true);
-                        } else if value.to_lowercase() == "false" {
-                            parameter.value = ParameterValue::Bool(false);
-                        } else {
-                            return Err(ParameterError::new(
-                                &parameter.id,
-                                "Invalid boolean".to_string(),
-                            ));
-                        }
-                    }
-                    ParameterType::Float => match value.parse::<f64>() {
-                        Ok(value) => {
-                            parameter.value = ParameterValue::Float(value);
-                        }
-                        Err(_) => {
-                            return Err(ParameterError::new(
-                                &parameter.id,
-                                "Invalid number".to_string(),
-                            ));
-                        }
-                    },
-                },
             }
+        } else {
+            parameter.value = None;
         }
 
         Ok(())
@@ -227,6 +193,9 @@ impl ParametersTrait for Parameters {
 pub trait ParameterTrait {
     fn validate(&self) -> Result<(), ParameterError>;
     fn to_field(&self) -> ArcField;
+    fn as_float(&self) -> f64;
+    fn as_string(&self) -> String;
+    fn as_bool(&self) -> bool;
     fn update(&self, value: Option<String>) -> Result<(), ParameterError>;
 }
 
@@ -234,21 +203,46 @@ impl ParameterTrait for ArcParameter {
     fn validate(&self) -> Result<(), ParameterError> {
         let p = self.read().unwrap();
         let value = p.value.clone();
+
+        match self.read().unwrap().parameter_type {
+            ParameterType::Float => match &value {
+                Some(ParameterValue::Float(_)) => {}
+                None => {}
+                _ => {
+                    return Err(ParameterError::new(&p.id, "Invalid number".to_string()));
+                }
+            },
+            ParameterType::Bool => match &value {
+                Some(ParameterValue::Bool(_)) => {}
+                None => {}
+                _ => {
+                    return Err(ParameterError::new(&p.id, "Invalid boolean".to_string()));
+                }
+            },
+            ParameterType::String => match &value {
+                Some(ParameterValue::String(_)) => {}
+                None => {}
+                _ => {
+                    return Err(ParameterError::new(&p.id, "Invalid string".to_string()));
+                }
+            },
+        }
+
         for validation in &p.validations {
             match validation {
                 Validation::Required => match &value {
-                    ParameterValue::String(string) => {
+                    Some(ParameterValue::String(string)) => {
                         if string.trim().is_empty() {
                             return Err(ParameterError::new(&p.id, "required".to_string()));
                         }
                     }
-                    ParameterValue::Null(_) => {
+                    None => {
                         return Err(ParameterError::new(&p.id, "required".to_string()));
                     }
                     _ => {}
                 },
                 Validation::MinLength(min) => match &value {
-                    ParameterValue::String(value) => {
+                    Some(ParameterValue::String(value)) => {
                         if (value.len() as u32) < *min {
                             return Err(ParameterError::new(
                                 &p.id,
@@ -256,10 +250,16 @@ impl ParameterTrait for ArcParameter {
                             ));
                         }
                     }
+                    None => {
+                        return Err(ParameterError::new(
+                            &p.id,
+                            format!("must be at least {} characters", min),
+                        ));
+                    }
                     _ => {}
                 },
                 Validation::MaxLength(max) => match &value {
-                    ParameterValue::String(value) => {
+                    Some(ParameterValue::String(value)) => {
                         if (value.len() as u32) > *max {
                             return Err(ParameterError::new(
                                 &p.id,
@@ -270,7 +270,7 @@ impl ParameterTrait for ArcParameter {
                     _ => {}
                 },
                 Validation::Range(min, max) => match &value {
-                    ParameterValue::Float(value) => {
+                    Some(ParameterValue::Float(value)) => {
                         if value < min || value > max {
                             return Err(ParameterError::new(
                                 &p.id,
@@ -281,7 +281,7 @@ impl ParameterTrait for ArcParameter {
                     _ => {}
                 },
                 Validation::Min(min) => match &value {
-                    ParameterValue::Float(value) => {
+                    Some(ParameterValue::Float(value)) => {
                         if value < min {
                             return Err(ParameterError::new(&p.id, format!("min: {}", min)));
                         }
@@ -289,7 +289,7 @@ impl ParameterTrait for ArcParameter {
                     _ => {}
                 },
                 Validation::Max(max) => match &value {
-                    ParameterValue::Float(value) => {
+                    Some(ParameterValue::Float(value)) => {
                         if value > max {
                             return Err(ParameterError::new(&p.id, format!("max: {}", max)));
                         }
@@ -297,7 +297,7 @@ impl ParameterTrait for ArcParameter {
                     _ => {}
                 },
                 Validation::MinExclusive(min) => match &value {
-                    ParameterValue::Float(value) => {
+                    Some(ParameterValue::Float(value)) => {
                         if value <= min {
                             return Err(ParameterError::new(
                                 &p.id,
@@ -317,7 +317,11 @@ impl ParameterTrait for ArcParameter {
         Arc::new(RwLock::new(Field {
             id: p.id.clone(),
             name: p.name.clone(),
-            value: p.value.to_string(),
+            value: p.value.as_ref().map(|v| match v {
+                ParameterValue::String(value) => value.clone(),
+                ParameterValue::Float(value) => value.to_string(),
+                ParameterValue::Bool(value) => value.to_string(),
+            }),
             touched: false,
             parameter: self.clone(),
         }))
@@ -327,67 +331,63 @@ impl ParameterTrait for ArcParameter {
         let mut p = self.write().unwrap();
 
         if let Some(value) = value {
-            match p.value.clone() {
-                ParameterValue::Float(_float) => {
+            match p.parameter_type {
+                ParameterType::Float => {
                     if let Ok(value) = value.parse::<f64>() {
-                        p.value = ParameterValue::Float(value);
+                        p.value = Some(ParameterValue::Float(value));
+                    } else if value.is_empty() {
+                        p.value = None;
                     } else {
-                        return Err(ParameterError::new(&p.id, "Invalid number".to_string()));
+                        p.value = Some(ParameterValue::String(value));
                     }
                 }
-                ParameterValue::Bool(_bool) => {
+                ParameterType::Bool => {
                     if value.to_lowercase() == "true" {
-                        p.value = ParameterValue::Bool(true);
+                        p.value = Some(ParameterValue::Bool(true));
                     } else if value.to_lowercase() == "false" {
-                        p.value = ParameterValue::Bool(false);
+                        p.value = Some(ParameterValue::Bool(false));
+                    } else if value.is_empty() {
+                        p.value = None;
                     } else {
-                        return Err(ParameterError::new(&p.id, "Invalid boolean".to_string()));
+                        p.value = Some(ParameterValue::String(value));
                     }
                 }
-                ParameterValue::String(_string) => {
-                    p.value = ParameterValue::String(value);
+                ParameterType::String => {
+                    p.value = Some(ParameterValue::String(value));
                 }
-                ParameterValue::Null(param_type) => match param_type {
-                    ParameterType::String => {
-                        p.value = ParameterValue::String(value);
-                    }
-                    ParameterType::Bool => {
-                        if value.to_lowercase() == "true" {
-                            p.value = ParameterValue::Bool(true);
-                        } else if value.to_lowercase() == "false" {
-                            p.value = ParameterValue::Bool(false);
-                        } else {
-                            return Err(ParameterError::new(&p.id, "Invalid boolean".to_string()));
-                        }
-                    }
-                    ParameterType::Float => {
-                        if let Ok(value) = value.parse::<f64>() {
-                            p.value = ParameterValue::Float(value);
-                        } else {
-                            return Err(ParameterError::new(&p.id, "Invalid number".to_string()));
-                        }
-                    }
-                },
             }
         } else {
-            match p.value.clone() {
-                ParameterValue::Float(_float) => {
-                    p.value = ParameterValue::Null(ParameterType::Float);
-                }
-                ParameterValue::Bool(_bool) => {
-                    p.value = ParameterValue::Null(ParameterType::Bool);
-                }
-                ParameterValue::String(_string) => {
-                    p.value = ParameterValue::Null(ParameterType::String);
-                }
-                ParameterValue::Null(_) => {}
-            }
+            p.value = None
         }
         std::mem::drop(p);
 
         self.validate()?;
 
         Ok(())
+    }
+
+    fn as_float(&self) -> f64 {
+        let p = self.read().unwrap();
+        match &p.value {
+            Some(ParameterValue::Float(value)) => *value,
+            _ => panic!("Value should be a float"),
+        }
+    }
+
+    fn as_string(&self) -> String {
+        let p = self.read().unwrap();
+        match &p.value {
+            Some(ParameterValue::String(value)) => value.clone(),
+            _ => panic!("Value should be a string"),
+        }
+    }
+
+    fn as_bool(&self) -> bool {
+        let p = self.read().unwrap();
+        match &p.value {
+            Some(ParameterValue::Bool(value)) => *value,
+            _ => panic!("Value should be a bool"),
+        }
     }
 }
 
@@ -399,7 +399,12 @@ mod tests {
     fn create_parameter(value: ParameterValue) -> Arc<RwLock<Parameter>> {
         Arc::new(RwLock::new(Parameter {
             id: "test".to_string(),
-            value,
+            parameter_type: match value {
+                ParameterValue::String(_) => ParameterType::String,
+                ParameterValue::Float(_) => ParameterType::Float,
+                ParameterValue::Bool(_) => ParameterType::Bool,
+            },
+            value: Some(value),
             validations: vec![],
             expression: None,
             name: "Test".to_string(),
@@ -412,7 +417,10 @@ mod tests {
         let parameter = create_parameter(ParameterValue::Float(0.0));
         let result = parameter.update(Some("42.0".to_string()));
         assert!(result.is_ok());
-        assert_eq!(parameter.read().unwrap().value, ParameterValue::Float(42.0));
+        assert_eq!(
+            parameter.read().unwrap().value,
+            Some(ParameterValue::Float(42.0))
+        );
     }
 
     #[test]
@@ -427,7 +435,10 @@ mod tests {
         let parameter = create_parameter(ParameterValue::Bool(false));
         let result = parameter.update(Some("true".to_string()));
         assert!(result.is_ok());
-        assert_eq!(parameter.read().unwrap().value, ParameterValue::Bool(true));
+        assert_eq!(
+            parameter.read().unwrap().value,
+            Some(ParameterValue::Bool(true))
+        );
     }
 
     #[test]
@@ -435,7 +446,10 @@ mod tests {
         let parameter = create_parameter(ParameterValue::Bool(true));
         let result = parameter.update(Some("false".to_string()));
         assert!(result.is_ok());
-        assert_eq!(parameter.read().unwrap().value, ParameterValue::Bool(false));
+        assert_eq!(
+            parameter.read().unwrap().value,
+            Some(ParameterValue::Bool(false))
+        );
     }
 
     #[test]
@@ -452,45 +466,7 @@ mod tests {
         assert!(result.is_ok());
         assert_eq!(
             parameter.read().unwrap().value,
-            ParameterValue::String("new".to_string())
-        );
-    }
-
-    #[test]
-    fn test_update_null_to_string() {
-        let parameter = create_parameter(ParameterValue::Null(ParameterType::String));
-        let result = parameter.update(Some("new".to_string()));
-        assert!(result.is_ok());
-        assert_eq!(
-            parameter.read().unwrap().value,
-            ParameterValue::String("new".to_string())
-        );
-    }
-
-    #[test]
-    fn test_update_null_to_bool() {
-        let parameter = create_parameter(ParameterValue::Null(ParameterType::Bool));
-        let result = parameter.update(Some("true".to_string()));
-        assert!(result.is_ok());
-        assert_eq!(parameter.read().unwrap().value, ParameterValue::Bool(true));
-    }
-
-    #[test]
-    fn test_update_null_to_float() {
-        let parameter = create_parameter(ParameterValue::Null(ParameterType::Float));
-        let result = parameter.update(Some("42.0".to_string()));
-        assert!(result.is_ok());
-        assert_eq!(parameter.read().unwrap().value, ParameterValue::Float(42.0));
-    }
-
-    #[test]
-    fn test_update_to_null() {
-        let parameter = create_parameter(ParameterValue::Float(42.0));
-        let result = parameter.update(None);
-        assert!(result.is_ok());
-        assert_eq!(
-            parameter.read().unwrap().value,
-            ParameterValue::Null(ParameterType::Float)
+            Some(ParameterValue::String("new".to_string()))
         );
     }
 }

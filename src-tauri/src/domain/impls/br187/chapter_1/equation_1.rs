@@ -53,7 +53,7 @@ pub fn create_params() -> Parameters {
     let a_s = ParameterBuilder::float("A_s")
         .name("Surface Area of Compartment (less openings and floor)")
         .units("m^{2}")
-        .default_value(ParameterValue::Float(0.0))
+        .default_value(Some(ParameterValue::Float(0.0)))
         .min(0.0)
         .max(100.0)
         .required()
@@ -62,7 +62,7 @@ pub fn create_params() -> Parameters {
     let a = ParameterBuilder::float("A")
         .name("Area of Ventilation Opening")
         .units("m^{2}")
-        .default_value(ParameterValue::Float(1.0))
+        .default_value(Some(ParameterValue::Float(1.0)))
         .min_exclusive(0.0)
         .required()
         .build();
@@ -70,7 +70,7 @@ pub fn create_params() -> Parameters {
     let h = ParameterBuilder::float("H")
         .name("Height of Ventilation Opening")
         .units("m")
-        .default_value(ParameterValue::Float(1.0))
+        .default_value(Some(ParameterValue::Float(1.0)))
         .min_exclusive(0.0)
         .required()
         .build();
@@ -94,35 +94,14 @@ pub fn create_params() -> Parameters {
 }
 
 pub fn evaluate(method: &mut Method) -> Result<(), String> {
-    let a_s = method
-        .parameters
-        .get_parameter("A_s")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
-    let a = method
-        .parameters
-        .get_parameter("A")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
-    let h = method
-        .parameters
-        .get_parameter("H")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
+    let a_s = method.parameters.get_parameter("A_s").as_float();
+    let a = method.parameters.get_parameter("A").as_float();
+    let h = method.parameters.get_parameter("H").as_float();
 
     let o = method.parameters.get_parameter("O");
 
     let result = calculate_ventilation_factor(a_s, a, h);
-    o.write().unwrap().value = ParameterValue::Float(result);
+    o.write().unwrap().value = Some(ParameterValue::Float(result));
 
     return Ok(());
 }
@@ -155,9 +134,9 @@ impl Equation for BR187Chapter1Equation1 {
     }
 
     fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
-        let a_s = self.a_s.read().unwrap().value.to_float().unwrap();
-        let a = self.a.read().unwrap().value.to_float().unwrap();
-        let h = self.h.read().unwrap().value.to_float().unwrap();
+        let a_s = self.a_s.as_float();
+        let a = self.a.as_float();
+        let h = self.h.as_float();
 
         let eq = format!(
             "O = \\frac{{{}}}{{{}}}",

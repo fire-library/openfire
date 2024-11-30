@@ -5,6 +5,22 @@
 
 
 export const commands = {
+async open(filename: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("open", { filename }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async save(filename: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("save", { filename }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async newTab(newTabState: TabState | null, after: number | null) : Promise<Result<null, string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("new_tab", { newTabState, after }) };
@@ -185,13 +201,13 @@ export type Method = { name: string; metadata: Metadata[]; description: string |
 export type MethodBuilder = { name: string; metadata: MetadataBuilder[]; description: string | null; reference: string[]; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation | null; form: Form; method_type: MethodType | null }
 export type MethodType = "PD7974Part2Section7Equation1" | "BR187Chapter1Equation1" | "SFPEAlpertHeatReleaseFromTemperatureAndPosition"
 export type NoCalc = { id: string }
-export type Parameter = { id: string; name: string; value: ParameterValue; units: string | null; validations: Validation[] }
+export type Parameter = { id: string; name: string; parameter_type: ParameterType; value: ParameterValue | null; units: string | null; validations: Validation[] }
 export type ParameterError = { ValidationError: { id: string; message: string } }
 export type ParameterType = "String" | "Float" | "Bool"
-export type ParameterValue = { String: string } | { Float: number } | { Bool: boolean } | { Null: ParameterType }
+export type ParameterValue = string | number | boolean
 export type Step = { name: string; parameters: Parameter[] }
 export type Tab = { id: string; state: TabState; saved: boolean; current: boolean; filename: string | null; title: string | null }
-export type TabState = ({ type: "Index" } & NoCalc) | ({ type: "ParametricFireAbout" } & NoCalc) | ({ type: "Method" } & Method) | ({ type: "MethodBuilder" } & MethodBuilder)
+export type TabState = ({ type: "Index" } & NoCalc) | ({ type: "Method" } & Method) | ({ type: "MethodBuilder" } & MethodBuilder)
 export type Validation = "Required" | { MinLength: number } | { MaxLength: number } | { Range: [number, number] } | { MinExclusive: number } | { Min: number } | { Max: number }
 export type ValidationErrorEvent = { field_id: string; error: string }
 

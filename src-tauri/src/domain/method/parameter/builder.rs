@@ -14,7 +14,8 @@ pub struct ParameterBuilder {
     name: Option<String>,
     units: Option<String>,
     validations: Vec<Validation>,
-    value: ParameterValue,
+    parameter_type: ParameterType,
+    value: Option<ParameterValue>,
     expression: Option<Box<dyn Equation>>,
 }
 
@@ -25,7 +26,8 @@ impl ParameterBuilder {
             name: None,
             units: None,
             validations: vec![],
-            value: ParameterValue::Null(ParameterType::Float),
+            parameter_type: ParameterType::Float,
+            value: None,
             expression: None,
         }
     }
@@ -45,7 +47,7 @@ impl ParameterBuilder {
         self
     }
 
-    pub fn default_value(mut self, value: ParameterValue) -> Self {
+    pub fn default_value(mut self, value: Option<ParameterValue>) -> Self {
         self.value = value;
         self
     }
@@ -81,6 +83,7 @@ impl ParameterBuilder {
             id: self.id,
             units: self.units,
             validations: self.validations,
+            parameter_type: self.parameter_type,
             value: self.value,
             expression: self.expression,
         };
@@ -98,7 +101,7 @@ mod tests {
         let field = ParameterBuilder::float("test_symbol")
             .name("test_name")
             .units("test_units")
-            .default_value(ParameterValue::Float(5.0))
+            .default_value(Some(ParameterValue::Float(5.0)))
             .required()
             .range(1.0, 10.0)
             .build();
@@ -107,7 +110,7 @@ mod tests {
         assert_eq!(field.name, "test_name");
         assert_eq!(field.id, "test_symbol");
         assert_eq!(field.units.as_ref().unwrap(), "test_units");
-        assert_eq!(field.value, ParameterValue::Float(5.0));
+        assert_eq!(field.value, Some(ParameterValue::Float(5.0)));
         assert!(field.validations.contains(&Validation::Required));
         assert!(field.validations.contains(&Validation::Range(1.0, 10.0)));
     }

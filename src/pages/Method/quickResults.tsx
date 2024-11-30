@@ -5,7 +5,7 @@ import { getResultValue } from "./helpers";
 
 export default function MaterialInput({ results }: { results: Calculation }) {
   const displayParam = results.steps[0].parameters[0];
-  const resultValue = getResultValue(displayParam.value);
+  const resultValue = displayParam.value;
 
   const Equation = () => {
     if (resultValue == null) {
@@ -16,7 +16,7 @@ export default function MaterialInput({ results }: { results: Calculation }) {
     }
     return (
       <InlineMath>
-        {`${displayParam.id} = ${getResultValue(displayParam.value)}
+        {`${displayParam.id} = ${displayParam.value}
         ${displayParam.units || ""}`}
       </InlineMath>
     );

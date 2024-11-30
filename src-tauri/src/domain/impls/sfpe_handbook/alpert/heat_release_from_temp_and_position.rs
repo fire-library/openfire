@@ -53,7 +53,7 @@ pub fn create_params() -> Parameters {
     let temp = ParameterBuilder::float("T")
         .name("Temperature at position of interest")
         .units("^{o}C")
-        .default_value(ParameterValue::Float(300.0))
+        .default_value(Some(ParameterValue::Float(300.0)))
         .min(0.0)
         .required()
         .build();
@@ -61,7 +61,7 @@ pub fn create_params() -> Parameters {
     let temp_amb = ParameterBuilder::float("T_\\infty")
         .name("Ambient Temperature")
         .units("^{o}C")
-        .default_value(ParameterValue::Float(20.0))
+        .default_value(Some(ParameterValue::Float(20.0)))
         .min(0.0)
         .required()
         .build();
@@ -69,7 +69,7 @@ pub fn create_params() -> Parameters {
     let h = ParameterBuilder::float("H")
         .name("Ceiling height")
         .units("m")
-        .default_value(ParameterValue::Float(2.0))
+        .default_value(Some(ParameterValue::Float(2.0)))
         .min(0.0)
         .required()
         .build();
@@ -78,7 +78,7 @@ pub fn create_params() -> Parameters {
         .name("Radial position")
         .units("m")
         .min(0.0)
-        .default_value(ParameterValue::Float(1.0))
+        .default_value(Some(ParameterValue::Float(1.0)))
         .required()
         .build();
 
@@ -103,43 +103,15 @@ pub fn create_params() -> Parameters {
 }
 
 pub fn evaluate(method: &mut Method) -> Result<(), String> {
-    let temp = method
-        .parameters
-        .get_parameter("T")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
-    let temp_amb = method
-        .parameters
-        .get_parameter("T_\\infty")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
-    let h = method
-        .parameters
-        .get_parameter("H")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
-    let r = method
-        .parameters
-        .get_parameter("r")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
+    let temp = method.parameters.get_parameter("T").as_float();
+    let temp_amb = method.parameters.get_parameter("T_\\infty").as_float();
+    let h = method.parameters.get_parameter("H").as_float();
+    let r = method.parameters.get_parameter("r").as_float();
 
     let q = method.parameters.get_parameter("\\dot{Q}");
 
     let result = alpert::heat_release::from_temperature_and_position(temp, temp_amb, h, r);
-    q.write().unwrap().value = ParameterValue::Float(result);
+    q.write().unwrap().value = Some(ParameterValue::Float(result));
 
     return Ok(());
 }
@@ -203,14 +175,8 @@ impl Equation for AlpertHeatReleaseFromTempAndPosition {
         ]
     }
     fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
-        let r = self
-            .radial_position
-            .read()
-            .unwrap()
-            .value
-            .to_float()
-            .unwrap();
-        let h = self.height.read().unwrap().value.to_float().unwrap();
+        let r = self.radial_position.as_float();
+        let h = self.height.as_float();
         let result = if r / h <= 0.18 {
             let cond = format!(
                 "\\dfrac{{r}}{{H}} = \\dfrac{{{}}}{{{}}} = {} \\le 0.18",
@@ -220,9 +186,9 @@ impl Equation for AlpertHeatReleaseFromTempAndPosition {
             );
             let eq = format!(
                 "\\dot{{Q}} = \\left(({}-{}) \\cdot \\dfrac{{{}^{{\\frac{{5}}{{3}}}}}}{{16.9}}\\right)^{{\\frac{{3}}{{2}}}}",
-                self.temp.read().unwrap().value.to_float().unwrap(),
-                self.temp_amb.read().unwrap().value.to_float().unwrap(),
-                self.height.read().unwrap().value.to_float().unwrap()
+                self.temp.as_float(),
+                self.temp_amb.as_float(),
+                self.height.as_float(),
             );
             vec![
                 vec![CalculationComponent::Equation(cond)],
@@ -246,34 +212,10 @@ impl Equation for AlpertHeatReleaseFromTempAndPosition {
                     self.radial_position.read().unwrap().id.clone(),
                 ),
                 equation_2(
-                    self.temp
-                        .read()
-                        .unwrap()
-                        .value
-                        .to_float()
-                        .unwrap()
-                        .to_string(),
-                    self.temp_amb
-                        .read()
-                        .unwrap()
-                        .value
-                        .to_float()
-                        .unwrap()
-                        .to_string(),
-                    self.height
-                        .read()
-                        .unwrap()
-                        .value
-                        .to_float()
-                        .unwrap()
-                        .to_string(),
-                    self.radial_position
-                        .read()
-                        .unwrap()
-                        .value
-                        .to_float()
-                        .unwrap()
-                        .to_string(),
+                    self.temp.as_float().to_string(),
+                    self.temp_amb.as_float().to_string(),
+                    self.height.as_float().to_string(),
+                    self.radial_position.as_float().to_string(),
                 ),
             );
             vec![

@@ -74,7 +74,6 @@ export const TabProvider: React.FC<{ children: ReactNode }> = ({
     };
   }, []);
 
-  console.log(tabs);
   const value = {
     tabs,
     currentTab: currentTab,

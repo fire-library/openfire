@@ -59,9 +59,6 @@ impl TabBuilder {
         }
         match self.state {
             Some(TabState::Index(_)) => self.title = Some("Index".to_string()),
-            Some(TabState::ParametricFireAbout(_)) => {
-                self.title = Some("About - Parametric Fires".to_string())
-            }
             _ => self.title = Some("Untitled".to_string()),
         }
     }
@@ -69,7 +66,6 @@ impl TabBuilder {
     fn update_saved(&mut self) {
         match self.state {
             Some(TabState::Index(_)) => self.saved = Some(true),
-            Some(TabState::ParametricFireAbout(_)) => self.saved = Some(true),
             _ => return,
         }
     }

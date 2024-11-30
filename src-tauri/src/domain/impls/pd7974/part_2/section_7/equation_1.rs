@@ -60,7 +60,7 @@ pub fn create_params() -> Parameters {
     let mut params = Parameters::new();
     let x = ParameterBuilder::float("X")
         .name("Fraction Convected by Plume")
-        .default_value(ParameterValue::Float(0.0))
+        .default_value(Some(ParameterValue::Float(0.0)))
         .range(0.0, 1.0)
         .required()
         .build();
@@ -68,7 +68,7 @@ pub fn create_params() -> Parameters {
     let q_t = ParameterBuilder::float("Q_t")
         .name("Total Heat Release Rate")
         .units("kW")
-        .default_value(ParameterValue::Float(0.0))
+        .default_value(Some(ParameterValue::Float(0.0)))
         .min(0.0)
         .required()
         .build();
@@ -91,26 +91,12 @@ pub fn create_params() -> Parameters {
 }
 
 pub fn evaluate(method: &mut Method) -> Result<(), String> {
-    let x = method
-        .parameters
-        .get_parameter("X")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
-    let q_t = method
-        .parameters
-        .get_parameter("Q_t")
-        .read()
-        .unwrap()
-        .value
-        .to_float()
-        .unwrap();
+    let x = method.parameters.get_parameter("X").as_float();
+    let q_t = method.parameters.get_parameter("Q_t").as_float();
 
     let q_c = method.parameters.get_parameter("Q_c");
 
-    q_c.write().unwrap().value = ParameterValue::Float(x * q_t);
+    q_c.write().unwrap().value = Some(ParameterValue::Float(x * q_t));
 
     return Ok(());
 }
@@ -138,11 +124,7 @@ impl Equation for PD7974Part2Section7Equation1 {
     }
 
     fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
-        let eq = format!(
-            "Q_c = {} \\cdot {}",
-            self.x.read().unwrap().value.to_float().unwrap(),
-            self.q_t.read().unwrap().value.to_float().unwrap(),
-        );
+        let eq = format!("Q_c = {} \\cdot {}", self.x.as_float(), self.q_t.as_float(),);
 
         vec![vec![CalculationComponent::EquationWithResult(eq)]]
     }

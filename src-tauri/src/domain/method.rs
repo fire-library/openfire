@@ -12,6 +12,7 @@ use parameter::Parameters;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
+use super::filesystem::saved_method::SavedMethod;
 use super::impls::br187;
 use super::impls::pd7974;
 use super::impls::sfpe_handbook;
@@ -94,5 +95,31 @@ impl MethodType {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::method()
             }
         }
+    }
+}
+
+impl From<SavedMethod> for Method {
+    fn from(saved: SavedMethod) -> Self {
+        let method = match saved.method_type {
+            MethodType::PD7974Part2Section7Equation1 => {
+                pd7974::part_2::section_7::equation_1::method()
+            }
+            MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::method(),
+            MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
+                sfpe_handbook::alpert::heat_release_from_temp_and_position::method()
+            }
+        };
+
+        for param in saved.parameters {
+            method
+                .parameters
+                .get(&param.name)
+                .unwrap()
+                .write()
+                .unwrap()
+                .value = param.value;
+        }
+
+        method
     }
 }
