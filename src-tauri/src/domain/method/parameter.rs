@@ -204,7 +204,6 @@ pub trait ParameterTrait {
     fn as_string(&self) -> String;
     fn as_bool(&self) -> bool;
     fn update(&self, value: Option<String>) -> Result<(), ParameterError>;
-    fn add_validation(&self, validation: Validation);
 }
 
 impl ParameterTrait for ArcParameter {
@@ -438,11 +437,6 @@ impl ParameterTrait for ArcParameter {
             Some(ParameterValue::Bool(value)) => *value,
             _ => panic!("Value should be a bool"),
         }
-    }
-
-    fn add_validation(&self, validation: Validation) {
-        let mut p = self.write().unwrap();
-        p.validations.push(validation);
     }
 }
 
