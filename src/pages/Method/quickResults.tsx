@@ -15,7 +15,7 @@ export default function MaterialInput({ results }: { results: Calculation }) {
     }
     return (
       <InlineMath>
-        {`${displayParam.id} = ${displayParam.value}
+        {`${displayParam.id} = ${displayParam.value} \\space
         ${displayParam.units || ""}`}
       </InlineMath>
     );

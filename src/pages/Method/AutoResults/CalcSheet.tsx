@@ -88,7 +88,7 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
                     <InlineMath>{parameter.id}</InlineMath>
                   </td>
                   <td className="pl-4">
-                    <InlineMath>{`${parameter.value} ${parameter.units ? parameter.units : ""}`}</InlineMath>
+                    <InlineMath>{`${parameter.value} \\space ${parameter.units ? parameter.units : ""}`}</InlineMath>
                   </td>
                 </tr>
               );

@@ -10,7 +10,7 @@ export default function ViewFactors({
 }) {
   return (
     <div className="flex">
-      <InlineMath>{`${equation} = ${parameter.value}${parameter.units}`}</InlineMath>
+      <InlineMath>{`${equation} = ${parameter.value} \\space ${parameter.units}`}</InlineMath>
     </div>
   );
 }
