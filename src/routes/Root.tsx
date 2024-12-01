@@ -1,11 +1,7 @@
 import "katex/dist/katex.min.css";
 import Navbar from "../components/Navbar";
 import TabBar from "./explore/Tabs";
-import {
-  PlayIcon,
-  PlusIcon,
-  FolderOpenIcon,
-} from "@heroicons/react/24/outline";
+import { PlusIcon, FolderOpenIcon } from "@heroicons/react/24/outline";
 import { useTabs } from "../tabs/tabProvider";
 import {
   save as saveDialog,
@@ -98,14 +94,14 @@ export default function Root() {
           </button>
         </div>
         <div className="flex grow w-12 bg-gray-800" />
-        <div className="flex flex-col w-12 h-12 bg-gray-800">
+        {/* <div className="flex flex-col w-12 h-12 bg-gray-800">
           <button
             // onClick={commands.runCalculation}
             className="flex items-center justify-center h-12 w-12 text-gray-400 hover:text-white"
           >
             <PlayIcon className="h-6 w-6" />
           </button>
-        </div>
+        </div> */}
       </div>
     </main>
   );
