@@ -63,6 +63,7 @@ pub fn create_params() -> Parameters {
         .units("^{o}C")
         .default_value(Some(ParameterValue::Float(20.0)))
         .min(0.0)
+        .less_than_or_equal_to_parameter(&temp)
         .required()
         .build();
 

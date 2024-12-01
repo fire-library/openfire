@@ -78,7 +78,7 @@ impl<T> ValueState<T> {
     }
 }
 
-#[derive(Clone, Type, Serialize, Deserialize, Debug, PartialEq)]
+#[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum Validation {
     Required,
     MinLength(u32),
@@ -87,6 +87,13 @@ pub enum Validation {
     MinExclusive(f64),
     Min(f64),
     Max(f64),
+    Relation(Comparison),
+}
+
+#[derive(Clone, Type, Serialize, Deserialize, Debug)]
+pub enum Comparison {
+    GreaterThanOrEqual(ArcParameter),
+    LessThanOrEqual(ArcParameter),
 }
 
 #[derive(Type, Serialize, Deserialize, Debug)]
@@ -197,6 +204,7 @@ pub trait ParameterTrait {
     fn as_string(&self) -> String;
     fn as_bool(&self) -> bool;
     fn update(&self, value: Option<String>) -> Result<(), ParameterError>;
+    fn add_validation(&self, validation: Validation);
 }
 
 impl ParameterTrait for ArcParameter {
@@ -307,6 +315,48 @@ impl ParameterTrait for ArcParameter {
                     }
                     _ => {}
                 },
+                Validation::Relation(validation) => match &validation {
+                    Comparison::GreaterThanOrEqual(param) => {
+                        let value = p.value.as_ref().unwrap().to_float().unwrap();
+                        let param_value = param
+                            .read()
+                            .unwrap()
+                            .value
+                            .as_ref()
+                            .unwrap()
+                            .to_float()
+                            .unwrap();
+                        if value < param_value {
+                            return Err(ParameterError::new(
+                                &p.id,
+                                format!(
+                                    "must be greater than or equal to: {}",
+                                    param.read().unwrap().name
+                                ),
+                            ));
+                        }
+                    }
+                    Comparison::LessThanOrEqual(param) => {
+                        let value = p.value.as_ref().unwrap().to_float().unwrap();
+                        let param_value = param
+                            .read()
+                            .unwrap()
+                            .value
+                            .as_ref()
+                            .unwrap()
+                            .to_float()
+                            .unwrap();
+                        if value > param_value {
+                            return Err(ParameterError::new(
+                                &p.id,
+                                format!(
+                                    "must be less than or equal to: {}",
+                                    param.read().unwrap().name
+                                ),
+                            ));
+                        }
+                    }
+                },
             }
         }
         Ok(())
@@ -388,6 +438,11 @@ impl ParameterTrait for ArcParameter {
             Some(ParameterValue::Bool(value)) => *value,
             _ => panic!("Value should be a bool"),
         }
+    }
+
+    fn add_validation(&self, validation: Validation) {
+        let mut p = self.write().unwrap();
+        p.validations.push(validation);
     }
 }
 

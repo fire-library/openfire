@@ -192,6 +192,7 @@ validationErrorEvent: "validation-error-event"
 
 export type Calculation = { steps: Step[]; stale: boolean }
 export type CalculationComponent = { Equation: string } | { EquationWithResult: string } | { Text: string }
+export type Comparison = { GreaterThanOrEqual: Parameter } | { LessThanOrEqual: Parameter }
 export type Field = { id: string; name: string; value: string | null; touched: boolean; parameter: Parameter }
 export type Form = { steps: FormStep[] }
 export type FormStep = { name: string; description: string; fields: Field[] }
@@ -208,7 +209,7 @@ export type ParameterValue = string | number | boolean
 export type Step = { name: string; parameters: Parameter[] }
 export type Tab = { id: string; state: TabState; saved: boolean; current: boolean; filename: string | null; title: string | null }
 export type TabState = ({ type: "Index" } & NoCalc) | ({ type: "Method" } & Method) | ({ type: "MethodBuilder" } & MethodBuilder)
-export type Validation = "Required" | { MinLength: number } | { MaxLength: number } | { Range: [number, number] } | { MinExclusive: number } | { Min: number } | { Max: number }
+export type Validation = "Required" | { MinLength: number } | { MaxLength: number } | { Range: [number, number] } | { MinExclusive: number } | { Min: number } | { Max: number } | { Relation: Comparison }
 export type ValidationErrorEvent = { field_id: string; error: string }
 
 /** tauri-specta globals **/
