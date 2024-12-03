@@ -7,9 +7,6 @@
     "devUrl": "http://localhost:3000"
   },
   "bundle": {
-    "windows": {
-      "signCommand": "trusted-signing-cli -e https://weu.codesigning.azure.net/ -a OpenFire -c OpenFire %1"
-    },
     "createUpdaterArtifacts": true,
     "active": true,
     "category": "DeveloperTool",
@@ -26,7 +23,8 @@
     "windows": {
       "certificateThumbprint": null,
       "digestAlgorithm": "sha256",
-      "timestampUrl": ""
+      "timestampUrl": "",
+      "signCommand": "trusted-signing-cli -e https://weu.codesigning.azure.net/ -a OpenFire -c OpenFire %1"
     },
     "longDescription": "",
     "macOS": {
