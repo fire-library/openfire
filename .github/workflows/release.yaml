@@ -65,6 +65,9 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           VITE_GA_TRACKING_ID: ${{ vars.VITE_GA_TRACKING_ID }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         with:
           tagName: openfire-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: "OpenFire v__VERSION__"
