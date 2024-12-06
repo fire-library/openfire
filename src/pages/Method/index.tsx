@@ -7,7 +7,18 @@ import CalcSheet from "./AutoResults/CalcSheet";
 import ReactGA from "react-ga4";
 
 export default function InputForm({ tab }: { tab: Tab }) {
-  const tabs: ReactNode[] = ["Input", "Calculation"];
+  const [tabs, setTabs] = useState([
+    {
+      name: "Input",
+      current: true,
+      available: true,
+    },
+    {
+      name: "Calculation",
+      current: false,
+      available: true,
+    },
+  ]);
   const state = tab.state as Method;
 
   const doQuickCalc = useCallback(() => {
@@ -23,7 +34,27 @@ export default function InputForm({ tab }: { tab: Tab }) {
     });
   }, [state.name]);
 
-  const [currentTab, setCurrentTab] = useState(tabs[0]);
+  useEffect(() => {
+    if (tab.state.type === "Method") {
+      if (tab.state.calc_sheet.stale) {
+        setTabs([
+          tabs[0],
+          {
+            ...tabs[1],
+            available: false,
+          },
+        ]);
+      } else {
+        setTabs([
+          tabs[0],
+          {
+            ...tabs[1],
+            available: true,
+          },
+        ]);
+      }
+    }
+  }, [tab.state]);
 
   return (
     <div className="flex flex-col max-w-6xl w-full">
@@ -41,8 +72,8 @@ export default function InputForm({ tab }: { tab: Tab }) {
           </div>
         </div>
       </div>
-      <Tabs tabs={tabs} currentTab={currentTab} setTab={setCurrentTab} />
-      {currentTab === tabs[0] && (
+      <Tabs tabs={tabs} setTabs={setTabs} />
+      {tabs[0].current && (
         <>
           {state.form.steps.map((step) => {
             return (
@@ -59,7 +90,7 @@ export default function InputForm({ tab }: { tab: Tab }) {
         </>
       )}
 
-      {currentTab === tabs[1] && <CalcSheet method={state} />}
+      {tabs[1].current && <CalcSheet method={state} />}
     </div>
   );
 }

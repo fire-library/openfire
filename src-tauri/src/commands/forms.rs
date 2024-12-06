@@ -51,7 +51,8 @@ pub async fn calculate_form<R: tauri::Runtime>(
 
 #[tauri::command]
 #[specta::specta]
-pub async fn update_field(
+pub async fn update_field<R: tauri::Runtime>(
+    app_handle: AppHandle<R>,
     all_tabs_state: State<'_, WrappedTabState>,
     id: String,
     value: Option<String>,
@@ -66,8 +67,9 @@ pub async fn update_field(
     {
         TabState::Method(method) => {
             let field = method.form.get_field(id);
-            field.update(value)?;
             method.calc_sheet.as_ref().write().unwrap().stale = true;
+            app_handle.emit("tabs_updated", ()).unwrap();
+            field.update(value)?;
         }
         _ => unreachable!(),
     };

@@ -40,7 +40,7 @@ pub fn run() {
             delete_tab::<tauri::Wry>,
             update_tab::<tauri::Wry>,
             update_tab_fire_and_forget::<tauri::Wry>,
-            update_field,
+            update_field::<tauri::Wry>,
             get_equation_with_symbols,
             get_equation_with_numbers,
             get_equation_inputs,

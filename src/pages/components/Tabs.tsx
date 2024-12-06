@@ -1,17 +1,21 @@
-import { ReactNode } from "react";
+import { SetStateAction, Dispatch } from "react";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
+export type Tab = {
+  name: string;
+  current: boolean;
+  available: boolean;
+};
+
 export default function Tabs({
   tabs,
-  currentTab,
-  setTab,
+  setTabs,
 }: {
-  tabs: ReactNode[];
-  currentTab: ReactNode;
-  setTab: (_tab: ReactNode) => void;
+  tabs: Tab[];
+  setTabs: Dispatch<SetStateAction<Tab[]>>;
 }) {
   return (
     <div>
@@ -25,7 +29,7 @@ export default function Tabs({
           className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
         >
           {tabs.map((tab, index) => (
-            <option key={index}>{tab}</option>
+            <option key={index}>{tab.name}</option>
           ))}
         </select>
       </div>
@@ -37,15 +41,26 @@ export default function Tabs({
                 type="button"
                 key={index}
                 className={classNames(
-                  tab == currentTab
+                  tab.current
                     ? "border-indigo-500 text-indigo-600"
                     : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                  "whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium"
+                  "whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium",
+                  !tab.available ? "opacity-50 cursor-not-allowed" : ""
                 )}
                 aria-current={tab ? "page" : undefined}
-                onClick={() => setTab(tab)}
+                onClick={() =>
+                  tab.available &&
+                  setTabs((prevTabs: Tab[]) => {
+                    return prevTabs.map((prevTab, i) => {
+                      return {
+                        ...prevTab,
+                        current: i === index,
+                      };
+                    });
+                  })
+                }
               >
-                {tab}
+                {tab.name}
               </button>
             ))}
           </nav>
