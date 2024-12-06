@@ -10,10 +10,6 @@ use commands::forms::{
     calculate_form, get_equation_inputs, get_equation_inputs_symbols, get_equation_with_numbers,
     get_equation_with_symbols, update_field, ValidationErrorEvent,
 };
-use commands::method::builder::{
-    method_builder_add_metadata, method_builder_delete_metadata,
-    method_builder_update_metadata_name, method_builder_update_metadata_required,
-};
 use commands::tab::*;
 use domain::tab::{NoCalc, TabBuilder, TabState, WrappedTabState};
 use specta_typescript::Typescript;
@@ -51,11 +47,6 @@ pub fn run() {
             get_equation_inputs_symbols,
             set_current_tab_method::<tauri::Wry>,
             calculate_form::<tauri::Wry>,
-            new_method_builder::<tauri::Wry>,
-            method_builder_delete_metadata::<tauri::Wry>,
-            method_builder_add_metadata::<tauri::Wry>,
-            method_builder_update_metadata_required,
-            method_builder_update_metadata_name,
         ])
         .events(collect_events![ValidationErrorEvent]);
 

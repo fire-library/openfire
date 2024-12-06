@@ -1,6 +1,5 @@
 use crate::domain::method::form::Form;
 use crate::domain::method::parameter::Parameters;
-use crate::domain::method::Metadata;
 use crate::domain::method::Method;
 use crate::domain::method::MethodType;
 use serde::{Deserialize, Serialize};
@@ -12,7 +11,6 @@ use super::form::FormStep;
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub struct MethodBuilder {
     pub name: String,
-    pub metadata: Vec<MetadataBuilder>,
     pub description: Option<String>,
     pub reference: Vec<String>,
     pub parameters: Parameters,
@@ -22,19 +20,27 @@ pub struct MethodBuilder {
     pub method_type: Option<MethodType>,
 }
 
-#[derive(Clone, Type, Serialize, Deserialize, Debug)]
-pub struct MetadataBuilder {
-    pub id: String,
-    pub name: String,
-    pub required: bool,
-}
+pub trait MethodBuilderTrait {
+    fn name() -> String;
+    fn description() -> Option<String>;
+    fn reference() -> Vec<String>;
+    fn parameters() -> Parameters;
+    fn quick_calc_compatible() -> bool;
+    fn calc_sheet(params: &Parameters) -> ArcCalculation;
+    fn form(params: &Parameters) -> Form;
+    fn method_type() -> MethodType;
+    fn build_method() -> Method {
+        let parameters = Self::parameters();
 
-impl MetadataBuilder {
-    pub fn new(name: String, required: bool) -> Self {
-        Self {
-            id: uuid::Uuid::new_v4().to_string(),
-            name: name,
-            required: required,
+        Method {
+            name: Self::name(),
+            description: Self::description(),
+            reference: Self::reference(),
+            method_type: Self::method_type(),
+            quick_calc_compatible: Self::quick_calc_compatible(),
+            form: Self::form(&parameters),
+            calc_sheet: Self::calc_sheet(&parameters),
+            parameters: parameters,
         }
     }
 }
@@ -43,7 +49,6 @@ impl MethodBuilder {
     pub fn new(name: String) -> Self {
         Self {
             name: name,
-            metadata: vec![],
             description: None,
             reference: vec![],
             parameters: Parameters::new(),
@@ -80,54 +85,14 @@ impl MethodBuilder {
         self
     }
 
-    pub fn add_metadata(&mut self) -> &Self {
-        let metadata = MetadataBuilder::new("".to_string(), false);
-        self.metadata.push(metadata);
-        self
-    }
-
     pub fn method_type(mut self, method_type: MethodType) -> Self {
         self.method_type = Some(method_type);
-        self
-    }
-
-    pub fn delete_metadata(&mut self, id: String) -> &Self {
-        self.metadata.retain(|m| m.id != id);
-        self
-    }
-
-    pub fn update_metadata_name(&mut self, id: String, name: String) -> &Self {
-        for m in &mut self.metadata {
-            if m.id == id {
-                m.name = name.clone();
-            }
-        }
-
-        self
-    }
-
-    pub fn update_metadata_required(&mut self, id: String, required: bool) -> &Self {
-        for m in &mut self.metadata {
-            if m.id == id {
-                m.required = required.clone();
-            }
-        }
-
         self
     }
 
     pub fn build(self) -> Method {
         Method {
             name: self.name,
-            metadata: self
-                .metadata
-                .iter()
-                .map(|m| Metadata {
-                    name: m.name.clone(),
-                    required: m.required,
-                    value: None,
-                })
-                .collect(),
             parameters: self.parameters,
             method_type: self.method_type.unwrap(),
             quick_calc_compatible: self.quick_calc_compatible,

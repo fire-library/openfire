@@ -1,7 +1,7 @@
-use crate::domain::method::builder::MethodBuilder;
+use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::{Calculation, CalculationComponent};
 use crate::domain::method::equation::Equation;
-use crate::domain::method::form::FormStep;
+use crate::domain::method::form::{Form, FormStep};
 use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ArcParameter;
 use crate::domain::method::parameter::ParameterValue;
@@ -12,95 +12,113 @@ use crate::domain::method::{step::Step, Method};
 use sfpe_handbook::alpert;
 use std::sync::{Arc, RwLock};
 
-pub fn method() -> Method {
-    let args = create_params();
+pub struct AlpertHeatReleaseFromTempAndPositionBuilder;
 
-    let mut fields = vec![];
-    for param in args.values().into_iter() {
-        if param.read().unwrap().id == "\\dot{Q}" {
-            continue;
+impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
+    fn name() -> String {
+        "Heat Release Rate from Temperature and Position".to_string()
+    }
+    fn description() -> Option<String> {
+        Some(
+            "Calculates the heat release rate from the temperature and position of interest"
+                .to_string(),
+        )
+    }
+    fn quick_calc_compatible() -> bool {
+        true
+    }
+    fn reference() -> Vec<String> {
+        vec!["SFPE Handbook".to_string()]
+    }
+    fn form(params: &Parameters) -> crate::domain::method::form::Form {
+        let mut fields = vec![];
+        for param in params.values().into_iter() {
+            if param.read().unwrap().id == "\\dot{Q}" {
+                continue;
+            }
+            fields.push(param.to_field())
         }
-        fields.push(param.to_field())
+        let step_1 = FormStep {
+            name: "Ceiling Jet Correlation Input".to_string(),
+            description: "Input required to calculate the heat release rate".to_string(),
+            fields: fields,
+        };
+
+        Form {
+            steps: vec![step_1],
+        }
+    }
+    fn parameters() -> Parameters {
+        let mut params = Parameters::new();
+
+        let temp = ParameterBuilder::float("T")
+            .name("Temperature at position of interest")
+            .units("^{o}C")
+            .default_value(Some(ParameterValue::Float(300.0)))
+            .min(0.0)
+            .required()
+            .build();
+
+        let temp_amb = ParameterBuilder::float("T_\\infty")
+            .name("Ambient Temperature")
+            .units("^{o}C")
+            .default_value(Some(ParameterValue::Float(20.0)))
+            .min(0.0)
+            .required()
+            .less_than_or_equal_to_parameter(&temp)
+            .build();
+
+        let h = ParameterBuilder::float("H")
+            .name("Ceiling height")
+            .units("m")
+            .default_value(Some(ParameterValue::Float(2.0)))
+            .min(0.0)
+            .required()
+            .build();
+
+        let r = ParameterBuilder::float("r")
+            .name("Radial position")
+            .units("m")
+            .min(0.0)
+            .default_value(Some(ParameterValue::Float(1.0)))
+            .required()
+            .build();
+
+        let q = ParameterBuilder::float("\\dot{Q}")
+            .name("Heat release rate")
+            .expression(Box::new(AlpertHeatReleaseFromTempAndPosition::new(
+                temp.clone(),
+                temp_amb.clone(),
+                h.clone(),
+                r.clone(),
+            )))
+            .units("kW")
+            .build();
+
+        params.add(temp);
+        params.add(temp_amb);
+        params.add(h);
+        params.add(r);
+        params.add(q);
+
+        return params;
     }
 
-    let step_1 = FormStep {
-        name: "Ceiling Jet Correlation Input".to_string(),
-        description: "Input required to calculate the heat release rate".to_string(),
-        fields: fields,
-    };
+    fn calc_sheet(params: &Parameters) -> crate::domain::method::calculation::ArcCalculation {
+        let q = params.get_parameter("\\dot{Q}");
+        let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new()));
+        let step = Step {
+            name: "Calculate Heat Release Rate from Point of Interest".to_string(),
+            parameters: vec![q],
+        };
+        calc_sheet.write().unwrap().add_step(step);
 
-    let q = args.get_parameter("\\dot{Q}");
-    let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new()));
-    let step = Step {
-        name: "Calculate Heat Release Rate from Point of Interest".to_string(),
-        parameters: vec![q],
-    };
-    calc_sheet.write().unwrap().add_step(step);
+        calc_sheet
+    }
 
-    MethodBuilder::new("Alpert".to_string())
-        .calc_sheet(calc_sheet)
-        .reference(vec!["SFPE Handbook"])
-        .method_type(MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition)
-        .parameters(args)
-        .quick_calc_compatible(true)
-        .add_form_step(step_1)
-        .build()
-}
-
-pub fn create_params() -> Parameters {
-    let mut params = Parameters::new();
-
-    let temp = ParameterBuilder::float("T")
-        .name("Temperature at position of interest")
-        .units("^{o}C")
-        .default_value(Some(ParameterValue::Float(300.0)))
-        .min(0.0)
-        .required()
-        .build();
-
-    let temp_amb = ParameterBuilder::float("T_\\infty")
-        .name("Ambient Temperature")
-        .units("^{o}C")
-        .default_value(Some(ParameterValue::Float(20.0)))
-        .min(0.0)
-        .less_than_or_equal_to_parameter(&temp)
-        .required()
-        .build();
-
-    let h = ParameterBuilder::float("H")
-        .name("Ceiling height")
-        .units("m")
-        .default_value(Some(ParameterValue::Float(2.0)))
-        .min(0.0)
-        .required()
-        .build();
-
-    let r = ParameterBuilder::float("r")
-        .name("Radial position")
-        .units("m")
-        .min(0.0)
-        .default_value(Some(ParameterValue::Float(1.0)))
-        .required()
-        .build();
-
-    let q = ParameterBuilder::float("\\dot{Q}")
-        .name("Heat release rate")
-        .expression(Box::new(AlpertHeatReleaseFromTempAndPosition::new(
-            temp.clone(),
-            temp_amb.clone(),
-            h.clone(),
-            r.clone(),
-        )))
-        .units("kW")
-        .build();
-
-    params.add(temp);
-    params.add(temp_amb);
-    params.add(h);
-    params.add(r);
-    params.add(q);
-
-    return params;
+    fn method_type() -> MethodType {
+        MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition
+    }
 }
 
 pub fn evaluate(method: &mut Method) -> Result<(), String> {

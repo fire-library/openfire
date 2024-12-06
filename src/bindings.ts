@@ -132,46 +132,6 @@ async calculateForm() : Promise<Result<null, string>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
-},
-async newMethodBuilder() : Promise<Result<null, string>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("new_method_builder") };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
-async methodBuilderDeleteMetadata(id: string) : Promise<Result<null, string>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("method_builder_delete_metadata", { id }) };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
-async methodBuilderAddMetadata() : Promise<Result<null, string>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("method_builder_add_metadata") };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
-async methodBuilderUpdateMetadataRequired(id: string, required: boolean) : Promise<Result<null, string>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("method_builder_update_metadata_required", { id, required }) };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
-},
-async methodBuilderUpdateMetadataName(id: string, name: string) : Promise<Result<null, string>> {
-    try {
-    return { status: "ok", data: await TAURI_INVOKE("method_builder_update_metadata_name", { id, name }) };
-} catch (e) {
-    if(e instanceof Error) throw e;
-    else return { status: "error", error: e  as any };
-}
 }
 }
 
@@ -196,10 +156,8 @@ export type Comparison = { GreaterThanOrEqual: Parameter } | { LessThanOrEqual: 
 export type Field = { id: string; name: string; value: string | null; touched: boolean; parameter: Parameter }
 export type Form = { steps: FormStep[] }
 export type FormStep = { name: string; description: string; fields: Field[] }
-export type Metadata = { name: string; required: boolean; value: string | null }
-export type MetadataBuilder = { id: string; name: string; required: boolean }
-export type Method = { name: string; metadata: Metadata[]; description: string | null; reference: string[]; method_type: MethodType; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation; form: Form }
-export type MethodBuilder = { name: string; metadata: MetadataBuilder[]; description: string | null; reference: string[]; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation | null; form: Form; method_type: MethodType | null }
+export type Method = { name: string; description: string | null; reference: string[]; method_type: MethodType; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation; form: Form }
+export type MethodBuilder = { name: string; description: string | null; reference: string[]; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation | null; form: Form; method_type: MethodType | null }
 export type MethodType = "PD7974Part2Section7Equation1" | "BR187Chapter1Equation1" | "SFPEAlpertHeatReleaseFromTemperatureAndPosition"
 export type NoCalc = { id: string }
 export type Parameter = { id: string; name: string; parameter_type: ParameterType; value: ParameterValue | null; units: string | null; validations: Validation[] }

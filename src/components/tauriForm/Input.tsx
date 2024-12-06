@@ -82,7 +82,7 @@ export default function Input({
       <label className="block text-sm font-medium leading-6 text-gray-900">
         {field.name},{" "}
         {field.id && <InlineMath>{String.raw`${field.id}`}</InlineMath>}{" "}
-        {<InlineMath>{String.raw`(${field.units})`}</InlineMath>}
+        {field.units && <InlineMath>{String.raw`(${field.units})`}</InlineMath>}
       </label>
       <div className="mt-2">
         <input

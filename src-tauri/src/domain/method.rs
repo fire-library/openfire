@@ -6,6 +6,7 @@ pub mod parameter;
 pub mod step;
 pub mod validation;
 
+use builder::MethodBuilderTrait;
 // use parameter::{ArcParameter, ParameterTrait, Parameters};
 use calculation::ArcCalculation;
 use parameter::Parameters;
@@ -20,7 +21,6 @@ use super::impls::sfpe_handbook;
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub struct Method {
     pub name: String,
-    pub metadata: Vec<Metadata>,
     pub description: Option<String>,
     pub reference: Vec<String>,
     pub method_type: MethodType,
@@ -49,35 +49,6 @@ impl Method {
 }
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
-pub struct Metadata {
-    name: String,
-    required: bool,
-    value: Option<String>,
-}
-
-impl Metadata {
-    pub fn new(name: String, required: bool) -> Self {
-        Self {
-            name: name,
-            required: required,
-            value: None,
-        }
-    }
-
-    pub fn update(&mut self, value: Option<String>) {
-        self.value = value;
-    }
-
-    pub fn validate(&self) -> Result<(), String> {
-        if self.required && self.value.is_none() {
-            return Err(format!("{} is required", self.name));
-        }
-
-        Ok(())
-    }
-}
-
-#[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum MethodType {
     PD7974Part2Section7Equation1,
     BR187Chapter1Equation1,
@@ -88,11 +59,11 @@ impl MethodType {
     pub fn method(&self) -> Method {
         match &self {
             &MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::method()
+                pd7974::part_2::section_7::equation_1::PD7974Part2Section7Equation1Builder::build_method()
             }
-            &MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::method(),
+            &MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             &MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
-                sfpe_handbook::alpert::heat_release_from_temp_and_position::method()
+                sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
             }
         }
     }
@@ -102,11 +73,11 @@ impl From<SavedMethod> for Method {
     fn from(saved: SavedMethod) -> Self {
         let method = match saved.method_type {
             MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::method()
+                pd7974::part_2::section_7::equation_1::PD7974Part2Section7Equation1Builder::build_method()
             }
-            MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::method(),
+            MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
-                sfpe_handbook::alpert::heat_release_from_temp_and_position::method()
+                sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
             }
         };
 

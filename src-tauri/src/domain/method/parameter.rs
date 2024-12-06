@@ -204,6 +204,7 @@ pub trait ParameterTrait {
     fn as_string(&self) -> String;
     fn as_bool(&self) -> bool;
     fn update(&self, value: Option<String>) -> Result<(), ParameterError>;
+    fn id(&self) -> String;
 }
 
 impl ParameterTrait for ArcParameter {
@@ -316,43 +317,37 @@ impl ParameterTrait for ArcParameter {
                 },
                 Validation::Relation(validation) => match &validation {
                     Comparison::GreaterThanOrEqual(param) => {
-                        let value = p.value.as_ref().unwrap().to_float().unwrap();
-                        let param_value = param
-                            .read()
-                            .unwrap()
-                            .value
-                            .as_ref()
-                            .unwrap()
-                            .to_float()
-                            .unwrap();
-                        if value < param_value {
-                            return Err(ParameterError::new(
-                                &p.id,
-                                format!(
-                                    "must be greater than or equal to: {}",
-                                    param.read().unwrap().name
-                                ),
-                            ));
+                        if let Ok(value) = p.value.as_ref().unwrap().to_float() {
+                            if let Ok(param_value) =
+                                param.read().unwrap().value.as_ref().unwrap().to_float()
+                            {
+                                if value < param_value {
+                                    return Err(ParameterError::new(
+                                        &p.id,
+                                        format!(
+                                            "must be less than or equal to: {}",
+                                            param.read().unwrap().name
+                                        ),
+                                    ));
+                                }
+                            }
                         }
                     }
                     Comparison::LessThanOrEqual(param) => {
-                        let value = p.value.as_ref().unwrap().to_float().unwrap();
-                        let param_value = param
-                            .read()
-                            .unwrap()
-                            .value
-                            .as_ref()
-                            .unwrap()
-                            .to_float()
-                            .unwrap();
-                        if value > param_value {
-                            return Err(ParameterError::new(
-                                &p.id,
-                                format!(
-                                    "must be less than or equal to: {}",
-                                    param.read().unwrap().name
-                                ),
-                            ));
+                        if let Ok(value) = p.value.as_ref().unwrap().to_float() {
+                            if let Some(param_value) = param.read().unwrap().value.as_ref() {
+                                if let Ok(float) = param_value.to_float() {
+                                    if value > float {
+                                        return Err(ParameterError::new(
+                                            &p.id,
+                                            format!(
+                                                "must be less than or equal to: {}",
+                                                param.read().unwrap().name
+                                            ),
+                                        ));
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -437,6 +432,10 @@ impl ParameterTrait for ArcParameter {
             Some(ParameterValue::Bool(value)) => *value,
             _ => panic!("Value should be a bool"),
         }
+    }
+
+    fn id(&self) -> String {
+        self.read().unwrap().id.clone()
     }
 }
 

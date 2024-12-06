@@ -1,8 +1,8 @@
-use crate::domain::method::builder::MethodBuilder;
+use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::calculation::CalculationComponent;
 use crate::domain::method::equation::Equation;
-use crate::domain::method::form::FormStep;
+use crate::domain::method::form::{Form, FormStep};
 use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ArcParameter;
 use crate::domain::method::parameter::ParameterValue;
@@ -13,81 +13,89 @@ use crate::domain::method::{step::Step, Method};
 use std::sync::{Arc, RwLock};
 use std::vec;
 
-pub fn name() -> String {
-    "Heat Content of Plume".to_string()
-}
+pub struct PD7974Part2Section7Equation1Builder;
 
-pub fn description() -> String {
-    "Calculates the heat content of the plume".to_string()
-}
-
-pub fn method() -> Method {
-    let args = create_params();
-
-    let mut fields = vec![];
-    for param in args.values().into_iter() {
-        if param.read().unwrap().id == "Q_c" {
-            continue;
+impl MethodBuilderTrait for PD7974Part2Section7Equation1Builder {
+    fn name() -> String {
+        "Heat Content of Plume".to_string()
+    }
+    fn description() -> Option<String> {
+        Some("Calculates the heat content of the plume".to_string())
+    }
+    fn quick_calc_compatible() -> bool {
+        true
+    }
+    fn reference() -> Vec<String> {
+        vec!["SFPE Handbook".to_string()]
+    }
+    fn form(params: &Parameters) -> crate::domain::method::form::Form {
+        let mut fields = vec![];
+        for param in params.values().into_iter() {
+            if param.read().unwrap().id == "Q_c" {
+                continue;
+            }
+            fields.push(param.to_field())
         }
-        fields.push(param.to_field())
+
+        let step_1 = FormStep {
+            name: "Calculate Plume Heat Content".to_string(),
+            description: "Calculates the heat content of the plume".to_string(),
+            fields: fields,
+        };
+
+        Form {
+            steps: vec![step_1],
+        }
+    }
+    fn parameters() -> Parameters {
+        let mut params = Parameters::new();
+        let x = ParameterBuilder::float("X")
+            .name("Fraction Convected by Plume")
+            .default_value(Some(ParameterValue::Float(0.0)))
+            .range(0.0, 1.0)
+            .required()
+            .build();
+
+        let q_t = ParameterBuilder::float("Q_t")
+            .name("Total Heat Release Rate")
+            .units("kW")
+            .default_value(Some(ParameterValue::Float(0.0)))
+            .min(0.0)
+            .required()
+            .build();
+
+        params.add(x.clone());
+        params.add(q_t.clone());
+
+        params.add(
+            ParameterBuilder::float("Q_c")
+                .name("Fraction Convected by Plume")
+                .units("kW")
+                .expression(Box::new(PD7974Part2Section7Equation1::new(
+                    x.clone(),
+                    q_t.clone(),
+                )))
+                .build(),
+        );
+
+        return params;
     }
 
-    let step_1 = FormStep {
-        name: "Calculate Plume Heat Content".to_string(),
-        description: "Calculates the heat content of the plume".to_string(),
-        fields: fields,
-    };
+    fn calc_sheet(params: &Parameters) -> crate::domain::method::calculation::ArcCalculation {
+        let q_c = params.get_parameter("Q_c");
+        let calc_sheet = Arc::new(RwLock::new(Calculation::new()));
+        let step = Step {
+            name: "Calculate Plume Heat Content".to_string(),
+            parameters: vec![q_c],
+        };
+        calc_sheet.write().unwrap().add_step(step);
 
-    let q_c = args.get_parameter("Q_c");
-    let calc_sheet = Arc::new(RwLock::new(Calculation::new()));
-    let step = Step {
-        name: "Calculate Plume Heat Content".to_string(),
-        parameters: vec![q_c],
-    };
-    calc_sheet.write().unwrap().add_step(step);
+        calc_sheet
+    }
 
-    MethodBuilder::new(name())
-        .calc_sheet(calc_sheet)
-        .method_type(MethodType::PD7974Part2Section7Equation1)
-        .reference(vec!["PD7974-2:2019", "Section 7.1", "Equation 1"])
-        .parameters(args)
-        .quick_calc_compatible(true)
-        .add_form_step(step_1)
-        .build()
-}
-
-pub fn create_params() -> Parameters {
-    let mut params = Parameters::new();
-    let x = ParameterBuilder::float("X")
-        .name("Fraction Convected by Plume")
-        .default_value(Some(ParameterValue::Float(0.0)))
-        .range(0.0, 1.0)
-        .required()
-        .build();
-
-    let q_t = ParameterBuilder::float("Q_t")
-        .name("Total Heat Release Rate")
-        .units("kW")
-        .default_value(Some(ParameterValue::Float(0.0)))
-        .min(0.0)
-        .required()
-        .build();
-
-    params.add(x.clone());
-    params.add(q_t.clone());
-
-    params.add(
-        ParameterBuilder::float("Q_c")
-            .name("Fraction Convected by Plume")
-            .units("kW")
-            .expression(Box::new(PD7974Part2Section7Equation1::new(
-                x.clone(),
-                q_t.clone(),
-            )))
-            .build(),
-    );
-
-    return params;
+    fn method_type() -> MethodType {
+        MethodType::PD7974Part2Section7Equation1
+    }
 }
 
 pub fn evaluate(method: &mut Method) -> Result<(), String> {
