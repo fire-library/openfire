@@ -1,5 +1,0 @@
-query Logout {
-  logout {
-    success
-  }
-}
