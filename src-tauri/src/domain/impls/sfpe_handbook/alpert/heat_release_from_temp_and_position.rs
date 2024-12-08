@@ -54,7 +54,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         let temp = ParameterBuilder::float("T")
             .name("Temperature at position of interest")
             .units("^{o}C")
-            .default_value(Some(ParameterValue::Float(300.0)))
+            .default_value(Some(ParameterValue::Float(0.0)))
             .min(0.0)
             .required()
             .build();

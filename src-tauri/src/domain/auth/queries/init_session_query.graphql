@@ -1,9 +1,0 @@
-query InitSessionQuery($token: String!) {
-  initSession(token: $token) {
-    user {
-      firstName
-      lastName
-      email
-    }
-  }
-}
