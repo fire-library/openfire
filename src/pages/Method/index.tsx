@@ -67,7 +67,7 @@ export default function InputForm({ tab }: { tab: Tab }) {
           </div>
           <div className="flex items-center justify-between py-0 sm:pb-6">
             <h1 className="text-xl font-semibold leading-7 text-gray-500">
-              {state.reference.join(", ")}
+              {state.reference.join(" | ")}
             </h1>
           </div>
         </div>

@@ -16,7 +16,7 @@ pub struct BR187Chapter1Equation1Builder;
 
 impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     fn name() -> String {
-        "BR187 Ventilation Factor".to_string()
+        "Ventilation Factor".to_string()
     }
     fn description() -> Option<String> {
         Some("Calculates the Ventilation Factor".to_string())
@@ -26,7 +26,7 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     }
     fn reference() -> Vec<String> {
         vec![
-            "BR187".to_string(),
+            "BR187:2014".to_string(),
             "Chapter 1".to_string(),
             "Equation 1".to_string(),
         ]
