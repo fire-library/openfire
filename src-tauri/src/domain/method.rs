@@ -40,6 +40,9 @@ impl Method {
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::evaluate(self)?
             }
+            MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
+                pd7974::part_1::section_8::maximum_enclosure_temperature::evaluate(self)?
+            }
         };
 
         self.calc_sheet.write().unwrap().stale = false;
@@ -51,6 +54,7 @@ impl Method {
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum MethodType {
     PD7974Part2Section7Equation1,
+    PD7974Part1Section8MaximumEnclosureTemperature,
     BR187Chapter1Equation1,
     SFPEAlpertHeatReleaseFromTemperatureAndPosition,
 }
@@ -64,6 +68,9 @@ impl MethodType {
             &MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             &MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
+            },
+            &MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
+                pd7974::part_1::section_8::maximum_enclosure_temperature::MaximumEnclosureTemperatureBuilder::build_method()
             }
         }
     }
@@ -78,6 +85,9 @@ impl From<SavedMethod> for Method {
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
+            },
+            MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
+                pd7974::part_1::section_8::maximum_enclosure_temperature::MaximumEnclosureTemperatureBuilder::build_method()
             }
         };
 

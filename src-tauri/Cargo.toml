@@ -41,6 +41,7 @@ thiserror = "1.0.64"
 
 eurocode_1 = { path = "./crates/eurocode_1" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
+pd_7974 = { path = "./crates/pd_7974" }
 tauri-plugin-process = "2"
 
 [features]
