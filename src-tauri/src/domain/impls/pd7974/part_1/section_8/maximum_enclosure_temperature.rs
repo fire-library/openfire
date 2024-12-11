@@ -1,7 +1,13 @@
-use super::equations::Omega;
-use super::equations::Psi;
-use super::equations::TGMax;
-use super::equations::TG;
+mod omega;
+mod psi;
+mod t_g;
+mod t_g_max;
+
+use omega::Omega;
+use psi::Psi;
+use t_g::TG;
+use t_g_max::TGMax;
+
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::form::{Form, FormStep};
