@@ -1,9 +1,11 @@
+use super::equations::Omega;
+use super::equations::Psi;
+use super::equations::TGMax;
+use super::equations::TG;
 use crate::domain::method::builder::MethodBuilderTrait;
-use crate::domain::method::calculation::{Calculation, CalculationComponent};
-use crate::domain::method::equation::Equation;
+use crate::domain::method::calculation::Calculation;
 use crate::domain::method::form::{Form, FormStep};
 use crate::domain::method::parameter::builder::ParameterBuilder;
-use crate::domain::method::parameter::ArcParameter;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
@@ -59,29 +61,23 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
 
         let psi = ParameterBuilder::float("\\Psi")
             .name("Non dimensional input Psi")
+            .expression(Psi::new_boxed(a_t.clone(), a_v.clone(), m_e.clone()))
             .build();
 
         let omega = ParameterBuilder::float("\\Omega")
             .name("Non dimensional input Omega")
+            .expression(Omega::new_boxed(a_t.clone(), a_v.clone(), h_v.clone()))
             .build();
 
         let t_g_max = ParameterBuilder::float("T_{g(max)}")
             .name("Maximum enclosure temperature")
-            .expression(Box::new(MaximumEnclosureTemperature::new(
-                a_t.clone(),
-                a_v.clone(),
-                h_v.clone(),
-            )))
+            .expression(TGMax::new_boxed(omega.clone()))
             .units("^{o}C")
             .build();
 
         let t_g = ParameterBuilder::float("T_{g}")
             .name("Average enclosure temperature")
-            .expression(Box::new(MaximumEnclosureTemperature::new(
-                a_t.clone(),
-                a_v.clone(),
-                h_v.clone(),
-            )))
+            .expression(TG::new_boxed(psi.clone(), t_g_max.clone()))
             .units("^{o}C")
             .build();
 
@@ -112,14 +108,15 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
         }
         fields_step_2.push(params.get_parameter("m_e").to_field());
         let step_1 = FormStep {
-            name: "Ceiling Jet Correlation Input".to_string(),
-            description: "Input required to calculate the heat release rate".to_string(),
+            name: "Maximum enclosure temperature".to_string(),
+            description: "Input required to calculate the maximum enclosure temperature"
+                .to_string(),
             fields: fields_step_1,
         };
         let step_2 = FormStep {
-            name: "Low fire load input (optional)".to_string(),
+            name: "Fire load input (optional)".to_string(),
             description:
-                "Calculate the impact of low fire load on the average temperature in the compartment"
+                "Calculate the impact of fire load on the average temperature in the compartment"
                     .to_string(),
             fields: fields_step_2,
         };
@@ -130,13 +127,21 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
     }
 
     fn calc_sheet(params: &Parameters) -> crate::domain::method::calculation::ArcCalculation {
-        let q = params.get_parameter("T_{g(max)}");
+        let t_max = params.get_parameter("T_{g(max)}");
+        let t_g = params.get_parameter("T_{g}");
+        let omega = params.get_parameter("\\Omega");
+        let psi = params.get_parameter("\\Psi");
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new()));
-        let step = Step {
-            name: "Calculate Heat Release Rate from Point of Interest".to_string(),
-            parameters: vec![q],
+        let step_1 = Step {
+            name: "Calculate the maximum enclosure temperature".to_string(),
+            parameters: vec![omega, t_max],
         };
-        calc_sheet.write().unwrap().add_step(step);
+        let step_2 = Step {
+            name: "Calculate the average enclosure temperature".to_string(),
+            parameters: vec![psi, t_g],
+        };
+        calc_sheet.write().unwrap().add_step(step_1);
+        calc_sheet.write().unwrap().add_step(step_2);
 
         calc_sheet
     }
@@ -169,37 +174,10 @@ pub fn evaluate(method: &mut Method) -> Result<(), String> {
 
         let t_g_result = equation_43::calculate(t, psi_result);
         t_g.write().unwrap().value = Some(ParameterValue::Float(t_g_result));
+    } else {
+        psi.write().unwrap().value = None;
+        t_g.write().unwrap().value = None;
     }
 
     return Ok(());
-}
-
-#[derive(Debug)]
-pub struct MaximumEnclosureTemperature {
-    pub a_t: ArcParameter,
-    pub a_v: ArcParameter,
-    pub h_v: ArcParameter,
-}
-
-impl MaximumEnclosureTemperature {
-    pub fn new(a_t: ArcParameter, a_v: ArcParameter, h_v: ArcParameter) -> Self {
-        Self { a_t, a_v, h_v }
-    }
-}
-
-impl Equation for MaximumEnclosureTemperature {
-    fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
-        let eq_1 = format!("\\dot{{Q}} =");
-
-        vec![vec![CalculationComponent::Equation(eq_1)]]
-    }
-    fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
-        let eq_1 = format!("\\dot{{Q}} =");
-
-        vec![vec![CalculationComponent::Equation(eq_1)]]
-    }
-
-    fn dependencies(&self) -> Vec<ArcParameter> {
-        vec![self.a_t.clone(), self.a_v.clone(), self.h_v.clone()]
-    }
 }

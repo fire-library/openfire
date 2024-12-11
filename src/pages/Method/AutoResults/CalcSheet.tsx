@@ -136,12 +136,20 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
   );
 }
 
+const shouldRenderStep = (step: Step) => {
+  return (
+    step.parameters.length > 0 && step.parameters.every((p) => p.value !== null)
+  );
+};
+
 export default function ViewFactors({ method }: { method: Method }) {
   return (
     <>
-      {method.calc_sheet.steps.map((step, index) => (
-        <RenderStep step={step} index={index} key={step.name} />
-      ))}
+      {method.calc_sheet.steps.map((step, index) =>
+        shouldRenderStep(step) ? (
+          <RenderStep step={step} index={index} key={step.name} />
+        ) : null
+      )}
     </>
   );
 }
