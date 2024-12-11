@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { commands, Parameter, CalculationComponent } from "src/bindings";
 import CalcComponent from "./CalculationComponent";
 
-export default function ViewFactors({
+export default function Calculation({
   parameter,
   type,
 }: {

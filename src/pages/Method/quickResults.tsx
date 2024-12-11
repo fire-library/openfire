@@ -1,26 +1,20 @@
 import { Card, CardHeader, CardBody } from "src/components";
-import { Calculation } from "src/bindings";
+import { Calculation, Parameter } from "src/bindings";
 import { InlineMath } from "react-katex";
 
+export function QuickValue({ param }: { param: Parameter }) {
+  if (param.value == null) {
+    return null;
+  }
+  return (
+    <InlineMath>
+      {`${param.id} = ${param.value} \\space
+        ${param.units || ""}`}
+    </InlineMath>
+  );
+}
+
 export default function MaterialInput({ results }: { results: Calculation }) {
-  const displayParam = results.steps[0].parameters[0];
-  const resultValue = displayParam.value;
-
-  const Equation = () => {
-    if (resultValue == null) {
-      return "Not yet calculated";
-    }
-    if (results.stale) {
-      return "Invalid Input";
-    }
-    return (
-      <InlineMath>
-        {`${displayParam.id} = ${displayParam.value} \\space
-        ${displayParam.units || ""}`}
-      </InlineMath>
-    );
-  };
-
   return (
     <>
       <Card>
@@ -28,14 +22,29 @@ export default function MaterialInput({ results }: { results: Calculation }) {
           <div className="ml-4 mt-4 flex flex-col">
             <div className="flex flex-row items-center">
               <h3 className="text-base font-semibold leading-6 text-gray-900 mr-2">
-                {displayParam.name}
+                Quick Results
               </h3>
             </div>
           </div>
         </CardHeader>
         <CardBody>
           <div className="flex flex-col gap-3">
-            <Equation />
+            {results.stale
+              ? "Invalid input"
+              : results.steps.map((step) => {
+                  {
+                    return step.parameters.map((parameter) => {
+                      {
+                        return (
+                          (parameter.value !== null && (
+                            <QuickValue param={parameter} />
+                          )) ||
+                          null
+                        );
+                      }
+                    });
+                  }
+                })}
           </div>
         </CardBody>
       </Card>
