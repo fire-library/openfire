@@ -1,14 +1,18 @@
 import { Card, CardHeader, CardBody } from "src/components";
 import { Calculation, Parameter } from "src/bindings";
 import { InlineMath } from "react-katex";
+import { parameterValue } from "../components/ParameterValue";
 
 export function QuickValue({ param }: { param: Parameter }) {
   if (param.value == null) {
     return null;
   }
+
+  const value = parameterValue(param);
+
   return (
     <InlineMath>
-      {`${param.id} = ${param.value} \\space
+      {`${param.id} = ${value} \\space
         ${param.units || ""}`}
     </InlineMath>
   );

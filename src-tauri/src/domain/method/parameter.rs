@@ -97,6 +97,26 @@ pub enum Comparison {
 }
 
 #[derive(Type, Serialize, Deserialize, Debug)]
+pub enum DisplayOptions {
+    DecimalPlaces(u32),
+}
+
+pub trait DisplayOptionsTrait {
+    fn decimal_places(&self) -> Option<u32>;
+}
+
+impl DisplayOptionsTrait for Vec<DisplayOptions> {
+    fn decimal_places(&self) -> Option<u32> {
+        for option in self {
+            if let DisplayOptions::DecimalPlaces(places) = option {
+                return Some(*places);
+            }
+        }
+        None
+    }
+}
+
+#[derive(Type, Serialize, Deserialize, Debug)]
 pub struct Parameter {
     pub id: String,
     pub name: String,
@@ -105,6 +125,7 @@ pub struct Parameter {
     pub expression: Option<Box<dyn Equation>>,
     pub parameter_type: ParameterType,
     pub value: Option<ParameterValue>,
+    pub display_options: Vec<DisplayOptions>,
     pub units: Option<String>,
     pub validations: Vec<Validation>,
 }
@@ -204,6 +225,7 @@ pub trait ParameterTrait {
     fn as_string(&self) -> String;
     fn as_bool(&self) -> bool;
     fn update(&self, value: Option<String>) -> Result<(), ParameterError>;
+    fn display_value(&self) -> String;
     fn id(&self) -> String;
 }
 
@@ -418,6 +440,24 @@ impl ParameterTrait for ArcParameter {
         }
     }
 
+    fn display_value(&self) -> String {
+        let p = self.read().unwrap();
+        match &p.value {
+            Some(ParameterValue::String(value)) => value.clone(),
+            Some(ParameterValue::Float(value)) => {
+                let decimal_places = p.display_options.decimal_places();
+
+                if let Some(decimal_places) = decimal_places {
+                    format!("{:.1$}", value, decimal_places as usize)
+                } else {
+                    value.to_string()
+                }
+            }
+            Some(ParameterValue::Bool(value)) => value.to_string(),
+            None => "".to_string(),
+        }
+    }
+
     fn as_string(&self) -> String {
         let p = self.read().unwrap();
         match &p.value {
@@ -457,6 +497,7 @@ mod tests {
             expression: None,
             name: "Test".to_string(),
             units: None,
+            display_options: vec![],
         }))
     }
 

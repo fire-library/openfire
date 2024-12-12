@@ -3,6 +3,7 @@ import { commands, Step, Method, Parameter } from "src/bindings";
 import { Card, CardBody, CardHeader } from "src/components";
 import Calculation from "./Calculation";
 import { InlineMath } from "react-katex";
+import { parameterValue } from "src/pages/components/ParameterValue";
 
 function RenderStep({ step, index }: { step: Step; index: number }) {
   const [stepInputs, setStepInputs] = useState<Parameter[]>([]);
@@ -88,7 +89,7 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
                     <InlineMath>{parameter.id}</InlineMath>
                   </td>
                   <td className="pl-4">
-                    <InlineMath>{`${parameter.value} \\space ${parameter.units ? parameter.units : ""}`}</InlineMath>
+                    <InlineMath>{`${parameterValue(parameter)} \\space ${parameter.units ? parameter.units : ""}`}</InlineMath>
                   </td>
                 </tr>
               );

@@ -37,9 +37,9 @@ impl Equation for Omega {
         let eq_1 = format!(
             "\\Omega = {}",
             Self::omega_equation(
-                self.a_t.as_float().to_string(),
-                self.a_v.as_float().to_string(),
-                self.h_v.as_float().to_string(),
+                self.a_t.display_value(),
+                self.a_v.display_value(),
+                self.h_v.display_value(),
             )
         );
 

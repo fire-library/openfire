@@ -153,6 +153,7 @@ validationErrorEvent: "validation-error-event"
 export type Calculation = { steps: Step[]; stale: boolean }
 export type CalculationComponent = { Equation: string } | { EquationWithResult: string } | { Text: string }
 export type Comparison = { GreaterThanOrEqual: Parameter } | { LessThanOrEqual: Parameter }
+export type DisplayOptions = { DecimalPlaces: number }
 export type Field = { id: string; name: string; value: string | null; touched: boolean; parameter: Parameter }
 export type Form = { steps: FormStep[] }
 export type FormStep = { name: string; description: string; fields: Field[] }
@@ -160,7 +161,7 @@ export type Method = { name: string; description: string | null; reference: stri
 export type MethodBuilder = { name: string; description: string | null; reference: string[]; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation | null; form: Form; method_type: MethodType | null }
 export type MethodType = "PD7974Part2Section7Equation1" | "PD7974Part1Section8MaximumEnclosureTemperature" | "BR187Chapter1Equation1" | "SFPEAlpertHeatReleaseFromTemperatureAndPosition"
 export type NoCalc = { id: string }
-export type Parameter = { id: string; name: string; parameter_type: ParameterType; value: ParameterValue | null; units: string | null; validations: Validation[] }
+export type Parameter = { id: string; name: string; parameter_type: ParameterType; value: ParameterValue | null; display_options: DisplayOptions[]; units: string | null; validations: Validation[] }
 export type ParameterError = { ValidationError: { id: string; message: string } }
 export type ParameterType = "String" | "Float" | "Bool"
 export type ParameterValue = string | number | boolean

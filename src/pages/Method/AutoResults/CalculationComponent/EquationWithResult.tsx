@@ -1,5 +1,6 @@
 import { InlineMath } from "react-katex";
 import { Parameter } from "src/bindings";
+import { parameterValue } from "src/pages/components/ParameterValue";
 
 export default function ViewFactors({
   equation,
@@ -10,7 +11,7 @@ export default function ViewFactors({
 }) {
   return (
     <div className="flex">
-      <InlineMath>{`${equation} = ${parameter.value} \\space ${parameter.units || ""}`}</InlineMath>
+      <InlineMath>{`${equation} = ${parameterValue(parameter)} \\space ${parameter.units || ""}`}</InlineMath>
     </div>
   );
 }

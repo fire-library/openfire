@@ -40,9 +40,9 @@ impl Equation for Psi {
         let eq_1 = format!(
             "\\Psi = {}",
             Self::psi_equation(
-                self.m_e.as_float().to_string(),
-                self.a_v.as_float().to_string(),
-                self.a_t.as_float().to_string(),
+                self.m_e.display_value(),
+                self.a_v.display_value(),
+                self.a_t.display_value(),
             )
         );
 

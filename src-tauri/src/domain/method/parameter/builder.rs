@@ -5,6 +5,7 @@ use crate::domain::method::equation::Equation;
 
 use super::ArcParameter;
 use super::Comparison;
+use super::DisplayOptions;
 use super::Parameter;
 use super::ParameterType;
 use super::ParameterValue;
@@ -18,6 +19,7 @@ pub struct ParameterBuilder {
     parameter_type: ParameterType,
     value: Option<ParameterValue>,
     expression: Option<Box<dyn Equation>>,
+    display_options: Vec<DisplayOptions>,
 }
 
 impl ParameterBuilder {
@@ -30,6 +32,7 @@ impl ParameterBuilder {
             parameter_type: ParameterType::Float,
             value: None,
             expression: None,
+            display_options: vec![DisplayOptions::DecimalPlaces(2)],
         }
     }
 
@@ -50,6 +53,12 @@ impl ParameterBuilder {
 
     pub fn default_value(mut self, value: Option<ParameterValue>) -> Self {
         self.value = value;
+        self
+    }
+
+    pub fn decimal_places(mut self, decimal_places: u32) -> Self {
+        self.display_options
+            .push(DisplayOptions::DecimalPlaces(decimal_places));
         self
     }
 
@@ -104,6 +113,7 @@ impl ParameterBuilder {
             parameter_type: self.parameter_type,
             value: self.value,
             expression: self.expression,
+            display_options: self.display_options,
         };
 
         Arc::new(RwLock::new(p))

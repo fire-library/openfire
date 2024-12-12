@@ -33,10 +33,7 @@ impl Equation for TG {
     fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_2 = format!(
             "T_{{g}} = {}",
-            Self::t_g_equation(
-                self.t_g_max.as_float().to_string(),
-                self.psi.as_float().to_string()
-            )
+            Self::t_g_equation(self.t_g_max.display_value(), self.psi.display_value())
         );
 
         vec![vec![CalculationComponent::EquationWithResult(eq_2)]]

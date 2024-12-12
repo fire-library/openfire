@@ -231,10 +231,10 @@ impl Equation for AlpertHeatReleaseFromTempAndPosition {
                     self.radial_position.read().unwrap().id.clone(),
                 ),
                 equation_2(
-                    self.temp.as_float().to_string(),
-                    self.temp_amb.as_float().to_string(),
-                    self.height.as_float().to_string(),
-                    self.radial_position.as_float().to_string(),
+                    self.temp.display_value(),
+                    self.temp_amb.display_value(),
+                    self.height.display_value(),
+                    self.radial_position.display_value(),
                 ),
             );
             vec![

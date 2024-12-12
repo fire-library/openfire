@@ -33,7 +33,7 @@ impl Equation for TGMax {
     fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_2 = format!(
             "T_{{g(max)}} = {}",
-            Self::t_max_equation(self.omega.as_float().to_string())
+            Self::t_max_equation(self.omega.display_value())
         );
 
         vec![vec![CalculationComponent::EquationWithResult(eq_2)]]
