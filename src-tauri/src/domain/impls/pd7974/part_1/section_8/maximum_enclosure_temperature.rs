@@ -10,7 +10,8 @@ use t_g_max::TGMax;
 
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
-use crate::domain::method::form::{Form, FormStep};
+use crate::domain::method::equation::Equation;
+use crate::domain::method::form::{Form, FormStep, IntroComponent};
 use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
@@ -99,8 +100,10 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
         return params;
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
-        let mut fields_step_1 = vec![];
-        let mut fields_step_2 = vec![];
+        let mut step_1 = FormStep::new(
+            "Maximum enclosure temperature",
+            "Input required to calculate the maximum enclosure temperature",
+        );
         for param in params.values().into_iter() {
             if param.read().unwrap().id == "T_{g(max)}"
                 || param.read().unwrap().id == "T_{g}"
@@ -110,22 +113,64 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
             {
                 continue;
             }
-            fields_step_1.push(param.to_field())
+            step_1.add_field(param.to_field())
         }
-        fields_step_2.push(params.get_parameter("m_e").to_field());
-        let step_1 = FormStep {
-            name: "Maximum enclosure temperature".to_string(),
-            description: "Input required to calculate the maximum enclosure temperature"
-                .to_string(),
-            fields: fields_step_1,
-        };
-        let step_2 = FormStep {
-            name: "Fire load input (optional)".to_string(),
-            description:
-                "Calculate the impact of fire load on the average temperature in the compartment"
-                    .to_string(),
-            fields: fields_step_2,
-        };
+        let omega = params.get_parameter("\\Omega");
+        let t_g_max = params.get_parameter("T_{g(max)}");
+        step_1.add_intro();
+        step_1.add_title("Equations");
+        step_1.add_intro();
+        step_1.add_equation(
+            t_g_max
+                .read()
+                .unwrap()
+                .expression
+                .as_ref()
+                .unwrap()
+                .generate_with_symbols()[0][0]
+                .clone(),
+        );
+        step_1.add_text("Where:");
+        step_1.add_equation(
+            omega
+                .read()
+                .unwrap()
+                .expression
+                .as_ref()
+                .unwrap()
+                .generate_with_symbols()[0][0]
+                .clone(),
+        );
+
+        let mut step_2 = FormStep::new(
+            "Fire load input (optional)",
+            "Calculate the impact of fire load on the average temperature in the compartment",
+        );
+        let psi = params.get_parameter("\\Psi");
+        let t_g = params.get_parameter("T_{g}");
+        step_2.add_field(params.get_parameter("m_e").to_field());
+        step_2.add_intro();
+        step_2.add_title("Equations");
+        step_2.add_intro();
+        step_2.add_equation(
+            t_g.read()
+                .unwrap()
+                .expression
+                .as_ref()
+                .unwrap()
+                .generate_with_symbols()[0][0]
+                .clone(),
+        );
+        step_2.add_text("Where:");
+        step_2.add_equation(
+            psi.read()
+                .unwrap()
+                .expression
+                .as_ref()
+                .unwrap()
+                .generate_with_symbols()[0][0]
+                .clone(),
+        );
 
         Form {
             steps: vec![step_1, step_2],

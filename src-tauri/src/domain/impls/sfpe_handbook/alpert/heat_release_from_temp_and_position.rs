@@ -42,6 +42,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
             name: "Ceiling Jet Correlation Input".to_string(),
             description: "Input required to calculate the heat release rate".to_string(),
             fields: fields,
+            introduction: vec![],
         };
 
         Form {

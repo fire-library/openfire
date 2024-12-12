@@ -1,6 +1,9 @@
 // pub mod builder;
 
-use super::parameter::{ArcParameter, ParameterTrait};
+use super::{
+    calculation::CalculationComponent,
+    parameter::{ArcParameter, ParameterTrait},
+};
 use crate::domain::method::validation::ParameterError;
 use serde::{Deserialize, Serialize};
 use specta::Type;
@@ -23,10 +26,55 @@ impl FieldTrait for ArcField {
 }
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
+pub enum IntroComponent {
+    Title(String),
+    Text(String),
+    Equation(CalculationComponent),
+}
+
+#[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub struct FormStep {
     pub name: String,
     pub description: String,
     pub fields: Vec<ArcField>,
+    pub introduction: Vec<Vec<IntroComponent>>,
+}
+
+impl FormStep {
+    pub fn new(name: &str, description: &str) -> Self {
+        FormStep {
+            name: name.to_string(),
+            description: description.to_string(),
+            fields: vec![],
+            introduction: vec![],
+        }
+    }
+
+    pub fn add_field(&mut self, field: ArcField) {
+        self.fields.push(field);
+    }
+
+    pub fn add_text(&mut self, text: &str) {
+        if let Some(last) = self.introduction.last_mut() {
+            last.push(IntroComponent::Text(text.to_string()));
+            return;
+        }
+    }
+    pub fn add_equation(&mut self, equation: CalculationComponent) {
+        if let Some(last) = self.introduction.last_mut() {
+            last.push(IntroComponent::Equation(equation));
+            return;
+        }
+    }
+    pub fn add_title(&mut self, title: &str) {
+        if let Some(last) = self.introduction.last_mut() {
+            last.push(IntroComponent::Title(title.to_string()));
+            return;
+        }
+    }
+    pub fn add_intro(&mut self) {
+        self.introduction.push(vec![]);
+    }
 }
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
