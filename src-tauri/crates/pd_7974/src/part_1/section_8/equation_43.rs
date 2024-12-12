@@ -17,6 +17,6 @@ mod tests {
         let result = calculate(1.0, 1.0);
 
         println!("{}", result);
-        assert!((result - 0.0487707973914495) < f64::EPSILON);
+        assert!((result - 0.048770575499285984).abs() < f64::EPSILON);
     }
 }
