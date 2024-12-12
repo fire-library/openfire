@@ -89,7 +89,9 @@ pub async fn set_current_tab_method<R: tauri::Runtime>(
     method_type: MethodType,
 ) -> Result<(), String> {
     let tabs = all_tabs_state.inner().lock().await;
-    tabs.get_current()?.write().unwrap().state = TabState::Method(method_type.method());
+    let current_tab = tabs.get_current()?;
+    current_tab.write().unwrap().state = TabState::Method(method_type.method());
+    current_tab.write().unwrap().title = Some(method_type.to_string());
 
     app.emit("tabs_updated", ()).unwrap();
     Ok(())
