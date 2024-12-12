@@ -41,6 +41,7 @@ impl MethodBuilderTrait for PD7974Part2Section7Equation1Builder {
             name: "Calculate Plume Heat Content".to_string(),
             description: "Calculates the heat content of the plume".to_string(),
             fields: fields,
+            introduction: vec![],
         };
 
         Form {

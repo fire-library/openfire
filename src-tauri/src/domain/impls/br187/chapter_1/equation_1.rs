@@ -44,6 +44,7 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
             name: "Ventilation Factor Input".to_string(),
             description: "Input required to calculate the ventilation factor".to_string(),
             fields: fields,
+            introduction: vec![],
         };
 
         Form {

@@ -76,15 +76,7 @@ export default function InputForm({ tab }: { tab: Tab }) {
       {tabs[0].current && (
         <>
           {state.form.steps.map((step) => {
-            return (
-              <FieldInputSection
-                key={step.name}
-                title={step.name}
-                description={step.description}
-                parameters={step.fields.map((field) => field.parameter)}
-                doQuickCalc={doQuickCalc}
-              />
-            );
+            return <FieldInputSection step={step} doQuickCalc={doQuickCalc} />;
           })}
           <QuickResults results={state.calc_sheet} />
         </>
