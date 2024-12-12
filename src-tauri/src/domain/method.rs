@@ -74,6 +74,23 @@ impl MethodType {
             }
         }
     }
+
+    pub fn to_string(&self) -> String {
+        match &self {
+            &MethodType::PD7974Part2Section7Equation1 => {
+                return "PD7974 | Part 2 | Section 7 | Equation 1".to_string()
+            }
+            &MethodType::BR187Chapter1Equation1 => {
+                return "BR187 | Chapter 1 | Equation 1".to_string()
+            }
+            &MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
+                return "SFPE Handbook | Heat Release From Temperature & Position".to_string()
+            }
+            &MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
+                return "PD7974 | Part 1 | Section 8 | Maximum Enclosure Temperature".to_string()
+            }
+        }
+    }
 }
 
 impl From<SavedMethod> for Method {

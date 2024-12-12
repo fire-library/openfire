@@ -14,12 +14,14 @@ pub async fn save<R: tauri::Runtime>(
     let tabs = all_tabs_state.inner().lock().await;
     let current_tab = tabs.get_current()?;
     let mut current_tab = current_tab.write().unwrap();
+    let tab_title = filename.split('/').last().unwrap().to_string();
 
     match current_tab.state.clone() {
         TabState::Method(output) => {
             let filetypes = Filetypes::Method(output.into());
             filetypes.save(filename)?;
             current_tab.saved = true;
+            current_tab.title = Some(tab_title);
             app.emit("tabs_updated", {})
                 .expect("Failed to emit tabs_updated");
             Ok(())
