@@ -44,7 +44,7 @@
   },
   "productName": "OpenFire",
   "mainBinaryName": "OpenFire",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "identifier": "com.openfire.dev",
   "plugins": {
     "deep-link": {
