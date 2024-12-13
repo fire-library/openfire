@@ -1,0 +1,9 @@
+[package]
+name = "introduction_to_fire_dynamics"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0.215", features = ["derive"] }
+specta = "2.0.0-rc.20"
+tauri-specta = { version = "2.0.0-rc.20", features = ["derive", "typescript"] }

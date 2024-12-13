@@ -38,11 +38,12 @@ tauri-plugin-shell = "2"
 tauri-plugin-http = "2.0.1"
 validator = { version = "0.18.1", features = ["derive"] }
 thiserror = "1.0.64"
+tauri-plugin-process = "2"
 
 eurocode_1 = { path = "./crates/eurocode_1" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
 pd_7974 = { path = "./crates/pd_7974" }
-tauri-plugin-process = "2"
+introduction_to_fire_dynamics = { path = "./crates/introduction_to_fire_dynamics" }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
