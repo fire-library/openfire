@@ -160,13 +160,13 @@ impl MethodBuilderTrait for HRRAtFlashoverBuilder {
 
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new()));
         let step_1 = Step {
-            name: "HRR at flashover by Thomas".to_string(),
+            name: "HRR at flashover by Thomas (Method 1)".to_string(),
             parameters: vec![q_fo_thomas],
         };
         calc_sheet.write().unwrap().add_step(step_1);
 
         let step_2 = Step {
-            name: "HRR at flashover by McCaffrey".to_string(),
+            name: "HRR at flashover by McCaffrey (Method 2)".to_string(),
             parameters: vec![q_fo_mccaffrey],
         };
         calc_sheet.write().unwrap().add_step(step_2);
