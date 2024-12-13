@@ -1,6 +1,5 @@
 use std::sync::{Arc, RwLock};
 
-use crate::domain::method::builder::MethodBuilder;
 use crate::domain::method::MethodType;
 use crate::domain::tab::{Tab, TabBuilder, TabState, Tabs, WrappedTabState};
 use tauri::{AppHandle, Emitter, State};
@@ -20,23 +19,6 @@ pub async fn new_tab<R: tauri::Runtime>(
     }
     let new_tab = builder.build();
     tabs.lock().await.new_tab(new_tab, after);
-    app.emit("tabs_updated", ()).unwrap();
-    Ok(())
-}
-
-#[tauri::command]
-#[specta::specta]
-pub async fn new_method_builder<R: tauri::Runtime>(
-    app: AppHandle<R>,
-    all_tabs_state: State<'_, WrappedTabState>,
-) -> Result<(), String> {
-    let builder = MethodBuilder::new("New Method".to_string());
-    let tabs = all_tabs_state.inner().lock().await;
-
-    let tab = tabs.get_current().unwrap();
-    let mut mut_tab = tab.write().unwrap();
-    mut_tab.state = TabState::MethodBuilder(builder);
-    mut_tab.saved = false;
     app.emit("tabs_updated", ()).unwrap();
     Ok(())
 }
