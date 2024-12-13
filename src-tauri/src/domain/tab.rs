@@ -1,7 +1,6 @@
 pub mod builder;
 
 use crate::domain::filesystem::Filetypes;
-use crate::domain::method::builder::MethodBuilder;
 use crate::domain::method::Method;
 pub use builder::TabBuilder;
 use serde::{Deserialize, Serialize};
@@ -30,7 +29,6 @@ pub struct NoCalc {
 pub enum TabState {
     Index(NoCalc),
     Method(Method),
-    MethodBuilder(MethodBuilder),
 }
 
 impl From<Filetypes> for TabState {

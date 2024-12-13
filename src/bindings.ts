@@ -159,7 +159,6 @@ export type Form = { steps: FormStep[] }
 export type FormStep = { name: string; description: string; fields: Field[]; introduction: IntroComponent[][] }
 export type IntroComponent = { Title: string } | { Text: string } | { Equation: CalculationComponent }
 export type Method = { name: string; description: string | null; reference: string[]; method_type: MethodType; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation; form: Form }
-export type MethodBuilder = { name: string; description: string | null; reference: string[]; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation | null; form: Form; method_type: MethodType | null }
 export type MethodType = "PD7974Part2Section7Equation1" | "PD7974Part1Section8MaximumEnclosureTemperature" | "PD7974Part1Section8HRRAtFlashover" | "BR187Chapter1Equation1" | "SFPEAlpertHeatReleaseFromTemperatureAndPosition"
 export type NoCalc = { id: string }
 export type Parameter = { id: string; name: string; parameter_type: ParameterType; value: ParameterValue | null; display_options: DisplayOptions[]; units: string | null; validations: Validation[] }
@@ -168,7 +167,7 @@ export type ParameterType = "String" | "Float" | "Bool"
 export type ParameterValue = string | number | boolean
 export type Step = { name: string; parameters: Parameter[] }
 export type Tab = { id: string; state: TabState; saved: boolean; current: boolean; filename: string | null; title: string | null }
-export type TabState = ({ type: "Index" } & NoCalc) | ({ type: "Method" } & Method) | ({ type: "MethodBuilder" } & MethodBuilder)
+export type TabState = ({ type: "Index" } & NoCalc) | ({ type: "Method" } & Method)
 export type Validation = "Required" | { MinLength: number } | { MaxLength: number } | { Range: [number, number] } | { MinExclusive: number } | { Min: number } | { Max: number } | { Relation: Comparison }
 export type ValidationErrorEvent = { field_id: string; error: string }
 
