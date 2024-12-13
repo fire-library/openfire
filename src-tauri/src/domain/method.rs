@@ -43,6 +43,9 @@ impl Method {
             MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
                 pd7974::part_1::section_8::maximum_enclosure_temperature::evaluate(self)?
             }
+            MethodType::PD7974Part1Section8HRRAtFlashover => {
+                pd7974::part_1::section_8::hrr_at_flashover::evaluate(self)?
+            }
         };
 
         self.calc_sheet.write().unwrap().stale = false;
@@ -55,6 +58,7 @@ impl Method {
 pub enum MethodType {
     PD7974Part2Section7Equation1,
     PD7974Part1Section8MaximumEnclosureTemperature,
+    PD7974Part1Section8HRRAtFlashover,
     BR187Chapter1Equation1,
     SFPEAlpertHeatReleaseFromTemperatureAndPosition,
 }
@@ -71,6 +75,9 @@ impl MethodType {
             },
             &MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
                 pd7974::part_1::section_8::maximum_enclosure_temperature::MaximumEnclosureTemperatureBuilder::build_method()
+            }
+            &MethodType::PD7974Part1Section8HRRAtFlashover => {
+                pd7974::part_1::section_8::hrr_at_flashover::HRRAtFlashoverBuilder::build_method()
             }
         }
     }
@@ -89,6 +96,9 @@ impl MethodType {
             &MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
                 return "PD7974 | Part 1 | Section 8 | Maximum Enclosure Temperature".to_string()
             }
+            &MethodType::PD7974Part1Section8HRRAtFlashover => {
+                return "PD7974 | Part 1 | Section 8 | HRR at Flashover".to_string()
+            }
         }
     }
 }
@@ -105,6 +115,9 @@ impl From<SavedMethod> for Method {
             },
             MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
                 pd7974::part_1::section_8::maximum_enclosure_temperature::MaximumEnclosureTemperatureBuilder::build_method()
+            }
+            MethodType::PD7974Part1Section8HRRAtFlashover => {
+                pd7974::part_1::section_8::hrr_at_flashover::HRRAtFlashoverBuilder::build_method()
             }
         };
 
