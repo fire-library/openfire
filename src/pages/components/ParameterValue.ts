@@ -5,6 +5,10 @@ export function parameterValue(param: Parameter): String {
     return "";
   }
 
+  if (param.parameter_type == "String") {
+    return param.value as string;
+  }
+
   const decimalPlaces =
     param.display_options.find((option) => "DecimalPlaces" in option)
       ?.DecimalPlaces || null;
