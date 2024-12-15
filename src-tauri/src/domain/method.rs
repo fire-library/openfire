@@ -7,7 +7,6 @@ pub mod step;
 pub mod validation;
 
 use builder::MethodBuilderTrait;
-// use parameter::{ArcParameter, ParameterTrait, Parameters};
 use calculation::ArcCalculation;
 use parameter::Parameters;
 use serde::{Deserialize, Serialize};
@@ -15,6 +14,7 @@ use specta::Type;
 
 use super::filesystem::saved_method::SavedMethod;
 use super::impls::br187;
+use super::impls::introduction_to_fire_dynamics;
 use super::impls::pd7974;
 use super::impls::sfpe_handbook;
 
@@ -46,6 +46,9 @@ impl Method {
             MethodType::PD7974Part1Section8HRRAtFlashover => {
                 pd7974::part_1::section_8::hrr_at_flashover::evaluate(self)?
             }
+            MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                introduction_to_fire_dynamics::chapter_10::burning_regime::evaluate(self)?
+            }
         };
 
         self.calc_sheet.write().unwrap().stale = false;
@@ -61,6 +64,7 @@ pub enum MethodType {
     PD7974Part1Section8HRRAtFlashover,
     BR187Chapter1Equation1,
     SFPEAlpertHeatReleaseFromTemperatureAndPosition,
+    IntroductionToFireDynamcicsChapter10BurningRegime,
 }
 
 impl MethodType {
@@ -78,6 +82,9 @@ impl MethodType {
             }
             &MethodType::PD7974Part1Section8HRRAtFlashover => {
                 pd7974::part_1::section_8::hrr_at_flashover::HRRAtFlashoverBuilder::build_method()
+            }
+            &MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                introduction_to_fire_dynamics::chapter_10::burning_regime::BurningRegimeBuilder::build_method()
             }
         }
     }
@@ -99,6 +106,9 @@ impl MethodType {
             &MethodType::PD7974Part1Section8HRRAtFlashover => {
                 return "PD7974 | Part 1 | Section 8 | HRR at Flashover".to_string()
             }
+            &MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                return "Introduction to Fire Dynamics | Chapter 10 | Burning Regime".to_string()
+            }
         }
     }
 }
@@ -118,6 +128,9 @@ impl From<SavedMethod> for Method {
             }
             MethodType::PD7974Part1Section8HRRAtFlashover => {
                 pd7974::part_1::section_8::hrr_at_flashover::HRRAtFlashoverBuilder::build_method()
+            }
+            MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                introduction_to_fire_dynamics::chapter_10::burning_regime::BurningRegimeBuilder::build_method()
             }
         };
 

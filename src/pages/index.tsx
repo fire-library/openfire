@@ -55,6 +55,14 @@ const implementations: ImplementationType[] = [
     colors: "text-red-700 bg-red-50",
     method: "PD7974Part1Section8HRRAtFlashover",
   },
+  {
+    name: "Burning Regime",
+    reference: "PD7974-1:2019 Section 8.6",
+    tags: ["Fire Scenario"],
+    svg: FireIcon,
+    colors: "text-red-700 bg-red-50",
+    method: "IntroductionToFireDynamcicsChapter10BurningRegime",
+  },
 ];
 
 function IndexPage() {
