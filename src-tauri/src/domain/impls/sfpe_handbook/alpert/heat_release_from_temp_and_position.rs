@@ -28,7 +28,9 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         true
     }
     fn reference() -> Vec<String> {
-        vec!["SFPE Handbook".to_string()]
+        vec!["SFPE Handbook 5th edition".to_string(),
+             "Chapter 14".to_string(),
+             "Equations 14.2 & 14.3".to_string(),]
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut fields = vec![];
