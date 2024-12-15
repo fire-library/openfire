@@ -27,7 +27,7 @@ impl MethodBuilderTrait for PD7974Part2Section7Equation1Builder {
     }
     fn reference() -> Vec<String> {
         vec!["PD7974-2:2019".to_string(),
-             "Section 7.1".to_string()
+             "Section 7.1".to_string(),
              "Equation 1".to_string()
         ]
     }
