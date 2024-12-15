@@ -1,4 +1,5 @@
 pub mod br187;
+pub mod introduction_to_fire_dynamics;
 pub mod pd7974;
 pub mod sfpe_handbook;
 
@@ -19,13 +20,5 @@ pub struct Implementation {
 }
 
 pub fn all_impls() -> Vec<Implementation> {
-    vec![Implementation {
-        name: "BR 187 Basic".to_string(),
-        tags: vec!["BR 187".to_string(), "Basic".to_string()],
-        description: "BR 187 Basic calculation".to_string(),
-        reference: "BR 187".to_string(),
-        method_type: MethodType::PD7974Part2Section7Equation1,
-        icon: Icon::FireIcon,
-        colors: "red".to_string(),
-    }]
+    vec![]
 }

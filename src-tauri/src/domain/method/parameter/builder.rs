@@ -36,6 +36,19 @@ impl ParameterBuilder {
         }
     }
 
+    pub fn string(id: &str) -> Self {
+        ParameterBuilder {
+            id: id.to_string(),
+            name: None,
+            units: None,
+            validations: vec![],
+            parameter_type: ParameterType::String,
+            value: None,
+            expression: None,
+            display_options: vec![],
+        }
+    }
+
     pub fn name(mut self, name: &str) -> Self {
         self.name = Some(name.to_string());
         self

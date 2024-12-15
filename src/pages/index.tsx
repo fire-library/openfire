@@ -16,14 +16,6 @@ type ImplementationType = {
 };
 const implementations: ImplementationType[] = [
   {
-    name: "Heat Conteant of Plume",
-    reference: "PD7974-2:2019 Section 7.1",
-    tags: ["Fire Scenario", "Temp Vs Time"],
-    svg: FireIcon,
-    colors: "text-red-700 bg-red-50",
-    method: "PD7974Part2Section7Equation1",
-  },
-  {
     name: "BR187 Ventilation Factor",
     reference: "BR187, Chapter 1, Equation 1",
     tags: ["Fire Scenario"],
@@ -54,6 +46,14 @@ const implementations: ImplementationType[] = [
     svg: FireIcon,
     colors: "text-red-700 bg-red-50",
     method: "PD7974Part1Section8HRRAtFlashover",
+  },
+  {
+    name: "Burning Regime",
+    reference: "PD7974-1:2019 Section 8.6",
+    tags: ["Fire Scenario"],
+    svg: FireIcon,
+    colors: "text-red-700 bg-red-50",
+    method: "IntroductionToFireDynamcicsChapter10BurningRegime",
   },
 ];
 

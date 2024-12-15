@@ -7,7 +7,6 @@ pub mod step;
 pub mod validation;
 
 use builder::MethodBuilderTrait;
-// use parameter::{ArcParameter, ParameterTrait, Parameters};
 use calculation::ArcCalculation;
 use parameter::Parameters;
 use serde::{Deserialize, Serialize};
@@ -15,6 +14,7 @@ use specta::Type;
 
 use super::filesystem::saved_method::SavedMethod;
 use super::impls::br187;
+use super::impls::introduction_to_fire_dynamics;
 use super::impls::pd7974;
 use super::impls::sfpe_handbook;
 
@@ -33,9 +33,6 @@ pub struct Method {
 impl Method {
     pub fn evaluate(&mut self) -> Result<(), String> {
         match &self.method_type {
-            MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::evaluate(self)?
-            }
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::evaluate(self)?,
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::evaluate(self)?
@@ -45,6 +42,9 @@ impl Method {
             }
             MethodType::PD7974Part1Section8HRRAtFlashover => {
                 pd7974::part_1::section_8::hrr_at_flashover::evaluate(self)?
+            }
+            MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                introduction_to_fire_dynamics::chapter_10::burning_regime::evaluate(self)?
             }
         };
 
@@ -56,19 +56,16 @@ impl Method {
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum MethodType {
-    PD7974Part2Section7Equation1,
     PD7974Part1Section8MaximumEnclosureTemperature,
     PD7974Part1Section8HRRAtFlashover,
     BR187Chapter1Equation1,
     SFPEAlpertHeatReleaseFromTemperatureAndPosition,
+    IntroductionToFireDynamcicsChapter10BurningRegime,
 }
 
 impl MethodType {
     pub fn method(&self) -> Method {
         match &self {
-            &MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::PD7974Part2Section7Equation1Builder::build_method()
-            }
             &MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             &MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
@@ -79,14 +76,14 @@ impl MethodType {
             &MethodType::PD7974Part1Section8HRRAtFlashover => {
                 pd7974::part_1::section_8::hrr_at_flashover::HRRAtFlashoverBuilder::build_method()
             }
+            &MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                introduction_to_fire_dynamics::chapter_10::burning_regime::BurningRegimeBuilder::build_method()
+            }
         }
     }
 
     pub fn to_string(&self) -> String {
         match &self {
-            &MethodType::PD7974Part2Section7Equation1 => {
-                return "PD7974 | Part 2 | Section 7 | Equation 1".to_string()
-            }
             &MethodType::BR187Chapter1Equation1 => {
                 return "BR187 | Chapter 1 | Equation 1".to_string()
             }
@@ -99,6 +96,9 @@ impl MethodType {
             &MethodType::PD7974Part1Section8HRRAtFlashover => {
                 return "PD7974 | Part 1 | Section 8 | HRR at Flashover".to_string()
             }
+            &MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                return "Introduction to Fire Dynamics | Chapter 10 | Burning Regime".to_string()
+            }
         }
     }
 }
@@ -106,9 +106,6 @@ impl MethodType {
 impl From<SavedMethod> for Method {
     fn from(saved: SavedMethod) -> Self {
         let method = match saved.method_type {
-            MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::PD7974Part2Section7Equation1Builder::build_method()
-            }
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
@@ -118,6 +115,9 @@ impl From<SavedMethod> for Method {
             }
             MethodType::PD7974Part1Section8HRRAtFlashover => {
                 pd7974::part_1::section_8::hrr_at_flashover::HRRAtFlashoverBuilder::build_method()
+            }
+            MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
+                introduction_to_fire_dynamics::chapter_10::burning_regime::BurningRegimeBuilder::build_method()
             }
         };
 
