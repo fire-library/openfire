@@ -33,9 +33,6 @@ pub struct Method {
 impl Method {
     pub fn evaluate(&mut self) -> Result<(), String> {
         match &self.method_type {
-            MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::evaluate(self)?
-            }
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::evaluate(self)?,
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::evaluate(self)?
@@ -59,7 +56,6 @@ impl Method {
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum MethodType {
-    PD7974Part2Section7Equation1,
     PD7974Part1Section8MaximumEnclosureTemperature,
     PD7974Part1Section8HRRAtFlashover,
     BR187Chapter1Equation1,
@@ -70,9 +66,6 @@ pub enum MethodType {
 impl MethodType {
     pub fn method(&self) -> Method {
         match &self {
-            &MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::PD7974Part2Section7Equation1Builder::build_method()
-            }
             &MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             &MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
@@ -91,9 +84,6 @@ impl MethodType {
 
     pub fn to_string(&self) -> String {
         match &self {
-            &MethodType::PD7974Part2Section7Equation1 => {
-                return "PD7974 | Part 2 | Section 7 | Equation 1".to_string()
-            }
             &MethodType::BR187Chapter1Equation1 => {
                 return "BR187 | Chapter 1 | Equation 1".to_string()
             }
@@ -116,9 +106,6 @@ impl MethodType {
 impl From<SavedMethod> for Method {
     fn from(saved: SavedMethod) -> Self {
         let method = match saved.method_type {
-            MethodType::PD7974Part2Section7Equation1 => {
-                pd7974::part_2::section_7::equation_1::PD7974Part2Section7Equation1Builder::build_method()
-            }
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
                 sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
