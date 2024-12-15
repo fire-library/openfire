@@ -33,7 +33,8 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
         true
     }
     fn reference() -> Vec<String> {
-        vec!["PD7974-1".to_string(), "Section 8.6.1".to_string()]
+        vec!["PD7974-1:2019".to_string(),
+             "Section 8.6.1".to_string()]
     }
     fn parameters() -> Parameters {
         let mut params = Parameters::new();

@@ -17,7 +17,7 @@ pub struct PD7974Part2Section7Equation1Builder;
 
 impl MethodBuilderTrait for PD7974Part2Section7Equation1Builder {
     fn name() -> String {
-        "Heat Content of Plume".to_string()
+        "Heat content of plume".to_string()
     }
     fn description() -> Option<String> {
         Some("Calculates the heat content of the plume".to_string())
@@ -26,7 +26,10 @@ impl MethodBuilderTrait for PD7974Part2Section7Equation1Builder {
         true
     }
     fn reference() -> Vec<String> {
-        vec!["SFPE Handbook".to_string()]
+        vec!["PD7974-2:2019".to_string(),
+             "Section 7.1".to_string()
+             "Equation 1".to_string()
+        ]
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut fields = vec![];
