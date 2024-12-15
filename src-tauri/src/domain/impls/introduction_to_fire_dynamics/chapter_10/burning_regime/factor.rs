@@ -2,7 +2,6 @@ use crate::domain::method::calculation::CalculationComponent;
 use crate::domain::method::equation::Equation;
 use crate::domain::method::parameter::ArcParameter;
 use crate::domain::method::parameter::ParameterTrait;
-use introduction_to_fire_dynamics::chapter_10::equation_10_18::BurningRegime;
 
 #[derive(Debug)]
 pub struct Factor {
