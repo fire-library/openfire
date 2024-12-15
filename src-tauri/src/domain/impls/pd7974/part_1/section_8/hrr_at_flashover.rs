@@ -22,7 +22,7 @@ pub struct HRRAtFlashoverBuilder;
 
 impl MethodBuilderTrait for HRRAtFlashoverBuilder {
     fn name() -> String {
-        "HRR at Flashover".to_string()
+        "Heat Release Rate (HRR) at Flashover".to_string()
     }
     fn description() -> Option<String> {
         Some("Calculates the HRR at flashover, comparing methods developed by Thomas, McCaffrey et al., and Kawago".to_string())
@@ -32,7 +32,7 @@ impl MethodBuilderTrait for HRRAtFlashoverBuilder {
     }
     fn reference() -> Vec<String> {
         vec![
-            "PD7974-1".to_string(),
+            "PD7974-1:2019".to_string(),
             "Section 8.5.1.2 and 8.5.2.2".to_string(),
         ]
     }
