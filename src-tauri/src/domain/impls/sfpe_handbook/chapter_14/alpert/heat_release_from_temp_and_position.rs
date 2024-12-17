@@ -7,12 +7,16 @@ use crate::domain::method::parameter::ArcParameter;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
-use crate::domain::method::MethodType;
 use crate::domain::method::{step::Step, Method};
-use sfpe_handbook::alpert;
+use crate::domain::method::{MethodType, Reference};
+use sfpe_handbook::chapter_14::alpert;
 use std::sync::{Arc, RwLock};
 
 pub struct AlpertHeatReleaseFromTempAndPositionBuilder;
+
+use super::super::super::super::Document;
+use super::super::super::Chapter;
+use super::super::Chapter14Method;
 
 impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
     fn name() -> String {
@@ -27,8 +31,10 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
     fn quick_calc_compatible() -> bool {
         true
     }
-    fn reference() -> Vec<String> {
-        vec!["SFPE Handbook".to_string()]
+    fn reference() -> Reference {
+        Reference(Document::SFPEHandbook(Some(Chapter::Fourteen(
+            Chapter14Method::HeatReleaseFromTempAndPosition,
+        ))))
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut fields = vec![];

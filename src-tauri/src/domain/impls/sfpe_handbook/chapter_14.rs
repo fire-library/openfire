@@ -1,17 +1,17 @@
-pub mod burning_regime;
+pub mod alpert;
 
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
-pub enum Chapter10Method {
-    BurningRegime,
+pub enum Chapter14Method {
+    HeatReleaseFromTempAndPosition,
 }
 
-impl Chapter10Method {
+impl Chapter14Method {
     pub fn friendly_reference(&self) -> String {
         match self {
-            Chapter10Method::BurningRegime => "Equation 10.18".to_string(),
+            Chapter14Method::HeatReleaseFromTempAndPosition => "HRR by Alpert".to_string(),
         }
     }
 }

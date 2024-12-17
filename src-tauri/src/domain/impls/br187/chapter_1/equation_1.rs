@@ -8,9 +8,14 @@ use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ArcParameter, ParameterTrait, ParametersTrait};
 use crate::domain::method::MethodType;
+use crate::domain::method::Reference;
 use crate::domain::method::{step::Step, Method};
 use std::sync::{Arc, RwLock};
 use std::vec;
+
+use super::super::super::Document;
+use super::super::Chapter;
+use super::Chapter1Equation;
 
 pub struct BR187Chapter1Equation1Builder;
 
@@ -24,13 +29,10 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     fn quick_calc_compatible() -> bool {
         true
     }
-    fn reference() -> Vec<String> {
-        vec![
-            "BR187:2014".to_string(),
-            "Chapter 1".to_string(),
-            "Equation 1".to_string(),
-        ]
+    fn reference() -> Reference {
+        Reference(Document::BR187(Some(Chapter::One(Chapter1Equation::One))))
     }
+
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut fields = vec![];
         for param in params.values().into_iter() {

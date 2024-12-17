@@ -17,12 +17,13 @@ use super::impls::br187;
 use super::impls::introduction_to_fire_dynamics;
 use super::impls::pd7974;
 use super::impls::sfpe_handbook;
+use super::impls::Document;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub struct Method {
     pub name: String,
     pub description: Option<String>,
-    pub reference: Vec<String>,
+    pub reference: Reference,
     pub method_type: MethodType,
     pub parameters: Parameters,
     pub quick_calc_compatible: bool,
@@ -30,12 +31,25 @@ pub struct Method {
     pub form: form::Form,
 }
 
+#[derive(Clone, Type, Serialize, Deserialize, Debug)]
+pub struct Reference(pub Document);
+
+impl Reference {
+    pub fn friendly_reference(&self) -> String {
+        match &self {
+            Reference(document) => document.friendly_reference(),
+        }
+    }
+}
+
 impl Method {
     pub fn evaluate(&mut self) -> Result<(), String> {
         match &self.method_type {
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::evaluate(self)?,
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
-                sfpe_handbook::alpert::heat_release_from_temp_and_position::evaluate(self)?
+                sfpe_handbook::chapter_14::alpert::heat_release_from_temp_and_position::evaluate(
+                    self,
+                )?
             }
             MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
                 pd7974::part_1::section_8::maximum_enclosure_temperature::evaluate(self)?
@@ -68,7 +82,7 @@ impl MethodType {
         match &self {
             &MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             &MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
-                sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
+                sfpe_handbook::chapter_14::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
             },
             &MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
                 pd7974::part_1::section_8::maximum_enclosure_temperature::MaximumEnclosureTemperatureBuilder::build_method()
@@ -108,7 +122,7 @@ impl From<SavedMethod> for Method {
         let method = match saved.method_type {
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::BR187Chapter1Equation1Builder::build_method(),
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
-                sfpe_handbook::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
+                sfpe_handbook::chapter_14::alpert::heat_release_from_temp_and_position::AlpertHeatReleaseFromTempAndPositionBuilder::build_method()
             },
             MethodType::PD7974Part1Section8MaximumEnclosureTemperature => {
                 pd7974::part_1::section_8::maximum_enclosure_temperature::MaximumEnclosureTemperatureBuilder::build_method()

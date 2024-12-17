@@ -15,10 +15,15 @@ use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
-use crate::domain::method::MethodType;
 use crate::domain::method::{step::Step, Method};
+use crate::domain::method::{MethodType, Reference};
 use pd_7974::part_1::section_8::{equation_41, equation_42, equation_43, equation_44};
 use std::sync::{Arc, RwLock};
+
+use super::super::super::super::Document;
+use super::super::super::Part;
+use super::super::Section;
+use super::Section8Method;
 
 pub struct MaximumEnclosureTemperatureBuilder;
 
@@ -32,8 +37,10 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
     fn quick_calc_compatible() -> bool {
         true
     }
-    fn reference() -> Vec<String> {
-        vec!["PD7974-1".to_string(), "Section 8.6".to_string()]
+    fn reference() -> Reference {
+        Reference(Document::PD7974(Some(Part::One(Some(Section::Eight(
+            Section8Method::MaximumEnclosureTemperature,
+        ))))))
     }
     fn parameters() -> Parameters {
         let mut params = Parameters::new();

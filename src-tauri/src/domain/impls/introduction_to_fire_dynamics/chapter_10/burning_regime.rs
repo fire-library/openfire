@@ -11,12 +11,16 @@ use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
-use crate::domain::method::MethodType;
 use crate::domain::method::{step::Step, Method};
+use crate::domain::method::{MethodType, Reference};
 use introduction_to_fire_dynamics::chapter_10::equation_10_18;
 use std::sync::{Arc, RwLock};
 
 pub struct BurningRegimeBuilder;
+
+use super::super::super::Document;
+use super::super::Chapter;
+use super::Chapter10Method;
 
 impl MethodBuilderTrait for BurningRegimeBuilder {
     fn name() -> String {
@@ -28,12 +32,10 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
     fn quick_calc_compatible() -> bool {
         true
     }
-    fn reference() -> Vec<String> {
-        vec![
-            "Introduciton to Fire Dynamics".to_string(),
-            "Chapter 10".to_string(),
-            "Equations 10.18a and 10.18b".to_string(),
-        ]
+    fn reference() -> Reference {
+        Reference(Document::IntroductionToFireDynamics(Some(Chapter::Ten(
+            Chapter10Method::BurningRegime,
+        ))))
     }
     fn parameters() -> Parameters {
         let mut params = Parameters::new();

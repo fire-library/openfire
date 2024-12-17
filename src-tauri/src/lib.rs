@@ -10,6 +10,7 @@ use commands::forms::{
     calculate_form, get_equation_inputs, get_equation_inputs_symbols, get_equation_with_numbers,
     get_equation_with_symbols, update_field, ValidationErrorEvent,
 };
+use commands::impls::*;
 use commands::tab::*;
 use domain::tab::{NoCalc, TabBuilder, TabState, WrappedTabState};
 use specta_typescript::Typescript;
@@ -47,6 +48,9 @@ pub fn run() {
             get_equation_inputs_symbols,
             set_current_tab_method::<tauri::Wry>,
             calculate_form::<tauri::Wry>,
+            all_implementations,
+            friendly_reference,
+            document_title
         ])
         .events(collect_events![ValidationErrorEvent]);
 

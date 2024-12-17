@@ -1,74 +1,108 @@
-import { useState, useCallback } from "react";
-import { FireIcon, WifiIcon } from "@heroicons/react/24/outline";
-import { useTabs } from "src/tabs/tabProvider";
-import { TabState, commands, Result, MethodType } from "src/bindings";
-import fuse from "fuse.js";
+import { useState, useEffect } from "react";
+import { FireIcon } from "@heroicons/react/24/outline";
+import {
+  commands,
+  Implementation,
+  DocumentImplementations,
+} from "src/bindings";
 import Fuse from "fuse.js";
 
-type ImplementationType = {
-  name: string;
-  reference: string;
-  method?: MethodType;
-  tags: string[];
-  svg: React.FC<React.SVGProps<SVGSVGElement>>;
-  colors: string;
-  stateFunction?: () => Promise<Result<TabState, string>>;
-};
-const implementations: ImplementationType[] = [
-  {
-    name: "BR187 Ventilation Factor",
-    reference: "BR187, Chapter 1, Equation 1",
-    tags: ["Fire Scenario"],
-    svg: FireIcon,
-    colors: "text-red-700 bg-red-50",
-    method: "BR187Chapter1Equation1",
-  },
-  {
-    name: "Alpert",
-    reference: "SFPE Handbook",
-    tags: ["Fire Scenario"],
-    svg: FireIcon,
-    colors: "text-red-700 bg-red-50",
-    method: "SFPEAlpertHeatReleaseFromTemperatureAndPosition",
-  },
-  {
-    name: "Max Compartment Temp",
-    reference: "PD7974-1:2019 Section 8.6",
-    tags: ["Fire Scenario"],
-    svg: FireIcon,
-    colors: "text-red-700 bg-red-50",
-    method: "PD7974Part1Section8MaximumEnclosureTemperature",
-  },
-  {
-    name: "HRR at flashover",
-    reference: "PD7974-1:2019 Section 8.6",
-    tags: ["Fire Scenario"],
-    svg: FireIcon,
-    colors: "text-red-700 bg-red-50",
-    method: "PD7974Part1Section8HRRAtFlashover",
-  },
-  {
-    name: "Burning Regime",
-    reference: "PD7974-1:2019 Section 8.6",
-    tags: ["Fire Scenario"],
-    svg: FireIcon,
-    colors: "text-red-700 bg-red-50",
-    method: "IntroductionToFireDynamcicsChapter10BurningRegime",
-  },
-];
+export function ListItem({
+  implementation,
+}: {
+  implementation: Implementation;
+}) {
+  const [friendly_reference, setFriendlyReference] = useState("");
+
+  useEffect(() => {
+    const ref = async () =>
+      commands.friendlyReference(implementation.reference).then((reference) => {
+        if (reference.status == "ok") {
+          setFriendlyReference(reference.data);
+        }
+      });
+
+    ref();
+  }, [implementation.reference]);
+  const Icon = FireIcon;
+
+  return (
+    <li className="col-span-1 divide-y divide-gray-200 rounded-lg shadow bg-white w-full">
+      <button
+        className="hover:bg-gray-100 w-full h-full"
+        onClick={() => {
+          if (implementation.method_type) {
+            commands.setCurrentTabMethod(implementation.method_type);
+          }
+        }}
+      >
+        <div className="flex w-full space-x-6 p-6">
+          <div className="flex-1">
+            <div className="flex flex-col items-start mb-2">
+              <h3 className="text-sm font-medium text-gray-900 text-start">
+                {implementation.name}
+              </h3>
+              <p className="mt-1 text-sm text-gray-500 text-start">
+                {friendly_reference}
+              </p>
+            </div>
+            <div className="flex gap-1">
+              {implementation.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          <Icon
+            className={`h-10 w-10 flex-shrink-0 rounded-full p-1 ${implementation.colors}`}
+          />
+        </div>
+      </button>
+    </li>
+  );
+}
 
 function IndexPage() {
-  const { updateTab, currentTab } = useTabs();
   const [search, setSearch] = useState("");
+  const [allMethods, setAllMethods] = useState<DocumentImplementations[]>([]);
+  const [searchedMethods, setSearchedMethods] = useState<
+    Implementation[] | null
+  >([]);
   const [fuse] = useState(
-    new Fuse(implementations, { keys: ["name", "reference", "tags"] })
+    new Fuse(allMethods.map((doc) => doc.implementations).flat(), {
+      keys: ["name", "search_reference", "tags"],
+    })
   );
-  const get_methods: () => { item: ImplementationType }[] = useCallback(() => {
+
+  useEffect(() => {
+    const all_impls = async () =>
+      commands.allImplementations().then((implementations) => {
+        if (implementations.status == "ok") {
+          const ordered = implementations.data.sort((a, b) => {
+            return a.document.localeCompare(b.document);
+          });
+          setAllMethods(ordered);
+        }
+      });
+
+    all_impls();
+  }, []);
+
+  useEffect(() => {
+    fuse.setCollection(allMethods.map((doc) => doc.implementations).flat());
+  }, [allMethods]);
+
+  useEffect(() => {
     if (search.trim() === "") {
-      return implementations.map((item) => ({ item }));
+      setSearchedMethods(null);
+    } else {
+      setSearchedMethods(fuse.search(search).map((result) => result.item));
     }
-    return fuse.search(search);
-  }, [fuse, search]);
+  }, [allMethods, search, fuse]);
 
   return (
     <div className="max-w-5xl w-full">
@@ -87,69 +121,47 @@ function IndexPage() {
         </div>
       </form>
 
-      <div className="flex flex-col flex-1 w-full">
-        <div className="flex pt-4 sm:pt-6 h-full">
-          <h1 className="text-2xl font-semibold leading-7 text-gray-900 flex flex-row">
-            Methods
-          </h1>
+      {searchedMethods ? (
+        <>
+          <div className="flex flex-col flex-1 w-full mt-10">
+            <div className="flex pt-4 sm:pt-6 h-full">
+              <h1 className="text-2xl font-semibold leading-7 text-gray-900 flex flex-row">
+                Search Results
+              </h1>
+            </div>
+            <div className="flex items-center justify-between py-0">
+              <h1 className="text-lg font-semibold leading-7 text-gray-500">
+                Ordered by strength of match
+              </h1>
+            </div>
+          </div>
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10">
+            {searchedMethods.map((implementation, index) => {
+              const Icon = FireIcon;
+              return <ListItem key={index} implementation={implementation} />;
+            })}
+          </ul>
+        </>
+      ) : (
+        <div className="flex flex-col gap-10 mt-10">
+          {allMethods.map((doc, index) => {
+            return (
+              <div key={index}>
+                <h1 className="text-2xl font-semibold leading-7 text-gray-900 flex flex-row">
+                  {doc.document}
+                </h1>
+                <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-5 w-full">
+                  {doc.implementations.map((implementation, index) => {
+                    return (
+                      <ListItem key={index} implementation={implementation} />
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
-        <div className="flex items-center justify-between py-0">
-          <h1 className="text-xl font-semibold leading-7 text-gray-500">
-            Individual calculations for isolated use
-          </h1>
-        </div>
-      </div>
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10">
-        {get_methods().map(({ item: implementation }, index) => {
-          const Icon = implementation.svg;
-          return (
-            <li
-              key={index}
-              className="col-span-1 divide-y divide-gray-200 rounded-lg shadow"
-            >
-              <button
-                className="bg-white hover:bg-gray-100 w-full"
-                onClick={() => {
-                  if (implementation.method) {
-                    commands.setCurrentTabMethod(implementation.method);
-                  } else if (implementation.stateFunction) {
-                    implementation.stateFunction().then((state) => {
-                      state.status == "ok" &&
-                        updateTab(currentTab?.id, state.data);
-                    });
-                  }
-                }}
-              >
-                <div className="flex w-full space-x-6 p-6">
-                  <div className="flex-1">
-                    <div className="flex flex-col items-start mb-2">
-                      <h3 className="text-sm font-medium text-gray-900">
-                        {implementation.name}
-                      </h3>
-                      <p className="mt-1 text-sm text-gray-500">
-                        {implementation.reference}
-                      </p>
-                    </div>
-                    <div className="flex gap-1">
-                      {implementation.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <Icon
-                    className={`h-10 w-10 flex-shrink-0 rounded-full p-1 ${implementation.colors}`}
-                  />
-                </div>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      )}
     </div>
   );
 }

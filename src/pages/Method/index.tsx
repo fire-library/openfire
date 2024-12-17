@@ -5,8 +5,10 @@ import FieldInputSection from "src/components/inputSections/FieldInput";
 import Tabs from "../components/Tabs";
 import CalcSheet from "./AutoResults/CalcSheet";
 import ReactGA from "react-ga4";
+import { Card, CardHeader, CardBody } from "src/components";
 
 export default function InputForm({ tab }: { tab: Tab }) {
+  const [friendly_reference, setFriendlyReference] = useState("");
   const [tabs, setTabs] = useState([
     {
       name: "Input",
@@ -56,6 +58,17 @@ export default function InputForm({ tab }: { tab: Tab }) {
     }
   }, [tab.state]);
 
+  useEffect(() => {
+    const ref = async () =>
+      commands.friendlyReference(state.reference).then((reference) => {
+        if (reference.status == "ok") {
+          setFriendlyReference(reference.data);
+        }
+      });
+
+    ref();
+  }, [state.reference]);
+
   return (
     <div className="flex flex-col max-w-6xl w-full">
       <div className="flex flex-row gap-4 justify-center max-w-6xl">
@@ -67,7 +80,7 @@ export default function InputForm({ tab }: { tab: Tab }) {
           </div>
           <div className="flex items-center justify-between py-0 sm:pb-6">
             <h1 className="text-xl font-semibold leading-7 text-gray-500">
-              {state.reference.join(" | ")}
+              {friendly_reference}
             </h1>
           </div>
         </div>
