@@ -5,7 +5,7 @@ import "./styles.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { TabProvider } from "src/tabs/tabProvider";
 import ReactGA from "react-ga4";
-import { check } from "@tauri-apps/plugin-updater";
+import { check, Update } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
 import { ask, message } from "@tauri-apps/plugin-dialog";
 
@@ -24,39 +24,27 @@ function App() {
     const checkForUpdate = async () => {
       const update = await check();
       if (update) {
-        const yes = await ask(
-          `Update to ${update.version} is available!\n\nRelease notes: ${update.body}`,
-          {
-            title: "Update Available",
-            kind: "info",
-            okLabel: "Update",
-            cancelLabel: "Cancel",
-          }
-        );
-
         let downloaded = 0;
         let contentLength: number | undefined = 0;
-        if (yes) {
-          await update.downloadAndInstall((event) => {
-            switch (event.event) {
-              case "Started":
-                contentLength = event.data.contentLength;
-                console.log(
-                  `started downloading ${event.data.contentLength} bytes`
-                );
-                break;
-              case "Progress":
-                downloaded += event.data.chunkLength;
-                console.log(`downloaded ${downloaded} from ${contentLength}`);
-                break;
-              case "Finished":
-                console.log("download finished");
-                alert("Download finished, please restart the app");
-                break;
-            }
-          });
-          await relaunch();
-        }
+        await update.downloadAndInstall((event) => {
+          switch (event.event) {
+            case "Started":
+              contentLength = event.data.contentLength;
+              console.log(
+                `started downloading ${event.data.contentLength} bytes`
+              );
+              break;
+            case "Progress":
+              downloaded += event.data.chunkLength;
+              console.log(`downloaded ${downloaded} from ${contentLength}`);
+              break;
+            case "Finished":
+              console.log("download finished");
+              alert("Download finished, please restart the app");
+              break;
+          }
+        });
+        await relaunch();
       }
     };
 
