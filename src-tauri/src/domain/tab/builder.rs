@@ -16,12 +16,12 @@ impl TabBuilder {
         TabBuilder {
             id: None,
             state: Some(TabState::Index(NoCalc {
-                id: "Index".to_string(),
+                id: "Home".to_string(),
             })),
             saved: None,
             current: None,
             filename: None,
-            title: Some("Index".to_string()),
+            title: Some("Home".to_string()),
         }
     }
 
@@ -58,7 +58,7 @@ impl TabBuilder {
             return;
         }
         match self.state {
-            Some(TabState::Index(_)) => self.title = Some("Index".to_string()),
+            Some(TabState::Index(_)) => self.title = Some("Home".to_string()),
             _ => self.title = Some("Untitled".to_string()),
         }
     }
@@ -77,7 +77,7 @@ impl TabBuilder {
         Tab {
             id: self.id.unwrap_or_else(|| Uuid::new_v4().to_string()),
             state: self.state.unwrap_or(TabState::Index(NoCalc {
-                id: "Index".to_string(),
+                id: "Home".to_string(),
             })),
             saved: self.saved.unwrap_or(false),
             current: self.current.unwrap_or(false),
