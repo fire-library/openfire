@@ -1,31 +1,11 @@
 import "katex/dist/katex.min.css";
-import { useEffect } from "react";
 import TabBar from "./Tabs";
-import {
-  register,
-  unregister,
-  isRegistered,
-} from "@tauri-apps/plugin-global-shortcut";
 import { useTabs } from "../../tabs/tabProvider";
 import Method from "src/pages/Method";
 import IndexPage from "src/pages";
 
 export default function Explore() {
-  const { currentTab, newTab } = useTabs();
-
-  useEffect(() => {
-    isRegistered("CommandOrControl+T").then((result) => {
-      if (!result) {
-        register("CommandOrControl+T", () => {
-          newTab(null, null);
-        });
-      }
-    });
-
-    return () => {
-      unregister("CommandOrControl+T");
-    };
-  }, [newTab]);
+  const { currentTab } = useTabs();
 
   return (
     <div className="flex flex-col h-full">

@@ -117,6 +117,23 @@ fn some_setup<R: tauri::Runtime>(
         .unwrap();
 
     handle.plugin(tauri_plugin_deep_link::init()).unwrap();
+    handle
+        .plugin(
+            tauri_plugin_global_shortcut::Builder::new()
+                .with_shortcuts(["ctrl+t"])?
+                .with_handler(|app, shortcut, event| {
+                    if event.state == tauri_plugin_global_shortcut::ShortcutState::Pressed {
+                        if shortcut.matches(
+                            tauri_plugin_global_shortcut::Modifiers::CONTROL,
+                            tauri_plugin_global_shortcut::Code::KeyT,
+                        ) {
+                            ()
+                        }
+                    }
+                })
+                .build(),
+        )
+        .unwrap();
 
     #[cfg(any(windows, target_os = "linux"))]
     {
@@ -145,7 +162,7 @@ fn some_setup<R: tauri::Runtime>(
 
     let initial_tab = TabBuilder::new()
         .state(TabState::Index(NoCalc {
-            id: "Index".to_string(),
+            id: "Home".to_string(),
         }))
         .current(true)
         .build();
@@ -162,7 +179,7 @@ fn some_setup<R: tauri::Runtime>(
 pub fn test_app() -> (tauri::App<MockRuntime>, tauri::WebviewWindow<MockRuntime>) {
     let initial_tab = TabBuilder::new()
         .state(TabState::Index(NoCalc {
-            id: "Index".to_string(),
+            id: "Home".to_string(),
         }))
         .current(true)
         .build();

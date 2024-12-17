@@ -6,9 +6,16 @@
   "permissions": [
     "dialog:allow-open",
     "dialog:allow-save",
+    "dialog:allow-ask",
     "shell:allow-execute",
     "core:event:default",
     "deep-link:default",
-    "updater:default"
+    "updater:default",
+    "global-shortcut:default",
+    "global-shortcut:allow-is-registered",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister",
+    "global-shortcut:allow-register-all",
+    "global-shortcut:allow-unregister-all"
   ]
 }
