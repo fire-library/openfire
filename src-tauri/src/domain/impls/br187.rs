@@ -4,14 +4,14 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
-pub enum Chapter {
+pub enum BR187Chapter {
     One(chapter_1::Chapter1Equation),
 }
 
-impl Chapter {
+impl BR187Chapter {
     pub fn friendly_reference(&self) -> String {
         match self {
-            Chapter::One(equation) => {
+            BR187Chapter::One(equation) => {
                 format!("Chapter 1, {}", equation.friendly_reference())
             }
         }

@@ -19,7 +19,7 @@ use std::sync::{Arc, RwLock};
 pub struct BurningRegimeBuilder;
 
 use super::super::super::Document;
-use super::super::Chapter;
+use super::super::IntroductionToFireDynamicsChapter;
 use super::Chapter10Method;
 
 impl MethodBuilderTrait for BurningRegimeBuilder {
@@ -33,9 +33,9 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
         true
     }
     fn reference() -> Reference {
-        Reference(Document::IntroductionToFireDynamics(Some(Chapter::Ten(
-            Chapter10Method::BurningRegime,
-        ))))
+        Reference(Document::IntroductionToFireDynamics(Some(
+            IntroductionToFireDynamicsChapter::Ten(Chapter10Method::BurningRegime),
+        )))
     }
     fn parameters() -> Parameters {
         let mut params = Parameters::new();

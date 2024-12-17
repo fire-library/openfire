@@ -14,7 +14,7 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 use super::super::super::Document;
-use super::super::Chapter;
+use super::super::BR187Chapter;
 use super::Chapter1Equation;
 
 pub struct BR187Chapter1Equation1Builder;
@@ -30,7 +30,9 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
         true
     }
     fn reference() -> Reference {
-        Reference(Document::BR187(Some(Chapter::One(Chapter1Equation::One))))
+        Reference(Document::BR187(Some(BR187Chapter::One(
+            Chapter1Equation::One,
+        ))))
     }
 
     fn form(params: &Parameters) -> crate::domain::method::form::Form {

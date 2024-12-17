@@ -15,7 +15,7 @@ use std::sync::{Arc, RwLock};
 pub struct AlpertHeatReleaseFromTempAndPositionBuilder;
 
 use super::super::super::super::Document;
-use super::super::super::Chapter;
+use super::super::super::SFPEHandbookChapter;
 use super::super::Chapter14Method;
 
 impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
@@ -32,7 +32,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         true
     }
     fn reference() -> Reference {
-        Reference(Document::SFPEHandbook(Some(Chapter::Fourteen(
+        Reference(Document::SFPEHandbook(Some(SFPEHandbookChapter::Fourteen(
             Chapter14Method::HeatReleaseFromTempAndPosition,
         ))))
     }

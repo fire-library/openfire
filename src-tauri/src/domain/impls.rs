@@ -18,10 +18,12 @@ pub enum Icon {
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum Document {
-    BR187(Option<br187::Chapter>),
+    BR187(Option<br187::BR187Chapter>),
     PD7974(Option<pd7974::Part>),
-    SFPEHandbook(Option<sfpe_handbook::Chapter>),
-    IntroductionToFireDynamics(Option<introduction_to_fire_dynamics::Chapter>),
+    SFPEHandbook(Option<sfpe_handbook::SFPEHandbookChapter>),
+    IntroductionToFireDynamics(
+        Option<introduction_to_fire_dynamics::IntroductionToFireDynamicsChapter>,
+    ),
 }
 
 impl Document {

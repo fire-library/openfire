@@ -174,17 +174,15 @@ validationErrorEvent: "validation-error-event"
 
 /** user-defined types **/
 
+export type BR187Chapter = { One: Chapter1Equation }
 export type Calculation = { steps: Step[]; stale: boolean }
 export type CalculationComponent = { Equation: string } | { EquationWithResult: string } | { Text: string }
-export type Chapter = { Fourteen: Chapter14Method }
-export type Chapter = { Ten: Chapter10Method }
-export type Chapter = { One: Chapter1Equation }
 export type Chapter10Method = "BurningRegime"
 export type Chapter14Method = "HeatReleaseFromTempAndPosition"
 export type Chapter1Equation = "One"
 export type Comparison = { GreaterThanOrEqual: Parameter } | { LessThanOrEqual: Parameter }
 export type DisplayOptions = { DecimalPlaces: number }
-export type Document = { BR187: Chapter | null } | { PD7974: Part | null } | { SFPEHandbook: Chapter | null } | { IntroductionToFireDynamics: Chapter | null }
+export type Document = { BR187: BR187Chapter | null } | { PD7974: Part | null } | { SFPEHandbook: SFPEHandbookChapter | null } | { IntroductionToFireDynamics: IntroductionToFireDynamicsChapter | null }
 export type DocumentImplementations = { document: string; implementations: Implementation[] }
 export type Field = { id: string; name: string; value: string | null; touched: boolean; parameter: Parameter }
 export type Form = { steps: FormStep[] }
@@ -192,6 +190,7 @@ export type FormStep = { name: string; description: string; fields: Field[]; int
 export type Icon = "FireIcon"
 export type Implementation = { name: string; tags: string[]; description: string; reference: Reference; search_reference: string; method_type: MethodType; icon: Icon; colors: string }
 export type IntroComponent = { Title: string } | { Text: string } | { Equation: CalculationComponent }
+export type IntroductionToFireDynamicsChapter = { Ten: Chapter10Method }
 export type Method = { name: string; description: string | null; reference: Reference; method_type: MethodType; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation; form: Form }
 export type MethodType = "PD7974Part1Section8MaximumEnclosureTemperature" | "PD7974Part1Section8HRRAtFlashover" | "BR187Chapter1Equation1" | "SFPEAlpertHeatReleaseFromTemperatureAndPosition" | "IntroductionToFireDynamcicsChapter10BurningRegime"
 export type NoCalc = { id: string }
@@ -201,6 +200,7 @@ export type ParameterType = "String" | "Float" | "Bool"
 export type ParameterValue = string | number | boolean
 export type Part = { One: Section | null }
 export type Reference = Document
+export type SFPEHandbookChapter = { Fourteen: Chapter14Method }
 export type Section = { Eight: Section8Method }
 export type Section8Method = "HRRAtFlashover" | "MaximumEnclosureTemperature"
 export type Step = { name: string; parameters: Parameter[] }
