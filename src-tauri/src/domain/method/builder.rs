@@ -1,3 +1,4 @@
+use crate::domain::impls::tag::Tag;
 use crate::domain::impls::Icon;
 use crate::domain::impls::Implementation;
 use crate::domain::method::form::Form;
@@ -9,6 +10,7 @@ use super::calculation::ArcCalculation;
 
 pub trait MethodBuilderTrait {
     fn name() -> String;
+    fn tags() -> Vec<Tag>;
     fn description() -> Option<String>;
     fn reference() -> Reference;
     fn parameters() -> Parameters;
@@ -19,7 +21,7 @@ pub trait MethodBuilderTrait {
     fn index_page() -> Implementation {
         Implementation {
             name: Self::name(),
-            tags: vec![],
+            tags: Self::tags().iter().map(|t| t.to_string()).collect(),
             description: Self::description().unwrap_or("".to_string()),
             reference: Self::reference(),
             search_reference: Self::reference().0.friendly_reference(),

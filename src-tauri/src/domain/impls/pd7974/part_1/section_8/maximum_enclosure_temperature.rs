@@ -8,6 +8,7 @@ use psi::Psi;
 use t_g::TG;
 use t_g_max::TGMax;
 
+use crate::domain::impls::tag::Tag;
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::form::{Form, FormStep};
@@ -33,6 +34,9 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
     }
     fn description() -> Option<String> {
         Some("Calculates the maximum enclosure temperature after flashover".to_string())
+    }
+    fn tags() -> Vec<Tag> {
+        vec![Tag::FireScenario, Tag::FireDynamics]
     }
     fn quick_calc_compatible() -> bool {
         true

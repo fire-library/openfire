@@ -6,6 +6,7 @@ use q_fo_mccaffrey::QFoMcCaffrey;
 use q_fo_thomas::QFoThomas;
 use q_max::QMax;
 
+use crate::domain::impls::tag::Tag;
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::form::{Form, FormStep};
@@ -28,6 +29,9 @@ use super::Section8Method;
 impl MethodBuilderTrait for HRRAtFlashoverBuilder {
     fn name() -> String {
         "HRR at Flashover".to_string()
+    }
+    fn tags() -> Vec<Tag> {
+        vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description() -> Option<String> {
         Some("Calculates the HRR at flashover, comparing methods developed by Thomas, McCaffrey et al., and Kawago".to_string())

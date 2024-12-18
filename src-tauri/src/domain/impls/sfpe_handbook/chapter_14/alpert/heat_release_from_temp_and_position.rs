@@ -1,3 +1,4 @@
+use crate::domain::impls::tag::Tag;
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::{Calculation, CalculationComponent};
 use crate::domain::method::equation::Equation;
@@ -21,6 +22,9 @@ use super::super::Chapter14Method;
 impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
     fn name() -> String {
         "Heat Release Rate from Temperature and Position".to_string()
+    }
+    fn tags() -> Vec<Tag> {
+        vec![Tag::SprinklerActivation, Tag::HRR, Tag::FireDynamics]
     }
     fn description() -> Option<String> {
         Some(

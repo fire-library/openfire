@@ -4,6 +4,7 @@ pub mod regime;
 use factor::Factor;
 use regime::Regime;
 
+use crate::domain::impls::tag::Tag;
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::form::{Form, FormStep};
@@ -25,6 +26,9 @@ use super::Chapter10Method;
 impl MethodBuilderTrait for BurningRegimeBuilder {
     fn name() -> String {
         "Burning Regime".to_string()
+    }
+    fn tags() -> Vec<Tag> {
+        vec![Tag::FireDynamics]
     }
     fn description() -> Option<String> {
         Some("Determines the burning regime of a fire.".to_string())

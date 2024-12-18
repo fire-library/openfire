@@ -1,3 +1,4 @@
+use crate::domain::impls::tag::Tag;
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::calculation::CalculationComponent;
@@ -22,6 +23,9 @@ pub struct BR187Chapter1Equation1Builder;
 impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     fn name() -> String {
         "Ventilation Factor".to_string()
+    }
+    fn tags() -> Vec<Tag> {
+        vec![Tag::Ventilation]
     }
     fn description() -> Option<String> {
         Some("Calculates the Ventilation Factor".to_string())
