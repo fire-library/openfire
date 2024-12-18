@@ -8,6 +8,43 @@ import {
 import Fuse from "fuse.js";
 import { Card, CardHeader, CardBody } from "src/components";
 
+export function DocumentList({ doc }: { doc: DocumentImplementations }) {
+  const [reference, setReference] = useState<string | null>(null);
+
+  useEffect(() => {
+    const ref = async () =>
+      commands
+        .harvardReference(doc.implementations[0].reference)
+        .then((reference) => {
+          if (reference.status == "ok") {
+            setReference(reference.data);
+          }
+        });
+
+    ref();
+  }, []);
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex flex-col">
+          <h3 className="text-base font-semibold text-gray-900">
+            {doc.document}
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">{reference}</p>
+        </div>
+      </CardHeader>
+      <CardBody>
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full">
+          {doc.implementations.map((implementation, index) => {
+            return <ListItem key={index} implementation={implementation} />;
+          })}
+        </ul>
+      </CardBody>
+    </Card>
+  );
+}
+
 export function ListItem({
   implementation,
 }: {
@@ -138,29 +175,7 @@ function IndexPage() {
       ) : (
         <div className="flex flex-col">
           {allMethods.map((doc, index) => {
-            return (
-              <Card key={index}>
-                <CardHeader>
-                  <div className="flex flex-col">
-                    <h3 className="text-base font-semibold text-gray-900">
-                      {doc.document}
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">
-                      Harvard Reference
-                    </p>
-                  </div>
-                </CardHeader>
-                <CardBody>
-                  <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full">
-                    {doc.implementations.map((implementation, index) => {
-                      return (
-                        <ListItem key={index} implementation={implementation} />
-                      );
-                    })}
-                  </ul>
-                </CardBody>
-              </Card>
-            );
+            return <DocumentList key={index} doc={doc} />;
           })}
         </div>
       )}

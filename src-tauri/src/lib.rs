@@ -50,6 +50,7 @@ pub fn run() {
             calculate_form::<tauri::Wry>,
             all_implementations,
             friendly_reference,
+            harvard_reference,
             document_title
         ])
         .events(collect_events![ValidationErrorEvent]);

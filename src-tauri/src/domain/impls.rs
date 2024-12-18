@@ -60,6 +60,24 @@ impl Document {
             },
         }
     }
+
+    pub fn harvard_reference(&self) -> String {
+        match &self {
+            &Document::BR187(chapter) => "External fire spread: building separation and boundary distances (BR 187 2nd edition)".to_string(),
+            &Document::PD7974(part) => match part {
+                Some(part) => format!("PD7974, {}", part.friendly_reference()),
+                None => "PD7974".to_string(),
+            },
+            &Document::SFPEHandbook(c) => match c {
+                Some(c) => format!("SFPE Handbook, {}", c.friendly_reference()),
+                None => "SFPE Handbook".to_string(),
+            },
+            &Document::IntroductionToFireDynamics(c) => match c {
+                Some(c) => format!("Introduction to Fire Dynamics, {}", c.friendly_reference()),
+                None => "Introduction to Fire Dynamics".to_string(),
+            },
+        }
+    }
 }
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]

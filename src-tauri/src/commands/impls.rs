@@ -19,3 +19,9 @@ pub fn document_title(doc: Document) -> Result<String, String> {
 pub fn friendly_reference(doc: Document) -> Result<String, String> {
     Ok(doc.friendly_reference())
 }
+
+#[tauri::command]
+#[specta::specta]
+pub fn harvard_reference(doc: Document) -> Result<String, String> {
+    Ok(doc.harvard_reference())
+}

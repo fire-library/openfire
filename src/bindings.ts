@@ -149,6 +149,14 @@ async friendlyReference(doc: Document) : Promise<Result<string, string>> {
     else return { status: "error", error: e  as any };
 }
 },
+async harvardReference(doc: Document) : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("harvard_reference", { doc }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async documentTitle(doc: Document) : Promise<Result<string, string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("document_title", { doc }) };
