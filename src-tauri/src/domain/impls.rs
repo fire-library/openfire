@@ -63,7 +63,7 @@ impl Document {
 
     pub fn harvard_reference(&self) -> String {
         match &self {
-            &Document::BR187(_) => "Chitty,R., 2014. External fire spread: Building Separation and Boundary Distances. 2nd edition".to_string(),
+            &Document::BR187(_) => "Chitty,R., 2014. External fire spread: Building Separation and Boundary Distances (BR 187). 2nd edition".to_string(),
             &Document::PD7974(part) => match part {
                 Some(part) => format!("PD7974, {}", part.friendly_reference()),
                 None => "PD7974".to_string(),
