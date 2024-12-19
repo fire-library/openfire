@@ -69,7 +69,7 @@ impl Document {
                 None => "PD7974".to_string(),
             },
             &Document::SFPEHandbook(c) => match c {
-                Some(c) => format!("Morgan Hurley (2015).SFPE Handbook of Fire Protection Engineering. 5th edition. {}", c.friendly_reference()),
+                Some(c) => format!("Hurley, M.J., Gottuk, D.T., Hall, J.R., Harada, K., Kuligowski, E.D., Puchovsky, M., Torero, J.L., Watts, J.M., & Wieczorek, C.J., 2016. SFPE Handbook of Fire Protection Engineering. 5th ed. Springer. {}", c.friendly_reference()),
                 None => "SFPE Handbook".to_string(),
             },
             &Document::IntroductionToFireDynamics(c) => match c {
