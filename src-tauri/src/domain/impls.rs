@@ -64,7 +64,7 @@ impl Document {
     pub fn harvard_reference(&self) -> String {
         match &self {
             &Document::BR187(_) => "Chitty,R., 2014. External fire spread: Building Separation and Boundary Distances (BR 187). 2nd edition".to_string(),
-            &Document::PD7974(_) => "BSI, 2019. PD 7974-1: Application of Fire Safety Engineering Principles to the Design of Buildings – Initiation and Development of Fire within the Enclosure of Origin (Sub-system 1). BSI {}".to_string(),
+            &Document::PD7974(_) => "BSI, 2019. PD 7974-1: Application of Fire Safety Engineering Principles to the Design of Buildings – Initiation and Development of Fire within the Enclosure of Origin (Sub-system 1). BSI".to_string(),
             &Document::SFPEHandbook(_) => "Hurley, M.J., et al., 2016. SFPE Handbook of Fire Protection Engineering. 5th ed. Springer.".to_string(),
             &Document::IntroductionToFireDynamics(_) => "Drysdale, D., 2011. Introduction to fire dynamics. 3rd ed. Wiley.".to_string(),
         }
