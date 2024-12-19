@@ -14,5 +14,38 @@ pub fn phi(x: f64, y: f64) -> f64 {
     let first = x.atan();
     let second = a * b.atan();
 
-    return multiple * (first + second);
+    return multiple * (first - second);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_x() {
+        let w = 3.0;
+        let s = 5.0;
+        let expected = 0.6;
+        let result = x(w, s);
+        assert!((expected - result).abs() < f64::EPSILON);
+    }
+
+    #[test]
+    fn test_y() {
+        let h = 2.5;
+        let s = 5.0;
+        let expected = 0.5;
+        let result = y(h, s);
+        assert!((expected - result).abs() < f64::EPSILON);
+    }
+
+    #[test]
+    fn test_phi() {
+        let x = 0.6;
+        let y = 0.5;
+        let expected = 0.015896008909912128;
+        let result = phi(x, y);
+        println!("{}", result);
+        assert!((expected - result).abs() < f64::EPSILON);
+    }
 }
