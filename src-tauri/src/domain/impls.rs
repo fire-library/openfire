@@ -63,13 +63,13 @@ impl Document {
 
     pub fn harvard_reference(&self) -> String {
         match &self {
-            &Document::BR187(_) => "BR 187, 2nd edition, External fire spread: building separation and boundary distances".to_string(),
+            &Document::BR187(_) => "Richard Chitty (2014). BR 187 External fire spread: building separation and boundary distances. 2nd edition".to_string(),
             &Document::PD7974(part) => match part {
                 Some(part) => format!("PD7974, {}", part.friendly_reference()),
                 None => "PD7974".to_string(),
             },
             &Document::SFPEHandbook(c) => match c {
-                Some(c) => format!("SFPE Handbook, {}", c.friendly_reference()),
+                Some(c) => format!("Morgan Hurley (2015).SFPE Handbook of Fire Protection Engineering. 5th edition. {}", c.friendly_reference()),
                 None => "SFPE Handbook".to_string(),
             },
             &Document::IntroductionToFireDynamics(c) => match c {
