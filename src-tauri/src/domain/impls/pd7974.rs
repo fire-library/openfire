@@ -12,9 +12,22 @@ impl Part {
     pub fn friendly_reference(&self) -> String {
         match self {
             Part::One(section) => match section {
-                Some(section) => format!("Part 1, {}", section.friendly_reference()),
+                Some(section) => format!("1 | {}", section.friendly_reference()),
                 None => "Part 1".to_string(),
             },
+        }
+    }
+    pub fn title(&self) -> String {
+        match self {
+            Part::One(_) => {
+                "Initiation and Development of Fire within the Enclosure of Origin (Sub-system 1)"
+                    .to_string()
+            }
+        }
+    }
+    pub fn number(&self) -> String {
+        match self {
+            Part::One(_) => "1".to_string(),
         }
     }
 }

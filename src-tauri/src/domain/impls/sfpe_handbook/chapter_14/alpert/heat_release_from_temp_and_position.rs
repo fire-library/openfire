@@ -21,14 +21,14 @@ use super::super::Chapter14Method;
 
 impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
     fn name() -> String {
-        "Heat Release Rate from Temperature and Position".to_string()
+        "HRR for heat detector response".to_string()
     }
     fn tags() -> Vec<Tag> {
         vec![Tag::SprinklerActivation, Tag::HRR, Tag::FireDynamics]
     }
     fn description() -> Option<String> {
         Some(
-            "Calculates the heat release rate from the temperature and position of interest"
+            "Calculates the heat release at which a heat detector submerded in the ceiling jet will activate"
                 .to_string(),
         )
     }
@@ -50,7 +50,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         }
         let step_1 = FormStep {
             name: "Ceiling Jet Correlation Input".to_string(),
-            description: "Input required to calculate the heat release rate".to_string(),
+            description: "Uses Alpert's original correlation to calculate HRR for activation of a ceiling-mounted heat detector".to_string(),
             fields: fields,
             introduction: vec![],
         };
