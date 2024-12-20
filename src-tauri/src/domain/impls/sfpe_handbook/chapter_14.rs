@@ -11,7 +11,7 @@ pub enum Chapter14Method {
 impl Chapter14Method {
     pub fn friendly_reference(&self) -> String {
         match self {
-            Chapter14Method::HeatReleaseFromTempAndPosition => "HRR by Alpert".to_string(),
+            Chapter14Method::HeatReleaseFromTempAndPosition => "Alpert's correlation".to_string(),
         }
     }
 }

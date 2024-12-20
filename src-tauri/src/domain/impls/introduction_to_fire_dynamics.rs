@@ -12,7 +12,7 @@ impl IntroductionToFireDynamicsChapter {
     pub fn friendly_reference(&self) -> String {
         match self {
             IntroductionToFireDynamicsChapter::Ten(method) => {
-                format!("Chapter 10, {}", method.friendly_reference())
+                format!("Ch. 10 | {}", method.friendly_reference())
             }
         }
     }

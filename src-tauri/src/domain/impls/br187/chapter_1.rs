@@ -12,7 +12,7 @@ impl Chapter1Equation {
     pub fn friendly_reference(&self) -> String {
         match self {
             Chapter1Equation::One => {
-                format!("Equation 1")
+                format!("Eq. 1")
             }
         }
     }

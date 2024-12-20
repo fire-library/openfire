@@ -12,7 +12,7 @@ impl SFPEHandbookChapter {
     pub fn friendly_reference(&self) -> String {
         match self {
             SFPEHandbookChapter::Fourteen(method) => {
-                format!("Chapter 14, {}", method.friendly_reference())
+                format!("Ch. 14 | {}", method.friendly_reference())
             }
         }
     }
