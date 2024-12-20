@@ -17,4 +17,17 @@ impl Part {
             },
         }
     }
+    pub fn title(&self) -> String {
+        match self {
+            Part::One(_) => {
+                "Initiation and Development of Fire within the Enclosure of Origin (Sub-system 1)"
+                    .to_string()
+            }
+        }
+    }
+    pub fn number(&self) -> String {
+        match self {
+            Part::One(_) => "1".to_string(),
+        }
+    }
 }
