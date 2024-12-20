@@ -32,7 +32,7 @@ impl Document {
         match &self {
             &Document::BR187(_) => "BR 187".to_string(),
             &Document::PD7974(part) => match part {
-                Some(part) => format!("PD 7974:{}", part.friendly_reference()),
+                Some(part) => format!("PD 7974-{}", part.number()),
                 None => "PD 7974".to_string(),
             },
             &Document::SFPEHandbook(_) => "SFPE Handbook".to_string(),
