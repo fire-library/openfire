@@ -12,7 +12,7 @@ impl Part {
     pub fn friendly_reference(&self) -> String {
         match self {
             Part::One(section) => match section {
-                Some(section) => format!("Part 1, {}", section.friendly_reference()),
+                Some(section) => format!("1 | {}", section.friendly_reference()),
                 None => "Part 1".to_string(),
             },
         }

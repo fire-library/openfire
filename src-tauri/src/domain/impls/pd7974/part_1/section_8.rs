@@ -14,10 +14,10 @@ impl Section8Method {
     pub fn friendly_reference(&self) -> String {
         match self {
             Section8Method::HRRAtFlashover => {
-                format!("Equations 28, 29 & 33")
+                format!("Eq. 28, 29 & 33")
             }
             Section8Method::MaximumEnclosureTemperature => {
-                format!("Equations 42, 43 & 44")
+                format!("Eq. 42, 43 & 44")
             }
         }
     }

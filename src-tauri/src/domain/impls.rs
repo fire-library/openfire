@@ -43,19 +43,19 @@ impl Document {
     pub fn friendly_reference(&self) -> String {
         match &self {
             &Document::BR187(chapter) => match chapter {
-                Some(chapter) => format!("BR 187, {}", chapter.friendly_reference()),
+                Some(chapter) => format!("BR 187 | {}", chapter.friendly_reference()),
                 None => "BR 187".to_string(),
             },
             &Document::PD7974(part) => match part {
-                Some(part) => format!("PD 7974, {}", part.friendly_reference()),
+                Some(part) => format!("PD 7974-{}", part.friendly_reference()),
                 None => "PD 7974".to_string(),
             },
             &Document::SFPEHandbook(c) => match c {
-                Some(c) => format!("SFPE Handbook, {}", c.friendly_reference()),
+                Some(c) => format!("SFPE Handbook | {}", c.friendly_reference()),
                 None => "SFPE Handbook".to_string(),
             },
             &Document::IntroductionToFireDynamics(c) => match c {
-                Some(c) => format!("Introduction to Fire Dynamics, {}", c.friendly_reference()),
+                Some(c) => format!("Introduction to Fire Dynamics | {}", c.friendly_reference()),
                 None => "Introduction to Fire Dynamics".to_string(),
             },
         }

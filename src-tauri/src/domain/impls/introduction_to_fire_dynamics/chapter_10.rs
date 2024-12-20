@@ -11,7 +11,7 @@ pub enum Chapter10Method {
 impl Chapter10Method {
     pub fn friendly_reference(&self) -> String {
         match self {
-            Chapter10Method::BurningRegime => "Equation 10.18".to_string(),
+            Chapter10Method::BurningRegime => "Eq. 10.18".to_string(),
         }
     }
 }

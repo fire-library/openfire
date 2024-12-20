@@ -12,7 +12,7 @@ impl BR187Chapter {
     pub fn friendly_reference(&self) -> String {
         match self {
             BR187Chapter::One(equation) => {
-                format!("Chapter 1, {}", equation.friendly_reference())
+                format!("Ch. 1 | {}", equation.friendly_reference())
             }
         }
     }
