@@ -30,10 +30,10 @@ pub enum Document {
 impl Document {
     pub fn name(&self) -> String {
         match &self {
-            &Document::BR187(_) => "BR187".to_string(),
+            &Document::BR187(_) => "BR 187".to_string(),
             &Document::PD7974(part) => match part {
-                Some(part) => format!("PD7974: {}", part.friendly_reference()),
-                None => "PD7974".to_string(),
+                Some(part) => format!("PD 7974:{}", part.friendly_reference()),
+                None => "PD 7974".to_string(),
             },
             &Document::SFPEHandbook(_) => "SFPE Handbook".to_string(),
             &Document::IntroductionToFireDynamics(_) => "Introduction to Fire Dynamics".to_string(),
@@ -43,12 +43,12 @@ impl Document {
     pub fn friendly_reference(&self) -> String {
         match &self {
             &Document::BR187(chapter) => match chapter {
-                Some(chapter) => format!("BR187, {}", chapter.friendly_reference()),
-                None => "BR187".to_string(),
+                Some(chapter) => format!("BR 187, {}", chapter.friendly_reference()),
+                None => "BR 187".to_string(),
             },
             &Document::PD7974(part) => match part {
-                Some(part) => format!("PD7974, {}", part.friendly_reference()),
-                None => "PD7974".to_string(),
+                Some(part) => format!("PD 7974, {}", part.friendly_reference()),
+                None => "PD 7974".to_string(),
             },
             &Document::SFPEHandbook(c) => match c {
                 Some(c) => format!("SFPE Handbook, {}", c.friendly_reference()),
