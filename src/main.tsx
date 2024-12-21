@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Root from "./routes/Root";
 import "./styles.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { TabProvider } from "src/tabs/tabProvider";
+import { UserAgreementProvider } from "src/tabs/userAgreementProvider";
 import ReactGA from "react-ga4";
-import { check, Update } from "@tauri-apps/plugin-updater";
+import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
-import { ask, message } from "@tauri-apps/plugin-dialog";
 
 ReactGA.initialize(import.meta.env.VITE_GA_TRACKING_ID);
 
@@ -52,9 +52,11 @@ function App() {
   }, []);
 
   return (
-    <TabProvider>
-      <RouterProvider router={router} />
-    </TabProvider>
+    <UserAgreementProvider>
+      <TabProvider>
+        <RouterProvider router={router} />
+      </TabProvider>
+    </UserAgreementProvider>
   );
 }
 
