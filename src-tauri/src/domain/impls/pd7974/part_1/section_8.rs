@@ -21,4 +21,10 @@ impl Section8Method {
             }
         }
     }
+    pub fn method_description(&self) -> String {
+        match self {
+            Section8Method::HRRAtFlashover => "Equations 28, 29, and 33 in PD 7974-1 are key for calculating heat release rates in compartment fires. Equation 28, based on Thomas' analysis, estimates the heat release rate required for flashover, assuming a 600°C temperature rise in the upper layer. Equation 29, developed by McCaffrey et al., uses a 500°C temperature rise and includes heat transfer through enclosure boundaries. Equation 33, based on Kawagoe's work, calculates the heat release rate in a ventilation-controlled fire, where the fire is limited by oxygen supply. These equations are critical for fire behavior modeling and fire safety design.".to_string(),
+            Section8Method::MaximumEnclosureTemperature => "".to_string(),
+        }
+    }
 }
