@@ -73,7 +73,7 @@ impl Document {
             &Document::IntroductionToFireDynamics(_) => "Drysdale, D., 2011. Introduction to fire dynamics. 3rd ed. Wiley.".to_string(),
         }
     }
-    pub fn document_about_information(&self) -> String {
+    pub fn document_description(&self) -> String {
         match &self{
             &Document::BR187(_) => "BR 187: External Fire Spread – Building Separation and Boundary Distances is a guidance document developed by the Building Research Establishment (BRE). It provides technical recommendations for assessing and mitigating the risk of fire spreading between buildings via external walls. The document is widely used in the UK to ensure compliance with fire safety regulations. BR 187 outlines methods to calculate boundary distances, evaluate external fire resistance, and design buildings with adequate separation to minimize fire hazards. It is an essential resource for fire engineers, architects, and regulatory authorities.".to_string(),
             &Document::PD7974(_) => "The PD 7974 suite, published by the British Standards Institution (BSI), provides a framework for fire safety engineering design. It consists of seven complementary documents offering guidance on various aspects of fire safety analysis, including fire dynamics, smoke movement, structural response, evacuation, and fire service intervention. Developed to support BS 9999 and BS 7974, the suite uses performance-based principles to enable tailored fire safety solutions for complex or innovative building designs. Each document includes methodologies, design scenarios, and calculation approaches, making the suite an indispensable resource for fire engineers seeking compliance with UK and international fire safety regulations.".to_string(),
@@ -81,7 +81,8 @@ impl Document {
             &Document::IntroductionToFireDynamics(_) => "Introduction to Fire Dynamics by Dougal Drysdale is a foundational textbook in fire safety engineering, widely regarded as the standard reference for understanding the principles of fire behavior. The book provides a detailed exploration of fire science, covering topics such as ignition, flame spread, heat transfer, and combustion products. It bridges theory and practical application, offering insights into fire dynamics modeling and real-world fire scenarios. Essential for students, researchers, and professionals, Drysdale’s work equips readers with the knowledge needed to analyze and predict fire behavior, making it indispensable for advancing fire safety engineering practice globally.".to_string(),
         }
     }
-}
+   }
+
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub struct Implementation {
