@@ -27,4 +27,9 @@ impl Section8Method {
             Section8Method::MaximumEnclosureTemperature => "Equations 41, 42, 43, and 44 in PD 7974-1 are used to estimate the maximum enclosure temperature after flashover. Equation 41, based on Thomas, Heselden, and Law's work, calculates the upper bound temperature Tg(max) as a function of ventilation parameters. Equation 42 defines the ventilation parameter (Ω), which depends on the enclosure's dimensions. If the fire load is low, Equations 43 and 44 adjust the maximum temperature estimate to account for insufficient energy. These equations are valid for specific enclosure sizes and thermal properties.".to_string(),
         }
     }
+    pub fn mehtod_limitations(&self) -> String {
+        match self {
+            Section8Method::HRRAtFlashover => "".to_string(),
+            Section8Method::MaximumEnclosureTemperature => "Limitations are provided in section 8.6.1 of PD 7974-1, as follows: (a) the enclosure is of a size where flashover can be expected, (b) the enclosure linings have a thermal inertia in the range 720 J/(m2 s^0.5 K) to 2500 J/(m2 s^0.5 K), and (c) Ω is in the range of 10 m^-0.5 to 50 m^-0.5.".to_string(),
+        }
 }
