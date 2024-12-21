@@ -14,4 +14,22 @@ impl Chapter14Method {
             Chapter14Method::HeatReleaseFromTempAndPosition => "Alpert's correlation".to_string(),
         }
     }
+
+    pub fn about_method(&self) -> String {
+        match self {
+            Chapter14Method::HeatReleaseFromTempAndPosition => {
+                include_str!("../../../../resources/sfpe_handbook/chapter_14/alpert/about.md")
+                    .to_string()
+            }
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match self {
+            Chapter14Method::HeatReleaseFromTempAndPosition => {
+                include_str!("../../../../resources/sfpe_handbook/chapter_14/alpert/limitations.md")
+                    .to_string()
+            }
+        }
+    }
 }

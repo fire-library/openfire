@@ -73,6 +73,57 @@ impl Document {
             &Document::IntroductionToFireDynamics(_) => "Drysdale, D., 2011. Introduction to fire dynamics. 3rd ed. Wiley.".to_string(),
         }
     }
+
+    pub fn about_document(&self) -> String {
+        match &self {
+            &Document::BR187(_) => include_str!("../../resources/br187/about.md").to_string(),
+            &Document::PD7974(_) => include_str!("../../resources/pd7974/about.md").to_string(),
+            &Document::SFPEHandbook(_) => include_str!("../../resources/sfpe_handbook/about.md").to_string(),
+            &Document::IntroductionToFireDynamics(_) => include_str!("../../resources/introduction_to_fire_dynamics/about.md").to_string()
+        }
+    }
+
+    pub fn about_method(&self) -> String {
+        match &self {
+            &Document::BR187(chapter) => match chapter {
+                Some(chapter) => chapter.about_method(),
+                None => panic!("No method provided"),
+            },
+            &Document::PD7974(part) => match part {
+                Some(part) => part.about_method(),
+                None => panic!("No part provided"),
+            },
+            &Document::SFPEHandbook(chapter) => match chapter {
+                Some(chapter) => chapter.about_method(),
+                None => panic!("No chapter provided"),
+            },
+            &Document::IntroductionToFireDynamics(chapter) => match chapter {
+                Some(chapter) => chapter.about_method(),
+                None => panic!("No chapter provided"),
+            },
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match &self {
+            &Document::BR187(chapter) => match chapter {
+                Some(chapter) => chapter.method_limitations(),
+                None => panic!("No method provided"),
+            },
+            &Document::PD7974(part) => match part {
+                Some(part) => part.method_limitations(),
+                None => panic!("No part provided"),
+            },
+            &Document::SFPEHandbook(chapter) => match chapter {
+                Some(chapter) => chapter.method_limitations(),
+                None => panic!("No chapter provided"),
+            },
+            &Document::IntroductionToFireDynamics(chapter) => match chapter {
+                Some(chapter) => chapter.method_limitations(),
+                None => panic!("No chapter provided"),
+            },
+        }
+    }
 }
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]

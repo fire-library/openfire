@@ -16,4 +16,16 @@ impl IntroductionToFireDynamicsChapter {
             }
         }
     }
+
+    pub fn about_method(&self) -> String {
+        match self {
+            IntroductionToFireDynamicsChapter::Ten(method) => method.about_method(),
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match self {
+            IntroductionToFireDynamicsChapter::Ten(method) => method.method_limitations(),
+        }
+    }
 }

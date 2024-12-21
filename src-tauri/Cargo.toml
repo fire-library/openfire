@@ -8,6 +8,7 @@ repository = ""
 default-run = "OpenFire"
 edition = "2021"
 rust-version = "1.81"
+include = ["resources/**", "src/**"]
 
 [lib]
 name = "fire_lib"

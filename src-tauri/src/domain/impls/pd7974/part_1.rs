@@ -14,4 +14,16 @@ impl Section {
             Section::Eight(method) => method.friendly_reference(),
         }
     }
+
+    pub fn about_method(&self) -> String {
+        match self {
+            Section::Eight(method) => method.about_method(),
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match self {
+            Section::Eight(method) => method.method_limitations(),
+        }
+    }
 }
