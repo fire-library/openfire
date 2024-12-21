@@ -9,6 +9,7 @@ import {
 } from "@tauri-apps/plugin-dialog";
 import { commands } from "src/bindings";
 import Explore from "src/routes/explore";
+import UserAgreement from "src/components/UserAgreement";
 
 export default function Root() {
   const { newTab, currentTab } = useTabs();
@@ -34,6 +35,7 @@ export default function Root() {
 
   return (
     <main className="flex flex-col h-screen">
+      <UserAgreement />
       <Navbar />
       <div className="flex flex-col pt-10 pl-12 bg-slate-50 h-screen">
         <TabBar />
