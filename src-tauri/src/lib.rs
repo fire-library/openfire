@@ -11,6 +11,7 @@ use commands::forms::{
     get_equation_with_symbols, update_field, ValidationErrorEvent,
 };
 use commands::impls::*;
+use commands::license::*;
 use commands::tab::*;
 use domain::tab::{NoCalc, TabBuilder, TabState, WrappedTabState};
 use specta_typescript::Typescript;
@@ -54,7 +55,9 @@ pub fn run() {
             document_title,
             about_document,
             about_method,
-            method_limitations
+            method_limitations,
+            has_agreed_to_latest_license::<tauri::Wry>,
+            agree_to_license::<tauri::Wry>,
         ])
         .events(collect_events![ValidationErrorEvent]);
 

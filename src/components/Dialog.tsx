@@ -8,13 +8,13 @@ function classNames(...classes: string[]) {
 export default function Dialog({
   children,
   open,
-  onClose,
+  onClickAway,
   title,
   width,
 }: {
   title?: ReactNode;
   children: ReactNode;
-  onClose: () => void;
+  onClickAway?: () => void;
   open: boolean;
   width?: string;
 }) {
@@ -22,7 +22,11 @@ export default function Dialog({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <HeroDialog as="div" className="relative z-10" onClose={onClose}>
+      <HeroDialog
+        as="div"
+        className="relative z-50"
+        onClose={onClickAway || (() => {})}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
