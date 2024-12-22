@@ -51,7 +51,10 @@ pub fn run() {
             all_implementations,
             friendly_reference,
             harvard_reference,
-            document_title
+            document_title,
+            about_document,
+            about_method,
+            method_limitations
         ])
         .events(collect_events![ValidationErrorEvent]);
 

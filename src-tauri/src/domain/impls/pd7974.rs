@@ -1,5 +1,7 @@
 pub mod part_1;
 
+use core::panic;
+
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
@@ -28,6 +30,24 @@ impl Part {
     pub fn number(&self) -> String {
         match self {
             Part::One(_) => "1".to_string(),
+        }
+    }
+
+    pub fn about_method(&self) -> String {
+        match self {
+            Part::One(section) => match section {
+                Some(section) => section.about_method(),
+                None => panic!("No section found"),
+            },
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match self {
+            Part::One(section) => match section {
+                Some(section) => section.method_limitations(),
+                None => panic!("No section found"),
+            },
         }
     }
 }
