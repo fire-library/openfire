@@ -1,1 +1,1 @@
-This is the method description
+This is the method description with some $Sym_{bols}$
