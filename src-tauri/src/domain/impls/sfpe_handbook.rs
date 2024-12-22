@@ -16,4 +16,16 @@ impl SFPEHandbookChapter {
             }
         }
     }
+
+    pub fn about_method(&self) -> String {
+        match self {
+            SFPEHandbookChapter::Fourteen(method) => method.about_method(),
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match self {
+            SFPEHandbookChapter::Fourteen(method) => method.method_limitations(),
+        }
+    }
 }

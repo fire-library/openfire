@@ -16,4 +16,22 @@ impl Chapter1Equation {
             }
         }
     }
+
+    pub fn about_method(&self) -> String {
+        match self {
+            Chapter1Equation::One => {
+                include_str!("../../../../resources/br187/chapter_1/equation_1/about.md")
+                    .to_string()
+            }
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match self {
+            Chapter1Equation::One => {
+                include_str!("../../../../resources/br187/chapter_1/equation_1/limitations.md")
+                    .to_string()
+            }
+        }
+    }
 }

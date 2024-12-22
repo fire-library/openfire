@@ -165,6 +165,30 @@ async documentTitle(doc: Document) : Promise<Result<string, string>> {
     else return { status: "error", error: e  as any };
 }
 },
+async aboutDocument(doc: Document) : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("about_document", { doc }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async aboutMethod(doc: Document) : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("about_method", { doc }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async methodLimitations(doc: Document) : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("method_limitations", { doc }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async hasAgreedToLatestLicense() : Promise<Result<boolean, string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("has_agreed_to_latest_license") };

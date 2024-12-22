@@ -53,6 +53,9 @@ pub fn run() {
             friendly_reference,
             harvard_reference,
             document_title,
+            about_document,
+            about_method,
+            method_limitations,
             has_agreed_to_latest_license::<tauri::Wry>,
             agree_to_license::<tauri::Wry>,
         ])

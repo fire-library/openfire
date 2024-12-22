@@ -1,6 +1,7 @@
 import { useState, ReactNode, useCallback, useEffect } from "react";
 import { Tab, Method, commands } from "src/bindings";
 import QuickResults from "./quickResults";
+import About from "./About";
 import FieldInputSection from "src/components/inputSections/FieldInput";
 import Tabs from "../components/Tabs";
 import CalcSheet from "./AutoResults/CalcSheet";
@@ -17,6 +18,11 @@ export default function InputForm({ tab }: { tab: Tab }) {
     },
     {
       name: "Calculation",
+      current: false,
+      available: true,
+    },
+    {
+      name: "About",
       current: false,
       available: true,
     },
@@ -45,6 +51,7 @@ export default function InputForm({ tab }: { tab: Tab }) {
             ...tabs[1],
             available: false,
           },
+          tabs[2],
         ]);
       } else {
         setTabs([
@@ -53,6 +60,7 @@ export default function InputForm({ tab }: { tab: Tab }) {
             ...tabs[1],
             available: true,
           },
+          tabs[2],
         ]);
       }
     }
@@ -96,6 +104,9 @@ export default function InputForm({ tab }: { tab: Tab }) {
       )}
 
       {tabs[1].current && <CalcSheet method={state} />}
+      {tabs[2].current && (
+        <About document={state.reference} methodName={state.name} />
+      )}
     </div>
   );
 }
