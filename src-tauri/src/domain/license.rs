@@ -19,7 +19,6 @@ pub fn license_agreement_path<R: tauri::Runtime>(app: &AppHandle<R>) -> Result<P
         if path.exists() == false {
             std::fs::create_dir_all(&path).map_err(|e| e.to_string())?;
         }
-        println!("{:?}", path);
         path.push("license_agreements.yaml");
         Ok(path)
     } else {
