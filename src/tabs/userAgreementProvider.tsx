@@ -4,8 +4,9 @@ import React, {
   useState,
   useContext,
   useEffect,
+  useCallback,
 } from "react";
-import { Tab } from "src/bindings";
+import { Tab, commands } from "src/bindings";
 
 const defaultTab: Tab = {
   id: "default",
@@ -31,11 +32,27 @@ export const UserAgreementProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [agreed, setAgreed] = useState<boolean | undefined>(false);
 
-  useEffect(() => {}, []);
+  const agree = useCallback(async () => {
+    commands.agreeToLicense().then((agreed) => {
+      console.log(agreed);
+      if (agreed.status == "ok") {
+        setAgreed(true);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    commands.hasAgreedToLatestLicense().then((agreed) => {
+      console.log("effect: ", agreed);
+      if (agreed.status == "ok") {
+        setAgreed(agreed.data);
+      }
+    });
+  }, []);
 
   const value = {
     agreed,
-    agree: () => setAgreed(true),
+    agree,
   };
 
   return (
