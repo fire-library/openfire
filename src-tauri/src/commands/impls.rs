@@ -25,3 +25,20 @@ pub fn friendly_reference(doc: Document) -> Result<String, String> {
 pub fn harvard_reference(doc: Document) -> Result<String, String> {
     Ok(doc.harvard_reference())
 }
+
+#[tauri::command]
+#[specta::specta]
+pub fn about_document(doc: Document) -> Result<String, String> {
+    Ok(doc.about_document())
+}
+#[tauri::command]
+#[specta::specta]
+pub fn about_method(doc: Document) -> Result<String, String> {
+    Ok(doc.about_method())
+}
+
+#[tauri::command]
+#[specta::specta]
+pub fn method_limitations(doc: Document) -> Result<String, String> {
+    Ok(doc.method_limitations())
+}

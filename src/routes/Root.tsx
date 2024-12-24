@@ -2,6 +2,7 @@ import "katex/dist/katex.min.css";
 import Navbar from "../components/Navbar";
 import TabBar from "./explore/Tabs";
 import { PlusIcon, FolderOpenIcon } from "@heroicons/react/24/outline";
+import Fab from "src/components/Button/Fab";
 import { useTabs } from "../tabs/tabProvider";
 import {
   save as saveDialog,
@@ -9,6 +10,9 @@ import {
 } from "@tauri-apps/plugin-dialog";
 import { commands } from "src/bindings";
 import Explore from "src/routes/explore";
+import UserAgreement from "src/components/UserAgreement";
+import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/20/solid";
+import { open } from "@tauri-apps/plugin-shell";
 
 export default function Root() {
   const { newTab, currentTab } = useTabs();
@@ -34,10 +38,20 @@ export default function Root() {
 
   return (
     <main className="flex flex-col h-screen">
+      <UserAgreement />
       <Navbar />
       <div className="flex flex-col pt-10 pl-12 bg-slate-50 h-screen">
         <TabBar />
         <Explore />
+        <Fab
+          onClick={() => {
+            open(
+              "https://docs.google.com/forms/d/e/1FAIpQLScJMZvo7Hbf6b0ofe4Bmyc4s7rXczVMGNnzb8W70RCM7iIXcw/viewform?usp=header"
+            );
+          }}
+        >
+          <ChatBubbleLeftEllipsisIcon />
+        </Fab>
       </div>
       <div className="fixed flex flex-col h-full left-0 pt-10 justify-center">
         <div className="flex flex-col w-12 bg-gray-800">

@@ -1,4 +1,4 @@
-export default function Success({
+export default function Fab({
   onClick,
   children,
 }: {
@@ -8,7 +8,7 @@ export default function Success({
   return (
     <button
       type="button"
-      className="rounded-md bg-indigo-600 px-2 py-1 mb-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      className="p-0 w-10 h-10 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
       onClick={onClick}
     >
       {children}

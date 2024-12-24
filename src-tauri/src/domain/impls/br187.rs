@@ -16,4 +16,16 @@ impl BR187Chapter {
             }
         }
     }
+
+    pub fn about_method(&self) -> String {
+        match self {
+            BR187Chapter::One(method) => method.about_method(),
+        }
+    }
+
+    pub fn method_limitations(&self) -> String {
+        match self {
+            BR187Chapter::One(method) => method.method_limitations(),
+        }
+    }
 }
