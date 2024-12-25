@@ -27,11 +27,7 @@ impl Equation for Psi {
     fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
             "\\Psi = {}",
-            Self::psi_equation(
-                self.m_e.read().unwrap().id.clone(),
-                self.a_v.read().unwrap().id.clone(),
-                self.a_t.read().unwrap().id.clone(),
-            )
+            Self::psi_equation(self.m_e.id(), self.a_v.id(), self.a_t.id(),)
         );
 
         vec![vec![CalculationComponent::Equation(eq_1)]]

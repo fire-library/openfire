@@ -1,4 +1,7 @@
-use crate::domain::method::{parameter::ParameterValue, Method, MethodType};
+use crate::domain::method::{
+    parameter::{ParameterType, ParameterValue},
+    Method, MethodType,
+};
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
@@ -13,9 +16,20 @@ impl From<Method> for SavedMethod {
         let parameters = method
             .parameters
             .iter()
-            .map(|(name, parameter)| SavedParameter {
-                name: name.clone(),
-                value: parameter.read().unwrap().value.clone(),
+            .map(|(name, parameter)| {
+                let p = parameter.read().unwrap();
+
+                match &*p {
+                    ParameterType::Float(float) => SavedParameter {
+                        name: name.clone(),
+                        value: float.value.map(|v| ParameterValue::Float(v)),
+                    },
+                    ParameterType::String(string) => SavedParameter {
+                        name: name.clone(),
+                        value: string.value.clone().map(|v| ParameterValue::String(v)),
+                    },
+                    _ => panic!("Unsupported parameter type"),
+                }
             })
             .collect();
 

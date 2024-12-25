@@ -8,9 +8,12 @@ pub mod validation;
 
 use builder::MethodBuilderTrait;
 use calculation::ArcCalculation;
+use parameter::ParameterType;
+use parameter::ParameterValue;
 use parameter::Parameters;
 use serde::{Deserialize, Serialize};
 use specta::Type;
+use validation::ParameterError;
 
 use super::filesystem::saved_method::SavedMethod;
 use super::impls::br187;
@@ -34,16 +37,8 @@ pub struct Method {
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub struct Reference(pub Document);
 
-impl Reference {
-    pub fn friendly_reference(&self) -> String {
-        match &self {
-            Reference(document) => document.friendly_reference(),
-        }
-    }
-}
-
 impl Method {
-    pub fn evaluate(&mut self) -> Result<(), String> {
+    pub fn evaluate(&mut self) -> Result<(), ParameterError> {
         match &self.method_type {
             MethodType::BR187Chapter1Equation1 => br187::chapter_1::equation_1::evaluate(self)?,
             MethodType::SFPEAlpertHeatReleaseFromTemperatureAndPosition => {
@@ -136,13 +131,17 @@ impl From<SavedMethod> for Method {
         };
 
         for param in saved.parameters {
-            method
-                .parameters
-                .get(&param.name)
-                .unwrap()
-                .write()
-                .unwrap()
-                .value = param.value;
+            let mut p = method.parameters.get(&param.name).unwrap().write().unwrap();
+
+            match (&mut *p, param.value) {
+                (ParameterType::Float(float), Some(ParameterValue::Float(saved))) => {
+                    float.value = Some(saved);
+                }
+                (ParameterType::String(string), Some(ParameterValue::String(saved))) => {
+                    string.value = Some(saved);
+                }
+                _ => panic!("Parameter type mismatch"),
+            }
         }
 
         method

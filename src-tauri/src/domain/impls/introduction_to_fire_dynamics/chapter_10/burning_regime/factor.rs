@@ -42,11 +42,11 @@ impl Equation for Factor {
         let eq_1 = format!(
             "F = {}",
             Self::regime_equation(
-                self.rho.read().unwrap().id.clone(),
-                self.g.read().unwrap().id.clone(),
-                self.a_w.read().unwrap().id.clone(),
-                self.h.read().unwrap().id.clone(),
-                self.a_f.read().unwrap().id.clone(),
+                self.rho.id(),
+                self.g.id(),
+                self.a_w.id(),
+                self.h.id(),
+                self.a_f.id(),
             )
         );
 

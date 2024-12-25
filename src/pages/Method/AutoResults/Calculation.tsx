@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
-import { commands, Parameter, CalculationComponent } from "src/bindings";
+import {
+  commands,
+  Parameter,
+  CalculationComponent,
+  ParameterType,
+} from "src/bindings";
 import CalcComponent from "./CalculationComponent";
 
 export default function Calculation({
   parameter,
   type,
 }: {
-  parameter: Parameter;
+  parameter: ParameterType;
   type: "numbers" | "symbols";
 }) {
   const [components, setComponents] = useState<CalculationComponent[][]>([[]]);

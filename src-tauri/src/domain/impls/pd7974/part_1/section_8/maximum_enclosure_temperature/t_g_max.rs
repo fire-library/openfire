@@ -23,10 +23,7 @@ impl TGMax {
 
 impl Equation for TGMax {
     fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
-        let eq_2 = format!(
-            "T_{{g(max)}} = {}",
-            Self::t_max_equation(self.omega.read().unwrap().id.clone(),)
-        );
+        let eq_2 = format!("T_{{g(max)}} = {}", Self::t_max_equation(self.omega.id(),));
 
         vec![vec![CalculationComponent::Equation(eq_2)]]
     }

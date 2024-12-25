@@ -1,4 +1,5 @@
 import { FormStep, IntroComponent } from "src/bindings";
+import { stringedParam } from "src/bindingHelpers";
 import { Card, CardHeader, CardBody } from "src/components";
 import Equation from "src/pages/Method/AutoResults/CalculationComponent/Equation";
 import Input from "../tauriForm/Input";
@@ -35,7 +36,15 @@ function IntroductionItem({ intro }: { intro: IntroComponent }) {
 }
 
 export default function InputSection({ step, doQuickCalc }: InputProps) {
-  const parameters = step.fields.map((field) => field.parameter);
+  const parameters = step.fields
+    .map((field) => {
+      if ("Individual" in field) {
+        return field.Individual.parameter;
+      } else {
+        return null;
+      }
+    })
+    .filter((field): field is Exclude<typeof field, null> => field !== null);
 
   return (
     <Card>
@@ -65,9 +74,15 @@ export default function InputSection({ step, doQuickCalc }: InputProps) {
         )}
         <div className="py-6 border-white">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-9">
-            {parameters.map((param) => (
-              <Input key={param.id} field={param} doQuickCalc={doQuickCalc} />
-            ))}
+            {parameters.map((param) => {
+              const p = stringedParam(param);
+              if (p === null) {
+                return null;
+              } else
+                return (
+                  <Input key={p?.id} field={p} doQuickCalc={doQuickCalc} />
+                );
+            })}
           </div>
         </div>
       </CardBody>

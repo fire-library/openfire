@@ -24,11 +24,7 @@ impl Equation for Omega {
     fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
             "\\Omega = {}",
-            Self::omega_equation(
-                self.a_t.read().unwrap().id.clone(),
-                self.a_v.read().unwrap().id.clone(),
-                self.h_v.read().unwrap().id.clone(),
-            )
+            Self::omega_equation(self.a_t.id(), self.a_v.id(), self.h_v.id(),)
         );
 
         vec![vec![CalculationComponent::Equation(eq_1)]]

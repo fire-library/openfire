@@ -4,8 +4,9 @@ import {
   Parameter,
   ValidationErrorEvent,
   commands,
-  ParameterValue,
+  ParameterType,
 } from "src/bindings";
+import { stringedParam } from "src/bindingHelpers";
 import { InlineMath } from "react-katex";
 
 const updateField = async (
@@ -28,19 +29,17 @@ export default function Input({
   doQuickCalc,
 }: {
   className?: string;
-  field: Parameter;
+  field: Parameter<string>;
   doQuickCalc?: () => void;
 }) {
   const [error, setError] = useState<string | null>(null);
-  const [fieldValue, setFieldValue] = useState<string>(
-    field.value?.toString() || ""
-  );
+  const [fieldValue, setFieldValue] = useState<string>(field?.value || "");
 
   useEffect(() => {
     const unlisten = listen(
       "validation-error",
       (event: { event: string; payload: [ValidationErrorEvent] }) => {
-        const error = event.payload.find((e) => e.field_id == field.id);
+        const error = event.payload.find((e) => e.field_id == field?.id);
         if (error) {
           setError(error.error);
         } else {

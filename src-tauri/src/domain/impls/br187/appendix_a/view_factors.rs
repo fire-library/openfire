@@ -9,7 +9,6 @@ use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ArcParameter, ParameterTrait, ParametersTrait};
-use crate::domain::method::validation::ParameterError;
 use crate::domain::method::MethodType;
 use crate::domain::method::Reference;
 use crate::domain::method::{step::Step, Method};
@@ -18,27 +17,44 @@ use std::vec;
 
 use super::super::super::Document;
 use super::super::BR187Chapter;
-use super::Chapter1Equation;
 
 pub struct BR187Chapter1Equation1Builder;
 
 impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     fn name() -> String {
-        "Ventilation Factor".to_string()
+        "Transfer of Heat by Thermal Radiation".to_string()
     }
     fn tags() -> Vec<Tag> {
-        vec![Tag::Ventilation]
+        vec![Tag::ViewFactor, Tag::Radiation, Tag::ExternalFireSpread]
     }
     fn description() -> Option<String> {
-        Some("Calculates the Ventilation Factor".to_string())
+        Some("Calculates the Incident Heat Flux on a receiving surface".to_string())
     }
     fn quick_calc_compatible() -> bool {
         true
     }
     fn reference() -> Reference {
-        Reference(Document::BR187(Some(BR187Chapter::One(
-            Chapter1Equation::One,
-        ))))
+        Reference(Document::BR187(Some(BR187Chapter::AppendixA)))
+    }
+
+    fn parameters() -> Parameters {
+        let mut params = Parameters::new();
+
+        // let surfaces = ParameterBuilder::object("surfaces")
+        //     .name("Radiating Surfaces")
+        //     .required()
+        //     .build();
+
+        let boltzman = ParamBuilder::float("\\sigma")
+            .name("Stefan Boltzmann constant")
+            .units("\\frac{kW}{m^{2}K^{4}}")
+            .default_value(Some(ParameterValue::Float(5.67e-11)))
+            .build();
+
+        // params.add(surfaces);
+        params.add(boltzman);
+
+        return params;
     }
 
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
@@ -61,51 +77,6 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
             steps: vec![step_1],
         }
     }
-    fn parameters() -> Parameters {
-        let mut params = Parameters::new();
-
-        let a_s = ParamBuilder::float("A_s")
-            .name("Surface Area of Compartment (less openings and floor)")
-            .units("m^{2}")
-            .default_value(Some(ParameterValue::Float(0.0)))
-            .min(0.0)
-            .max(100.0)
-            .required()
-            .build();
-
-        let a = ParamBuilder::float("A")
-            .name("Area of Ventilation Opening")
-            .units("m^{2}")
-            .default_value(Some(ParameterValue::Float(1.0)))
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        let h = ParamBuilder::float("H")
-            .name("Height of Ventilation Opening")
-            .units("m")
-            .default_value(Some(ParameterValue::Float(1.0)))
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        let o = ParamBuilder::float("O")
-            .name("Ventilation Factor")
-            .units("m^{-1/2}")
-            .expression(Box::new(BR187Chapter1Equation1::new(
-                a_s.clone(),
-                a.clone(),
-                h.clone(),
-            )))
-            .build();
-
-        params.add(a_s);
-        params.add(a);
-        params.add(h);
-        params.add(o);
-
-        return params;
-    }
 
     fn calc_sheet(params: &Parameters) -> crate::domain::method::calculation::ArcCalculation {
         let o = params.get_parameter("O");
@@ -124,7 +95,7 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     }
 }
 
-pub fn evaluate(method: &mut Method) -> Result<(), ParameterError> {
+pub fn evaluate(method: &mut Method) -> Result<(), String> {
     let a_s = method.parameters.get_parameter("A_s").as_float();
     let a = method.parameters.get_parameter("A").as_float();
     let h = method.parameters.get_parameter("H").as_float();
@@ -132,7 +103,7 @@ pub fn evaluate(method: &mut Method) -> Result<(), ParameterError> {
     let o = method.parameters.get_parameter("O");
 
     let result = calculate_ventilation_factor(a_s, a, h);
-    o.update(Some(result.to_string()))?;
+    o.update(Some(result.to_string()));
 
     return Ok(());
 }
