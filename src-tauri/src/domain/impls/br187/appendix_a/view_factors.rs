@@ -40,10 +40,10 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     fn parameters() -> Parameters {
         let mut params = Parameters::new();
 
-        // let surfaces = ParameterBuilder::object("surfaces")
-        //     .name("Radiating Surfaces")
-        //     .required()
-        //     .build();
+        let surfaces = ParamBuilder::float("surfaces")
+            .name("Radiating Surfaces")
+            .required()
+            .build();
 
         let boltzman = ParamBuilder::float("\\sigma")
             .name("Stefan Boltzmann constant")
@@ -53,6 +53,7 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
 
         // params.add(surfaces);
         params.add(boltzman);
+        params.add(surfaces);
 
         return params;
     }
