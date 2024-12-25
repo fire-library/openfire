@@ -2,7 +2,7 @@ use crate::domain::{
     method::{
         calculation::CalculationComponent,
         form::FieldTrait,
-        parameter::{ArcParameter, Parameter, ParameterType, ParametersTrait},
+        parameter::{ArcParameter, ParameterType, ParametersTrait},
         validation::ParameterError,
     },
     tab::{TabState, Tabs, WrappedTabState},

@@ -11,11 +11,6 @@ use super::ParameterType;
 use super::ParameterValue;
 use super::Validation;
 
-pub enum BuilderTypes {
-    Float(Option<f64>),
-    String(Option<String>),
-}
-
 pub enum ParamBuilder {
     Float(ParameterBuilder<f64>),
     String(ParameterBuilder<String>),

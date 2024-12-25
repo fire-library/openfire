@@ -128,7 +128,7 @@ fn some_setup<R: tauri::Runtime>(
         .plugin(
             tauri_plugin_global_shortcut::Builder::new()
                 .with_shortcuts(["ctrl+t"])?
-                .with_handler(|app, shortcut, event| {
+                .with_handler(|_app, shortcut, event| {
                     if event.state == tauri_plugin_global_shortcut::ShortcutState::Pressed {
                         if shortcut.matches(
                             tauri_plugin_global_shortcut::Modifiers::CONTROL,

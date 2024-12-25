@@ -5,7 +5,6 @@ use crate::domain::method::calculation::CalculationComponent;
 use crate::domain::method::equation::Equation;
 use crate::domain::method::form::{Form, FormStep};
 use crate::domain::method::parameter::builder::ParamBuilder;
-use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ArcParameter, ParameterTrait, ParametersTrait};
