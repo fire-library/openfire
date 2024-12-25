@@ -36,7 +36,7 @@ pub enum IntroComponent {
 pub struct FormStep {
     pub name: String,
     pub description: String,
-    pub fields: Vec<ArcField>,
+    pub fields: Vec<FieldType>,
     pub introduction: Vec<Vec<IntroComponent>>,
 }
 
@@ -50,7 +50,7 @@ impl FormStep {
         }
     }
 
-    pub fn add_field(&mut self, field: ArcField) {
+    pub fn add_field(&mut self, field: FieldType) {
         self.fields.push(field);
     }
 
@@ -74,6 +74,61 @@ impl FormStep {
     }
     pub fn add_intro(&mut self) {
         self.introduction.push(vec![]);
+    }
+}
+
+#[derive(Clone, Type, Serialize, Deserialize, Debug)]
+pub enum FieldType {
+    Individual(ArcField),
+    Table(Vec<Vec<ArcField>>),
+}
+
+impl FieldType {
+    pub fn get_field(&self, id: String) -> Option<ArcField> {
+        match self {
+            FieldType::Individual(field) => {
+                if field.read().unwrap().id == id {
+                    Some(field.clone())
+                } else {
+                    None
+                }
+            }
+            FieldType::Table(fields) => {
+                for row in fields {
+                    for field in row {
+                        if field.read().unwrap().id == id {
+                            return Some(field.clone());
+                        }
+                    }
+                }
+                None
+            }
+        }
+    }
+
+    pub fn validate(&self) -> Result<(), Vec<ParameterError>> {
+        match self {
+            FieldType::Individual(field) => match field.read().unwrap().parameter.validate() {
+                Ok(_) => Ok(()),
+                Err(error) => Err(vec![error]),
+            },
+            FieldType::Table(fields) => {
+                let mut errors = vec![];
+                for row in fields {
+                    for field in row {
+                        if let Err(error) = field.read().unwrap().parameter.validate() {
+                            errors.push(error);
+                        }
+                    }
+                }
+
+                if errors.is_empty() {
+                    Ok(())
+                } else {
+                    Err(errors)
+                }
+            }
+        }
     }
 }
 
@@ -102,8 +157,8 @@ impl Form {
 
     pub fn get_field(&self, field_id: String) -> ArcField {
         for step in &self.steps {
-            for field in &step.fields {
-                if field.read().unwrap().id == field_id {
+            for field_types in &step.fields {
+                if let Some(field) = field_types.get_field(field_id.clone()) {
                     return field.clone();
                 }
             }
@@ -115,9 +170,9 @@ impl Form {
     pub fn validate(&self) -> Result<(), Vec<ParameterError>> {
         let mut errors = vec![];
         for step in &self.steps {
-            for field in &step.fields {
-                if let Err(error) = field.read().unwrap().parameter.validate() {
-                    errors.push(error);
+            for field_types in &step.fields {
+                if let Err(error) = field_types.validate() {
+                    errors.extend(error);
                 }
             }
         }

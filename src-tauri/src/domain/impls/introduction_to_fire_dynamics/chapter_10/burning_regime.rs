@@ -8,10 +8,11 @@ use crate::domain::impls::tag::Tag;
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::form::{Form, FormStep};
-use crate::domain::method::parameter::builder::ParameterBuilder;
+use crate::domain::method::parameter::builder::ParamBuilder;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
+use crate::domain::method::validation::ParameterError;
 use crate::domain::method::{step::Step, Method};
 use crate::domain::method::{MethodType, Reference};
 use introduction_to_fire_dynamics::chapter_10::equation_10_18;
@@ -44,41 +45,41 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
     fn parameters() -> Parameters {
         let mut params = Parameters::new();
 
-        let rho = ParameterBuilder::float("\\rho")
+        let rho = ParamBuilder::float("\\rho")
             .name("Density of fuel")
             .units("kg/m^3")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let a_w = ParameterBuilder::float("A_w")
+        let a_w = ParamBuilder::float("A_w")
             .name("Area of ventilation opening")
             .units("m^2")
             .min(0.0)
             .required()
             .build();
 
-        let h = ParameterBuilder::float("H")
+        let h = ParamBuilder::float("H")
             .name("Height of ventilation opening")
             .units("m")
             .min(0.0)
             .required()
             .build();
 
-        let g = ParameterBuilder::float("g")
+        let g = ParamBuilder::float("g")
             .name("Gravitaional acceleration")
             .units("m/s^2")
             .default_value(Some(ParameterValue::Float(9.81)))
             .build();
 
-        let a_f = ParameterBuilder::float("A_f")
+        let a_f = ParamBuilder::float("A_f")
             .name("Surface area of the fuel")
             .units("m^2")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let factor = ParameterBuilder::float("F")
+        let factor = ParamBuilder::float("F")
             .name("Burning regime factor")
             .expression(Factor::new_boxed(
                 rho.clone(),
@@ -89,7 +90,7 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
             ))
             .build();
 
-        let regime = ParameterBuilder::string("Regime")
+        let regime = ParamBuilder::string("Regime")
             .name("Burning regime")
             .expression(Regime::new_boxed(factor.clone()))
             .build();
@@ -111,10 +112,7 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
             "Input required to calculate the burning regime of the fire.",
         );
         for param in params.values().into_iter() {
-            if param.read().unwrap().id == "g"
-                || param.read().unwrap().id == "F"
-                || param.read().unwrap().id == "Regime"
-            {
+            if param.id() == "g" || param.id() == "F" || param.id() == "Regime" {
                 continue;
             }
             step_1.add_field(param.to_field())
@@ -127,7 +125,7 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
             factor
                 .read()
                 .unwrap()
-                .expression
+                .expression()
                 .as_ref()
                 .unwrap()
                 .generate_with_symbols()[0][0]
@@ -164,7 +162,7 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
     }
 }
 
-pub fn evaluate(method: &mut Method) -> Result<(), String> {
+pub fn evaluate(method: &mut Method) -> Result<(), ParameterError> {
     let rho = method.parameters.get_parameter("\\rho").as_float();
     let a_w = method.parameters.get_parameter("A_w").as_float();
     let h = method.parameters.get_parameter("H").as_float();
@@ -175,16 +173,14 @@ pub fn evaluate(method: &mut Method) -> Result<(), String> {
     let regime = method.parameters.get_parameter("Regime");
 
     let regime_result = equation_10_18::calculate(rho, g, a_w, h, a_f);
-    factor.write().unwrap().value = Some(ParameterValue::Float(regime_result));
+    factor.update(Some(regime_result.to_string()))?;
 
     if regime_result < 0.235 {
-        regime.write().unwrap().value =
-            Some(ParameterValue::String("Ventilation Controlled".to_string()));
+        regime.update(Some("Ventilation Controlled".to_string()))?;
     } else if regime_result > 0.290 {
-        regime.write().unwrap().value = Some(ParameterValue::String("Fuel Controlled".to_string()));
+        regime.update(Some("Fuel Controlled".to_string()))?;
     } else {
-        regime.write().unwrap().value =
-            Some(ParameterValue::String("Undefined / Crossover".to_string()));
+        regime.update(Some("Undefined / Crossover".to_string()))?;
     }
 
     return Ok(());

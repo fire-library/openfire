@@ -33,12 +33,7 @@ impl Equation for QFoMcCaffrey {
     fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
             "\\dot{{Q}}_{{fo, \\space McCaffrey}} = {}",
-            Self::q_fo_equation(
-                self.a_t.read().unwrap().id.clone(),
-                self.a_v.read().unwrap().id.clone(),
-                self.h_v.read().unwrap().id.clone(),
-                self.h_k.read().unwrap().id.clone(),
-            )
+            Self::q_fo_equation(self.a_t.id(), self.a_v.id(), self.h_v.id(), self.h_k.id(),)
         );
 
         vec![vec![CalculationComponent::Equation(eq_1)]]

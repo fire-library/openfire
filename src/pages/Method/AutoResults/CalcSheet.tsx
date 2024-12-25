@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { commands, Step, Method, Parameter } from "src/bindings";
+import { commands, Step, Method, Parameter, ParameterType } from "src/bindings";
+import { stringedParam } from "src/bindingHelpers";
 import { Card, CardBody, CardHeader } from "src/components";
 import Calculation from "./Calculation";
 import { InlineMath } from "react-katex";
-import { parameterValue } from "src/pages/components/ParameterValue";
 
 function RenderStep({ step, index }: { step: Step; index: number }) {
-  const [stepInputs, setStepInputs] = useState<Parameter[]>([]);
-  const [stepDeps, setStepDeps] = useState<Parameter[]>([]);
+  const [stepInputs, setStepInputs] = useState<ParameterType[]>([]);
+  const [stepDeps, setStepDeps] = useState<ParameterType[]>([]);
 
   useEffect(() => {
     commands.getEquationInputsSymbols(index).then((inputs) => {
@@ -49,16 +49,15 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
           </thead>
           <tbody>
             {stepInputs.map((parameter) => {
+              const p = stringedParam(parameter);
               return (
-                <tr key={parameter.name}>
+                <tr key={p?.name}>
                   <td>
-                    <InlineMath>{parameter.id}</InlineMath>
+                    <InlineMath>{p?.id}</InlineMath>
                   </td>
                   <td className="pl-4">
-                    {parameter.name}{" "}
-                    {parameter.units && (
-                      <InlineMath>{`(${parameter.units})`}</InlineMath>
-                    )}
+                    {p?.name}{" "}
+                    {p?.units && <InlineMath>{`(${p?.units})`}</InlineMath>}
                   </td>
                 </tr>
               );
@@ -83,13 +82,14 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
           </thead>
           <tbody>
             {stepDeps.map((parameter) => {
+              const p = stringedParam(parameter);
               return (
-                <tr key={parameter.name}>
+                <tr key={p?.name}>
                   <td>
-                    <InlineMath>{parameter.id}</InlineMath>
+                    <InlineMath>{p?.id}</InlineMath>
                   </td>
                   <td className="pl-4">
-                    <InlineMath>{`${parameterValue(parameter)} \\space ${parameter.units ? parameter.units : ""}`}</InlineMath>
+                    <InlineMath>{`${p?.value} \\space ${p?.units ? p?.units : ""}`}</InlineMath>
                   </td>
                 </tr>
               );
@@ -107,8 +107,9 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
       <CardBody>
         <div className="flex flex-col gap-3">
           {step.parameters.map((parameter) => {
+            const p = stringedParam(parameter);
             return (
-              <div className="flex flex-row gap-3" key={parameter.id}>
+              <div className="flex flex-row gap-3" key={p?.id}>
                 <Calculation parameter={parameter} type="symbols" />
               </div>
             );
@@ -125,8 +126,9 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
       <CardBody>
         <div className="flex flex-col gap-3">
           {step.parameters.map((parameter) => {
+            const p = stringedParam(parameter);
             return (
-              <div className="flex flex-row gap-3" key={parameter.id}>
+              <div className="flex flex-row gap-3" key={p?.id}>
                 <Calculation parameter={parameter} type="numbers" />
               </div>
             );
@@ -139,7 +141,11 @@ function RenderStep({ step, index }: { step: Step; index: number }) {
 
 const shouldRenderStep = (step: Step) => {
   return (
-    step.parameters.length > 0 && step.parameters.every((p) => p.value !== null)
+    step.parameters.length > 0 &&
+    step.parameters.every((p) => {
+      const param = stringedParam(p);
+      return param?.value !== null;
+    })
   );
 };
 

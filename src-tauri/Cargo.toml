@@ -45,6 +45,7 @@ eurocode_1 = { path = "./crates/eurocode_1" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
 pd_7974 = { path = "./crates/pd_7974" }
 introduction_to_fire_dynamics = { path = "./crates/introduction_to_fire_dynamics" }
+br_187 = { path = "./crates/br_187" }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.

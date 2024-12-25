@@ -85,7 +85,7 @@ async updateField(id: string, value: string | null) : Promise<Result<null, Param
     else return { status: "error", error: e  as any };
 }
 },
-async getEquationWithSymbols(parameter: Parameter) : Promise<Result<CalculationComponent[][], string>> {
+async getEquationWithSymbols(parameter: ParameterType) : Promise<Result<CalculationComponent[][], string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_equation_with_symbols", { parameter }) };
 } catch (e) {
@@ -93,7 +93,7 @@ async getEquationWithSymbols(parameter: Parameter) : Promise<Result<CalculationC
     else return { status: "error", error: e  as any };
 }
 },
-async getEquationWithNumbers(parameter: Parameter) : Promise<Result<CalculationComponent[][], string>> {
+async getEquationWithNumbers(parameter: ParameterType) : Promise<Result<CalculationComponent[][], string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_equation_with_numbers", { parameter }) };
 } catch (e) {
@@ -101,7 +101,7 @@ async getEquationWithNumbers(parameter: Parameter) : Promise<Result<CalculationC
     else return { status: "error", error: e  as any };
 }
 },
-async getEquationInputs(stepId: number) : Promise<Result<Parameter[], string>> {
+async getEquationInputs(stepId: number) : Promise<Result<ParameterType[], string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_equation_inputs", { stepId }) };
 } catch (e) {
@@ -109,7 +109,7 @@ async getEquationInputs(stepId: number) : Promise<Result<Parameter[], string>> {
     else return { status: "error", error: e  as any };
 }
 },
-async getEquationInputsSymbols(stepId: number) : Promise<Result<Parameter[], string>> {
+async getEquationInputsSymbols(stepId: number) : Promise<Result<ParameterType[], string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_equation_inputs_symbols", { stepId }) };
 } catch (e) {
@@ -222,36 +222,36 @@ validationErrorEvent: "validation-error-event"
 
 /** user-defined types **/
 
-export type BR187Chapter = { One: Chapter1Equation }
+export type BR187Chapter = { One: Chapter1Equation } | "AppendixA"
 export type Calculation = { steps: Step[]; stale: boolean }
 export type CalculationComponent = { Equation: string } | { EquationWithResult: string } | { Text: string }
 export type Chapter10Method = "BurningRegime"
 export type Chapter14Method = "HeatReleaseFromTempAndPosition"
 export type Chapter1Equation = "One"
-export type Comparison = { GreaterThanOrEqual: Parameter } | { LessThanOrEqual: Parameter }
+export type Comparison = { GreaterThanOrEqual: ParameterType } | { LessThanOrEqual: ParameterType }
 export type DisplayOptions = { DecimalPlaces: number }
 export type Document = { BR187: BR187Chapter | null } | { PD7974: Part | null } | { SFPEHandbook: SFPEHandbookChapter | null } | { IntroductionToFireDynamics: IntroductionToFireDynamicsChapter | null }
 export type DocumentImplementations = { document: string; implementations: Implementation[] }
-export type Field = { id: string; name: string; value: string | null; touched: boolean; parameter: Parameter }
+export type Field = { id: string; name: string; value: string | null; touched: boolean; parameter: ParameterType }
+export type FieldType = { Individual: Field } | { Table: Field[][] }
 export type Form = { steps: FormStep[] }
-export type FormStep = { name: string; description: string; fields: Field[]; introduction: IntroComponent[][] }
+export type FormStep = { name: string; description: string; fields: FieldType[]; introduction: IntroComponent[][] }
 export type Icon = "FireIcon"
 export type Implementation = { name: string; tags: string[]; description: string; reference: Reference; search_reference: string; method_type: MethodType; icon: Icon; colors: string }
 export type IntroComponent = { Title: string } | { Text: string } | { Equation: CalculationComponent }
 export type IntroductionToFireDynamicsChapter = { Ten: Chapter10Method }
-export type Method = { name: string; description: string | null; reference: Reference; method_type: MethodType; parameters: { [key in string]: Parameter }; quick_calc_compatible: boolean; calc_sheet: Calculation; form: Form }
+export type Method = { name: string; description: string | null; reference: Reference; method_type: MethodType; parameters: { [key in string]: ParameterType }; quick_calc_compatible: boolean; calc_sheet: Calculation; form: Form }
 export type MethodType = "PD7974Part1Section8MaximumEnclosureTemperature" | "PD7974Part1Section8HRRAtFlashover" | "BR187Chapter1Equation1" | "SFPEAlpertHeatReleaseFromTemperatureAndPosition" | "IntroductionToFireDynamcicsChapter10BurningRegime"
 export type NoCalc = { id: string }
-export type Parameter = { id: string; name: string; parameter_type: ParameterType; value: ParameterValue | null; display_options: DisplayOptions[]; units: string | null; validations: Validation[] }
+export type Parameter<T> = { id: string; name: string; value: T | null; display_options: DisplayOptions[]; units: string | null; validations: Validation[] }
 export type ParameterError = { ValidationError: { id: string; message: string } }
-export type ParameterType = "String" | "Float" | "Bool"
-export type ParameterValue = string | number | boolean
+export type ParameterType = { String: Parameter<string> } | { Float: Parameter<number> } | { Bool: Parameter<boolean> } | { Object: { [key in string]: ParameterType } }
 export type Part = { One: Section | null }
 export type Reference = Document
 export type SFPEHandbookChapter = { Fourteen: Chapter14Method }
 export type Section = { Eight: Section8Method }
 export type Section8Method = "HRRAtFlashover" | "MaximumEnclosureTemperature"
-export type Step = { name: string; parameters: Parameter[] }
+export type Step = { name: string; parameters: ParameterType[] }
 export type Tab = { id: string; state: TabState; saved: boolean; current: boolean; filename: string | null; title: string | null }
 export type TabState = ({ type: "Index" } & NoCalc) | ({ type: "Method" } & Method)
 export type Validation = "Required" | { MinLength: number } | { MaxLength: number } | { Range: [number, number] } | { MinExclusive: number } | { Min: number } | { Max: number } | { Relation: Comparison }

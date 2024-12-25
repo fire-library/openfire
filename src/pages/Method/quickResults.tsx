@@ -1,19 +1,18 @@
 import { Card, CardHeader, CardBody } from "src/components";
-import { Calculation, Parameter } from "src/bindings";
+import { Calculation, Parameter, ParameterType } from "src/bindings";
+import { stringedParam } from "src/bindingHelpers";
 import { InlineMath } from "react-katex";
-import { parameterValue } from "../components/ParameterValue";
 
-export function QuickValue({ param }: { param: Parameter }) {
-  if (param.value == null) {
+export function QuickValue({ param }: { param: ParameterType }) {
+  const p = stringedParam(param);
+  if (p?.value == null) {
     return null;
   }
 
-  const value = parameterValue(param);
-
   return (
     <InlineMath>
-      {`${param.id} = ${value} \\space
-        ${param.units || ""}`}
+      {`${p?.id} = ${p?.value} \\space
+        ${p?.units || ""}`}
     </InlineMath>
   );
 }
@@ -39,8 +38,9 @@ export default function MaterialInput({ results }: { results: Calculation }) {
                   {
                     return step.parameters.map((parameter) => {
                       {
+                        const p = stringedParam(parameter);
                         return (
-                          (parameter.value !== null && (
+                          (p?.value !== null && (
                             <QuickValue param={parameter} />
                           )) ||
                           null

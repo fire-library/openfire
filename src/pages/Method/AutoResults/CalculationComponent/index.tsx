@@ -1,14 +1,15 @@
-import { CalculationComponent, Parameter } from "src/bindings";
+import { CalculationComponent, Parameter, ParameterType } from "src/bindings";
 import Equation from "./Equation";
 import EquationWithResult from "./EquationWithResult";
 import Text from "./Text";
+import { stringedParam } from "src/bindingHelpers";
 
 export default function ViewFactors({
   component,
   parameter,
 }: {
   component: CalculationComponent;
-  parameter: Parameter;
+  parameter: ParameterType;
 }) {
   if ("Text" in component) {
     return <Text text={component.Text} />;
@@ -17,10 +18,14 @@ export default function ViewFactors({
     return <Equation equation={component.Equation} />;
   }
   if ("EquationWithResult" in component) {
+    const p = stringedParam(parameter);
+    if (p == null) {
+      return null;
+    }
     return (
       <EquationWithResult
         equation={component.EquationWithResult}
-        parameter={parameter}
+        parameter={p}
       />
     );
   }

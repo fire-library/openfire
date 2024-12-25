@@ -12,10 +12,10 @@ use crate::domain::impls::tag::Tag;
 use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::Calculation;
 use crate::domain::method::form::{Form, FormStep};
-use crate::domain::method::parameter::builder::ParameterBuilder;
-use crate::domain::method::parameter::ParameterValue;
+use crate::domain::method::parameter::builder::ParamBuilder;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
+use crate::domain::method::validation::ParameterError;
 use crate::domain::method::{step::Step, Method};
 use crate::domain::method::{MethodType, Reference};
 use pd_7974::part_1::section_8::{equation_41, equation_42, equation_43, equation_44};
@@ -49,50 +49,50 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
     fn parameters() -> Parameters {
         let mut params = Parameters::new();
 
-        let a_t = ParameterBuilder::float("A_t")
+        let a_t = ParamBuilder::float("A_t")
             .name("Total interior surface area, less ventilation openings")
             .units("m^2")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let a_v = ParameterBuilder::float("A_v")
+        let a_v = ParamBuilder::float("A_v")
             .name("Area of the vertical ventilation opening")
             .units("m^2")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let h_v = ParameterBuilder::float("H_v")
+        let h_v = ParamBuilder::float("H_v")
             .name("Height of ventilation opening")
             .units("m")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let m_e = ParameterBuilder::float("m_e")
+        let m_e = ParamBuilder::float("m_e")
             .name("Equivalent fire load as wood")
             .units("kg")
             .min_exclusive(0.0)
             .build();
 
-        let psi = ParameterBuilder::float("\\Psi")
+        let psi = ParamBuilder::float("\\Psi")
             .name("Non dimensional input Psi")
             .expression(Psi::new_boxed(a_t.clone(), a_v.clone(), m_e.clone()))
             .build();
 
-        let omega = ParameterBuilder::float("\\Omega")
+        let omega = ParamBuilder::float("\\Omega")
             .name("Non dimensional input Omega")
             .expression(Omega::new_boxed(a_t.clone(), a_v.clone(), h_v.clone()))
             .build();
 
-        let t_g_max = ParameterBuilder::float("T_{g(max)}")
+        let t_g_max = ParamBuilder::float("T_{g(max)}")
             .name("Maximum enclosure temperature")
             .expression(TGMax::new_boxed(omega.clone()))
             .units("^{o}C")
             .build();
 
-        let t_g = ParameterBuilder::float("T_{g}")
+        let t_g = ParamBuilder::float("T_{g}")
             .name("Average enclosure temperature")
             .expression(TG::new_boxed(psi.clone(), t_g_max.clone()))
             .units("^{o}C")
@@ -115,11 +115,11 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
             "Input required to calculate the maximum enclosure temperature",
         );
         for param in params.values().into_iter() {
-            if param.read().unwrap().id == "T_{g(max)}"
-                || param.read().unwrap().id == "T_{g}"
-                || param.read().unwrap().id == "\\Psi"
-                || param.read().unwrap().id == "m_e"
-                || param.read().unwrap().id == "\\Omega"
+            if param.id() == "T_{g(max)}"
+                || param.id() == "T_{g}"
+                || param.id() == "\\Psi"
+                || param.id() == "m_e"
+                || param.id() == "\\Omega"
             {
                 continue;
             }
@@ -134,7 +134,7 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
             t_g_max
                 .read()
                 .unwrap()
-                .expression
+                .expression()
                 .as_ref()
                 .unwrap()
                 .generate_with_symbols()[0][0]
@@ -145,7 +145,7 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
             omega
                 .read()
                 .unwrap()
-                .expression
+                .expression()
                 .as_ref()
                 .unwrap()
                 .generate_with_symbols()[0][0]
@@ -165,7 +165,7 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
         step_2.add_equation(
             t_g.read()
                 .unwrap()
-                .expression
+                .expression()
                 .as_ref()
                 .unwrap()
                 .generate_with_symbols()[0][0]
@@ -175,7 +175,7 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
         step_2.add_equation(
             psi.read()
                 .unwrap()
-                .expression
+                .expression()
                 .as_ref()
                 .unwrap()
                 .generate_with_symbols()[0][0]
@@ -212,7 +212,7 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
     }
 }
 
-pub fn evaluate(method: &mut Method) -> Result<(), String> {
+pub fn evaluate(method: &mut Method) -> Result<(), ParameterError> {
     let a_t = method.parameters.get_parameter("A_t").as_float();
     let a_v = method.parameters.get_parameter("A_v").as_float();
     let h_v = method.parameters.get_parameter("H_v").as_float();
@@ -224,20 +224,20 @@ pub fn evaluate(method: &mut Method) -> Result<(), String> {
     let t_g = method.parameters.get_parameter("T_{g}");
 
     let omega_result = equation_42::calculate(a_t, a_v, h_v);
-    omega.write().unwrap().value = Some(ParameterValue::Float(omega_result));
+    omega.update(Some(omega_result.to_string()))?;
 
     let t = equation_41::calculate(omega_result);
-    t_max.write().unwrap().value = Some(ParameterValue::Float(t));
+    t_max.update(Some(t.to_string()))?;
 
-    if let Some(ParameterValue::Float(m_e)) = m_e.read().unwrap().value {
+    if let Some(m_e) = m_e.get_float() {
         let psi_result = equation_44::calculate(m_e, a_v, a_t);
-        psi.write().unwrap().value = Some(ParameterValue::Float(psi_result));
+        psi.update(Some(psi_result.to_string()))?;
 
         let t_g_result = equation_43::calculate(t, psi_result);
-        t_g.write().unwrap().value = Some(ParameterValue::Float(t_g_result));
+        t_g.update(Some(t_g_result.to_string()))?;
     } else {
-        psi.write().unwrap().value = None;
-        t_g.write().unwrap().value = None;
+        psi.update(None)?;
+        t_g.update(None)?;
     }
 
     return Ok(());

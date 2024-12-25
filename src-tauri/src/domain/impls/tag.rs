@@ -4,6 +4,9 @@ pub enum Tag {
     HRR,
     FireDynamics,
     Ventilation,
+    ViewFactor,
+    Radiation,
+    ExternalFireSpread,
 }
 
 impl Tag {
@@ -14,6 +17,9 @@ impl Tag {
             Tag::HRR => "Heat Release Rate".to_string(),
             Tag::FireDynamics => "Fire Dynamics".to_string(),
             Tag::Ventilation => "Ventilation".to_string(),
+            Tag::ViewFactor => "View Factor".to_string(),
+            Tag::Radiation => "Radiation".to_string(),
+            Tag::ExternalFireSpread => "External Fire Spread".to_string(),
         }
     }
 }

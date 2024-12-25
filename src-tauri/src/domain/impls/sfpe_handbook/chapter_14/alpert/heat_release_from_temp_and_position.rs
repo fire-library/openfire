@@ -3,11 +3,12 @@ use crate::domain::method::builder::MethodBuilderTrait;
 use crate::domain::method::calculation::{Calculation, CalculationComponent};
 use crate::domain::method::equation::Equation;
 use crate::domain::method::form::{Form, FormStep};
-use crate::domain::method::parameter::builder::ParameterBuilder;
+use crate::domain::method::parameter::builder::ParamBuilder;
 use crate::domain::method::parameter::ArcParameter;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ParameterTrait, ParametersTrait};
+use crate::domain::method::validation::ParameterError;
 use crate::domain::method::{step::Step, Method};
 use crate::domain::method::{MethodType, Reference};
 use sfpe_handbook::chapter_14::alpert;
@@ -43,7 +44,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut fields = vec![];
         for param in params.values().into_iter() {
-            if param.read().unwrap().id == "\\dot{Q}" {
+            if param.id() == "\\dot{Q}" {
                 continue;
             }
             fields.push(param.to_field())
@@ -62,7 +63,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
     fn parameters() -> Parameters {
         let mut params = Parameters::new();
 
-        let temp = ParameterBuilder::float("T")
+        let temp = ParamBuilder::float("T")
             .name("Temperature at position of interest")
             .units("^{o}C")
             .default_value(Some(ParameterValue::Float(0.0)))
@@ -70,7 +71,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
             .required()
             .build();
 
-        let temp_amb = ParameterBuilder::float("T_\\infty")
+        let temp_amb = ParamBuilder::float("T_\\infty")
             .name("Ambient Temperature")
             .units("^{o}C")
             .default_value(Some(ParameterValue::Float(0.0)))
@@ -79,7 +80,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
             .less_than_or_equal_to_parameter(&temp)
             .build();
 
-        let h = ParameterBuilder::float("H")
+        let h = ParamBuilder::float("H")
             .name("Ceiling height")
             .units("m")
             .default_value(Some(ParameterValue::Float(0.0)))
@@ -87,7 +88,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
             .required()
             .build();
 
-        let r = ParameterBuilder::float("r")
+        let r = ParamBuilder::float("r")
             .name("Radial position")
             .units("m")
             .min(0.0)
@@ -95,7 +96,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
             .required()
             .build();
 
-        let q = ParameterBuilder::float("\\dot{Q}")
+        let q = ParamBuilder::float("\\dot{Q}")
             .name("Heat release rate")
             .expression(Box::new(AlpertHeatReleaseFromTempAndPosition::new(
                 temp.clone(),
@@ -132,7 +133,7 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
     }
 }
 
-pub fn evaluate(method: &mut Method) -> Result<(), String> {
+pub fn evaluate(method: &mut Method) -> Result<(), ParameterError> {
     let temp = method.parameters.get_parameter("T").as_float();
     let temp_amb = method.parameters.get_parameter("T_\\infty").as_float();
     let h = method.parameters.get_parameter("H").as_float();
@@ -141,7 +142,7 @@ pub fn evaluate(method: &mut Method) -> Result<(), String> {
     let q = method.parameters.get_parameter("\\dot{Q}");
 
     let result = alpert::heat_release::from_temperature_and_position(temp, temp_amb, h, r);
-    q.write().unwrap().value = Some(ParameterValue::Float(result));
+    q.update(Some(result.to_string()))?;
 
     return Ok(());
 }
@@ -175,9 +176,9 @@ impl Equation for AlpertHeatReleaseFromTempAndPosition {
         let eq_1 = format!(
             "\\dot{{Q}} = {}",
             equation_1(
-                self.temp.read().unwrap().id.clone(),
-                self.temp_amb.read().unwrap().id.clone(),
-                self.height.read().unwrap().id.clone(),
+                self.temp.id().clone(),
+                self.temp_amb.id().clone(),
+                self.height.id().clone(),
             ),
         );
         let cond_1 = "\\text{if: } \\dfrac{r}{H} \\le 0.18".to_string();
@@ -185,10 +186,10 @@ impl Equation for AlpertHeatReleaseFromTempAndPosition {
         let eq_2 = format!(
             "\\dot{{Q}} = {}",
             equation_2(
-                self.temp.read().unwrap().id.clone(),
-                self.temp_amb.read().unwrap().id.clone(),
-                self.height.read().unwrap().id.clone(),
-                self.radial_position.read().unwrap().id.clone(),
+                self.temp.id().clone(),
+                self.temp_amb.id().clone(),
+                self.height.id().clone(),
+                self.radial_position.id().clone(),
             ),
         );
         let cond_2 = "\\text{if: } \\dfrac{r}{H} \\gt 0.18".to_string();
@@ -236,10 +237,10 @@ impl Equation for AlpertHeatReleaseFromTempAndPosition {
             let eq = format!(
                 "\\dot{{Q}} = {} = {}",
                 equation_2(
-                    self.temp.read().unwrap().id.clone(),
-                    self.temp_amb.read().unwrap().id.clone(),
-                    self.height.read().unwrap().id.clone(),
-                    self.radial_position.read().unwrap().id.clone(),
+                    self.temp.id().clone(),
+                    self.temp_amb.id().clone(),
+                    self.height.id().clone(),
+                    self.radial_position.id().clone(),
                 ),
                 equation_2(
                     self.temp.display_value(),

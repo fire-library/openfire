@@ -1,4 +1,5 @@
 use super::parameter::ArcParameter;
+use crate::domain::method::parameter::ParameterTrait;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 
@@ -15,10 +16,9 @@ impl Step {
             dependencies.push(parameter.clone());
             dependencies.append(&mut &mut parameter.read().unwrap().get_dependencies());
         }
-        dependencies
-            .dedup_by(|first, second| first.read().unwrap().id == second.read().unwrap().id);
+        dependencies.dedup_by(|first, second| first.id() == second.id());
 
-        dependencies.sort_by_key(|f| f.read().unwrap().id.clone());
+        dependencies.sort_by_key(|f| f.id());
 
         dependencies
     }
@@ -32,15 +32,12 @@ impl Step {
             input.append(&mut parameter.read().unwrap().get_dependencies());
         }
 
-        let top_level_params: Vec<String> = top_level_params
-            .into_iter()
-            .map(|p| p.read().unwrap().id.clone())
-            .collect();
+        let top_level_params: Vec<String> = top_level_params.into_iter().map(|p| p.id()).collect();
 
         input
             .into_iter()
             .filter(|p| {
-                let id = p.read().unwrap().id.clone();
+                let id = p.id();
                 !top_level_params.contains(&id)
             })
             .collect()

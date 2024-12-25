@@ -23,10 +23,7 @@ impl Equation for QMax {
     fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
             "\\dot{{Q}}_{{max}} = {}",
-            Self::q_max_equation(
-                self.a_v.read().unwrap().id.clone(),
-                self.h_v.read().unwrap().id.clone(),
-            )
+            Self::q_max_equation(self.a_v.id(), self.h_v.id(),)
         );
 
         vec![vec![CalculationComponent::Equation(eq_1)]]

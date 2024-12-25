@@ -2,7 +2,7 @@ use crate::domain::{
     method::{
         calculation::CalculationComponent,
         form::FieldTrait,
-        parameter::{ArcParameter, Parameter, ParametersTrait},
+        parameter::{ArcParameter, ParameterType, ParametersTrait},
         validation::ParameterError,
     },
     tab::{TabState, Tabs, WrappedTabState},
@@ -37,7 +37,7 @@ pub async fn calculate_form<R: tauri::Runtime>(
 
             if let Ok(_) = validation {
                 emit_response(validation, &app_handle)?;
-                method.evaluate()?;
+                method.evaluate().map_err(|e| e.to_string())?;
                 app_handle.emit("tabs_updated", ()).unwrap();
             } else {
                 emit_response(validation, &app_handle)?;
@@ -108,7 +108,7 @@ fn emit_response<R: tauri::Runtime>(
 #[specta::specta]
 pub async fn get_equation_with_symbols(
     all_tabs_state: State<'_, WrappedTabState>,
-    parameter: Parameter,
+    parameter: ParameterType,
 ) -> Result<Vec<Vec<CalculationComponent>>, String> {
     let tabs = all_tabs_state.inner().lock().await;
 
@@ -119,10 +119,10 @@ pub async fn get_equation_with_symbols(
         TabState::Method(form) => &form.parameters,
         _ => return Err("Cannot get equation".to_string()),
     };
-    let param = parameters.get_parameter(&parameter.id);
+    let param = parameters.get_parameter(&parameter.id());
     let param = param.read().unwrap();
 
-    match &param.expression {
+    match param.expression() {
         Some(expr) => Ok(expr.generate_with_symbols()),
         None => Err("No expression found".to_string()),
     }
@@ -132,7 +132,7 @@ pub async fn get_equation_with_symbols(
 #[specta::specta]
 pub async fn get_equation_with_numbers(
     all_tabs_state: State<'_, WrappedTabState>,
-    parameter: Parameter,
+    parameter: ParameterType,
 ) -> Result<Vec<Vec<CalculationComponent>>, String> {
     let tabs = all_tabs_state.inner().lock().await;
 
@@ -143,10 +143,10 @@ pub async fn get_equation_with_numbers(
         TabState::Method(form) => &form.parameters,
         _ => return Err("Cannot get equation".to_string()),
     };
-    let param = parameters.get_parameter(&parameter.id);
+    let param = parameters.get_parameter(&parameter.id());
     let param = param.read().unwrap();
 
-    match &param.expression {
+    match param.expression() {
         Some(expr) => Ok(expr.generate_with_values()),
         None => Err("No expression found".to_string()),
     }

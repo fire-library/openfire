@@ -22,10 +22,7 @@ impl Equation for TG {
     fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_2 = format!(
             "T_{{g}} = {}",
-            Self::t_g_equation(
-                self.t_g_max.read().unwrap().id.clone(),
-                self.psi.read().unwrap().id.clone()
-            )
+            Self::t_g_equation(self.t_g_max.id(), self.psi.id())
         );
 
         vec![vec![CalculationComponent::Equation(eq_2)]]
