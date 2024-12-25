@@ -9,6 +9,7 @@ use crate::domain::method::parameter::builder::ParameterBuilder;
 use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ArcParameter, ParameterTrait, ParametersTrait};
+use crate::domain::method::validation::ParameterError;
 use crate::domain::method::MethodType;
 use crate::domain::method::Reference;
 use crate::domain::method::{step::Step, Method};
@@ -95,7 +96,7 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     }
 }
 
-pub fn evaluate(method: &mut Method) -> Result<(), String> {
+pub fn evaluate(method: &mut Method) -> Result<(), ParameterError> {
     let a_s = method.parameters.get_parameter("A_s").as_float();
     let a = method.parameters.get_parameter("A").as_float();
     let h = method.parameters.get_parameter("H").as_float();
@@ -103,7 +104,7 @@ pub fn evaluate(method: &mut Method) -> Result<(), String> {
     let o = method.parameters.get_parameter("O");
 
     let result = calculate_ventilation_factor(a_s, a, h);
-    o.update(Some(result.to_string()));
+    o.update(Some(result.to_string()))?;
 
     return Ok(());
 }
