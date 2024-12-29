@@ -66,7 +66,6 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
         let a_s = ParamBuilder::float("A_s")
             .name("Surface Area of Compartment (less openings and floor)")
             .units("m^{2}")
-            .default_value(Some(ParameterValue::Float(0.0)))
             .min(0.0)
             .max(100.0)
             .required()
@@ -75,7 +74,6 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
         let a = ParamBuilder::float("A")
             .name("Area of Ventilation Opening")
             .units("m^{2}")
-            .default_value(Some(ParameterValue::Float(1.0)))
             .min_exclusive(0.0)
             .required()
             .build();
@@ -83,7 +81,6 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
         let h = ParamBuilder::float("H")
             .name("Height of Ventilation Opening")
             .units("m")
-            .default_value(Some(ParameterValue::Float(1.0)))
             .min_exclusive(0.0)
             .required()
             .build();

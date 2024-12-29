@@ -66,7 +66,6 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         let temp = ParamBuilder::float("T")
             .name("Temperature at position of interest")
             .units("^{o}C")
-            .default_value(Some(ParameterValue::Float(0.0)))
             .min(0.0)
             .required()
             .build();
@@ -74,7 +73,6 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         let temp_amb = ParamBuilder::float("T_\\infty")
             .name("Ambient Temperature")
             .units("^{o}C")
-            .default_value(Some(ParameterValue::Float(0.0)))
             .min(0.0)
             .required()
             .less_than_or_equal_to_parameter(&temp)
@@ -83,7 +81,6 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         let h = ParamBuilder::float("H")
             .name("Ceiling height")
             .units("m")
-            .default_value(Some(ParameterValue::Float(0.0)))
             .min(0.0)
             .required()
             .build();
@@ -92,7 +89,6 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
             .name("Radial position")
             .units("m")
             .min(0.0)
-            .default_value(Some(ParameterValue::Float(0.0)))
             .required()
             .build();
 
