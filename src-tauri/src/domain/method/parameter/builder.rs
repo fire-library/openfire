@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::sync::Arc;
 use std::sync::RwLock;
 
@@ -9,11 +10,13 @@ use super::DisplayOptions;
 use super::Parameter;
 use super::ParameterType;
 use super::ParameterValue;
+use super::Parameters;
 use super::Validation;
 
 pub enum ParamBuilder {
     Float(ParameterBuilder<f64>),
     String(ParameterBuilder<String>),
+    Object(ParameterBuilder<Vec<ArcParameter>>),
 }
 
 pub struct ParameterBuilder<T> {
@@ -51,6 +54,18 @@ impl ParamBuilder {
         })
     }
 
+    pub fn object(id: &str, params: Vec<ArcParameter>) -> Self {
+        ParamBuilder::Object(ParameterBuilder::<Vec<ArcParameter>> {
+            id: id.to_string(),
+            name: None,
+            units: None,
+            validations: vec![],
+            value: None,
+            expression: None,
+            display_options: vec![],
+        })
+    }
+
     pub fn name(self, name: &str) -> Self {
         match self {
             ParamBuilder::Float(mut builder) => {
@@ -60,6 +75,10 @@ impl ParamBuilder {
             ParamBuilder::String(mut builder) => {
                 builder.name = Some(name.to_string());
                 ParamBuilder::String(builder)
+            }
+            ParamBuilder::Object(mut builder) => {
+                builder.name = Some(name.to_string());
+                ParamBuilder::Object(builder)
             }
         }
     }
@@ -74,6 +93,7 @@ impl ParamBuilder {
                 builder.units = Some(units.to_string());
                 ParamBuilder::String(builder)
             }
+            ParamBuilder::Object(_) => panic!("An object cannot have units"),
         }
     }
 
@@ -87,6 +107,7 @@ impl ParamBuilder {
                 builder.expression = Some(exp);
                 ParamBuilder::String(builder)
             }
+            ParamBuilder::Object(_) => panic!("An object cannot have an expression"),
         }
     }
 
@@ -106,6 +127,7 @@ impl ParamBuilder {
                 });
                 ParamBuilder::String(builder)
             }
+            ParamBuilder::Object(_) => panic!("An object cannot have a default value"),
         }
     }
 
@@ -118,6 +140,7 @@ impl ParamBuilder {
                 ParamBuilder::Float(builder)
             }
             ParamBuilder::String(_) => panic!("Invalid display option for a string"),
+            ParamBuilder::Object(_) => panic!("An object cannot have display options"),
         }
     }
 
@@ -131,6 +154,10 @@ impl ParamBuilder {
                 builder.validations.push(Validation::Required);
                 ParamBuilder::String(builder)
             }
+            ParamBuilder::Object(mut builder) => {
+                builder.validations.push(Validation::Required);
+                ParamBuilder::Object(builder)
+            }
         }
     }
 
@@ -141,6 +168,7 @@ impl ParamBuilder {
                 ParamBuilder::Float(builder)
             }
             ParamBuilder::String(_) => panic!("Invalid validation for a string"),
+            ParamBuilder::Object(_) => panic!("Invalid validation for an object"),
         }
     }
 
@@ -151,6 +179,7 @@ impl ParamBuilder {
                 ParamBuilder::Float(builder)
             }
             ParamBuilder::String(_) => panic!("Invalid validation for a string"),
+            ParamBuilder::Object(_) => panic!("Invalid validation for an object"),
         }
     }
 
@@ -165,6 +194,7 @@ impl ParamBuilder {
                 ParamBuilder::Float(builder)
             }
             ParamBuilder::String(_) => panic!("Invalid validation for a string"),
+            ParamBuilder::Object(_) => panic!("Invalid validation for an object"),
         }
     }
 
@@ -179,6 +209,7 @@ impl ParamBuilder {
                 ParamBuilder::Float(builder)
             }
             ParamBuilder::String(_) => panic!("Invalid validation for a string"),
+            ParamBuilder::Object(_) => panic!("Invalid validation for an object"),
         }
     }
 
@@ -189,6 +220,7 @@ impl ParamBuilder {
                 ParamBuilder::Float(builder)
             }
             ParamBuilder::String(_) => panic!("Invalid validation for a string"),
+            ParamBuilder::Object(_) => panic!("Invalid validation for an object"),
         }
     }
 
@@ -199,6 +231,7 @@ impl ParamBuilder {
                 ParamBuilder::Float(builder)
             }
             ParamBuilder::String(_) => panic!("Invalid validation for a string"),
+            ParamBuilder::Object(_) => panic!("Invalid validation for an object"),
         }
     }
 
@@ -219,6 +252,15 @@ impl ParamBuilder {
                 units: p.units,
                 validations: p.validations,
                 value: p.value,
+                expression: p.expression,
+                display_options: p.display_options,
+            }),
+            ParamBuilder::Object(p) => ParameterType::Object(Parameter::<Parameters> {
+                name: p.name.unwrap(),
+                id: p.id,
+                units: p.units,
+                validations: p.validations,
+                value: Some(HashMap::new()),
                 expression: p.expression,
                 display_options: p.display_options,
             }),

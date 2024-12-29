@@ -20,54 +20,6 @@ pub enum ParameterValue {
     List(Vec<ArcParameter>),
 }
 
-impl PartialEq for ParameterValue {
-    fn eq(&self, other: &Self) -> bool {
-        match (self, other) {
-            (ParameterValue::String(a), ParameterValue::String(b)) => a == b,
-            (ParameterValue::Float(a), ParameterValue::Float(b)) => a == b,
-            (ParameterValue::Bool(a), ParameterValue::Bool(b)) => a == b,
-            _ => false,
-        }
-    }
-}
-
-impl ParameterValue {
-    pub fn to_string(&self) -> Result<String, String> {
-        match self {
-            ParameterValue::String(value) => Ok(value.clone()),
-            ParameterValue::Float(value) => Ok(value.to_string()),
-            ParameterValue::Bool(value) => Ok(value.to_string()),
-            ParameterValue::Object(_) => Err("Cannot Convert ParamList to String".to_string()),
-            ParameterValue::List(_) => Err("Cannot Convert List to String".to_string()),
-        }
-    }
-
-    pub fn to_float(&self) -> Result<f64, String> {
-        match self {
-            ParameterValue::Float(value) => Ok(value.clone()),
-            _ => Err("Value is not a float".to_string()),
-        }
-    }
-}
-
-impl fmt::Display for ParameterValue {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            ParameterValue::String(value) => write!(f, "{}", value),
-            ParameterValue::Float(value) => write!(f, "{}", value),
-            ParameterValue::Bool(value) => {
-                if *value {
-                    write!(f, "True")
-                } else {
-                    write!(f, "False")
-                }
-            }
-            ParameterValue::Object(_) => write!(f, "Object"),
-            ParameterValue::List(_) => write!(f, "List"),
-        }
-    }
-}
-
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum Validation {
     Required,
@@ -106,12 +58,12 @@ impl DisplayOptionsTrait for Vec<DisplayOptions> {
     }
 }
 
-#[derive(Type, Serialize, Deserialize, Debug)]
+#[derive(Type, Serialize, Deserialize, Debug, PartialEq)]
 pub enum ParameterType {
     String(Parameter<String>),
     Float(Parameter<f64>),
     Bool(Parameter<bool>),
-    Object(Parameters),
+    Object(Parameter<Parameters>),
 }
 
 #[derive(Type, Serialize, Deserialize, Debug)]
