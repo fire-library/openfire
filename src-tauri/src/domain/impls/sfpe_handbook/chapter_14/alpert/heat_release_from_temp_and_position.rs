@@ -50,8 +50,8 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
             fields.push(param.to_field())
         }
         let step_1 = FormStep {
-            name: "Input | Ceiling Jet Correlation (Eq. 14.2 & 14.3)".to_string(),
-            description: "Uses Alpert's original correlation to calculate steady HRR for activation of a ceiling-mounted heat detector".to_string(),
+            name: "Input | Eq. 14.2 & 14.3".to_string(),
+            description: "Input required to calculate steady HRR for activation of a ceiling-mounted heat detector, using Alpert's original correlation.".to_string(),
             fields: fields,
             introduction: vec![],
         };
