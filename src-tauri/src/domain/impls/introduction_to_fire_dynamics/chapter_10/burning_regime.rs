@@ -108,8 +108,8 @@ impl MethodBuilderTrait for BurningRegimeBuilder {
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut step_1 = FormStep::new(
-            "Burning Regime",
-            "Input required to calculate the burning regime of the fire.",
+            "Input | Eq. 10.18",
+            "Input required to calculate the burning regime of the fire, following Harmathy's method.",
         );
         for param in params.values().into_iter() {
             if param.id() == "g" || param.id() == "F" || param.id() == "Regime" {
