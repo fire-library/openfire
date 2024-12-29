@@ -154,7 +154,7 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
 
         let mut step_2 = FormStep::new(
             "Input | Eq. 43 (Optional)",
-            "Input required to calculate the impact of fire load on the average temperature in the compartment, for low fire loads",
+            "Input required to calculate the impact of fire load on the average temperature in the compartment, for low fire loads.",
         );
         let psi = params.get_parameter("\\Psi");
         let t_g = params.get_parameter("T_{g}");

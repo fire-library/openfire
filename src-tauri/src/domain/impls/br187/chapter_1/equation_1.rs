@@ -51,7 +51,7 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
 
         let step_1 = FormStep {
             name: "Input | Eq. 1".to_string(),
-            description: "Input required to calculate the ventilation factor".to_string(),
+            description: "Input required to calculate the ventilation factor. ".to_string(),
             fields: fields,
             introduction: vec![],
         };
