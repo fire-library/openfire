@@ -44,7 +44,7 @@ function App() {
               break;
           }
         });
-        await relaunch();
+        // await relaunch();
       }
     };
 

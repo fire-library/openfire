@@ -6,16 +6,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { Tab, commands } from "src/bindings";
-
-const defaultTab: Tab = {
-  id: "default",
-  state: { type: "Index", id: "Index" },
-  saved: true,
-  current: true,
-  filename: null,
-  title: null,
-};
+import { commands } from "src/bindings";
 
 export type UserAgreementType = {
   agreed?: boolean;
