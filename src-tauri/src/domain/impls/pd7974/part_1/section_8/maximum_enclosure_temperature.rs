@@ -111,8 +111,8 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut step_1 = FormStep::new(
-            "Maximum enclosure temperature",
-            "Input required to calculate the maximum enclosure temperature",
+            "Input | Eq. 41",
+            "Input required to calculate the maximum enclosure temperature, based on Thomas and Heselden and Law.",
         );
         for param in params.values().into_iter() {
             if param.id() == "T_{g(max)}"
@@ -153,8 +153,8 @@ impl MethodBuilderTrait for MaximumEnclosureTemperatureBuilder {
         );
 
         let mut step_2 = FormStep::new(
-            "Fire load input (optional)",
-            "Calculate the impact of fire load on the average temperature in the compartment",
+            "Input | Eq. 43 (Optional)",
+            "Input required to calculate the impact of fire load on the average temperature in the compartment, for low fire loads",
         );
         let psi = params.get_parameter("\\Psi");
         let t_g = params.get_parameter("T_{g}");
