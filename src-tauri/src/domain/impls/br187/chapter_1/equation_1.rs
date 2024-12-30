@@ -5,7 +5,6 @@ use crate::domain::method::calculation::CalculationComponent;
 use crate::domain::method::equation::Equation;
 use crate::domain::method::form::{Form, FormStep};
 use crate::domain::method::parameter::builder::ParamBuilder;
-use crate::domain::method::parameter::ParameterValue;
 use crate::domain::method::parameter::Parameters;
 use crate::domain::method::parameter::{ArcParameter, ParameterTrait, ParametersTrait};
 use crate::domain::method::validation::ParameterError;
@@ -41,21 +40,30 @@ impl MethodBuilderTrait for BR187Chapter1Equation1Builder {
     }
 
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
-        let mut fields = vec![];
+        let mut step_1 = FormStep::new(
+            "Input | Eq. 1",
+            "Input required to calculate the ventilation factor.",
+        );
         for param in params.values().into_iter() {
             if param.id() == "O" {
                 continue;
             }
-            fields.push(param.to_field())
+            step_1.add_field(param.to_field())
         }
-
-        let step_1 = FormStep {
-            name: "Input | Eq. 1".to_string(),
-            description: "Input required to calculate the ventilation factor. ".to_string(),
-            fields: fields,
-            introduction: vec![],
-        };
-
+        let factor = params.get_parameter("O");
+        step_1.add_intro();
+        step_1.add_title("Equations");
+        step_1.add_intro();
+        step_1.add_equation(
+            factor
+                .read()
+                .unwrap()
+                .expression()
+                .as_ref()
+                .unwrap()
+                .generate_with_symbols()[0][0]
+                .clone(),
+        );
         Form {
             steps: vec![step_1],
         }
