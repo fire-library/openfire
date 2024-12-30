@@ -2,6 +2,6 @@ Equation 1 of _BR 187 (2014)_ calculates the ventilation factor ($O$), a
 critical parameter used to evaluate the ventilation conditions of an enclosure
 fire. The ventilation factor describes the influence of ventilation on fire development.
 
-The ventilation factor $O$ increases with larger compartments and small
+The ventilation factor increases with larger compartments and small
 openings. For larger ventilation factors, the fire is likely to be within
 the ventilation controlled regime.
