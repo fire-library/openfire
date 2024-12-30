@@ -109,7 +109,7 @@ impl MethodBuilderTrait for HRRAtFlashoverBuilder {
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut step_1 = FormStep::new(
-            "HRR at flashover by Thomas",
+            "Input | Eq. 28",
             "Input required to calculate the HRR at flashover using Method 1 by Thomas",
         );
         for param in params.values().into_iter() {
@@ -136,7 +136,7 @@ impl MethodBuilderTrait for HRRAtFlashoverBuilder {
         );
 
         let mut step_2 = FormStep::new(
-            "HRR at flashover by McCaffrey et al. (Optional)",
+            "Input | Eq. 29 (Optional)",
             "Additional input required to calculate the HRR at flashover using Method 2 by McCaffrey et al.",
         );
 

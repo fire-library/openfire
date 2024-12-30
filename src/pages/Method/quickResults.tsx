@@ -25,7 +25,7 @@ export default function MaterialInput({ results }: { results: Calculation }) {
           <div className="ml-4 mt-4 flex flex-col">
             <div className="flex flex-row items-center">
               <h3 className="text-base font-semibold leading-6 text-gray-900 mr-2">
-                Quick Results
+                Results
               </h3>
             </div>
           </div>
