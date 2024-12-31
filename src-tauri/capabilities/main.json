@@ -7,6 +7,8 @@
     "dialog:allow-open",
     "dialog:allow-save",
     "dialog:allow-ask",
+    "dialog:allow-message",
+    "dialog:default",
     "shell:allow-execute",
     "core:event:default",
     "deep-link:default",
@@ -16,6 +18,8 @@
     "global-shortcut:allow-register",
     "global-shortcut:allow-unregister",
     "global-shortcut:allow-register-all",
-    "global-shortcut:allow-unregister-all"
+    "global-shortcut:allow-unregister-all",
+    "process:allow-restart",
+    "process:default"
   ]
 }
