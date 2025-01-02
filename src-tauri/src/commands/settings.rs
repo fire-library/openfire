@@ -1,4 +1,4 @@
-use crate::domain::license;
+use crate::domain::settings::{license, Settings};
 use tauri::AppHandle;
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -8,8 +8,11 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub fn has_agreed_to_latest_license<R: tauri::Runtime>(
     app_handle: AppHandle<R>,
 ) -> Result<bool, String> {
-    let agreements = license::load_lisence_agreements(&app_handle)?;
-    let has_agreed = agreements.get(&license::LATEST_LICENSE).unwrap_or(&false);
+    let settings = Settings::load(&app_handle)?;
+    let has_agreed = settings
+        .license
+        .get(&license::LATEST_LICENSE)
+        .unwrap_or(&false);
 
     Ok(*has_agreed)
 }
