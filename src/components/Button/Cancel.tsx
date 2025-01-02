@@ -8,7 +8,7 @@ export default function Success({
   return (
     <button
       type="button"
-      className="rounded-md bg-white px-2 py-1 mb-2 text-black hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      className="bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-200 rounded-full"
       onClick={onClick}
     >
       {children}
