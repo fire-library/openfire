@@ -26,6 +26,7 @@ pub enum Document {
     IntroductionToFireDynamics(
         Option<introduction_to_fire_dynamics::IntroductionToFireDynamicsChapter>,
     ),
+    CIBSEE(Option<cibse_e::CIBSEEChapter)
 }
 
 impl Document {
@@ -38,6 +39,7 @@ impl Document {
             },
             &Document::SFPEHandbook(_) => "SFPE Handbook".to_string(),
             &Document::IntroductionToFireDynamics(_) => "Introduction to Fire Dynamics".to_string(),
+            &Document::CIBSEE(_) => "CIBSE Guide E".to_string(),
         }
     }
 
@@ -59,6 +61,10 @@ impl Document {
                 Some(c) => format!("Introduction to Fire Dynamics | {}", c.friendly_reference()),
                 None => "Introduction to Fire Dynamics".to_string(),
             },
+            &Document::CIBSEE(c:) => match c{
+                Some(c:) => format!("CIBSE Guide E | {}", c.friendly_reference()),
+                None => "CIBSE Guide E".to_string(),
+            }
         }
     }
 
@@ -72,6 +78,7 @@ impl Document {
             } 
             &Document::SFPEHandbook(_) => "Hurley, M.J., et al., 2016. SFPE Handbook of Fire Protection Engineering. 5th ed. Springer.".to_string(),
             &Document::IntroductionToFireDynamics(_) => "Drysdale, D., 2011. Introduction to fire dynamics. 3rd ed. Wiley.".to_string(),
+            &Document::CIBSEE(_) => "Chartered Institution of Building Services Engineers, 2019. Guide E: Fire Safety Engineering. 4th ed. London.".to_string(),
         }
     }
 
@@ -102,6 +109,10 @@ impl Document {
                 Some(chapter) => chapter.about_method(),
                 None => panic!("No chapter provided"),
             },
+            &Document::CIBSEE(chapter: ) => match chapter {
+                Some(chapter) => chapter.about_method(),
+                None => panic!("No chapter provided"),
+            }
         }
     }
 
@@ -123,6 +134,10 @@ impl Document {
                 Some(chapter) => chapter.method_limitations(),
                 None => panic!("No chapter provided"),
             },
+            &Document::CIBSEE(chapter:) => match chapter {
+                Some(chapter) => chapter.method_limitations(),
+                None => panic!("No chapter provided"),
+            }
         }
     }
 }
@@ -172,5 +187,11 @@ pub fn all_impls() -> Vec<DocumentImplementations> {
         introduction_to_fire_dynamics::chapter_10::burning_regime::BurningRegimeBuilder::index_page()
             ],
         },
-    ]
+        DocumentImplementations{
+            document: Document::CIBSEE(None).name(),
+            implementations: vec![
+                cibse_e::chapter_10::ExtractPointsBuilder::index_page()
+            ],
+        },
+    ],
 }
