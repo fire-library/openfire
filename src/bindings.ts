@@ -204,6 +204,14 @@ async agreeToLicense() : Promise<Result<null, string>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async openfireVersion() : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("openfire_version") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
