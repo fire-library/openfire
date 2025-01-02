@@ -42,20 +42,30 @@ impl MethodBuilderTrait for AlpertHeatReleaseFromTempAndPositionBuilder {
         ))))
     }
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
-        let mut fields = vec![];
+        let mut step_1: FormStep = FormStep::new(
+            "Input | Eq. 14.2 & 14.3",
+            "Input required to calculate steady HRR for activation of a ceiling-mounted heat detector, using Alpert's original correlation."
+        );
         for param in params.values().into_iter() {
             if param.id() == "\\dot{Q}" {
                 continue;
             }
-            fields.push(param.to_field())
+            step_1.add_field(param.to_field())
         }
-        let step_1 = FormStep {
-            name: "Input | Eq. 14.2 & 14.3".to_string(),
-            description: "Input required to calculate steady HRR for activation of a ceiling-mounted heat detector, using Alpert's original correlation.".to_string(),
-            fields: fields,
-            introduction: vec![],
-        };
-
+        let factor = params.get_parameter("\\dot{Q}");
+        step_1.add_intro();
+        step_1.add_title("Equations");
+        step_1.add_intro();
+        step_1.add_equation(
+            factor
+                .read()
+                .unwrap()
+                .expression()
+                .as_ref()
+                .unwrap()
+                .generate_with_symbols()[0][0]
+                .clone(),
+        );
         Form {
             steps: vec![step_1],
         }
