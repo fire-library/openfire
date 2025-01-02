@@ -11,7 +11,7 @@ use commands::forms::{
     get_equation_with_symbols, update_field, ValidationErrorEvent,
 };
 use commands::impls::*;
-use commands::license::*;
+use commands::settings::*;
 use commands::tab::*;
 use domain::tab::{NoCalc, TabBuilder, TabState, WrappedTabState};
 use specta_typescript::Typescript;
