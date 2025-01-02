@@ -1,4 +1,4 @@
-CIBSE Guide E is a comprehensive resource developed by the Chartered Institution
+_CIBSE Guide E_ is a comprehensive resource developed by the Chartered Institution
 of Building Services Engineers (CIBSE) to support fire safety engineering in
 building design. It provides practical guidance on fire protection, evacuation
 strategies, smoke control, and fire risk assessment, emphasizing
