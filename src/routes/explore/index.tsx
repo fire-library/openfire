@@ -35,21 +35,19 @@ export default function Explore() {
       </div>
       <div className="flex flex-row h-5 border-y bg-slate-200 border-black justify-end w-full">
         {update.update?.available &&
-        !update.installing &&
-        !update.awaitingRestart ? (
-          <button
-            className="text-xs mr-2 hover:bg-gray-300 px-2"
-            onClick={update.doUpdate}
-          >
-            Update to v{update.update.version}
-          </button>
-        ) : null}
-        {update.installing ? (
+          !update.installing &&
+          !update.awaitingRestart && (
+            <button
+              className="text-xs mr-2 hover:bg-gray-300 px-2"
+              onClick={update.doUpdate}
+            >
+              Update to v{update.update.version}
+            </button>
+          )}
+        {update.installing && (
           <div className="flex w-96">
             <ProgressBar percent={update.progress} />
           </div>
-        ) : (
-          ""
         )}
         <div className="mr-2 text-xs">{version ? `v${version}` : ""}</div>
       </div>
