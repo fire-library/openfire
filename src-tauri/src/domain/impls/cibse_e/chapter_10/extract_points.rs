@@ -22,35 +22,36 @@ pub struct CIBSEEChapter10ExtractPointsBuilder;
 
 impl MethodBuilderTrait for CIBSEEChapter10ExtractPointsBuilder {
     fn name() -> String {
-        "Ventilation Factor".to_string()
+        "Exhaust flow rate".to_string()
     }
     fn tags() -> Vec<Tag> {
         vec![Tag::Ventilation]
     }
     fn description() -> Option<String> {
-        Some("Calculates the Ventilation Factor".to_string())
+        Some("Calculates the maximum volumetric flow rate though a single exhaust vent".to_string())
     }
     fn quick_calc_compatible() -> bool {
         true
     }
     fn reference() -> Reference {
-        Reference(Document::BR187(Some(BR187Chapter::One(
+        // Note from SS. No idea what R187ter is. Needs updating.
+        Reference(Document::CIBSEE(Some(CIBSEEChapter::Ten(R187ter::One(
             Chapter1Equation::One,
         ))))
     }
 
     fn form(params: &Parameters) -> crate::domain::method::form::Form {
         let mut step_1 = FormStep::new(
-            "Input | Eq. 1",
-            "Input required to calculate the ventilation factor.",
+            "Input | Eq. 10.1",
+            "Input required to calculate the volumetric flow rate.",
         );
         for param in params.values().into_iter() {
-            if param.id() == "O" {
+            if param.id() == "V" {
                 continue;
             }
             step_1.add_field(param.to_field())
         }
-        let factor = params.get_parameter("O");
+        let factor = params.get_parameter("V");
         step_1.add_intro();
         step_1.add_title("Equations");
         step_1.add_intro();
@@ -71,52 +72,61 @@ impl MethodBuilderTrait for CIBSEEChapter10ExtractPointsBuilder {
     fn parameters() -> Parameters {
         let mut params = Parameters::new();
 
-        let a_s = ParamBuilder::float("A_s")
-            .name("Surface Area of Compartment (less openings and floor)")
-            .units("m^{2}")
-            .min(0.0)
-            .max(100.0)
+        let gamma = ParamBuilder::float("\\Gamma")
+            .name("Exhaust location factor (1 for vents far from and, 0.5 for vents close to, the wall)")
+            .units("(-)")
+            .min(0.5)
+            .max(1.0)
             .required()
             .build();
 
-        let a = ParamBuilder::float("A")
-            .name("Area of Ventilation Opening")
-            .units("m^{2}")
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        let h = ParamBuilder::float("H")
-            .name("Height of Ventilation Opening")
+        let d = ParamBuilder::float("d")
+            .name("Depth of smoke layer below exhaust")
             .units("m")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let o = ParamBuilder::float("O")
-            .name("Ventilation Factor")
-            .units("m^{-1/2}")
-            .expression(Box::new(BR187Chapter1Equation1::new(
-                a_s.clone(),
-                a.clone(),
-                h.clone(),
+        let t_s = ParamBuilder::float("T_s")
+            .name("Temperature of the smoke layer")
+            .units("K")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        let t_o = ParamBuilder::float("T_o")
+            .name("Ambient temperature")
+            .units("K")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        let v = ParamBuilder::float("V")
+            .name("Volumetric flow rate")
+            .units("m^3/s")
+            .expression(Box::new(CIBSEEChapter10ExtractPoints::new(
+                gamma.clone(),
+                d.clone(),
+                t_s.clone(),
+                t_o.clone(),
             )))
             .build();
 
-        params.add(a_s);
-        params.add(a);
-        params.add(h);
-        params.add(o);
+        params.add(gamma);
+        params.add(d);
+        params.add(t_s);
+        params.add(t_o);
+        params.add(v);
 
         return params;
     }
 
     fn calc_sheet(params: &Parameters) -> crate::domain::method::calculation::ArcCalculation {
-        let o = params.get_parameter("O");
+        let v = params.get_parameter("V");
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new()));
         let step = Step {
-            name: "Calculate Ventilation Factor".to_string(),
-            parameters: vec![o],
+            name: "Calculate maximum volumetric flow rate".to_string(),
+            parameters: vec![v],
         };
         calc_sheet.write().unwrap().add_step(step);
 
@@ -124,45 +134,47 @@ impl MethodBuilderTrait for CIBSEEChapter10ExtractPointsBuilder {
     }
 
     fn method_type() -> MethodType {
-        MethodType::BR187Chapter1Equation1
+        MethodType::CIBSEEChapter10ExtractPoints
     }
 }
 
 pub fn evaluate(method: &mut Method) -> Result<(), ParameterError> {
-    let a_s = method.parameters.get_parameter("A_s").as_float();
-    let a = method.parameters.get_parameter("A").as_float();
-    let h = method.parameters.get_parameter("H").as_float();
+    let gamma = method.parameters.get_parameter("\\Gamma").as_float();
+    let d = method.parameters.get_parameter("d").as_float();
+    let t_s = method.parameters.get_parameter("T_s").as_float();
+    let t_o = method.parameters.get_parameter("T_o").as_float();
 
-    let o = method.parameters.get_parameter("O");
+    let v = method.parameters.get_parameter("V");
 
-    let result = calculate_ventilation_factor(a_s, a, h);
-    o.update(Some(result.to_string()))?;
+    let result = calculate_volumetric_flow_rate(gamma, d, t_s, t_o);
+    v.update(Some(result.to_string()))?;
 
     return Ok(());
 }
 
-pub fn calculate_ventilation_factor(a_s: f64, a: f64, h: f64) -> f64 {
-    return a_s / (a * h.sqrt());
+pub fn calculate_volumetric_flow_rate(gamma: f64, d: f64, t_s: f64, t_o: f64) -> f64 {
+    return 4.16 * gamma * d^(5/2) * ((t_s - t_o)/t_o) ^ (1/2);
 }
 
 #[derive(Debug)]
-pub struct BR187Chapter1Equation1 {
-    a_s: ArcParameter,
-    a: ArcParameter,
-    h: ArcParameter,
+pub struct CIBSEEChapter10ExtractPoints {
+    gamma: ArcParameter,
+    d: ArcParameter,
+    t_s: ArcParameter,
+    t_o: ArcParameter,
 }
 
-impl BR187Chapter1Equation1 {
-    pub fn new(a_s: ArcParameter, a: ArcParameter, h: ArcParameter) -> Self {
-        BR187Chapter1Equation1 { a_s, a, h }
+impl CIBSEEChapter10ExtractPoints {
+    pub fn new(gamma: ArcParameter, d: ArcParameter, t_s: ArcParameter, t_o: ArcParameter) -> Self {
+        CIBSEEChapter10ExtractPoints { gamma, d, t_s, t_o }
     }
 }
 
-impl Equation for BR187Chapter1Equation1 {
+impl Equation for CIBSEEChapter10ExtractPoints {
     fn dependencies(&self) -> Vec<ArcParameter> {
-        vec![self.a_s.clone(), self.a.clone(), self.h.clone()]
+        vec![self.gamma.clone(), self.d.clone(), self.t_s.clone(), self.t_o.clone()]
     }
-
+    // this is another place where I don't kow what is happening below. Why do we define the equation again?
     fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq = "O = \\frac{A_s}{A \\cdot \\sqrt{H}}".to_string();
         vec![vec![CalculationComponent::Equation(eq)]]
