@@ -42,7 +42,7 @@ export const UpdateProvider: React.FC<{ children: ReactNode }> = ({
     let stateProgress = 0;
     let localProgress = 0;
     let downloaded = 0;
-    await update.download((event) => {
+    await update.downloadAndInstall((event) => {
       switch (event.event) {
         case "Started":
           size = event.data.contentLength as number;
