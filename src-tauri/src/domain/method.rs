@@ -17,6 +17,7 @@ use validation::ParameterError;
 
 use super::filesystem::saved_method::SavedMethod;
 use super::impls::br187;
+use super::impls::cibse_e;
 use super::impls::introduction_to_fire_dynamics;
 use super::impls::pd7974;
 use super::impls::sfpe_handbook;
@@ -55,6 +56,9 @@ impl Method {
             MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
                 introduction_to_fire_dynamics::chapter_10::burning_regime::evaluate(self)?
             }
+            MethodType::CIBSEEChapter10ExtractPoints => {
+                cibse_e::chapter_10::extract_points::evaluate(self)?
+            }
         };
 
         self.calc_sheet.write().unwrap().stale = false;
@@ -70,6 +74,7 @@ pub enum MethodType {
     BR187Chapter1Equation1,
     SFPEAlpertHeatReleaseFromTemperatureAndPosition,
     IntroductionToFireDynamcicsChapter10BurningRegime,
+    CIBSEEChapter10ExtractPoints,
 }
 
 impl MethodType {
@@ -87,6 +92,9 @@ impl MethodType {
             }
             &MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
                 introduction_to_fire_dynamics::chapter_10::burning_regime::BurningRegimeBuilder::build_method()
+            }
+            &MethodType::CIBSEEChapter10ExtractPoints => {
+                cibse_e::chapter_10::ExtractPointsBuilder::build_method()
             }
         }
     }
@@ -108,6 +116,9 @@ impl MethodType {
             &MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
                 return "Introduction to Fire Dynamics | Chapter 10 | Burning Regime".to_string()
             }
+            &Methodtype::CIBSEEChapter10ExtractPoints => {
+                return "CIBSE Guide E | Chapter 10 | Extract Points".to_string()
+            }
         }
     }
 }
@@ -127,6 +138,9 @@ impl From<SavedMethod> for Method {
             }
             MethodType::IntroductionToFireDynamcicsChapter10BurningRegime => {
                 introduction_to_fire_dynamics::chapter_10::burning_regime::BurningRegimeBuilder::build_method()
+            }
+            MethodType::CIBSEEChapter10ExtractPoints => {
+                cibse_e::chapter_10::CIBSEEChapter10ExtractPointsBuilder::build_method()
             }
         };
 
