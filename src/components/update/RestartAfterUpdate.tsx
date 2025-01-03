@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Dialog from "src/components/Dialog";
-import { useUpdate } from "../tabs/useUpdate";
+import { useUpdate } from "../../tabs/useUpdate";
 import Success from "src/components/Button/Success";
 import Cancel from "src/components/Button/Cancel";
 import { relaunch } from "@tauri-apps/plugin-process";

@@ -42,7 +42,7 @@ export const UpdateProvider: React.FC<{ children: ReactNode }> = ({
     let stateProgress = 0;
     let localProgress = 0;
     let downloaded = 0;
-    await update.downloadAndInstall((event) => {
+    await update.download((event) => {
       switch (event.event) {
         case "Started":
           size = event.data.contentLength as number;
@@ -63,13 +63,15 @@ export const UpdateProvider: React.FC<{ children: ReactNode }> = ({
           setAwaitingRestart(true);
           break;
       }
+
+      setUpdate(null);
     });
   }, [update]);
 
   const checkForUpdate = useCallback(async () => {
-    const update = await check();
-    if (update) {
-      setUpdate(update);
+    const updateFound = await check();
+    if (updateFound) {
+      setUpdate(updateFound);
     }
   }, []);
 

@@ -24,7 +24,7 @@ pub struct Settings {
 fn default_update_settings() -> SoftwareUpdate {
     SoftwareUpdate {
         auto_update: false,
-        update: None,
+        skipped_update: None,
     }
 }
 
