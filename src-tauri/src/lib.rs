@@ -59,6 +59,10 @@ pub fn run() {
             has_agreed_to_latest_license::<tauri::Wry>,
             agree_to_license::<tauri::Wry>,
             openfire_version,
+            set_auto_update::<tauri::Wry>,
+            get_auto_update::<tauri::Wry>,
+            get_update_skipped::<tauri::Wry>,
+            set_update_skipped::<tauri::Wry>,
         ])
         .events(collect_events![ValidationErrorEvent]);
 

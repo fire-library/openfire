@@ -63,13 +63,15 @@ export const UpdateProvider: React.FC<{ children: ReactNode }> = ({
           setAwaitingRestart(true);
           break;
       }
+
+      setUpdate(null);
     });
   }, [update]);
 
   const checkForUpdate = useCallback(async () => {
-    const update = await check();
-    if (update) {
-      setUpdate(update);
+    const updateFound = await check();
+    if (updateFound) {
+      setUpdate(updateFound);
     }
   }, []);
 
