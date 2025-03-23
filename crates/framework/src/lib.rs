@@ -1,4 +1,6 @@
-use framework::method::runner::MethodRunner;
+pub mod filesystem;
+pub mod method;
+use method::runner::MethodRunner;
 
 use lazy_static::lazy_static;
 use std::collections::HashMap;

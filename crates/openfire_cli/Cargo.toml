@@ -1,0 +1,21 @@
+[package]
+name = "openfire_cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.32", features = ["cargo"] }
+serde = { version = "1.0", features = ["derive", "rc"] }
+specta = { version = "2.0.0-rc.20", features = ["derive"] }
+sfpe_handbook = { path = "../sfpe_handbook" }
+pd_7974 = { path = "../pd_7974" }
+introduction_to_fire_dynamics = { path = "../introduction_to_fire_dynamics" }
+br_187 = { path = "../br_187" }
+tr17 = { path = "../tr17" }
+framework = { path = "../framework" }
+bs9999 = { path = "../bs9999" }
+cibse_guide_e = { path = "../cibse_guide_e" }
+comfy-table = "7.1.4"
+ansi_term = "0.12.1"
+unicode-segmentation = "1.12.0"
+termimad = "0.31.2"
