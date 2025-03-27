@@ -1,8 +1,8 @@
 pub mod equation_10_1;
 pub mod equation_10_2;
 
-use framework::serde::{Deserialize, Serialize};
-use framework::specta::Type;
+use openfire::serde::{Deserialize, Serialize};
+use openfire::specta::Type;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum Chapter10Method {

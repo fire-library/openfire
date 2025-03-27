@@ -486,15 +486,22 @@ checksum = "d75b0bedcc4fe52caa0e03d9f1151a323e4aa5e2d78ba3580400cd3c9e2bc4bc"
 name = "openfire"
 version = "0.1.0"
 dependencies = [
+ "br_187",
+ "bs9999",
+ "cibse_guide_e",
  "framework",
  "hex-literal",
+ "introduction_to_fire_dynamics",
  "lazy_static",
  "openfire_cli",
+ "pd_7974",
  "serde",
  "serde_json",
+ "sfpe_handbook",
  "sha2",
  "specta",
  "thiserror",
+ "tr17",
  "uuid",
 ]
 

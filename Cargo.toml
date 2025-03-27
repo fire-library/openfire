@@ -17,6 +17,13 @@ sha2 = "0.10.8"
 hex-literal = "1.0.0"
 openfire_cli = { path = "./crates/openfire_cli" }
 framework = { path = "./crates/framework" }
+br_187 = { path = "./crates/br_187" }
+bs9999 = { path = "./crates/bs9999" }
+cibse_guide_e = { path = "./crates/cibse_guide_e" }
+introduction_to_fire_dynamics = { path = "./crates/introduction_to_fire_dynamics" }
+pd_7974 = { path = "./crates/pd_7974" }
+sfpe_handbook = { path = "./crates/sfpe_handbook" }
+tr17 = { path = "./crates/tr17" }
 
 [workspace]
 members = ["crates/*"]

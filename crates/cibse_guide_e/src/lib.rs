@@ -28,7 +28,12 @@ impl Reference for CIBSEGuideE {
     }
 
     fn friendly_reference(&self) -> String {
-        "CIBSE Guide E | Ch 10 | Eq 10.1".to_string()
+        match self {
+            CIBSEGuideE::ChapterTen(method) => {
+                format!("{} | {}", self.document_name(), method.friendly_reference())
+            }
+            CIBSEGuideE::Document => panic!("Document has no method"),
+        }
     }
 
     fn harvard_reference(&self) -> String {
