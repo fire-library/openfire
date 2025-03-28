@@ -40,7 +40,7 @@ pub struct Chapter10Equation3Runner;
 
 impl MethodRunner for Chapter10Equation3Runner {
     fn name(&self) -> String {
-        "Volumetric flow rate from mass flor rate (smoke exhaust)".to_string()
+        "Volumetric flow rate from mass flow rate (smoke exhaust)".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_3)
