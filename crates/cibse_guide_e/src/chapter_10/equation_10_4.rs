@@ -11,6 +11,6 @@ mod tests {
     #[test]
     fn test_equation() {
         let result = time_burning_skin(2.5);
-        assert_eq!(result, 0.386040286498439);
+        assert_eq!(result, 0.3860402864984395);
     }
 }

@@ -39,7 +39,7 @@ pub struct Chapter10Equation1Runner;
 
 impl MethodRunner for Chapter10Equation1Runner {
     fn name(&self) -> String {
-        "Maximum Volumetric Flow Rate".to_string()
+        "Maximum volumetric flow rate".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_1)
