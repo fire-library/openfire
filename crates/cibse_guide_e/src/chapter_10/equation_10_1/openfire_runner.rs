@@ -45,7 +45,7 @@ impl MethodRunner for Chapter10Equation1Runner {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_1)
     }
     fn tags(&self) -> Vec<Tag> {
-        vec![Tag::HRR]
+        vec![Tag::Ventilation]
     }
     fn description(&self) -> Option<String> {
         Some("Calculates the maximum volumetric flow rate, without plug-holing, by a single exhaust vent".to_string())
