@@ -1,5 +1,5 @@
-The calculation of $V$ is the implementation of equation
-10.3 in _CIBSE Guide E_.
+The calculation of $t$ is the implementation of equation
+10.4 in _CIBSE Guide E_.
 
 Comprehensive test coverage can be achieved with a single test.
 
