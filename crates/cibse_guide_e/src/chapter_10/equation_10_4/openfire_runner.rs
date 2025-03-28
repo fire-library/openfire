@@ -77,7 +77,7 @@ impl MethodRunner for Chapter10Equation4Runner {
             .units("min")
             .build();
 
-        let m = ParamBuilder::float(SYMBOLS.m)
+        let q = ParamBuilder::float(SYMBOLS.q)
             .name("Radiant heat flux")
             .units("kW/m2")
             .min_exclusive(0.0)
