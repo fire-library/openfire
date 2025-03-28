@@ -30,9 +30,9 @@ const SYMBOLS: Symbols = Symbols {
 };
 
 #[derive(Default)]
-pub struct Chapter10Equation3Runner;
+pub struct Chapter10Equation4Runner;
 
-impl MethodRunner for Chapter10Equation3Runner {
+impl MethodRunner for Chapter10Equation4Runner {
     fn name(&self) -> String {
         "Time to burning of skin due to radiant heat".to_string()
     }
