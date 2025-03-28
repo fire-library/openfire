@@ -59,7 +59,7 @@ impl MethodRunner for Chapter10Equation4Runner {
             "Input | Eq. 10.4",
             "Input required to calculate the time to burning of skin due to radiant heat.",
         );
-        step_1.add_field(t.to_field());
+        step_1.add_field(q.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(equation_1(
