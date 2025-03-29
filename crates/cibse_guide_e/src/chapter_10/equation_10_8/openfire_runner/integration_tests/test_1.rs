@@ -11,16 +11,20 @@ pub fn test() -> Test {
             id: super::super::Chapter10Equation8Runner.id(),
             parameters: vec![
                 SavedParameter {
-                    name: "K".to_string(),
-                    value: Some(Float(8.0)),
+                    name: "m_f".to_string(),
+                    value: Some(Float(15.0)),
                 },
                 SavedParameter {
-                    name: "D".to_string(),
-                    value: Some(Float(0.2)),
+                    name: "t".to_string(),
+                    value: Some(Float(0.5)),
+                },
+                SavedParameter {
+                    name: "LC{50}".to_string(),
+                    value: Some(Float(1000.0)),
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("S".to_string(), 17.3686495874946)],
+        assertions: vec![Assertion::FloatEqual("LC_{50}".to_string(), 0.45)],
     }
 }
 
