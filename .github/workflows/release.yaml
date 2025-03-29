@@ -82,8 +82,7 @@ jobs:
         run: |
           cargo build --release --target ${{ matrix.target }}
           mkdir -p dist
-          cp target/release/openfire dist/
-          cp -r assets dist/
+          cp target/${{ matrix.target }}/release/openfire dist/
           echo appVersion=0.0.1
 
       # Create a release with the artifacts.
