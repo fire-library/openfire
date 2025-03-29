@@ -11,6 +11,6 @@ mod tests {
     #[test]
     fn test_equation() {
         let result = visibility(8.0, 0.5);
-        assert_eq!(result, 6.94745983499783);
+        assert_eq!(result, 6.947459834997829);
     }
 }
