@@ -82,29 +82,35 @@ impl MethodRunner for Chapter10Equation8Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let s = ParamBuilder::float(&SYMBOLS.s)
-            .name("Visibiility - Distance at which an object an object can be perceived in smoke")
-            .units("m")
+        let fed = ParamBuilder::float(&SYMBOLS.fed)
+            .name("Fractional Effective Dose (FED)")
             .build();
 
-        let k = ParamBuilder::float(SYMBOLS.k)
-            .name("Visibility coefficient")
-            .units("m^{-1}")
-            .min_exclusive(0.0)
-            .default_value(Some(ParameterValue::Float(8.0)))
-            .required()
-            .build();
-
-        let d = ParamBuilder::float(SYMBOLS.d)
-            .name("Optical density per unit length")
-            .units("m^{-1}")
+        let m_f = ParamBuilder::float(SYMBOLS.m_f)
+            .name("Mass concentration of fuel burned")
+            .units("g/m^3")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        params.add(s);
-        params.add(k);
-        params.add(d);
+        let t = ParamBuilder::float(SYMBOLS.t)
+            .name("Exposure time")
+            .units("min")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        let lc_50 = ParamBuilder::float(SYMBOLS.lc_50)
+            .name("Lethal exposure dose from the test subject")
+            .units("g/(m^3 min)")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        params.add(fed);
+        params.add(m_f);
+        params.add(t);
+        params.add(lc_50);
 
         return params;
     }
@@ -114,33 +120,36 @@ impl MethodRunner for Chapter10Equation8Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let s = params.get(SYMBOLS.s);
-        let k = params.get(SYMBOLS.k);
-        let d = params.get(SYMBOLS.d);
+        let fed = params.get(SYMBOLS.fed);
+        let m_f = params.get(SYMBOLS.m_f);
+        let t = params.get(SYMBOLS.t);
+        let lc_50 = params.get(SYMBOLS.lc_50);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
-        let step_1_deps = vec![k.clone(), d.clone()];
+        let step_1_deps = vec![m_f.clone(), t.clone(), lc_50.clone()];
         let mut nomenclature = step_1_deps.clone();
-        nomenclature.push(s.clone());
+        nomenclature.push(fed.clone());
 
         let step = Step {
-            name: "Visibility - Distance at which an object can be perceived in smoke".to_string(),
+            name: "Fractional Effective Dose".to_string(),
             nomenclature: nomenclature,
             input: step_1_deps.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(equation_1(
-                s.symbol(),
-                k.symbol(),
-                d.symbol(),
+                fed.symbol(),
+                m_f.display_value(),
+                t.display_value(),
+                lc_50.display_value(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 equation_1(
-                    s.symbol(),
-                    k.display_value(),
-                    d.display_value(),
+                    fed.symbol(),
+                    m_f.display_value(),
+                    t.display_value(),
+                    lc_50.display_value(),
                 ),
-                s.clone(),
+                fed.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -157,12 +166,13 @@ impl MethodRunner for Chapter10Equation8Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let s = method.parameters.get(SYMBOLS.s);
-        let k = method.parameters.get(SYMBOLS.k).as_float();
-        let d = method.parameters.get(SYMBOLS.d).as_float();
+        let fed = method.parameters.get(SYMBOLS.fed);
+        let m_f = method.parameters.get(SYMBOLS.m_f).as_float();
+        let t = method.parameters.get(SYMBOLS.t).as_float();
+        let lc_50= method.parameters.get(SYMBOLS.lc_50).as_float();
 
-        let result = super::visibility(k, d);
-        s.update(Some(result.to_string()))?;
+        let result = super::fractional_effective_dose(m_f, t, lc_50);
+        fed.update(Some(result.to_string()))?;
 
         return Ok(());
     }
