@@ -5,7 +5,6 @@ use framework::method::calculation::CalculationComponent;
 use framework::method::form::{Form, FormStep};
 use framework::method::parameter::ArcParameter;
 use framework::method::parameter::ParameterTrait;
-use framework::method::parameter::ParameterValue;
 use framework::method::parameter::Parameters;
 use framework::method::parameter::builder::ParamBuilder;
 use framework::method::runner::MethodRunner;
@@ -20,56 +19,48 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    s: &'static str,
-    k: &'static str,
-    d: &'static str,
+    t: &'static str,
+    q: &'static str,
 }
 
-const SYMBOLS: Symbols = Symbols {
-    s: "S",
-    k: "K",
-    d: "D",
-};
+const SYMBOLS: Symbols = Symbols { t: "t", q: "q" };
 
 #[derive(Default)]
-pub struct Chapter10Equation7Runner;
+pub struct Chapter10Equation4Runner;
 
-impl MethodRunner for Chapter10Equation7Runner {
+impl MethodRunner for Chapter10Equation4Runner {
     fn name(&self) -> String {
-        "Distance at which an object can be perceived in smoke".to_string()
+        "Time to burning of skin due to radiant heat".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_7)
+        &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_4)
     }
     fn tags(&self) -> Vec<Tag> {
-        vec![Tag::Evacuation]
+        vec![Tag::Radiation]
     }
     fn description(&self) -> Option<String> {
-        Some("Calculates the visibility in smoke as a function optical density and a visibility coefficient".to_string())
+        Some("Calculates the time to burning of skin due to radiant heat for heat fluxes above 1.7 kW/m2".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let s = params.get(SYMBOLS.s);
+        let t = params.get(SYMBOLS.t);
 
-        Some(vec![s])
+        Some(vec![t])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let s = params.get(SYMBOLS.s);
-        let k = params.get(SYMBOLS.k);
-        let d = params.get(SYMBOLS.d);
+        let t = params.get(SYMBOLS.t);
+        let q = params.get(SYMBOLS.q);
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 10.7",
-            "Input required to calculate the furthest distance at which an object can be perceived in smoke.",
+            "Input | Eq. 10.4",
+            "Input required to calculate the time to burning of skin due to radiant heat.",
         );
-        step_1.add_field(k.to_field());
-        step_1.add_field(d.to_field());
+        step_1.add_field(q.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(equation_1(
-            s.symbol(),
-            k.symbol(),
-            d.symbol(),
+            t.symbol(),
+            q.symbol(),
         )));
 
         Form::new(vec![step_1])
@@ -77,29 +68,20 @@ impl MethodRunner for Chapter10Equation7Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let s = ParamBuilder::float(&SYMBOLS.s)
-            .name("Visibiility - Distance at which an object an object can be perceived in smoke")
-            .units("m")
+        let t = ParamBuilder::float(&SYMBOLS.t)
+            .name("Time to burning of skin")
+            .units("min")
             .build();
 
-        let k = ParamBuilder::float(SYMBOLS.k)
-            .name("Visibility coefficient")
-            .units("m^{-1}")
-            .min_exclusive(0.0)
-            .default_value(Some(ParameterValue::Float(8.0)))
-            .required()
-            .build();
-
-        let d = ParamBuilder::float(SYMBOLS.d)
-            .name("Optical density per unit length")
-            .units("m^{-1}")
+        let q = ParamBuilder::float(SYMBOLS.q)
+            .name("Radiant heat flux")
+            .units("kW/m2")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        params.add(s);
-        params.add(k);
-        params.add(d);
+        params.add(t);
+        params.add(q);
 
         return params;
     }
@@ -109,29 +91,27 @@ impl MethodRunner for Chapter10Equation7Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let s = params.get(SYMBOLS.s);
-        let k = params.get(SYMBOLS.k);
-        let d = params.get(SYMBOLS.d);
+        let t = params.get(SYMBOLS.t);
+        let q = params.get(SYMBOLS.q);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
-        let step_1_deps = vec![k.clone(), d.clone()];
+        let step_1_deps = vec![q.clone()];
         let mut nomenclature = step_1_deps.clone();
-        nomenclature.push(s.clone());
+        nomenclature.push(t.clone());
 
         let step = Step {
-            name: "Visibility - Distance at which an object can be perceived in smoke".to_string(),
+            name: "Time to burning of skin".to_string(),
             nomenclature: nomenclature,
             input: step_1_deps.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(equation_1(
-                s.symbol(),
-                k.symbol(),
-                d.symbol(),
+                t.symbol(),
+                q.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                equation_1(s.symbol(), k.display_value(), d.display_value()),
-                s.clone(),
+                equation_1(t.symbol(), q.display_value()),
+                t.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -148,17 +128,16 @@ impl MethodRunner for Chapter10Equation7Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let s = method.parameters.get(SYMBOLS.s);
-        let k = method.parameters.get(SYMBOLS.k).as_float();
-        let d = method.parameters.get(SYMBOLS.d).as_float();
+        let t = method.parameters.get(SYMBOLS.t);
+        let q = method.parameters.get(SYMBOLS.q).as_float();
 
-        let result = super::visibility(k, d);
-        s.update(Some(result.to_string()))?;
+        let result = super::time_burning_skin(q);
+        t.update(Some(result.to_string()))?;
 
         return Ok(());
     }
 }
 
-fn equation_1(s: String, k: String, d: String) -> String {
-    format!("{} = \\frac{{{}}}{{2.303 {}}}", s, k, d,)
+fn equation_1(t: String, q: String) -> String {
+    format!("{} = 1.33 * {}^{{-1.35}}", t, q,)
 }
