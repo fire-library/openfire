@@ -115,7 +115,7 @@ impl MethodRunner for Chapter10Equation7Runner {
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
-        let step_1_deps = vec![s.clone(), k.clone(), d.clone()];
+        let step_1_deps = vec![k.clone(), d.clone()];
         let mut nomenclature = step_1_deps.clone();
         nomenclature.push(s.clone());
 
@@ -165,7 +165,7 @@ impl MethodRunner for Chapter10Equation7Runner {
 
 fn equation_1(s: String, k: String, d: String) -> String {
     format!(
-        "{} = \\frac{{{}}}{{2.303 dot {}}}",
+        "{} = \\frac{{{}}}{{2.303 {}}}",
         s, k, d,
     )
 }

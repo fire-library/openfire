@@ -16,11 +16,11 @@ pub fn test() -> Test {
                 },
                 SavedParameter {
                     name: "D".to_string(),
-                    value: Some(Float(10.0)),
+                    value: Some(Float(0.2)),
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("V".to_string(), 2.6905574516496)],
+        assertions: vec![Assertion::FloatEqual("S".to_string(), 17.3686495874946)],
     }
 }
 
