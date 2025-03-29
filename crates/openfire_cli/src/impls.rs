@@ -65,6 +65,7 @@ pub fn all_impls() -> Vec<DocumentImplementations> {
                 cibse_guide_e::chapter_10::equation_10_2::openfire_runner::Chapter10Equation2Runner.index_page(),
                 cibse_guide_e::chapter_10::equation_10_3::openfire_runner::Chapter10Equation3Runner.index_page(),
                 cibse_guide_e::chapter_10::equation_10_7::openfire_runner::Chapter10Equation7Runner.index_page(),
+                cibse_guide_e::chapter_10::equation_10_4::openfire_runner::Chapter10Equation4Runner.index_page(),
             ]
         }
     ]
@@ -105,6 +106,9 @@ pub fn register_runners() {
     >();
     framework::register_runner::<
         cibse_guide_e::chapter_10::equation_10_3::openfire_runner::Chapter10Equation3Runner,
+    >();
+    framework::register_runner::<
+        cibse_guide_e::chapter_10::equation_10_4::openfire_runner::Chapter10Equation4Runner,
     >();
     framework::register_runner::<
         cibse_guide_e::chapter_10::equation_10_7::openfire_runner::Chapter10Equation7Runner,
