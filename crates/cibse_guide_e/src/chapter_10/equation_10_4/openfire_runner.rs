@@ -5,7 +5,6 @@ use framework::method::calculation::CalculationComponent;
 use framework::method::form::{Form, FormStep};
 use framework::method::parameter::ArcParameter;
 use framework::method::parameter::ParameterTrait;
-use framework::method::parameter::ParameterValue;
 use framework::method::parameter::Parameters;
 use framework::method::parameter::builder::ParamBuilder;
 use framework::method::runner::MethodRunner;
@@ -24,10 +23,7 @@ struct Symbols {
     q: &'static str,
 }
 
-const SYMBOLS: Symbols = Symbols {
-    t: "t",
-    q: "q",
-};
+const SYMBOLS: Symbols = Symbols { t: "t", q: "q" };
 
 #[derive(Default)]
 pub struct Chapter10Equation4Runner;
@@ -114,10 +110,7 @@ impl MethodRunner for Chapter10Equation4Runner {
                 q.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                equation_1(
-                    t.symbol(),
-                    q.display_value(),
-                ),
+                equation_1(t.symbol(), q.display_value()),
                 t.clone(),
             )]],
         };
@@ -146,8 +139,5 @@ impl MethodRunner for Chapter10Equation4Runner {
 }
 
 fn equation_1(t: String, q: String) -> String {
-    format!(
-        "{} = 1.33 * {}^{{-1.35}}",
-        t, q,
-    )
+    format!("{} = 1.33 * {}^{{-1.35}}", t, q,)
 }
