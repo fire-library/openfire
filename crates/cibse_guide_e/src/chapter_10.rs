@@ -2,6 +2,7 @@ pub mod equation_10_1;
 pub mod equation_10_2;
 pub mod equation_10_3;
 pub mod equation_10_4;
+pub mod equation_10_7;
 
 use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;
@@ -12,6 +13,7 @@ pub enum Chapter10Method {
     Equation10_2,
     Equation10_3,
     Equation10_4,
+    Equation10_7,
 }
 
 impl Chapter10Method {
@@ -21,6 +23,7 @@ impl Chapter10Method {
             &Chapter10Method::Equation10_2 => "equation_10_2".to_string(),
             &Chapter10Method::Equation10_3 => "equation_10_3".to_string(),
             &Chapter10Method::Equation10_4 => "equation_10_4".to_string(),
+            &Chapter10Method::Equation10_7 => "equation_10_7".to_string(),
         }
     }
 
@@ -37,6 +40,9 @@ impl Chapter10Method {
             }
             &Chapter10Method::Equation10_4 => {
                 format!("Ch. 10 | Eq. 10.4")
+            }
+            &Chapter10Method::Equation10_7 => {
+                format!("Ch. 10 | Eq. 10.7")
             }
         }
     }
@@ -55,6 +61,9 @@ impl Chapter10Method {
             &Chapter10Method::Equation10_4 => {
                 include_str!("../resources/chapter_10/equation_10_4/description.md").to_string()
             }
+            &Chapter10Method::Equation10_7 => {
+                include_str!("../resources/chapter_10/equation_10_7/description.md").to_string()
+            }
         }
     }
 
@@ -71,6 +80,9 @@ impl Chapter10Method {
             }
             &Chapter10Method::Equation10_4 => {
                 include_str!("../resources/chapter_10/equation_10_4/limitations.md").to_string()
+            }
+            &Chapter10Method::Equation10_7 => {
+                include_str!("../resources/chapter_10/equation_10_7/limitations.md").to_string()
             }
         }
     }

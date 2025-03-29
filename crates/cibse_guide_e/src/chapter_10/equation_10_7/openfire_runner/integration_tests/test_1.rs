@@ -8,13 +8,19 @@ pub fn test() -> Test {
         name: "Test 1".to_string(),
         description: include_str!("test_1/description.md").to_string(),
         input: SavedMethod {
-            id: super::super::Chapter10Equation4Runner.id(),
-            parameters: vec![SavedParameter {
-                name: "q".to_string(),
-                value: Some(Float(2.5)),
-            }],
+            id: super::super::Chapter10Equation7Runner.id(),
+            parameters: vec![
+                SavedParameter {
+                    name: "K".to_string(),
+                    value: Some(Float(8.0)),
+                },
+                SavedParameter {
+                    name: "D".to_string(),
+                    value: Some(Float(0.2)),
+                },
+            ],
         },
-        assertions: vec![Assertion::FloatEqual("t".to_string(), 0.386040286498439)],
+        assertions: vec![Assertion::FloatEqual("S".to_string(), 17.3686495874946)],
     }
 }
 
@@ -24,7 +30,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        framework::register_runner::<super::super::super::Chapter10Equation4Runner>();
+        framework::register_runner::<super::super::super::Chapter10Equation7Runner>();
         let test = test();
         let results = framework::method::test::run_test(test).unwrap();
 
