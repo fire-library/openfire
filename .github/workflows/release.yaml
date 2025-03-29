@@ -90,8 +90,7 @@ jobs:
       - name: Create a release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            ${{ dist }}
+          files: dist/*
           token: ${{ secrets.GITHUB_TOKEN }}
           release_name: "OpenFire v${{ steps.build.outputs.appVersion }}"
           body: "See the assets to download this version and install."
