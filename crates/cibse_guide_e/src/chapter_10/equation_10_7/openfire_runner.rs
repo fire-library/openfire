@@ -86,7 +86,7 @@ impl MethodRunner for Chapter10Equation7Runner {
             .name("Visibility coefficient")
             .units("m^{-1}")
             .min_exclusive(0.0)
-            .default_value(Some(ParameterValue::Float((8.0))))
+            .default_value(Some(ParameterValue::Float(8.0)))
             .required()
             .build();
 
