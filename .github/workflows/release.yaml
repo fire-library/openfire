@@ -1,0 +1,123 @@
+name: "publish"
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish-tauri:
+    environment: Release
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # - platform: "macos-latest" # for Arm based macs (M1 and above).
+          #   target: "aarch64-apple-darwin"
+          #   s3-directory: "aarch64-apple-darwin"
+          - platform: "macos-latest" # for Intel based macs.
+            target: "x86_64-apple-darwin"
+            s3-directory: "x86_64-apple-darwin"
+          # - platform: "ubuntu-22.04"
+          #   target: "x86_64-unknown-linux-gnu"
+          #   s3-directory: "ubuntu"
+          # - platform: "windows-latest"
+          #   target: "x86_64-pc-windows-msvc"
+          #   s3-directory: "windows"
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      # - name: Configure AWS CLI
+      #   uses: aws-actions/configure-aws-credentials@v3
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || matrix.target }}
+
+      # - name: install trusted-signing-cli (Windows only)
+      #   if: matrix.platform == 'windows-latest'
+      #   run: cargo install trusted-signing-cli
+
+      # - uses: tauri-apps/tauri-action@v0
+      #   id: build
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      #     APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+      #     APPLE_ID: ${{ secrets.APPLE_ID }}
+      #     APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+      #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      #     VITE_GA_TRACKING_ID: ${{ vars.VITE_GA_TRACKING_ID }}
+      #     TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      #     AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      #     AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      #     AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      #   with:
+      #     tagName: openfire-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+      #     releaseName: "OpenFire v__VERSION__"
+      #     releaseBody: "See the assets to download this version and install."
+      #     releaseDraft: true
+      #     prerelease: false
+      #     args: ${{ matrix.args }}
+
+      - name: Build
+        id: build
+        # create the release and set the output folder for the next step
+        run: |
+          cargo build --release --target ${{ matrix.target }}
+          mkdir -p dist
+          cp target/release/openfire dist/
+          cp -r assets dist/
+          echo appVersion=0.0.1
+
+      # Create a release with the artifacts.
+      - name: Create a release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ dist/ }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: "OpenFire v${{ steps.build.outputs.appVersion }}"
+          body: "See the assets to download this version and install."
+          draft: true
+          prerelease: false
+
+      # - name: Upload artifacts to AWS S3
+      #   if: matrix.platform != 'windows-latest'
+      #   run: |
+      #     paths=$(echo '${{ steps.build.outputs.artifactPaths }}' | jq -c '.[]' | sed 's/"//g')
+      #     for fn in $paths; do
+      #       if [[ -f $fn ]]; then
+      #         echo "Uploading $fn"
+      #         aws s3 cp $fn s3://openfire-cli/${{ steps.build.outputs.appVersion }}/${{ matrix.s3-directory }}/
+      #       fi
+      #     done
+
+      # - name: Upload artifacts to AWS S3 (Windows)
+      #   if: matrix.platform == 'windows-latest'
+      #   shell: pwsh
+      #   run: |
+      #     $jsonString = '${{ steps.build.outputs.artifactPaths }}'
+      #     $filePaths = ConvertFrom-Json $jsonString
+      #     foreach ($path in $filePaths) {
+      #       if (Test-Path $path -PathType Leaf) {
+      #         Write-Host "Uploading $path"
+      #         aws s3 cp $path s3://openfire-cli/${{ steps.build.outputs.appVersion }}/${{ matrix.s3-directory }}/
+      #       }
+      #     }
