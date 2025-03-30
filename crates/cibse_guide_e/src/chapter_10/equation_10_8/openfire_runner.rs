@@ -180,7 +180,7 @@ impl MethodRunner for Chapter10Equation8Runner {
 
 fn equation_1(fed: String, m_f: String, t: String, lc_50: String) -> String {
     format!(
-        "{} = \\frac{{{} \\dot {}}}{{{}}}",
+        "{} = \\frac{{{} \\cdot {}}}{{{}}}",
         fed, m_f, t, lc_50,
     )
 }
