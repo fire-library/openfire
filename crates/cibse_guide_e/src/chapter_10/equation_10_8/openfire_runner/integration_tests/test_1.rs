@@ -12,19 +12,19 @@ pub fn test() -> Test {
             parameters: vec![
                 SavedParameter {
                     name: "m_{f}".to_string(),
-                    value: Some(Float(15.0)),
+                    value: Some(Float(10.0)),
                 },
                 SavedParameter {
                     name: "t".to_string(),
-                    value: Some(Float(0.5)),
+                    value: Some(Float(2.0)),
                 },
                 SavedParameter {
                     name: "LC_{50}".to_string(),
-                    value: Some(Float(1000.0)),
+                    value: Some(Float(1250.0)),
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("FED".to_string(), 0.45)],
+        assertions: vec![Assertion::FloatEqual("FED".to_string(), 0.016)],
     }
 }
 
