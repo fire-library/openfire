@@ -24,7 +24,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("LC_{50}".to_string(), 0.45)],
+        assertions: vec![Assertion::FloatEqual("FED".to_string(), 0.45)],
     }
 }
 
