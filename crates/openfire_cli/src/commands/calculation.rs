@@ -171,6 +171,7 @@ fn print_calculation_result(process: Vec<Vec<CalculationComponent>>) {
 
 fn to_unicode(string: String) -> String {
     string
+        .replace("\\quad", " ")
         .replace("\\dfrac", "frac")
         .replace("\\sqrt", "sqrt")
         .replace("\\left", "")
