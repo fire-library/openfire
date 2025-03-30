@@ -19,7 +19,7 @@ pub fn test() -> Test {
                     value: Some(Float(0.5)),
                 },
                 SavedParameter {
-                    name: "LC{50}".to_string(),
+                    name: "LC_{50}".to_string(),
                     value: Some(Float(1000.0)),
                 },
             ],
