@@ -102,7 +102,7 @@ impl MethodRunner for Chapter10Equation8Runner {
 
         let lc_50 = ParamBuilder::float(SYMBOLS.lc_50)
             .name("Lethal exposure dose from the test subject")
-            .units("g/(m^3 min)")
+            .units("g/m^3 min")
             .min_exclusive(0.0)
             .required()
             .build();
