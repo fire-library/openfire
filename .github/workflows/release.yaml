@@ -65,7 +65,42 @@ jobs:
           echo appVersion=0.0.1
 
       - name: sign executable
-        run: /usr/bin/codesign --force -s ${{ secrets.APPLE_TEAM_ID }} ./dist/openfire -v
+        run: /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} ./dist/openfire -v
+
+      - name: Zip binary
+        run: |
+          cd dist
+          zip openfire.zip openfire
+
+      - name: Notarize
+        run: |
+          xcrun altool --notarize-app \
+            --primary-bundle-id "com.openfire.openfire" \
+            --username "${{ secrets.APPLE_USER }}" \
+            --password "${{ secrets.APPLE_PASSWORD }}" \
+            --file dist/openfire.zip \
+            --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+            --output-format xml > notarization.xml
+
+          REQUEST_UUID=$(xmllint --xpath "string(//key[.='RequestUUID']/following-sibling::string[1])" notarization.xml)
+
+          echo "Waiting for notarization..."
+          while true; do
+            STATUS=$(xcrun altool --notarization-info "$REQUEST_UUID" \
+              --username "${{ secrets.APPLE_USER }}" \
+              --password "${{ secrets.APPLE_PASSWORD }}" \
+              --output-format xml)
+            if echo "$STATUS" | grep -q "Package Approved"; then
+              echo "Notarization successful!"
+              break
+            elif echo "$STATUS" | grep -q "in progress"; then
+              sleep 30
+            else
+              echo "Notarization failed:"
+              echo "$STATUS"
+              exit 1
+            fi
+          done
 
       # Create a release with the artifacts.
       - name: Create a release
