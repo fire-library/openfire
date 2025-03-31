@@ -49,32 +49,11 @@ jobs:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || matrix.target }}
 
-      # - name: install trusted-signing-cli (Windows only)
-      #   if: matrix.platform == 'windows-latest'
-      #   run: cargo install trusted-signing-cli
-
-      # - uses: tauri-apps/tauri-action@v0
-      #   id: build
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-      #     APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-      #     APPLE_ID: ${{ secrets.APPLE_ID }}
-      #     APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-      #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      #     VITE_GA_TRACKING_ID: ${{ vars.VITE_GA_TRACKING_ID }}
-      #     TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-      #     AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      #     AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      #     AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      #   with:
-      #     tagName: openfire-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-      #     releaseName: "OpenFire v__VERSION__"
-      #     releaseBody: "See the assets to download this version and install."
-      #     releaseDraft: true
-      #     prerelease: false
-      #     args: ${{ matrix.args }}
+      - name: import signing certificate
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
 
       - name: Build
         id: build
@@ -95,27 +74,3 @@ jobs:
           body: "See the assets to download this version and install."
           draft: true
           prerelease: false
-
-      # - name: Upload artifacts to AWS S3
-      #   if: matrix.platform != 'windows-latest'
-      #   run: |
-      #     paths=$(echo '${{ steps.build.outputs.artifactPaths }}' | jq -c '.[]' | sed 's/"//g')
-      #     for fn in $paths; do
-      #       if [[ -f $fn ]]; then
-      #         echo "Uploading $fn"
-      #         aws s3 cp $fn s3://openfire-cli/${{ steps.build.outputs.appVersion }}/${{ matrix.s3-directory }}/
-      #       fi
-      #     done
-
-      # - name: Upload artifacts to AWS S3 (Windows)
-      #   if: matrix.platform == 'windows-latest'
-      #   shell: pwsh
-      #   run: |
-      #     $jsonString = '${{ steps.build.outputs.artifactPaths }}'
-      #     $filePaths = ConvertFrom-Json $jsonString
-      #     foreach ($path in $filePaths) {
-      #       if (Test-Path $path -PathType Leaf) {
-      #         Write-Host "Uploading $path"
-      #         aws s3 cp $path s3://openfire-cli/${{ steps.build.outputs.appVersion }}/${{ matrix.s3-directory }}/
-      #       }
-      #     }
