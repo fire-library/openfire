@@ -56,36 +56,16 @@ jobs:
           cp target/${{ matrix.target }}/release/openfire dist/
           echo appVersion=0.0.1
 
-  codesign-for-macos:
-    runs-on: macos-latest
-    if: platform == 'macos-latest'
-    environment: Release
-    permissions:
-      contents: write
-    needs: [publish-tauri]
-    steps:
-      - uses: actions/cache@v3
-        with:
-          path: dist/openfire
-          key: ${{ github.sha }}
-
       - name: import signing certificate
+        if: matrix.platform == 'macos-latest'
         uses: apple-actions/import-codesign-certs@v3
         with:
           p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
           p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
 
       - name: sign executable
+        if: matrix.platform == 'macos-latest'
         run: /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./dist/openfire -v
-
-  release:
-    needs: [publish-tauri, codesign-for-macos]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/cache@v3
-        with:
-          path: dist/openfire
-          key: ${{ github.sha }}
 
       - name: Create a release
         uses: softprops/action-gh-release@v1
