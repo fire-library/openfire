@@ -80,8 +80,7 @@ jobs:
                --password ${{ secrets.APPLE_PASSWORD }}
 
           xcrun notarytool log b6306c95-f7ff-408c-b922-bf7e52e88f35 --keychain-profile "notarytool-password" notarization-result.json
-          LOG_URL=$(jq -r '.logFileUrl' notarization-result.json)
-          echo "log_url=$LOG_URL" >> $GITHUB_OUTPUT
+          jq '.' /Users/runner/work/openfire/openfire/notarization-result.json
 
           xcrun notarytool submit dist/openfire.zip \
                    --keychain-profile "notarytool-password" \
