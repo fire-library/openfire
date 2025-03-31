@@ -81,8 +81,7 @@ jobs:
 
           xcrun notarytool submit dist/openfire.zip \
                    --keychain-profile "notarytool-password" \
-                   --wait \
-                   --output-format json > notarization-result.json
+                   --wait
 
       - name: Extract log URL
         id: extract-log-url
