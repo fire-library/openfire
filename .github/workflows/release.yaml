@@ -58,7 +58,7 @@ jobs:
 
   codesign-for-macos:
     runs-on: macos-latest
-    if: matrix.platform == 'macos-latest'
+    if: platform == 'macos-latest'
     environment: Release
     permissions:
       contents: write
