@@ -64,6 +64,9 @@ jobs:
           cp target/${{ matrix.target }}/release/openfire dist/
           echo appVersion=0.0.1
 
+      - name: sign executable
+        run: /usr/bin/codesign --force -s ${{ secrets.APPLE_TEAM_ID }} ./dist/openfire -v
+
       # Create a release with the artifacts.
       - name: Create a release
         uses: softprops/action-gh-release@v1
