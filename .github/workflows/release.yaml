@@ -79,22 +79,16 @@ jobs:
                --team-id "${{ secrets.APPLE_TEAM_ID }}" \
                --password ${{ secrets.APPLE_PASSWORD }}
 
-          xcrun notarytool log b6306c95-f7ff-408c-b922-bf7e52e88f35 --keychain-profile "notarytool-password" notarization-result.json
-          jq '.' /Users/runner/work/openfire/openfire/notarization-result.json
+          # xcrun notarytool log b6306c95-f7ff-408c-b922-bf7e52e88f35 --keychain-profile "notarytool-password" notarization-result.json
+          # jq '.' /Users/runner/work/openfire/openfire/notarization-result.json
 
           xcrun notarytool submit dist/openfire.zip \
                    --keychain-profile "notarytool-password" \
                    --wait
 
-      - name: Extract log URL
-        id: extract-log-url
-        run: |
-          LOG_URL=$(jq -r '.logFileUrl' notarization-result.json)
-          echo "log_url=$LOG_URL" >> $GITHUB_OUTPUT
-
       - name: Staple notarization
         run: |
-          xcrun stapler staple dist/openfire
+          xcrun stapler staple dist/openfire -v
 
       # Create a release with the artifacts.
       - name: Create a release
