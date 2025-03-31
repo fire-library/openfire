@@ -58,6 +58,10 @@ jobs:
 
   codesign-for-macos:
     runs-on: macos-latest
+    if: matrix.platform == 'macos-latest'
+    environment: Release
+    permissions:
+      contents: write
     needs: [publish-tauri]
     steps:
       - uses: actions/cache@v3
@@ -88,7 +92,7 @@ jobs:
         with:
           files: dist/*
           token: ${{ secrets.GITHUB_TOKEN }}
-          release_name: "OpenFire v${{ steps.build.outputs.appVersion }}"
+          release_name: "OpenFire v0.0.1"
           body: "See the assets to download this version and install."
           draft: true
           prerelease: false
