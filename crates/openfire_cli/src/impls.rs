@@ -38,6 +38,7 @@ pub fn all_impls() -> Vec<DocumentImplementations> {
                 cibse_guide_e::chapter_10::equation_10_4::openfire_runner::Chapter10Equation4Runner.index_page(),
                 cibse_guide_e::chapter_10::equation_10_7::openfire_runner::Chapter10Equation7Runner.index_page(),
                 cibse_guide_e::chapter_10::equation_10_8::openfire_runner::Chapter10Equation8Runner.index_page(),
+                cibse_guide_e::chapter_10::equation_10_10::openfire_runner::Chapter10Equation10Runner.index_page(),
             ]
         },
         DocumentImplementations {
@@ -105,6 +106,9 @@ pub fn register_runners() {
     >();
     framework::register_runner::<
         cibse_guide_e::chapter_10::equation_10_8::openfire_runner::Chapter10Equation8Runner,
+    >();
+    framework::register_runner::<
+        cibse_guide_e::chapter_10::equation_10_10::openfire_runner::Chapter10Equation10Runner,
     >();
     framework::register_runner::<
         introduction_to_fire_dynamics::chapter_10::equation_10_18::openfire_runner::BurningRegimeBuilder,
