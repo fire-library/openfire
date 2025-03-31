@@ -29,6 +29,18 @@ pub fn all_impls() -> Vec<DocumentImplementations> {
             ],
         },
         DocumentImplementations {
+            document: cibse_guide_e::CIBSEGuideE::Document.document_name(),
+            document_id: cibse_guide_e::CIBSEGuideE::Document.document_id(),
+            implementations: vec![
+                cibse_guide_e::chapter_10::equation_10_1::openfire_runner::Chapter10Equation1Runner.index_page(),
+                cibse_guide_e::chapter_10::equation_10_2::openfire_runner::Chapter10Equation2Runner.index_page(),
+                cibse_guide_e::chapter_10::equation_10_3::openfire_runner::Chapter10Equation3Runner.index_page(),
+                cibse_guide_e::chapter_10::equation_10_4::openfire_runner::Chapter10Equation4Runner.index_page(),
+                cibse_guide_e::chapter_10::equation_10_7::openfire_runner::Chapter10Equation7Runner.index_page(),
+                cibse_guide_e::chapter_10::equation_10_8::openfire_runner::Chapter10Equation8Runner.index_page(),
+            ]
+        },
+        DocumentImplementations {
             document: introduction_to_fire_dynamics::IntroductionToFireDynamics::Document.document_name(),
             document_id: introduction_to_fire_dynamics::IntroductionToFireDynamics::Document.document_id(),
             implementations: vec![
@@ -57,17 +69,6 @@ pub fn all_impls() -> Vec<DocumentImplementations> {
                 tr17::section_2::equation_1::openfire_runner::TR17Section2Equation1Builder.index_page(),
             ]
         },
-        DocumentImplementations {
-            document: cibse_guide_e::CIBSEGuideE::Document.document_name(),
-            document_id: cibse_guide_e::CIBSEGuideE::Document.document_id(),
-            implementations: vec![
-                cibse_guide_e::chapter_10::equation_10_1::openfire_runner::Chapter10Equation1Runner.index_page(),
-                cibse_guide_e::chapter_10::equation_10_2::openfire_runner::Chapter10Equation2Runner.index_page(),
-                cibse_guide_e::chapter_10::equation_10_3::openfire_runner::Chapter10Equation3Runner.index_page(),
-                cibse_guide_e::chapter_10::equation_10_7::openfire_runner::Chapter10Equation7Runner.index_page(),
-                cibse_guide_e::chapter_10::equation_10_4::openfire_runner::Chapter10Equation4Runner.index_page(),
-            ]
-        }
     ]
 }
 
@@ -88,17 +89,6 @@ pub fn register_runners() {
         bs9999::chapter_15::figure_6c::openfire_runner::BS9999Chapter15Figure6cBuilder,
     >();
     framework::register_runner::<
-        introduction_to_fire_dynamics::chapter_10::equation_10_18::openfire_runner::BurningRegimeBuilder,
-    >();
-    framework::register_runner::<pd_7974::part_1::section_8::maximum_enclosure_temperature_runner::MaximumEnclosureTemperatureBuilder>();
-    framework::register_runner::<
-        pd_7974::part_1::section_8::hrr_at_flashover_runner::HRRAtFlashoverBuilder,
-    >();
-    framework::register_runner::<sfpe_handbook::chapter_14::alpert::openfire_runner::AlpertHeatReleaseFromTempAndPositionBuilder>();
-    framework::register_runner::<
-        tr17::section_2::equation_1::openfire_runner::TR17Section2Equation1Builder,
-    >();
-    framework::register_runner::<
         cibse_guide_e::chapter_10::equation_10_1::openfire_runner::Chapter10Equation1Runner,
     >();
     framework::register_runner::<
@@ -112,5 +102,19 @@ pub fn register_runners() {
     >();
     framework::register_runner::<
         cibse_guide_e::chapter_10::equation_10_7::openfire_runner::Chapter10Equation7Runner,
+    >();
+    framework::register_runner::<
+        cibse_guide_e::chapter_10::equation_10_8::openfire_runner::Chapter10Equation8Runner,
+    >();
+    framework::register_runner::<
+        introduction_to_fire_dynamics::chapter_10::equation_10_18::openfire_runner::BurningRegimeBuilder,
+    >();
+    framework::register_runner::<pd_7974::part_1::section_8::maximum_enclosure_temperature_runner::MaximumEnclosureTemperatureBuilder>();
+    framework::register_runner::<
+        pd_7974::part_1::section_8::hrr_at_flashover_runner::HRRAtFlashoverBuilder,
+    >();
+    framework::register_runner::<sfpe_handbook::chapter_14::alpert::openfire_runner::AlpertHeatReleaseFromTempAndPositionBuilder>();
+    framework::register_runner::<
+        tr17::section_2::equation_1::openfire_runner::TR17Section2Equation1Builder,
     >();
 }
