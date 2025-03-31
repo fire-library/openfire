@@ -33,7 +33,7 @@ jobs:
 
       - uses: actions/cache@v3
         with:
-          path: dist
+          path: dist/openfire
           key: ${{ github.sha }}
 
       - name: setup node
@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/cache@v3
         with:
-          path: dist
+          path: dist/openfire
           key: ${{ github.sha }}
 
       - name: import signing certificate
@@ -80,7 +80,7 @@ jobs:
     steps:
       - uses: actions/cache@v3
         with:
-          path: dist
+          path: dist/openfire
           key: ${{ github.sha }}
 
       - name: Create a release
