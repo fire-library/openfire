@@ -74,33 +74,18 @@ jobs:
 
       - name: Notarize
         run: |
-          xcrun altool --notarize-app \
-            --primary-bundle-id "com.openfire.openfire" \
-            --username "${{ secrets.APPLE_USER }}" \
-            --password "${{ secrets.APPLE_PASSWORD }}" \
-            --file dist/openfire.zip \
-            --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-            --output-format xml > notarization.xml
+          xcrun notarytool store-credentials "notarytool-password" \
+               --apple-id "${{ secrets.APPLE_USER }}" \
+               --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+               --password ${{ secrets.APPLE_PASSWORD }}
 
-          REQUEST_UUID=$(xmllint --xpath "string(//key[.='RequestUUID']/following-sibling::string[1])" notarization.xml)
+          xcrun notarytool submit dist/openfire.zip \
+                   --keychain-profile "notarytool-password" \
+                   --wait
 
-          echo "Waiting for notarization..."
-          while true; do
-            STATUS=$(xcrun altool --notarization-info "$REQUEST_UUID" \
-              --username "${{ secrets.APPLE_USER }}" \
-              --password "${{ secrets.APPLE_PASSWORD }}" \
-              --output-format xml)
-            if echo "$STATUS" | grep -q "Package Approved"; then
-              echo "Notarization successful!"
-              break
-            elif echo "$STATUS" | grep -q "in progress"; then
-              sleep 30
-            else
-              echo "Notarization failed:"
-              echo "$STATUS"
-              exit 1
-            fi
-          done
+      - name: Staple notarization
+        run: |
+          xcrun stapler staple dist/openfire
 
       # Create a release with the artifacts.
       - name: Create a release
