@@ -67,28 +67,28 @@ jobs:
       - name: sign executable
         run: /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./dist/openfire -v
 
-      - name: Zip binary
-        run: |
-          cd dist
-          zip openfire.zip openfire
+      # - name: Zip binary
+      #   run: |
+      #     cd dist
+      #     zip openfire.zip openfire
 
-      - name: Notarize
-        run: |
-          xcrun notarytool store-credentials "notarytool-password" \
-               --apple-id "${{ secrets.APPLE_USER }}" \
-               --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-               --password ${{ secrets.APPLE_PASSWORD }}
+      # - name: Notarize
+      #   run: |
+      #     xcrun notarytool store-credentials "notarytool-password" \
+      #          --apple-id "${{ secrets.APPLE_USER }}" \
+      #          --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+      #          --password ${{ secrets.APPLE_PASSWORD }}
 
-          # xcrun notarytool log b6306c95-f7ff-408c-b922-bf7e52e88f35 --keychain-profile "notarytool-password" notarization-result.json
-          # jq '.' /Users/runner/work/openfire/openfire/notarization-result.json
+      #     # xcrun notarytool log b6306c95-f7ff-408c-b922-bf7e52e88f35 --keychain-profile "notarytool-password" notarization-result.json
+      #     # jq '.' /Users/runner/work/openfire/openfire/notarization-result.json
 
-          xcrun notarytool submit dist/openfire.zip \
-                   --keychain-profile "notarytool-password" \
-                   --wait
+      #     xcrun notarytool submit dist/openfire.zip \
+      #              --keychain-profile "notarytool-password" \
+      #              --wait
 
-      - name: Staple notarization
-        run: |
-          xcrun stapler staple -v dist/openfire
+      # - name: Staple notarization
+      #   run: |
+      #     xcrun stapler staple -v dist/openfire
 
       # Create a release with the artifacts.
       - name: Create a release
