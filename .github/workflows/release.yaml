@@ -31,29 +31,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/cache@v3
+        with:
+          path: dist/
+          key: ${{ github.sha }}
+
       - name: setup node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
-
-      # - name: Configure AWS CLI
-      #   uses: aws-actions/configure-aws-credentials@v3
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || matrix.target }}
-
-      - name: import signing certificate
-        uses: apple-actions/import-codesign-certs@v3
-        with:
-          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
-          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
 
       - name: Build
         id: build
@@ -64,33 +56,33 @@ jobs:
           cp target/${{ matrix.target }}/release/openfire dist/
           echo appVersion=0.0.1
 
+  codesign-for-macos:
+    runs-on: macos-latest
+    needs: [publish-tauri]
+    steps:
+      - uses: actions/cache@v3
+        with:
+          path: dist/
+          key: ${{ github.sha }}
+
+      - name: import signing certificate
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+
       - name: sign executable
         run: /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./dist/openfire -v
 
-      # - name: Zip binary
-      #   run: |
-      #     cd dist
-      #     zip openfire.zip openfire
+  release:
+    needs: [publish-tauri, codesign-for-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v3
+        with:
+          path: dist/
+          key: ${{ github.sha }}
 
-      # - name: Notarize
-      #   run: |
-      #     xcrun notarytool store-credentials "notarytool-password" \
-      #          --apple-id "${{ secrets.APPLE_USER }}" \
-      #          --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-      #          --password ${{ secrets.APPLE_PASSWORD }}
-
-      #     # xcrun notarytool log b6306c95-f7ff-408c-b922-bf7e52e88f35 --keychain-profile "notarytool-password" notarization-result.json
-      #     # jq '.' /Users/runner/work/openfire/openfire/notarization-result.json
-
-      #     xcrun notarytool submit dist/openfire.zip \
-      #              --keychain-profile "notarytool-password" \
-      #              --wait
-
-      # - name: Staple notarization
-      #   run: |
-      #     xcrun stapler staple -v dist/openfire
-
-      # Create a release with the artifacts.
       - name: Create a release
         uses: softprops/action-gh-release@v1
         with:
