@@ -50,7 +50,6 @@ jobs:
           mkdir -p dist
           mkdir -p tmp
           cp target/${{ matrix.target }}/release/openfire tmp/
-          echo appVersion=0.0.1
 
       - name: import signing certificate
         if: matrix.platform == 'macos-latest'
@@ -63,7 +62,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./tmp/openfire -v
-          zip ../dist/openfire_v${{ steps.build.outputs.appVersion }}_v${{ matrix.target }}.zip ./tmp/openfire
+          zip ./dist/openfire_v0.0.1_v${{ matrix.target }}.zip ./tmp/openfire
 
       - name: Create a release
         uses: softprops/action-gh-release@v1
