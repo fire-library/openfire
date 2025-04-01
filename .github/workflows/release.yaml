@@ -17,12 +17,12 @@ jobs:
           # - platform: "macos-latest" # for Arm based macs (M1 and above).
           #   target: "aarch64-apple-darwin"
           #   s3-directory: "aarch64-apple-darwin"
-          - platform: "macos-latest" # for Intel based macs.
-            target: "x86_64-apple-darwin"
-            s3-directory: "x86_64-apple-darwin"
-          # - platform: "ubuntu-22.04"
-          #   target: "x86_64-unknown-linux-gnu"
-          #   s3-directory: "ubuntu"
+          # - platform: "macos-latest" # for Intel based macs.
+          #   target: "x86_64-apple-darwin"
+          #   s3-directory: "x86_64-apple-darwin"
+          - platform: "ubuntu-22.04"
+            target: "x86_64-unknown-linux-gnu"
+            s3-directory: "ubuntu"
           # - platform: "windows-latest"
           #   target: "x86_64-pc-windows-msvc"
           #   s3-directory: "windows"
@@ -49,6 +49,8 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
           mkdir -p dist
           mkdir -p tmp
+          cd target/${{ matrix.target }}/release
+          ls
           cp target/${{ matrix.target }}/release/openfire tmp/
 
       - name: import signing certificate
