@@ -62,7 +62,8 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./tmp/openfire -v
-          zip ./dist/openfire_v0.0.1_v${{ matrix.target }}.zip ./tmp/openfire
+          cd ./tmp
+          zip ../dist/openfire_v0.0.1_v${{ matrix.target }}.zip ./openfire
 
       - name: Create a release
         uses: softprops/action-gh-release@v1
