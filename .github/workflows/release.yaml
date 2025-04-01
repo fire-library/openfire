@@ -14,15 +14,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: "macos-latest" # for Arm based macs (M1 and above).
-            target: "aarch64-apple-darwin"
-            s3-directory: "aarch64-apple-darwin"
+          # - platform: "macos-latest" # for Arm based macs (M1 and above).
+          #   target: "aarch64-apple-darwin"
+          #   s3-directory: "aarch64-apple-darwin"
           - platform: "macos-latest" # for Intel based macs.
             target: "x86_64-apple-darwin"
             s3-directory: "x86_64-apple-darwin"
-          - platform: "ubuntu-22.04"
-            target: "x86_64-unknown-linux-gnu"
-            s3-directory: "ubuntu"
+          # - platform: "ubuntu-22.04"
+          #   target: "x86_64-unknown-linux-gnu"
+          #   s3-directory: "ubuntu"
           # - platform: "windows-latest"
           #   target: "x86_64-pc-windows-msvc"
           #   s3-directory: "windows"
@@ -30,11 +30,6 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/cache@v3
-        with:
-          path: dist/openfire
-          key: ${{ github.sha }}
 
       - name: setup node
         uses: actions/setup-node@v4
@@ -53,7 +48,7 @@ jobs:
         run: |
           cargo build --release --target ${{ matrix.target }}
           mkdir -p dist
-          cp target/${{ matrix.target }}/release/openfire dist/
+          cp target/${{ matrix.target }}/release/openfire tmp/
           echo appVersion=0.0.1
 
       - name: import signing certificate
@@ -65,14 +60,16 @@ jobs:
 
       - name: sign executable
         if: matrix.platform == 'macos-latest'
-        run: /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./dist/openfire -v
+        run: |
+          /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./tmp/openfire -v
+          zip ../dist/openfire_v${{ steps.build.outputs.appVersion }}_v${{ matrix.target }}.zip ./tmp/openfire
 
       - name: Create a release
         uses: softprops/action-gh-release@v1
         with:
           files: dist/*
           token: ${{ secrets.GITHUB_TOKEN }}
-          release_name: "OpenFire v0.0.1"
+          release_name: "OpenFire v${{ steps.build.outputs.appVersion }}"
           body: "See the assets to download this version and install."
           draft: true
           prerelease: false
