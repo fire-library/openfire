@@ -49,6 +49,9 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
           mkdir -p dist
           mkdir -p tmp
+          ls
+          cd target
+          ls
           cd target/${{ matrix.target }}/release
           ls
           cp target/${{ matrix.target }}/release/openfire tmp/
