@@ -68,9 +68,16 @@ jobs:
           /usr/bin/codesign --force -s ${{ secrets.APPLE_SIGNING_IDENTITY }} -o runtime ./tmp/openfire -v
 
       - name: move to dist
+        if: matrix.platform == 'macos-latest' || matrix.platform == 'ubuntu-22.04'
         run: |
           cd ./tmp
           zip ../dist/openfire_v0.0.1_${{ matrix.target }}.zip ./openfire${{ matrix.extension }}
+
+      - name: Create zip file
+        if: matrix.platform == 'windows-latest'
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "./openfire${{ matrix.extension }}" -Destination "../dist/openfire_v0.0.1_${{ matrix.target }}.zip"
 
       - name: Create a release
         uses: softprops/action-gh-release@v1
