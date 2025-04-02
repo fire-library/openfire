@@ -32,7 +32,7 @@ const SYMBOLS: Symbols = Symbols {
     g: "g",
     h: "H",
     t_f: "T_f",
-    t_0: "T_0{50}",
+    t_0: "T_0",
 };
 
 #[derive(Default)]
@@ -40,7 +40,7 @@ pub struct Chapter10Equation10Runner;
 
 impl MethodRunner for Chapter10Equation10Runner {
     fn name(&self) -> String {
-        "Calculates the limiting average air velocity | Eq. 10.10".to_string()
+        "Calculates the limiting average air velocity".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_10)
@@ -168,7 +168,7 @@ impl MethodRunner for Chapter10Equation10Runner {
                     t_f.display_value(),
                     t_f.display_value(),
                 ),
-                fed.clone(),
+                v_e.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -192,7 +192,7 @@ impl MethodRunner for Chapter10Equation10Runner {
         let t_0= method.parameters.get(SYMBOLS.t_0).as_float();
 
         let result = super::limiting_velocity_10_10(g, h, t_f, t_0);
-        fed.update(Some(result.to_string()))?;
+        v_e.update(Some(result.to_string()))?;
 
         return Ok(());
     }
@@ -200,7 +200,7 @@ impl MethodRunner for Chapter10Equation10Runner {
 
 fn equation_10_10(v_e: String, g: String, h: String, t_f: String, t_0: String) -> String {
     format!(
-        "{} = 0.64 ({} {} \\frac{{{} - {}}}{{{}}}) & (0.5)",
+        "{} = 0.64 ({} {} \\frac{{{} - {}}}{{{}}}) ^ {{0.5}}",
         v_e, g, h, t_f, t_0, t_f,
     )
 }
