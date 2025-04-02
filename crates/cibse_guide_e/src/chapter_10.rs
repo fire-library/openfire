@@ -53,7 +53,7 @@ impl Chapter10Method {
             &Chapter10Method::Equation10_8 => {
                 format!("Ch. 10 | Eq. 10.8")
             }
-            &Chapter10Method::Equation10_8 => {
+            &Chapter10Method::Equation10_10 => {
                 format!("Ch. 10 | Eq. 10.10")
             }
         }
