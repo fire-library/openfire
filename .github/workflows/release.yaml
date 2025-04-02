@@ -17,15 +17,19 @@ jobs:
           - platform: "macos-latest" # for Arm based macs (M1 and above).
             target: "aarch64-apple-darwin"
             s3-directory: "aarch64-apple-darwin"
+            extension: ""
           - platform: "macos-latest" # for Intel based macs.
             target: "x86_64-apple-darwin"
             s3-directory: "x86_64-apple-darwin"
+            extension: ""
           - platform: "ubuntu-22.04"
             target: "x86_64-unknown-linux-gnu"
             s3-directory: "ubuntu"
+            extension: ""
           - platform: "windows-latest"
             target: "x86_64-pc-windows-msvc"
             s3-directory: "windows"
+            extension: ".exe"
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -49,7 +53,7 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
           mkdir -p dist
           mkdir -p tmp
-          cp target/${{ matrix.target }}/release/openfire tmp/
+          cp target/${{ matrix.target }}/release/openfire${{ matrix.extension }} tmp/
 
       - name: import signing certificate
         if: matrix.platform == 'macos-latest'
@@ -66,7 +70,7 @@ jobs:
       - name: move to dist
         run: |
           cd ./tmp
-          zip ../dist/openfire_v0.0.1_v${{ matrix.target }}.zip ./openfire
+          zip ../dist/openfire_v0.0.1_${{ matrix.target }}.zip ./openfire${{ matrix.extension }}
 
       - name: Create a release
         uses: softprops/action-gh-release@v1
