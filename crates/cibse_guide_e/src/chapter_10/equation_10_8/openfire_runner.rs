@@ -138,9 +138,9 @@ impl MethodRunner for Chapter10Equation8Runner {
             render: true,
             process: vec![vec![CalculationComponent::Equation(equation_1(
                 fed.symbol(),
-                m_f.display_value(),
-                t.display_value(),
-                lc_50.display_value(),
+                m_f.symbol(),
+                t.symbol(),
+                lc_50.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 equation_1(

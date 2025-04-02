@@ -1,7 +1,7 @@
 pub mod openfire_runner;
 
 pub fn limiting_velocity_10_10(g: f64, h: f64, t_f: f64, t_0: f64) -> f64 {
-    return 0.64 * (g * H  * (t_f - t_0)/t_f).powf(0.5);
+    return 0.64 * (g * h  * (t_f - t_0)/t_f).powf(0.5);
 }
 
 

@@ -40,7 +40,7 @@ pub struct Chapter10Equation10Runner;
 
 impl MethodRunner for Chapter10Equation10Runner {
     fn name(&self) -> String {
-        "Calculates the limiting average air velocity".to_string()
+        "Calculates the limiting average air velocity for opposed air flow systems".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_10)
@@ -155,10 +155,10 @@ impl MethodRunner for Chapter10Equation10Runner {
             render: true,
             process: vec![vec![CalculationComponent::Equation(equation_10_10(
                 v_e.symbol(),
-                g.display_value(),
-                h.display_value(),
-                t_f.display_value(),
-                t_0.display_value(),
+                g.symbol(),
+                h.symbol(),
+                t_f.symbol(),
+                t_0.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 equation_10_10(
@@ -200,7 +200,7 @@ impl MethodRunner for Chapter10Equation10Runner {
 
 fn equation_10_10(v_e: String, g: String, h: String, t_f: String, t_0: String) -> String {
     format!(
-        "{} = 0.64 ({} {} \\frac{{{} - {}}}{{{}}}) ^ {{0.5}}",
+        "{} = 0.64 \\space ({} \\space {} \\space \\frac{{{} - {}}}{{{}}}) ^ {{0.5}}",
         v_e, g, h, t_f, t_0, t_f,
     )
 }
