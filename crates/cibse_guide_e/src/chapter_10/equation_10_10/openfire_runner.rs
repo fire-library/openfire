@@ -20,61 +20,66 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    fed: &'static str,
-    m_f: &'static str,
-    t: &'static str,
-    lc_50: &'static str,
+    v_e: &'static str,
+    g: &'static str,
+    h: &'static str,
+    t_f: &'static str,
+    t_0: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
-    fed: "FED",
-    m_f: "m_{f}",
-    t: "t",
-    lc_50: "LC_{50}",
+    v_e: "v_e",
+    g: "g",
+    h: "H",
+    t_f: "T_f",
+    t_0: "T_0{50}",
 };
 
 #[derive(Default)]
-pub struct Chapter10Equation8Runner;
+pub struct Chapter10Equation10Runner;
 
-impl MethodRunner for Chapter10Equation8Runner {
+impl MethodRunner for Chapter10Equation10Runner {
     fn name(&self) -> String {
-        "Calculates the Fractional Effective Dose (FED)".to_string()
+        "Calculates the limiting average air velocity | Eq. 10.10".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_8)
+        &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_10)
     }
     fn tags(&self) -> Vec<Tag> {
-        vec![Tag::Evacuation]
+        vec![Tag::Ventilation]
     }
     fn description(&self) -> Option<String> {
-        Some("Calculates the fractional effective dose".to_string())
+        Some("Liminting average air velocity to prevent smoke spread into a large volume where opposed air flow ventilation is used".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let fed = params.get(SYMBOLS.fed);
+        let v_e = params.get(SYMBOLS.v_e);
 
-        Some(vec![fed])
+        Some(vec![v_e])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let fed = params.get(SYMBOLS.fed);
-        let m_f = params.get(SYMBOLS.m_f);
-        let t = params.get(SYMBOLS.t);
-        let lc_50 = params.get(SYMBOLS.lc_50);
+        let v_e = params.get(SYMBOLS.v_e);
+        let g = params.get(SYMBOLS.g);
+        let h = params.get(SYMBOLS.h);
+        let t_f = params.get(SYMBOLS.t_f);
+        let t_0 = params.get(SYMBOLS.t_0);
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 10.8",
-            "Input required to calculate the Fractional Effective Dose (FED).",
+            "Input | Eq. 10.10",
+            "Input required to calculate the limiting average air velocity | Eq. 10.10.",
         );
-        step_1.add_field(m_f.to_field());
-        step_1.add_field(t.to_field());
-        step_1.add_field(lc_50.to_field());
+        step_1.add_field(g.to_field());
+        step_1.add_field(h.to_field());
+        step_1.add_field(t_f.to_field());
+        step_1.add_field(t_0.to_field());
 
         step_1.add_intro();
-        step_1.add_equation(CalculationComponent::Equation(equation_1(
-            fed.symbol(),
-            m_f.symbol(),
-            t.symbol(),
-            lc_50.symbol(),
+        step_1.add_equation(CalculationComponent::Equation(equation_10_10(
+            v_e.symbol(),
+            g.symbol(),
+            h.symbol(),
+            t_f.symbol(),
+            t_0.symbol(),
         )));
 
         Form::new(vec![step_1])
@@ -178,9 +183,9 @@ impl MethodRunner for Chapter10Equation8Runner {
     }
 }
 
-fn equation_1(fed: String, m_f: String, t: String, lc_50: String) -> String {
+fn equation_10_10(v_e: String, g: String, h: String, t_f: String, t_0: String) -> String {
     format!(
-        "{} = \\frac{{{} \\cdot {}}}{{{}}}",
-        fed, m_f, t, lc_50,
+        "{} = 0.64 ({} {} \\frac{{{} - {}}}{{{}}}) & (0.5)",
+        v_e, g, h, t_f, t_0, t_f,
     )
 }
