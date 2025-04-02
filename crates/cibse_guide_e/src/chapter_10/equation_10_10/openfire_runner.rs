@@ -87,35 +87,46 @@ impl MethodRunner for Chapter10Equation10Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let fed = ParamBuilder::float(&SYMBOLS.fed)
-            .name("Fractional Effective Dose (FED)")
+        let v_e = ParamBuilder::float(&SYMBOLS.v_e)
+            .name("Limiting average air velocity")
+            .units("m/s")
             .build();
 
-        let m_f = ParamBuilder::float(SYMBOLS.m_f)
-            .name("Mass concentration of fuel burned")
-            .units("g/m^3")
+        let g = ParamBuilder::float(SYMBOLS.g)
+            .name("Gravity acceleration")
+            .units("m/s^2")
+            .min_exclusive(0.0)
+            .default_value(Some(ParameterValue::Float(9.8)))
+            .required()
+            .build();
+
+        let h = ParamBuilder::float(SYMBOLS.h)
+            .name("Height of the opening measured from the bottom of the opening")
+            .units("m")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let t = ParamBuilder::float(SYMBOLS.t)
-            .name("Exposure time")
-            .units("min")
+        let t_f = ParamBuilder::float(SYMBOLS.t_f)
+            .name("Temperature of the heated smoke")
+            .units("K")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let lc_50 = ParamBuilder::float(SYMBOLS.lc_50)
-            .name("Lethal exposure dose from the test subject")
-            .units("g/m^3 min")
+        let t_0 = ParamBuilder::float(SYMBOLS.t_0)
+            .name("Temperature of ambient air")
+            .units("K")
             .min_exclusive(0.0)
+            .default_value(Some(ParameterValue::Float(293.0)))
             .required()
             .build();
 
-        params.add(fed);
-        params.add(m_f);
-        params.add(t);
-        params.add(lc_50);
+        params.add(v_e);
+        params.add(g);
+        params.add(h);
+        params.add(t_f);
+        params.add(t_0);
 
         return params;
     }
@@ -125,34 +136,37 @@ impl MethodRunner for Chapter10Equation10Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let fed = params.get(SYMBOLS.fed);
-        let m_f = params.get(SYMBOLS.m_f);
-        let t = params.get(SYMBOLS.t);
-        let lc_50 = params.get(SYMBOLS.lc_50);
+        let v_e = params.get(SYMBOLS.v_e);
+        let g = params.get(SYMBOLS.g);
+        let h = params.get(SYMBOLS.h);
+        let t_f = params.get(SYMBOLS.t_f);
+        let t_0 = params.get(SYMBOLS.t_0);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
-        let step_1_deps = vec![m_f.clone(), t.clone(), lc_50.clone()];
+        let step_1_deps = vec![g.clone(), h.clone(), t_f.clone(), t_0.clone()];
         let mut nomenclature = step_1_deps.clone();
-        nomenclature.push(fed.clone());
+        nomenclature.push(v_e.clone());
 
         let step = Step {
-            name: "Fractional Effective Dose".to_string(),
+            name: "Limiting air velocity | Eq. 10.10".to_string(),
             nomenclature: nomenclature,
             input: step_1_deps.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(equation_1(
-                fed.symbol(),
-                m_f.display_value(),
-                t.display_value(),
-                lc_50.display_value(),
+            process: vec![vec![CalculationComponent::Equation(equation_10_10(
+                v_e.symbol(),
+                g.display_value(),
+                h.display_value(),
+                t_f.display_value(),
+                t_0.display_value(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                equation_1(
-                    fed.symbol(),
-                    m_f.display_value(),
-                    t.display_value(),
-                    lc_50.display_value(),
+                equation_10_10(
+                    v_e.symbol(),
+                    g.display_value(),
+                    h.display_value(),
+                    t_f.display_value(),
+                    t_f.display_value(),
                 ),
                 fed.clone(),
             )]],
@@ -171,12 +185,13 @@ impl MethodRunner for Chapter10Equation10Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let fed = method.parameters.get(SYMBOLS.fed);
-        let m_f = method.parameters.get(SYMBOLS.m_f).as_float();
-        let t = method.parameters.get(SYMBOLS.t).as_float();
-        let lc_50= method.parameters.get(SYMBOLS.lc_50).as_float();
+        let v_e = method.parameters.get(SYMBOLS.v_e);
+        let g = method.parameters.get(SYMBOLS.g).as_float();
+        let h = method.parameters.get(SYMBOLS.h).as_float();
+        let t_f= method.parameters.get(SYMBOLS.t_f).as_float();
+        let t_0= method.parameters.get(SYMBOLS.t_0).as_float();
 
-        let result = super::fractional_effective_dose(m_f, t, lc_50);
+        let result = super::limiting_velocity_10_10(g, h, t_f, t_0);
         fed.update(Some(result.to_string()))?;
 
         return Ok(());
