@@ -32,7 +32,7 @@ mod tests {
 
     #[test]
     fn test_equation_10_12() {
-        let result = limiting_velocity_10_12(1.0, 1000.0, 9.8, 2.5, 1.2, 1, 773.0);
+        let result = limiting_velocity_10_12(1.0, 1000.0, 9.8, 2.5, 1.2, 1.0, 773.0);
         assert_eq!(result, 1.22592912182919);
     }
 }
