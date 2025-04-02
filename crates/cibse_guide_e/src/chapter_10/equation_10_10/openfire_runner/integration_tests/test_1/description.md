@@ -1,1 +1,2 @@
-This test verifies the result for the single test condition.
+This test verifies the result for the implementation
+of equation 10.10.
