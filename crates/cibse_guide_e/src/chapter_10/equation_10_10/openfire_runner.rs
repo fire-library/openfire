@@ -25,9 +25,6 @@ struct Symbols {
     h: &'static str,
     t_f: &'static str,
     t_0: &'static str,
-    q: &'static str,
-    z: &'static str,
-    v_e_1011: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
@@ -36,9 +33,6 @@ const SYMBOLS: Symbols = Symbols {
     h: "H",
     t_f: "T_f",
     t_0: "T_0",
-    q: "\\dot{Q}",
-    z: "z",
-    v_e_1011: "v_{e, small \\space space}",
 };
 
 #[derive(Default)]
@@ -55,29 +49,22 @@ impl MethodRunner for Chapter10Equation10Runner {
         vec![Tag::Ventilation]
     }
     fn description(&self) -> Option<String> {
-        Some("Liminting average air velocity where opposed air flow is used to stop movement through any space".to_string())
+        Some("Liminting average air velocity where opposed air flow is used to stop smoke spread from room of origin to a large volume".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let v_e = params.get(SYMBOLS.v_e);
-        let v_e_1011 = params.get(SYMBOLS.v_e_1011);
 
-        Some(vec![v_e, v_e_1011])
+        Some(vec![v_e])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        // equation 10.10
         let v_e = params.get(SYMBOLS.v_e);
         let g = params.get(SYMBOLS.g);
         let h = params.get(SYMBOLS.h);
         let t_f = params.get(SYMBOLS.t_f);
         let t_0 = params.get(SYMBOLS.t_0);
 
-        //equatoin 10.11
-        let v_e_1011 = params.get(SYMBOLS.v_e_1011);
-        let q = params.get(SYMBOLS.q);
-        let z = params.get(SYMBOLS.z);
 
-        // equation 10.10
         let mut step_1 = FormStep::new(
             "Input | Eq. 10.10",
             "Calculate the limiting average air velocity to prevent smoke spread into adjoining large volume.",
@@ -96,22 +83,7 @@ impl MethodRunner for Chapter10Equation10Runner {
             t_0.symbol(),
         )));
 
-        // equatoin 10.11
-        let mut step_2 = FormStep::new(
-            "Input | Eq. 10.11",
-            "Calculate the limiting average air velocity to prevent smoke spread to an adjoining small space.",
-        );
-        step_2.add_field(q.to_field());
-        step_2.add_field(z.to_field());
-
-        step_2.add_intro();
-        step_2.add_equation(CalculationComponent::Equation(equation_10_11(
-            v_e_1011.symbol(),
-            q.symbol(),
-            z.symbol(),
-        )));
-
-        Form::new(vec![step_1, step_2])
+        Form::new(vec![step_1])
     }
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
