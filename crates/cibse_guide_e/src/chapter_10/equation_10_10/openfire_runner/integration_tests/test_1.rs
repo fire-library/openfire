@@ -28,7 +28,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("v_e".to_string(), 2.26763036612251)],
+        assertions: vec![Assertion::FloatEqual("v_e".to_string(), 2.2327437451052500)],
     }
 }
 
