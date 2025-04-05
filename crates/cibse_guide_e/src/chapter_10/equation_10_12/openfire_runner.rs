@@ -20,6 +20,7 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
+    v_e: &'static str,
     k: &'static str,
     g: &'static str,
     q: &'static str,
@@ -30,6 +31,7 @@ struct Symbols {
 }
 
 const SYMBOLS: Symbols = Symbols {
+    v_e: "v_e",
     k: "K",
     g: "g",
     q: "Q",
@@ -53,32 +55,27 @@ impl MethodRunner for Chapter10Equation12Runner {
         vec![Tag::Ventilation]
     }
     fn description(&self) -> Option<String> {
-        Some("Liminting average air velocity where opposed air flow is used to stop movement through any space".to_string())
+        Some("Liminting average air velocity where opposed air flow is used to stop smoke spread from an adjoining room into a corridor".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let v_e = params.get(SYMBOLS.v_e);
-        let v_e_1011 = params.get(SYMBOLS.v_e_1011);
 
-        Some(vec![v_e, v_e_1011])
+        Some(vec![v_e,])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        // equation 10.10
         let v_e = params.get(SYMBOLS.v_e);
+        let k = params.get(SYMBOLS.k);
         let g = params.get(SYMBOLS.g);
-        let h = params.get(SYMBOLS.h);
-        let t_f = params.get(SYMBOLS.t_f);
-        let t_0 = params.get(SYMBOLS.t_0);
-
-        //equatoin 10.11
-        let v_e_1011 = params.get(SYMBOLS.v_e_1011);
         let q = params.get(SYMBOLS.q);
-        let z = params.get(SYMBOLS.z);
+        let w = params.get(SYMBOLS.w);
+        let rho = params.get(SYMBOLS.rho);
+        let c = params.get(SYMBOLS.c);
+        let t = params.get(SYMBOLS.t);
 
-        // equation 10.10
-        let mut step_1 = FormStep::new(
-            "Input | Eq. 10.10",
-            "Calculate the limiting average air velocity to prevent smoke spread into adjoining large volume.",
+        let mut step = FormStep::new(
+            "Input | Eq. 10.12",
+            "Calculate the limiting average air velocity to prevent smoke spread into adjoining corridor.",
         );
         step_1.add_field(g.to_field());
         step_1.add_field(h.to_field());
@@ -94,22 +91,7 @@ impl MethodRunner for Chapter10Equation12Runner {
             t_0.symbol(),
         )));
 
-        // equatoin 10.11
-        let mut step_2 = FormStep::new(
-            "Input | Eq. 10.11",
-            "Calculate the limiting average air velocity to prevent smoke spread to an adjoining small space.",
-        );
-        step_2.add_field(q.to_field());
-        step_2.add_field(z.to_field());
-
-        step_2.add_intro();
-        step_2.add_equation(CalculationComponent::Equation(equation_10_11(
-            v_e_1011.symbol(),
-            q.symbol(),
-            z.symbol(),
-        )));
-
-        Form::new(vec![step_1, step_2])
+        Form::new(vec![step])
     }
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
