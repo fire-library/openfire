@@ -75,7 +75,7 @@ impl MethodRunner for Chapter10Equation10Runner {
         step_1.add_field(t_0.to_field());
 
         step_1.add_intro();
-        step_1.add_equation(CalculationComponent::Equation(equation_10_10(
+        step_1.add_equation(CalculationComponent::Equation(super::limiting_velocity_symbols(
             v_e.symbol(),
             g.symbol(),
             h.symbol(),
@@ -144,7 +144,7 @@ impl MethodRunner for Chapter10Equation10Runner {
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
         let step = vec![g.clone(), h.clone(), t_f.clone(), t_0.clone()];
-        let mut nomenclature = step_1_deps.clone();
+        let mut nomenclature = step.clone();
         nomenclature.push(v_e.clone());
 
 
@@ -153,7 +153,7 @@ impl MethodRunner for Chapter10Equation10Runner {
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(equation_10_10(
+            process: vec![vec![CalculationComponent::Equation(super::limiting_velocity_symbols(
                 v_e.symbol(),
                 g.symbol(),
                 h.symbol(),
@@ -161,7 +161,7 @@ impl MethodRunner for Chapter10Equation10Runner {
                 t_0.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                equation_10_10(
+                super::limiting_velocity_symbols(
                     v_e.symbol(),
                     g.display_value(),
                     h.display_value(),
@@ -185,14 +185,15 @@ impl MethodRunner for Chapter10Equation10Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        // equation 10.10
         let v_e = method.parameters.get(SYMBOLS.v_e);
         let g = method.parameters.get(SYMBOLS.g).as_float();
         let h = method.parameters.get(SYMBOLS.h).as_float();
         let t_f= method.parameters.get(SYMBOLS.t_f).as_float();
         let t_0= method.parameters.get(SYMBOLS.t_0).as_float();
 
-        let result = super::limiting_velocity_symbols(g, h, t_f, t_0);
+        let result = super::limiting_velocity(g, h, t_f, t_0);
         v_e.update(Some(result.to_string()))?;
 
+        return Ok(());
+    }
 }
