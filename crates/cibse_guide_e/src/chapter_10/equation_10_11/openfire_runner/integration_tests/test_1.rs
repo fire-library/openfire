@@ -11,7 +11,7 @@ pub fn test() -> Test {
             id: super::super::Chapter10Equation11Runner.id(),
             parameters: vec![
                 SavedParameter {
-                    name: "q".to_string(),
+                    name: "Q".to_string(),
                     value: Some(Float(1000.0)),
                 },
                 SavedParameter {
