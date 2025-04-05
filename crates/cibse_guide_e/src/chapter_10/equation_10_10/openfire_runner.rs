@@ -97,6 +97,7 @@ impl MethodRunner for Chapter10Equation10Runner {
             .name("Gravity acceleration")
             .units("m/s^2")
             .min_exclusive(0.0)
+            .required()
             .default_value(Some(ParameterValue::Float(9.8)))
             .build();
 
@@ -104,12 +105,14 @@ impl MethodRunner for Chapter10Equation10Runner {
             .name("Height of the opening measured from the bottom of the opening")
             .units("m")
             .min_exclusive(0.0)
+            .required()
             .build();
 
         let t_f = ParamBuilder::float(SYMBOLS.t_f)
             .name("Temperature of the heated smoke")
             .units("K")
             .min_exclusive(0.0)
+            .required()
             .build();
 
         let t_0 = ParamBuilder::float(SYMBOLS.t_0)
@@ -117,6 +120,7 @@ impl MethodRunner for Chapter10Equation10Runner {
             .units("K")
             .min_exclusive(0.0)
             .default_value(Some(ParameterValue::Float(293.0)))
+            .required()
             .build();
 
         params.add(v_e);
