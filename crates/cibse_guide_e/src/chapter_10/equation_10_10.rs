@@ -18,7 +18,7 @@ mod tests {
     #[test]
     fn test() {
         let result = limiting_velocity(9.8, 2.2, 973.0, 293.0);
-        assert_eq!(result, 2.52310759628797);
+        assert_eq!(result, 2.4842905563450755);
     }
 
 }

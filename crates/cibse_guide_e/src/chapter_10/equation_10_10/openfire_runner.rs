@@ -49,7 +49,7 @@ impl MethodRunner for Chapter10Equation10Runner {
         vec![Tag::Ventilation]
     }
     fn description(&self) -> Option<String> {
-        Some("Liminting average air velocity where opposed air flow is used to stop smoke spread from room of origin to a large volume".to_string())
+        Some("Limiting average air velocity where opposed air flow is used to stop smoke spread from room of origin to a large volume".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let v_e = params.get(SYMBOLS.v_e);
