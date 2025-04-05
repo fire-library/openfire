@@ -36,7 +36,7 @@ pub struct Chapter10Equation11Runner;
 
 impl MethodRunner for Chapter10Equation11Runner {
     fn name(&self) -> String {
-        "Calculates the limiting average air velocity for opposed air flow".to_string()
+        "Calculates the limiting average air velocity for opposed air flow | Large space to room".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_11)
