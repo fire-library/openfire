@@ -26,7 +26,7 @@ struct Symbols {
 }
 
 const SYMBOLS: Symbols = Symbols {
-    q: "\\dot{Q}",
+    q: "Q",
     z: "z",
     v_e: "v_e",
 };
