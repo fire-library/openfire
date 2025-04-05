@@ -20,36 +20,34 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    v_e: &'static str,
+    k: &'static str,
     g: &'static str,
-    h: &'static str,
-    t_f: &'static str,
-    t_0: &'static str,
     q: &'static str,
-    z: &'static str,
-    v_e_1011: &'static str,
+    w: &'static str,
+    rho: &'static str,
+    c: &'static str,
+    t: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
-    v_e: "v_e",
+    k: "K",
     g: "g",
-    h: "H",
-    t_f: "T_f",
-    t_0: "T_0",
-    q: "\\dot{Q}",
-    z: "z",
-    v_e_1011: "v_{e, small \\space space}",
+    q: "Q",
+    w: "w",
+    rho: "\\rho",
+    c: "c",
+    t: "T",
 };
 
 #[derive(Default)]
-pub struct Chapter10Equation10Runner;
+pub struct Chapter10Equation12Runner;
 
-impl MethodRunner for Chapter10Equation10Runner {
+impl MethodRunner for Chapter10Equation12Runner {
     fn name(&self) -> String {
         "Calculates the limiting average air velocity for opposed air flow".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_10)
+        &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_12)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::Ventilation]
@@ -291,16 +289,3 @@ impl MethodRunner for Chapter10Equation10Runner {
     }
 }
 
-fn equation_10_10(v_e: String, g: String, h: String, t_f: String, t_0: String) -> String {
-    format!(
-        "{} = 0.64 \\space ({} \\space {} \\space \\frac{{{} - {}}}{{{}}}) ^ {{0.5}}",
-        v_e, g, h, t_f, t_0, t_f,
-    )
-}
-
-fn equation_10_11(v_e_1011: String, q: String, z: String) -> String {
-    format!(
-        "{} = 0.057 \\space \\frac{{{}}}{{{}}} ^ {{1/3}}",
-        v_e_1011, q, z,
-    )
-}
