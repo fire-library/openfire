@@ -48,7 +48,7 @@ pub struct Chapter10Equation12Runner;
 
 impl MethodRunner for Chapter10Equation12Runner {
     fn name(&self) -> String {
-        "Calculates the limiting average air velocity for opposed air flow | Spread to corridor".to_string()
+        "Limiting average air velocity for opposed air flow | Room of fire origin to corridor".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_12)
@@ -57,7 +57,7 @@ impl MethodRunner for Chapter10Equation12Runner {
         vec![Tag::Ventilation]
     }
     fn description(&self) -> Option<String> {
-        Some("Liminting average air velocity where opposed air flow is used to stop smoke spread from an adjoining room into a corridor".to_string())
+        Some("Limiting average air velocity where opposed air flow is used to stop smoke spread from an adjoining room into a corridor".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let v_e = params.get(SYMBOLS.v_e);
@@ -140,7 +140,7 @@ impl MethodRunner for Chapter10Equation12Runner {
 
         let rho = ParamBuilder::float(SYMBOLS.rho)
             .name("Density of upstream air")
-            .units("K")
+            .units("kg/m^3")
             .min_exclusive(0.0)
             .default_value(Some(ParameterValue::Float(1.2)))
             .required()
@@ -150,7 +150,7 @@ impl MethodRunner for Chapter10Equation12Runner {
             .name("Specific heat of downstrean gases")
             .units("kJ/kgK")
             .min_exclusive(0.0)
-            .default_value(Some(ParameterValue::Float(1.2)))
+            .default_value(Some(ParameterValue::Float(1.0)))
             .required()
             .build();
         
