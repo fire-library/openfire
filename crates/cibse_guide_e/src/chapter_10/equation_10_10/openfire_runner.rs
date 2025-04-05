@@ -170,7 +170,7 @@ impl MethodRunner for Chapter10Equation10Runner {
                     g.display_value(),
                     h.display_value(),
                     t_f.display_value(),
-                    t_f.display_value(),
+                    t_0.display_value(),
                 ),
                 v_e.clone(),
             )]],
