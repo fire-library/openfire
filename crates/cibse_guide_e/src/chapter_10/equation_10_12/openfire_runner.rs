@@ -19,6 +19,8 @@ use crate::CIBSEGuideE;
 use std::sync::{Arc, RwLock};
 use std::vec;
 
+use super::limiting_velocity_symbols;
+
 struct Symbols {
     v_e: &'static str,
     k: &'static str,
@@ -77,18 +79,24 @@ impl MethodRunner for Chapter10Equation12Runner {
             "Input | Eq. 10.12",
             "Calculate the limiting average air velocity to prevent smoke spread into adjoining corridor.",
         );
-        step_1.add_field(g.to_field());
-        step_1.add_field(h.to_field());
-        step_1.add_field(t_f.to_field());
-        step_1.add_field(t_0.to_field());
+        step.add_field(k.to_field());
+        step.add_field(g.to_field());
+        step.add_field(q.to_field());
+        step.add_field(w.to_field());
+        step.add_field(rho.to_field());
+        step.add_field(c.to_field());
+        step.add_field(t.to_field());
 
-        step_1.add_intro();
-        step_1.add_equation(CalculationComponent::Equation(equation_10_10(
+        step.add_intro();
+        step.add_equation(CalculationComponent::Equation(limiting_velocity_symbols(
             v_e.symbol(),
+            k.symbol(),
             g.symbol(),
-            h.symbol(),
-            t_f.symbol(),
-            t_0.symbol(),
+            q.symbol(),
+            w.symbol(),
+            rho.symbol(),
+            c.symbol(),
+            t.symbol(),
         )));
 
         Form::new(vec![step])
@@ -96,10 +104,16 @@ impl MethodRunner for Chapter10Equation12Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        // equation 10.10
         let v_e = ParamBuilder::float(&SYMBOLS.v_e)
             .name("Limiting average air velocity")
             .units("m/s")
+            .build();
+
+        let k = ParamBuilder::float(SYMBOLS.k)
+            .name("Constant")
+            .min_exclusive(0.0)
+            .default_value(Some(ParameterValue::Float(1.0)))
+            .required()
             .build();
 
         let g = ParamBuilder::float(SYMBOLS.g)
@@ -107,54 +121,54 @@ impl MethodRunner for Chapter10Equation12Runner {
             .units("m/s^2")
             .min_exclusive(0.0)
             .default_value(Some(ParameterValue::Float(9.8)))
-            .build();
-
-        let h = ParamBuilder::float(SYMBOLS.h)
-            .name("Height of the opening measured from the bottom of the opening")
-            .units("m")
-            .min_exclusive(0.0)
-            .build();
-
-        let t_f = ParamBuilder::float(SYMBOLS.t_f)
-            .name("Temperature of the heated smoke")
-            .units("K")
-            .min_exclusive(0.0)
-            .build();
-
-        let t_0 = ParamBuilder::float(SYMBOLS.t_0)
-            .name("Temperature of ambient air")
-            .units("K")
-            .min_exclusive(0.0)
-            .default_value(Some(ParameterValue::Float(293.0)))
-            .build();
-
-        params.add(v_e);
-        params.add(g);
-        params.add(h);
-        params.add(t_f);
-        params.add(t_0);
-
-        // equation 10.11
-        let v_e_1011 = ParamBuilder::float(&SYMBOLS.v_e_1011)
-            .name("Limiting average air velocity")
-            .units("m/s")
+            .required()
             .build();
 
         let q = ParamBuilder::float(SYMBOLS.q)
             .name("Heat Release Rate")
             .units("kW")
             .min_exclusive(0.0)
+            .required()
             .build();
 
-        let z = ParamBuilder::float(SYMBOLS.z)
-            .name("Distance above the base of the fire to the bottom of the opening")
+        let w = ParamBuilder::float(SYMBOLS.w)
+            .name("Corridor width")
             .units("m")
             .min_exclusive(0.0)
+            .required()
             .build();
 
-        params.add(v_e_1011);
+        let rho = ParamBuilder::float(SYMBOLS.rho)
+            .name("Density of upstream air")
+            .units("K")
+            .min_exclusive(0.0)
+            .default_value(Some(ParameterValue::Float(1.2)))
+            .required()
+            .build();
+
+        let c = ParamBuilder::float(SYMBOLS.c)
+            .name("Specific heat of downstrean gases")
+            .units("kJ/kgK")
+            .min_exclusive(0.0)
+            .default_value(Some(ParameterValue::Float(1.2)))
+            .required()
+            .build();
+        
+        let t = ParamBuilder::float(SYMBOLS.t)
+            .name("Temperature of the downstream mixture of air and smoke")
+            .units("K")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        params.add(v_e);
+        params.add(k);
+        params.add(g);
         params.add(q);
-        params.add(z);
+        params.add(w);
+        params.add(rho);
+        params.add(c);
+        params.add(t);
 
         return params;
     }
@@ -165,78 +179,54 @@ impl MethodRunner for Chapter10Equation12Runner {
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
 
-        // equation 10.10
         let v_e = params.get(SYMBOLS.v_e);
+        let k = params.get(SYMBOLS.k);
         let g = params.get(SYMBOLS.g);
-        let h = params.get(SYMBOLS.h);
-        let t_f = params.get(SYMBOLS.t_f);
-        let t_0 = params.get(SYMBOLS.t_0);
-
-
-        let v_e_1011 = params.get(SYMBOLS.v_e_1011);
         let q = params.get(SYMBOLS.q);
-        let z = params.get(SYMBOLS.z);
+        let w = params.get(SYMBOLS.w);
+        let rho = params.get(SYMBOLS.rho);
+        let c = params.get(SYMBOLS.c);
+        let t = params.get(SYMBOLS.t);
+
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        // equation 10.10
-        let step_1_deps = vec![g.clone(), h.clone(), t_f.clone(), t_0.clone()];
-        let mut nomenclature_step_1 = step_1_deps.clone();
-        nomenclature_step_1.push(v_e.clone());
+        let step = vec![k.clone(), g.clone(), q.clone(), w.clone(), rho.clone(), c.clone(), t.clone()];
+        let mut nomenclature = step.clone();
+        nomenclature.push(v_e.clone());
 
 
-        let step_1 = Step {
-            name: "Limiting air velocity | Eq. 10.10".to_string(),
-            nomenclature: nomenclature_step_1,
-            input: step_1_deps.clone().into_iter().map(|p| p.into()).collect(),
+        let step = Step {
+            name: "Limiting air velocity | Eq. 10.12".to_string(),
+            nomenclature: nomenclature,
+            input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(equation_10_10(
+            process: vec![vec![CalculationComponent::Equation(super::limiting_velocity_symbols(
                 v_e.symbol(),
+                k.symbol(),
                 g.symbol(),
-                h.symbol(),
-                t_f.symbol(),
-                t_0.symbol(),
+                q.symbol(),
+                w.symbol(),
+                rho.symbol(),
+                c.symbol(),
+                t.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                equation_10_10(
+                super::limiting_velocity_symbols(
                     v_e.symbol(),
+                    k.display_value(),
                     g.display_value(),
-                    h.display_value(),
-                    t_f.display_value(),
-                    t_f.display_value(),
+                    q.display_value(),
+                    w.display_value(),
+                    rho.display_value(),
+                    c.display_value(),
+                    t.display_value(),
                 ),
                 v_e.clone(),
             )]],
         };
-        calc_sheet.write().unwrap().add_step(step_1);
-
-        // equation 10.11
-        let step_2_deps = vec![q.clone(), z.clone()];
-        let mut nomenclature_step_2 = step_2_deps.clone();
-        nomenclature_step_2.push(v_e_1011.clone());
-        
-
-        let step_2 = Step {
-            name: "Limiting air velocity | Eq. 10.11".to_string(),
-            nomenclature: nomenclature_step_2,
-            input: step_2_deps.clone().into_iter().map(|p| p.into()).collect(),
-            render: true,
-            process: vec![vec![CalculationComponent::Equation(equation_10_11(
-                v_e_1011.symbol(),
-                q.symbol(),
-                z.symbol(),
-            ))]],
-            calculation: vec![vec![CalculationComponent::EquationWithResult(
-                equation_10_11(
-                    v_e_1011.symbol(),
-                    q.display_value(),
-                    z.display_value(),
-                ),
-                v_e_1011.clone(),
-            )]],
-        };
-        calc_sheet.write().unwrap().add_step(step_2);
+        calc_sheet.write().unwrap().add_step(step);
 
         calc_sheet
     }
@@ -250,23 +240,18 @@ impl MethodRunner for Chapter10Equation12Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        // equation 10.10
         let v_e = method.parameters.get(SYMBOLS.v_e);
+        let k = method.parameters.get(SYMBOLS.k).as_float();
         let g = method.parameters.get(SYMBOLS.g).as_float();
-        let h = method.parameters.get(SYMBOLS.h).as_float();
-        let t_f= method.parameters.get(SYMBOLS.t_f).as_float();
-        let t_0= method.parameters.get(SYMBOLS.t_0).as_float();
+        let q= method.parameters.get(SYMBOLS.q).as_float();
+        let w = method.parameters.get(SYMBOLS.w).as_float();
+        let rho = method.parameters.get(SYMBOLS.rho).as_float();
+        let c = method.parameters.get(SYMBOLS.c).as_float();
+        let t = method.parameters.get(SYMBOLS.t).as_float();
 
-        let result = super::limiting_velocity_10_10(g, h, t_f, t_0);
+        let result = super::limiting_velocity(k, g, q, w, rho, c, t);
         v_e.update(Some(result.to_string()))?;
 
-        // equation 10.11
-        let v_e_1011 = method.parameters.get(SYMBOLS.v_e_1011);
-        let q = method.parameters.get(SYMBOLS.q).as_float();
-        let z = method.parameters.get(SYMBOLS.z).as_float();
-
-        let result_1011 = super::limiting_velocity_10_11(q, z);
-        v_e_1011.update(Some(result_1011.to_string()))?;
         return Ok(());
     }
 }
