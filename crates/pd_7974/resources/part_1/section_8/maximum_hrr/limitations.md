@@ -1,12 +1,8 @@
-Equations 28, 29 and 33 have a number of limitations that are described by
-_PD 7974-1 (2019). Mainly, these relate to the data that was used to validate
-these equations, which includes limited variation on the location of the fires
-(all fires are assumed near the centre of the compartment), limited enclosure
-sizes ($0.3$ m to $2.7$ m high and $0.14$ $m^2$ to $12$ $m^2$ floor area) and
-limited opening geometries.
+Equation 4 requires knowledge of the area of the fire as well as
+the Heat Release Rate Per Unit Area (HRRPUA). Table A4 provides values
+for HRRPUA for different occupancies, but the user must consider the
+embedded assumptions and uncertainty in the use of this data.
 
-Additionally, _PD 7974-1 (2019)_ requires additional care for well-insulated
-compartments, compartments with more than one opening, extremely fast fire
-growth scenarios and complicated geometries. Ultimately, the formulae should be
-used for a limited number of compartments of specific geometries.
-More detail can be found in section 8.5.1.2.
+Equation 33 makes a number of assumptions, including assumptions on
+the heat of combustion of the fuel and the location of the neutral plane
+in a compartment fire. Further information is provided in 8.5.2.2.
