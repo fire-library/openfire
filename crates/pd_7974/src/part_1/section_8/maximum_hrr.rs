@@ -157,9 +157,9 @@ impl MethodRunner for MaximumHRRBuilder {
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
         let equation =
-            QFoThomas::new_boxed(q_fo_thomas.clone(), a_t.clone(), a_v.clone(), h_v.clone());
+            QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
         let step_1 = Step {
-            name: "HRR at flashover by Thomas (Method 1)".to_string(),
+            name: "Max HRR for ventilation-controlled fire".to_string(),
             nomenclature: equation.dependencies(),
             input: equation.input().into_iter().map(|p| p.into()).collect(),
             process: equation.generate_with_symbols(),
@@ -168,15 +168,13 @@ impl MethodRunner for MaximumHRRBuilder {
         };
         calc_sheet.write().unwrap().add_step(step_1);
 
-        let equation = QFoMcCaffrey::new_boxed(
-            q_fo_mccaffrey.clone(),
-            a_t.clone(),
-            a_v.clone(),
-            h_v.clone(),
-            h_k.clone(),
+        let equation = QMaxFC::new_boxed(
+            q_max_fc.clone(),
+            a_f.clone(),
+            hrrpua.clone(),
         );
         let step_2 = Step {
-            name: "HRR at flashover by McCaffrey (Method 2)".to_string(),
+            name: "Max HRR for fuel-controlled fire".to_string(),
             nomenclature: equation.dependencies(),
             input: equation.input().into_iter().map(|p| p.into()).collect(),
             process: equation.generate_with_symbols(),
@@ -184,17 +182,6 @@ impl MethodRunner for MaximumHRRBuilder {
             render: true,
         };
         calc_sheet.write().unwrap().add_step(step_2);
-
-        let equation = QMax::new_boxed(q_max.clone(), a_v.clone(), h_v.clone());
-        let step_3 = Step {
-            name: "Max HRR of ventilation controlled fire (based on Kawagoe)".to_string(),
-            nomenclature: equation.dependencies(),
-            input: equation.input().into_iter().map(|p| p.into()).collect(),
-            process: equation.generate_with_symbols(),
-            calculation: equation.generate_with_values(),
-            render: true,
-        };
-        calc_sheet.write().unwrap().add_step(step_3);
 
         calc_sheet
     }
@@ -211,14 +198,17 @@ impl MethodRunner for MaximumHRRBuilder {
         let a_t = method.parameters.get("A_t").as_float();
         let a_v = method.parameters.get("A_v").as_float();
         let h_v = method.parameters.get("H_v").as_float();
-        let h_k = method.parameters.get("h_k");
+        let a_f = method.parameters.get("A_f").as_float();
+        let hrrpua = method.parameters.get("HRRPUA").as_float();
 
-        let q_fo_mccaffrey = method.parameters.get("\\dot{Q}_{fo, \\space McCaffrey}");
+        let q_max_vc = method.parameters.get("\\dot{Q}_{max, \\space VC}");
+        let q_max_fc= method.parameters.get("\\dot{Q}_{max, \\space FC}");
 
-        let q_max = method.parameters.get("\\dot{Q}_{max, \\space Kawagoe}");
+        let q_max_vc_result = equation_33::q_max_vc(a_v, h_v);
+        q_max_vc.update(Some(q_max_vc_result.to_string()))?;
 
-        let thomas_result = equation_28::q_fo(a_t, a_v, h_v);
-        q_fo_thomas.update(Some(thomas_result.to_string()))?;
+        let q_max_fc_result = equation_4::q_max_fc(a_f, hrrpua);
+        q_max_fc.update(Some(q_max_fc_result.to_string()))?;
 
         let q_max_result = equation_33::q_max(a_v, h_v);
         q_max.update(Some(q_max_result.to_string()))?;
