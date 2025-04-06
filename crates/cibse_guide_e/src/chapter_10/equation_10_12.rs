@@ -4,10 +4,10 @@ pub fn limiting_velocity(k: f64, g: f64, q: f64, omega: f64, rho: f64, c: f64, t
     return k * ((g*q) / (omega * rho * c * t)).powf(1.0/3.0);
 }
 
-fn limiting_velocity_symbols(v_e: String, k: String, g: String, q: String, w: String, rho: String, c: String, t: String) -> String {
+fn equation(v_e: String, k: String, g: String, q: String, omega: String, rho: String, c: String, t: String) -> String {
     format!(
         "{} = {} \\space \\frac{{{} \\space {}}}{{{} \\space {} \\space {} \\space {}}} ^ {{1/3}}",
-        v_e, k, g, q, w, rho, c, t,
+        v_e, k, g, q, omega, rho, c, t,
     )
 }
 
