@@ -12,6 +12,6 @@ onto the communicating space. Further, an allowance should be made for
 unknown leakage paths. _CIBSE Guide E_ cites a value 15% as sufficient
 if the leakage paths are not known.
 
-Equation 12 applies to fires where the smoke enters a corridor via
+Equation 10.12 applies to fires where the smoke enters a corridor via
 an open door from an adjoining room, where inlet air is provided
 into the corridor to prevent smoke spread.
