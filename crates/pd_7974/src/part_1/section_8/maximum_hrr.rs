@@ -1,10 +1,12 @@
-mod q_max;
+mod q_max_vc;
+mod q_max_fc;
 
-use q_max::QMax;
+use q_max_vc::QMaxVC;
+use q_max_fc::QMaxFC;
 
 pub mod integration_tests;
 
-use super::{equation_28, equation_29, equation_33};
+use super::{equation_4, equation_33};
 use framework::method::calculation::Calculation;
 use framework::method::form::{Form, FormStep};
 use framework::method::parameter::Parameters;
@@ -26,7 +28,7 @@ use crate::part_1::section_8::Section8Method;
 
 impl MethodRunner for MaximumHRRBuilder {
     fn name(&self) -> String {
-        "Maximum HRR Compartment Fire".to_string()
+        "Maximum HRR in a compartment fire".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &PD7974::One(Section::Eight(Section8Method::MaximumHRR))
@@ -35,21 +37,19 @@ impl MethodRunner for MaximumHRRBuilder {
         vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some("Calculates the maximum HRR for a compartment fire, comparing fuel-controlled and ventilation-controlled".to_string())
-    }
-    fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let q_max = params.get("\\dot{Q}_{max, \\space VC}");
-
-        Some(vec![q_max])
+        Some("Calculates the maximum HRR for a compartment fire, comparing fuel-controlled and ventilation-controlled conditions".to_string())
     }
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let a_t = ParamBuilder::float("A_t")
-            .name("Total interior surface area, less ventilation openings")
-            .units("m^2")
-            .min_exclusive(0.0)
-            .required()
+        let q_max_vc = ParamBuilder::float("\\dot{Q}_{max, \\space VC}")
+            .name("Max HRR for ventilation-controlled scenario")
+            .units("kW")
+            .build();
+
+        let q_max_fc = ParamBuilder::float("\\dot{Q}_{max, \\space FC}")
+            .name("Max HRR for fuel-controlled scenario")
+            .units("kW")
             .build();
 
         let a_v = ParamBuilder::float("A_v")
@@ -66,90 +66,79 @@ impl MethodRunner for MaximumHRRBuilder {
             .required()
             .build();
 
-        let h_k = ParamBuilder::float("h_k")
-            .name("Effective heat transfer coefficient of the enclosure")
-            .units("kW m^{-2} K^{-1}")
+        let hrrpua = ParamBuilder::float("HRRPUA")
+            .name("Heat Release Rate Per Unit Area")
+            .units("kW/m^{2} ")
             .min(0.0)
             .build();
 
-        let q_fo_thomas = ParamBuilder::float("\\dot{Q}_{fo, \\space Thomas}")
-            .name("Heat release rate to cause flashover temperature rise")
-            .units("kW")
+        let a_f = ParamBuilder::float("A_f")
+            .name("Area of the fire")
+            .units("m^2")
             .build();
 
-        let q_fo_mccaffrey = ParamBuilder::float("\\dot{Q}_{fo, \\space McCaffrey}")
-            .name("Heat release rate to cause flashover temperature rise")
-            .units("kW")
-            .build();
-
-        let q_max = ParamBuilder::float("\\dot{Q}_{max, \\space Kawagoe}")
-            .name("Max HRR of ventilation controlled fire")
-            .units("kW")
-            .build();
-
-        params.add(a_t);
+        params.add(q_max_vc);
+        params.add(q_max_fc);
         params.add(a_v);
         params.add(h_v);
-        params.add(h_k);
-        params.add(q_max);
-        params.add(q_fo_thomas);
-        params.add(q_fo_mccaffrey);
+        params.add(hrrpua);
+        params.add(a_f);
 
         return params;
+    }
+    fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
+        let q_max_fc = params.get("\\dot{Q}_{max, \\space VC}");
+        let q_max_vc = params.get("\\dot{Q}_{max, \\space FC}");
+
+        Some(vec![q_max_vc, q_max_fc])
     }
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
         let a_t = params.get("A_t");
         let a_v = params.get("A_v");
         let h_v = params.get("H_v");
-        let h_k = params.get("h_k");
-        let q_fo_thomas = params.get("\\dot{Q}_{fo, \\space Thomas}");
-        let q_fo_mccaffrey = params.get("\\dot{Q}_{fo, \\space McCaffrey}");
-        let q_max = params.get("\\dot{Q}_{max, \\space Kawagoe}");
+        let hrrpua = params.get("HRRPUA");
+        let a_f = params.get("A_f");
+        let q_max_vc = params.get("\\dot{Q}_{max, \\space VC}");
+        let q_max_fc = params.get("\\dot{Q}_{max, \\space FC}");
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 28",
-            "Input required to calculate the HRR at flashover using Method 1 by Thomas",
+            "Input | Eq. 33",
+            "Calculate the max HRR of a ventilation-controlled fire, based on Kawagoe",
         );
+        
+        let equation = QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
+        step_1.add_intro();
+        step_1.add_equation(equation.generate_with_symbols()[0][0].clone());
+
         for param in params.values().into_iter() {
-            if param.symbol() == "\\dot{Q}_{fo, \\space Thomas}"
-                || param.symbol() == "\\dot{Q}_{fo, \\space McCaffrey}"
-                || param.symbol() == "h_k"
-                || param.symbol() == "\\dot{Q}_{max, \\space Kawagoe}"
+            if param.symbol() == "\\dot{Q}_{max, \\space FC}"
+                || param.symbol() == "HRRPUA"
+                || param.symbol() == "A_f"
             {
                 continue;
             }
             step_1.add_field(param.to_field())
         }
-        let equation =
-            QFoThomas::new_boxed(q_fo_thomas.clone(), a_t.clone(), a_v.clone(), h_v.clone());
+        let equation = QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
         step_1.add_intro();
         step_1.add_equation(equation.generate_with_symbols()[0][0].clone());
 
         let mut step_2 = FormStep::new(
-            "Input | Eq. 29 (Optional)",
-            "Additional input required to calculate the HRR at flashover using Method 2 by McCaffrey et al.",
+            "Input | Eq. 4 (Optional)",
+            "Calculate the max HRR of a fuel-controlled fire",
         );
 
-        let equation = QFoMcCaffrey::new_boxed(
-            q_fo_mccaffrey.clone(),
-            a_t.clone(),
-            a_v.clone(),
-            h_v.clone(),
-            h_k.clone(),
+        let equation = QMaxFC::new_boxed(
+            q_max_fc.clone(),
+            a_f.clone(),
+            hrrpua.clone(),
         );
-        step_2.add_field(h_k.to_field());
+        step_2.add_field(a_f.to_field());
+        step_2.add_field(hrrpua.to_field());
         step_2.add_intro();
         step_2.add_equation(equation.generate_with_symbols()[0][0].clone());
 
-        let mut step_3 = FormStep::new(
-            "Eq. 33",
-            "Max HRR of ventilation controlled fire (based on Kawagoe). No additional input required.",
-        );
-        let equation = QMax::new_boxed(q_max.clone(), a_v.clone(), h_v.clone());
-        step_3.add_intro();
-        step_3.add_equation(equation.generate_with_symbols()[0][0].clone());
-
-        Form::new(vec![step_1, step_2, step_3])
+        Form::new(vec![step_1, step_2])
     }
 
     fn calc_sheet(
@@ -160,10 +149,10 @@ impl MethodRunner for MaximumHRRBuilder {
         let a_t = params.get("A_t");
         let a_v = params.get("A_v");
         let h_v = params.get("H_v");
-        let h_k = params.get("h_k");
-        let q_fo_thomas = params.get("\\dot{Q}_{fo, \\space Thomas}");
-        let q_fo_mccaffrey = params.get("\\dot{Q}_{fo, \\space McCaffrey}");
-        let q_max = params.get("\\dot{Q}_{max, \\space Kawagoe}");
+        let a_f = params.get("A_f");
+        let hrrpua = params.get("HRRPUA");
+        let q_max_vc = params.get("\\dot{Q}_{max, \\space VC}");
+        let q_max_fc = params.get("\\dot{Q}_{max, \\space FC}");
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
@@ -223,8 +212,6 @@ impl MethodRunner for MaximumHRRBuilder {
         let a_v = method.parameters.get("A_v").as_float();
         let h_v = method.parameters.get("H_v").as_float();
         let h_k = method.parameters.get("h_k");
-
-        let q_fo_thomas = method.parameters.get("\\dot{Q}_{fo, \\space Thomas}");
 
         let q_fo_mccaffrey = method.parameters.get("\\dot{Q}_{fo, \\space McCaffrey}");
 

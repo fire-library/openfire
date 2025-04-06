@@ -1,4 +1,4 @@
-pub fn q_max(a_v: f64, h_v: f64) -> f64 {
+pub fn q_max_vc(a_v: f64, h_v: f64) -> f64 {
     return 1500.0 * a_v * h_v.powf(0.5);
 }
 

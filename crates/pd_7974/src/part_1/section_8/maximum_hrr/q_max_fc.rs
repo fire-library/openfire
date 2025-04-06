@@ -4,23 +4,23 @@ use framework::method::parameter::ArcParameter;
 use framework::method::parameter::ParameterTrait;
 
 #[derive(Debug)]
-pub struct QMax {
+pub struct QMaxFC {
     pub q_max: ArcParameter,
-    pub a_v: ArcParameter,
-    pub h_v: ArcParameter,
+    pub a_f: ArcParameter,
+    pub hrrpua: ArcParameter,
 }
 
-impl QMax {
-    pub fn new_boxed(q_max: ArcParameter, a_v: ArcParameter, h_v: ArcParameter) -> Box<Self> {
-        Box::new(Self { a_v, h_v, q_max })
+impl QMaxFC {
+    pub fn new_boxed(q_max: ArcParameter, a_f: ArcParameter, hrrpua: ArcParameter) -> Box<Self> {
+        Box::new(Self { a_f, hrrpua, q_max })
     }
 
-    pub fn q_max_equation(a_v: String, h_v: String) -> String {
-        format!("1500 \\cdot {} \\cdot {}^{{1/2}}", a_v, h_v)
+    pub fn q_max_fc_equation(a_f: String, hrrpua: String) -> String {
+        format!("{} \\cdot {}", a_f, hrrpua)
     }
 }
 
-impl QMax {
+impl QMaxFC {
     pub fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
             "\\dot{{Q}}_{{max, \\space Kawagoe}} = {}",
