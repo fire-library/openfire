@@ -194,26 +194,26 @@ impl ParamBuilder {
         }
     }
 
-    // pub fn decimal_places(self, decimal_places: u32) -> Self {
-    //     match self {
-    //         ParamBuilder::Float(mut builder) => {
-    //             builder
-    //                 .display_options
-    //                 .push(DisplayOptions::DecimalPlaces(decimal_places));
-    //             ParamBuilder::Float(builder)
-    //         }
-    //         ParamBuilder::OutputFloat(mut builder) => {
-    //             builder
-    //                 .display_options
-    //                 .push(DisplayOptions::DecimalPlaces(decimal_places));
-    //             ParamBuilder::OutputFloat(builder)
-    //         }
-    //         ParamBuilder::StringEnum(_, _) => panic!("Invalid display option for a string enum"),
-    //         ParamBuilder::String(_) => panic!("Invalid display option for a string"),
-    //         ParamBuilder::Object(_) => panic!("An object cannot have display options"),
-    //         ParamBuilder::List(_) => panic!("A list cannot have display options"),
-    //     }
-    // }
+    pub fn decimal_places(self, decimal_places: u32) -> Self {
+        match self {
+            ParamBuilder::Float(mut builder) => {
+                builder
+                    .display_options
+                    .push(DisplayOptions::DecimalPlaces(decimal_places));
+                ParamBuilder::Float(builder)
+            }
+            ParamBuilder::OutputFloat(mut builder) => {
+                builder
+                    .display_options
+                    .push(DisplayOptions::DecimalPlaces(decimal_places));
+                ParamBuilder::OutputFloat(builder)
+            }
+            ParamBuilder::StringEnum(_, _) => panic!("Invalid display option for a string enum"),
+            ParamBuilder::String(_) => panic!("Invalid display option for a string"),
+            ParamBuilder::Object(_) => panic!("An object cannot have display options"),
+            ParamBuilder::List(_) => panic!("A list cannot have display options"),
+        }
+    }
 
     pub fn required(self) -> Self {
         match self {
