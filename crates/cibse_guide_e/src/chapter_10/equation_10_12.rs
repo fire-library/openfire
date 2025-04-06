@@ -1,7 +1,7 @@
 pub mod openfire_runner;
 
-pub fn limiting_velocity(k: f64, g: f64, q: f64, w: f64, rho: f64, c: f64, t: f64) -> f64 {
-    return k * ((g*q) / (w * rho * c * t)).powf(1.0/3.0);
+pub fn limiting_velocity(k: f64, g: f64, q: f64, omega: f64, rho: f64, c: f64, t: f64) -> f64 {
+    return k * ((g*q) / (omega * rho * c * t)).powf(1.0/3.0);
 }
 
 fn limiting_velocity_symbols(v_e: String, k: String, g: String, q: String, w: String, rho: String, c: String, t: String) -> String {
