@@ -1,9 +1,5 @@
-mod q_fo_mccaffrey;
-mod q_fo_thomas;
 mod q_max;
 
-use q_fo_mccaffrey::QFoMcCaffrey;
-use q_fo_thomas::QFoThomas;
 use q_max::QMax;
 
 pub mod integration_tests;
@@ -22,31 +18,29 @@ use framework::method::{Method, step::Step};
 use std::sync::{Arc, RwLock};
 
 #[derive(Default)]
-pub struct HRRAtFlashoverBuilder;
+pub struct MaximumHRRBuilder;
 
 use crate::PD7974;
 use crate::part_1::Section;
 use crate::part_1::section_8::Section8Method;
 
-impl MethodRunner for HRRAtFlashoverBuilder {
+impl MethodRunner for MaximumHRRBuilder {
     fn name(&self) -> String {
-        "HRR at flashover".to_string()
+        "Maximum HRR Compartment Fire".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &PD7974::One(Section::Eight(Section8Method::HRRAtFlashover))
+        &PD7974::One(Section::Eight(Section8Method::MaximumHRR))
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some("Calculates the HRR at flashover, comparing methods developed by Thomas, McCaffrey et al., and Kawago".to_string())
+        Some("Calculates the maximum HRR for a compartment fire, comparing fuel-controlled and ventilation-controlled".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let q_fo_thomas = params.get("\\dot{Q}_{fo, \\space Thomas}");
-        let q_fo_mccaffrey = params.get("\\dot{Q}_{fo, \\space McCaffrey}");
-        let q_max = params.get("\\dot{Q}_{max, \\space Kawagoe}");
+        let q_max = params.get("\\dot{Q}_{max, \\space VC}");
 
-        Some(vec![q_max, q_fo_thomas, q_fo_mccaffrey])
+        Some(vec![q_max])
     }
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
