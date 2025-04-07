@@ -201,16 +201,6 @@ impl MethodRunner for MaximumHRRBuilder {
         let q_max_fc_result = equation_4::q_max_fc(a_f, hrrpua);
         q_max_fc.update(Some(q_max_fc_result.to_string()))?;
 
-        let q_max_result = equation_33::q_max(a_v, h_v);
-        q_max.update(Some(q_max_result.to_string()))?;
-
-        if let Some(h_k) = h_k.get_float() {
-            let mccaffrey_result = equation_29::q_fo(h_k, a_t, a_v, h_v);
-            q_fo_mccaffrey.update(Some(mccaffrey_result.to_string()))?;
-        } else {
-            q_fo_mccaffrey.update(None)?;
-        }
-
         return Ok(());
     }
 }

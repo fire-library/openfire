@@ -23,16 +23,16 @@ impl QMaxFC {
 impl QMaxFC {
     pub fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
-            "\\dot{{Q}}_{{max, \\space Kawagoe}} = {}",
-            Self::q_max_equation(self.a_v.symbol(), self.h_v.symbol(),)
+            "\\dot{{Q}}_{{max, \\space FC}} = {}",
+            Self::q_max_fc_equation(self.a_f.symbol(), self.hrrpua.symbol(),)
         );
 
         vec![vec![CalculationComponent::Equation(eq_1)]]
     }
     pub fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
-            "\\dot{{Q}}_{{max, \\space Kawagoe}} = {}",
-            Self::q_max_equation(self.a_v.display_value(), self.h_v.display_value(),)
+            "\\dot{{Q}}_{{max, \\space FC}} = {}",
+            Self::q_max_fc_equation(self.a_f.display_value(), self.hrrpua.display_value(),)
         );
 
         vec![vec![CalculationComponent::EquationWithResult(
@@ -42,10 +42,10 @@ impl QMaxFC {
     }
 
     pub fn input(&self) -> Vec<Dependency> {
-        vec![self.a_v.clone().into(), self.h_v.clone().into()]
+        vec![self.a_f.clone().into(), self.hrrpua.clone().into()]
     }
 
     pub fn dependencies(&self) -> Vec<ArcParameter> {
-        vec![self.a_v.clone(), self.h_v.clone(), self.q_max.clone()]
+        vec![self.a_f.clone(), self.hrrpua.clone(), self.q_max.clone()]
     }
 }

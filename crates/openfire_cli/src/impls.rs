@@ -53,6 +53,7 @@ pub fn all_impls() -> Vec<DocumentImplementations> {
             implementations: vec![
         pd_7974::part_1::section_8::maximum_enclosure_temperature_runner::MaximumEnclosureTemperatureBuilder.index_page(),
         pd_7974::part_1::section_8::hrr_at_flashover_runner::HRRAtFlashoverBuilder.index_page(),
+        pd_7974::part_1::section_8::maximum_hrr::MaximumHRRBuilder.index_page(),
             ],
         },
         DocumentImplementations {
@@ -113,6 +114,7 @@ pub fn register_runners() {
     framework::register_runner::<
         pd_7974::part_1::section_8::hrr_at_flashover_runner::HRRAtFlashoverBuilder,
     >();
+    framework::register_runner::<pd_7974::part_1::section_8::maximum_hrr::MaximumHRRBuilder>();
     framework::register_runner::<sfpe_handbook::chapter_14::alpert::openfire_runner::AlpertHeatReleaseFromTempAndPositionBuilder>();
     framework::register_runner::<
         tr17::section_2::equation_1::openfire_runner::TR17Section2Equation1Builder,
