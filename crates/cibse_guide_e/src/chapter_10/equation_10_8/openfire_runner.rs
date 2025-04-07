@@ -5,7 +5,6 @@ use framework::method::calculation::CalculationComponent;
 use framework::method::form::{Form, FormStep};
 use framework::method::parameter::ArcParameter;
 use framework::method::parameter::ParameterTrait;
-use framework::method::parameter::ParameterValue;
 use framework::method::parameter::Parameters;
 use framework::method::parameter::builder::ParamBuilder;
 use framework::method::runner::MethodRunner;
@@ -84,6 +83,7 @@ impl MethodRunner for Chapter10Equation8Runner {
 
         let fed = ParamBuilder::float(&SYMBOLS.fed)
             .name("Fractional Effective Dose (FED)")
+            .decimal_places(4)
             .build();
 
         let m_f = ParamBuilder::float(SYMBOLS.m_f)
@@ -138,9 +138,9 @@ impl MethodRunner for Chapter10Equation8Runner {
             render: true,
             process: vec![vec![CalculationComponent::Equation(equation_1(
                 fed.symbol(),
-                m_f.display_value(),
-                t.display_value(),
-                lc_50.display_value(),
+                m_f.symbol(),
+                t.symbol(),
+                lc_50.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 equation_1(
