@@ -88,8 +88,8 @@ impl MethodRunner for MaximumHRRBuilder {
     }
 
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let q_max_fc = params.get("\\dot{Q}_{max, \\space VC}");
         let q_max_vc = params.get("\\dot{Q}_{max, \\space FC}");
+        let q_max_fc = params.get("\\dot{Q}_{max, \\space VC}");
 
         Some(vec![q_max_vc, q_max_fc])
     }
@@ -187,8 +187,6 @@ impl MethodRunner for MaximumHRRBuilder {
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
         let a_v = method.parameters.get("A_v").as_float();
         let h_v = method.parameters.get("H_v").as_float();
-        let a_f = method.parameters.get("A_f").as_float();
-        let hrrpua = method.parameters.get("HRRPUA").as_float();
 
         let q_max_vc = method.parameters.get("\\dot{Q}_{max, \\space VC}");
         let q_max_fc = method.parameters.get("\\dot{Q}_{max, \\space FC}");
@@ -196,9 +194,16 @@ impl MethodRunner for MaximumHRRBuilder {
         let q_max_vc_result = equation_33::q_max_vc(a_v, h_v);
         q_max_vc.update(Some(q_max_vc_result.to_string()))?;
 
-        if let Some(a_f) = a_v.get_float() {
-            let q_max_fc_result = equation_4::q_max_fc(a_f, hrrpua);
-            q_max_fc.update(Some(q_max_fc_result.to_string()))?;
+        let a_f = method.parameters.get("A_f");
+        let hrrpua = method.parameters.get("HRRPUA");
+
+        if let Some(a_f) = a_f.get_float() {
+            if let Some(hrrpua) = hrrpua.get_float() {
+                let q_max_fc_result = equation_4::q_max_fc(a_f, hrrpua);
+                q_max_fc.update(Some(q_max_fc_result.to_string()))?;
+            } else {
+                q_max_fc.update(None)?;
+            }
         } else {
             q_max_fc.update(None)?;
         }
