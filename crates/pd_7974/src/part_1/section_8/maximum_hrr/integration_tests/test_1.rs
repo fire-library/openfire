@@ -8,7 +8,7 @@ pub fn test() -> Test {
         name: "Test 1".to_string(),
         description: include_str!("test_1/description.md").to_string(),
         input: SavedMethod {
-            id: super::super::HRRAtFlashoverBuilder.id(),
+            id: super::super::MaximumHRRBuilder.id(),
             parameters: vec![
                 SavedParameter {
                     name: "A_t".to_string(),
@@ -25,7 +25,7 @@ pub fn test() -> Test {
             ],
         },
         assertions: vec![Assertion::FloatEqual(
-            "\\dot{Q}_{fo, \\space Thomas}".to_string(),
+            "\\dot{Q}_{fo, \\space VC}".to_string(),
             1501.32548611252,
         )],
     }
@@ -37,7 +37,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        framework::register_runner::<super::super::super::HRRAtFlashoverBuilder>();
+        framework::register_runner::<super::super::super::MaximumHRRBuilder>();
         let test = test();
         let results = framework::method::test::run_test(test).unwrap();
 
