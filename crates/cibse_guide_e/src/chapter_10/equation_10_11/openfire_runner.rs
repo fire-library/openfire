@@ -67,7 +67,7 @@ impl MethodRunner for Chapter10Equation11Runner {
 
         step.add_intro();
         step.add_equation(CalculationComponent::Equation(
-            super::limiting_velocity_symbols(v_e.symbol(), q.symbol(), z.symbol()),
+            super::equation(v_e.symbol(), q.symbol(), z.symbol()),
         ));
 
         Form::new(vec![step])
@@ -123,10 +123,10 @@ impl MethodRunner for Chapter10Equation11Runner {
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(
-                super::limiting_velocity_symbols(v_e.symbol(), q.symbol(), z.symbol()),
+                super::equation(v_e.symbol(), q.symbol(), z.symbol()),
             )]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::limiting_velocity_symbols(
+                super::equation(
                     v_e.symbol(),
                     q.display_value(),
                     z.display_value(),

@@ -89,7 +89,7 @@ impl MethodRunner for Chapter10Equation12Runner {
         step.add_field(t.to_field());
 
         step.add_intro();
-        step.add_equation(CalculationComponent::Equation(limiting_velocity_symbols(
+        step.add_equation(CalculationComponent::Equation(equation(
             v_e.symbol(),
             k.symbol(),
             g.symbol(),
