@@ -208,18 +208,16 @@ impl MethodRunner for Chapter10Equation12Runner {
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(
-                super::equation(
-                    v_e.symbol(),
-                    k.symbol(),
-                    g.symbol(),
-                    q.symbol(),
-                    w.symbol(),
-                    rho.symbol(),
-                    c.symbol(),
-                    t.symbol(),
-                ),
-            )]],
+            process: vec![vec![CalculationComponent::Equation(super::equation(
+                v_e.symbol(),
+                k.symbol(),
+                g.symbol(),
+                q.symbol(),
+                w.symbol(),
+                rho.symbol(),
+                c.symbol(),
+                t.symbol(),
+            ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 super::equation(
                     v_e.symbol(),

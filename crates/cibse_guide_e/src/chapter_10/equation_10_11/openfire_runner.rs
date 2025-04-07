@@ -66,9 +66,11 @@ impl MethodRunner for Chapter10Equation11Runner {
         step.add_field(z.to_field());
 
         step.add_intro();
-        step.add_equation(CalculationComponent::Equation(
-            super::equation(v_e.symbol(), q.symbol(), z.symbol()),
-        ));
+        step.add_equation(CalculationComponent::Equation(super::equation(
+            v_e.symbol(),
+            q.symbol(),
+            z.symbol(),
+        )));
 
         Form::new(vec![step])
     }
@@ -122,15 +124,13 @@ impl MethodRunner for Chapter10Equation11Runner {
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(
-                super::equation(v_e.symbol(), q.symbol(), z.symbol()),
-            )]],
+            process: vec![vec![CalculationComponent::Equation(super::equation(
+                v_e.symbol(),
+                q.symbol(),
+                z.symbol(),
+            ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(
-                    v_e.symbol(),
-                    q.display_value(),
-                    z.display_value(),
-                ),
+                super::equation(v_e.symbol(), q.display_value(), z.display_value()),
                 v_e.clone(),
             )]],
         };

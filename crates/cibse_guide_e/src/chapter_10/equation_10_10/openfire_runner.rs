@@ -75,15 +75,13 @@ impl MethodRunner for Chapter10Equation10Runner {
         step_1.add_field(t_0.to_field());
 
         step_1.add_intro();
-        step_1.add_equation(CalculationComponent::Equation(
-            super::equation(
-                v_e.symbol(),
-                g.symbol(),
-                h.symbol(),
-                t_f.symbol(),
-                t_0.symbol(),
-            ),
-        ));
+        step_1.add_equation(CalculationComponent::Equation(super::equation(
+            v_e.symbol(),
+            g.symbol(),
+            h.symbol(),
+            t_f.symbol(),
+            t_0.symbol(),
+        )));
 
         Form::new(vec![step_1])
     }
@@ -157,15 +155,13 @@ impl MethodRunner for Chapter10Equation10Runner {
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(
-                super::equation(
-                    v_e.symbol(),
-                    g.symbol(),
-                    h.symbol(),
-                    t_f.symbol(),
-                    t_0.symbol(),
-                ),
-            )]],
+            process: vec![vec![CalculationComponent::Equation(super::equation(
+                v_e.symbol(),
+                g.symbol(),
+                h.symbol(),
+                t_f.symbol(),
+                t_0.symbol(),
+            ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 super::equation(
                     v_e.symbol(),
