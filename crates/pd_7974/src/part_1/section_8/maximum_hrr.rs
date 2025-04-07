@@ -86,6 +86,7 @@ impl MethodRunner for MaximumHRRBuilder {
 
         return params;
     }
+
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let q_max_fc = params.get("\\dot{Q}_{max, \\space VC}");
         let q_max_vc = params.get("\\dot{Q}_{max, \\space FC}");
@@ -93,11 +94,10 @@ impl MethodRunner for MaximumHRRBuilder {
         Some(vec![q_max_vc, q_max_fc])
     }
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let a_t = params.get("A_t");
         let a_v = params.get("A_v");
         let h_v = params.get("H_v");
-        let hrrpua = params.get("HRRPUA");
         let a_f = params.get("A_f");
+        let hrrpua = params.get("HRRPUA");
         let q_max_vc = params.get("\\dot{Q}_{max, \\space VC}");
         let q_max_fc = params.get("\\dot{Q}_{max, \\space FC}");
 
@@ -133,10 +133,11 @@ impl MethodRunner for MaximumHRRBuilder {
             a_f.clone(),
             hrrpua.clone(),
         );
-        step_2.add_field(a_f.to_field());
-        step_2.add_field(hrrpua.to_field());
+        
         step_2.add_intro();
         step_2.add_equation(equation.generate_with_symbols()[0][0].clone());
+        step_2.add_field(a_f.to_field());
+        step_2.add_field(hrrpua.to_field());
 
         Form::new(vec![step_1, step_2])
     }
@@ -146,7 +147,6 @@ impl MethodRunner for MaximumHRRBuilder {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let a_t = params.get("A_t");
         let a_v = params.get("A_v");
         let h_v = params.get("H_v");
         let a_f = params.get("A_f");
@@ -195,7 +195,6 @@ impl MethodRunner for MaximumHRRBuilder {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let a_t = method.parameters.get("A_t").as_float();
         let a_v = method.parameters.get("A_v").as_float();
         let h_v = method.parameters.get("H_v").as_float();
         let a_f = method.parameters.get("A_f").as_float();
@@ -209,13 +208,6 @@ impl MethodRunner for MaximumHRRBuilder {
 
         let q_max_fc_result = equation_4::q_max_fc(a_f, hrrpua);
         q_max_fc.update(Some(q_max_fc_result.to_string()))?;
-
-        if let Some(h_k) = h_k.get_float() {
-            let mccaffrey_result = equation_29::q_fo(h_k, a_t, a_v, h_v);
-            q_fo_mccaffrey.update(Some(mccaffrey_result.to_string()))?;
-        } else {
-            q_fo_mccaffrey.update(None)?;
-        }
 
         return Ok(());
     }
