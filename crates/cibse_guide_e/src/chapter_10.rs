@@ -1,4 +1,7 @@
 pub mod equation_10_1;
+pub mod equation_10_10;
+pub mod equation_10_11;
+pub mod equation_10_12;
 pub mod equation_10_2;
 pub mod equation_10_3;
 pub mod equation_10_4;
@@ -16,6 +19,9 @@ pub enum Chapter10Method {
     Equation10_4,
     Equation10_7,
     Equation10_8,
+    Equation10_10,
+    Equation10_11,
+    Equation10_12,
 }
 
 impl Chapter10Method {
@@ -27,6 +33,9 @@ impl Chapter10Method {
             &Chapter10Method::Equation10_4 => "equation_10_4".to_string(),
             &Chapter10Method::Equation10_7 => "equation_10_7".to_string(),
             &Chapter10Method::Equation10_8 => "equation_10_8".to_string(),
+            &Chapter10Method::Equation10_10 => "equation_10_10".to_string(),
+            &Chapter10Method::Equation10_11 => "equation_10_11".to_string(),
+            &Chapter10Method::Equation10_12 => "equation_10_12".to_string(),
         }
     }
 
@@ -49,6 +58,15 @@ impl Chapter10Method {
             }
             &Chapter10Method::Equation10_8 => {
                 format!("Ch. 10 | Eq. 10.8")
+            }
+            &Chapter10Method::Equation10_10 => {
+                format!("Ch. 10 | Eq. 10.10")
+            }
+            &Chapter10Method::Equation10_11 => {
+                format!("Ch. 10 | Eq. 10.11")
+            }
+            &Chapter10Method::Equation10_12 => {
+                format!("Ch. 10 | Eq. 10.12")
             }
         }
     }
@@ -73,6 +91,15 @@ impl Chapter10Method {
             &Chapter10Method::Equation10_8 => {
                 include_str!("../resources/chapter_10/equation_10_8/description.md").to_string()
             }
+            &Chapter10Method::Equation10_10 => {
+                include_str!("../resources/chapter_10/equation_10_10/description.md").to_string()
+            }
+            &Chapter10Method::Equation10_11 => {
+                include_str!("../resources/chapter_10/equation_10_11/description.md").to_string()
+            }
+            &Chapter10Method::Equation10_12 => {
+                include_str!("../resources/chapter_10/equation_10_12/description.md").to_string()
+            }
         }
     }
 
@@ -95,6 +122,15 @@ impl Chapter10Method {
             }
             &Chapter10Method::Equation10_8 => {
                 include_str!("../resources/chapter_10/equation_10_8/limitations.md").to_string()
+            }
+            &Chapter10Method::Equation10_10 => {
+                include_str!("../resources/chapter_10/equation_10_10/limitations.md").to_string()
+            }
+            &Chapter10Method::Equation10_11 => {
+                include_str!("../resources/chapter_10/equation_10_11/limitations.md").to_string()
+            }
+            &Chapter10Method::Equation10_12 => {
+                include_str!("../resources/chapter_10/equation_10_12/limitations.md").to_string()
             }
         }
     }
