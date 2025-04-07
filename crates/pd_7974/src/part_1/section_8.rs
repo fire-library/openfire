@@ -1,7 +1,7 @@
-pub mod equation_4;
 pub mod equation_28;
 pub mod equation_29;
 pub mod equation_33;
+pub mod equation_4;
 pub mod equation_41;
 pub mod equation_42;
 pub mod equation_43;
@@ -26,7 +26,7 @@ impl Section8Method {
             Section8Method::HRRAtFlashover => "hrr_at_flashover".to_string(),
             Section8Method::MaximumEnclosureTemperature => {
                 "maximum_enclosure_temperature".to_string()
-            },
+            }
             Section8Method::MaximumHRR => "maximum hrr".to_string(),
         }
     }
@@ -54,9 +54,9 @@ impl Section8Method {
                 "../../resources/part_1/section_8/maximum_enclosure_temperature/about.md"
             )
             .to_string(),
-            Section8Method::MaximumHRR => include_str!(
-                "../../resources/part_1/section_8/maximum_hrr/about.md"
-            ).to_string(),
+            Section8Method::MaximumHRR => {
+                include_str!("../../resources/part_1/section_8/maximum_hrr/about.md").to_string()
+            }
         }
     }
 
@@ -70,9 +70,10 @@ impl Section8Method {
                 "../../resources/part_1/section_8/maximum_enclosure_temperature/limitations.md"
             )
             .to_string(),
-            Section8Method::MaximumHRR => include_str!(
-                "../../resources/part_1/section_8/maximum_hrr/limitations.md"
-            ).to_string(),
+            Section8Method::MaximumHRR => {
+                include_str!("../../resources/part_1/section_8/maximum_hrr/limitations.md")
+                    .to_string()
+            }
         }
     }
 }

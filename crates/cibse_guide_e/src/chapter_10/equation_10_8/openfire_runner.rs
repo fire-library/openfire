@@ -169,7 +169,7 @@ impl MethodRunner for Chapter10Equation8Runner {
         let fed = method.parameters.get(SYMBOLS.fed);
         let m_f = method.parameters.get(SYMBOLS.m_f).as_float();
         let t = method.parameters.get(SYMBOLS.t).as_float();
-        let lc_50= method.parameters.get(SYMBOLS.lc_50).as_float();
+        let lc_50 = method.parameters.get(SYMBOLS.lc_50).as_float();
 
         let result = super::fractional_effective_dose(m_f, t, lc_50);
         fed.update(Some(result.to_string()))?;
@@ -179,8 +179,5 @@ impl MethodRunner for Chapter10Equation8Runner {
 }
 
 fn equation_1(fed: String, m_f: String, t: String, lc_50: String) -> String {
-    format!(
-        "{} = \\frac{{{} \\cdot {}}}{{{}}}",
-        fed, m_f, t, lc_50,
-    )
+    format!("{} = \\frac{{{} \\cdot {}}}{{{}}}", fed, m_f, t, lc_50,)
 }

@@ -1,8 +1,8 @@
-mod q_max_vc;
 mod q_max_fc;
+mod q_max_vc;
 
-use q_max_vc::QMaxVC;
 use q_max_fc::QMaxFC;
+use q_max_vc::QMaxVC;
 
 pub mod integration_tests;
 
@@ -105,7 +105,7 @@ impl MethodRunner for MaximumHRRBuilder {
             "Input | Eq. 33",
             "Calculate the max HRR of a ventilation-controlled fire, based on Kawagoe",
         );
-        
+
         let equation = QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
         step_1.add_intro();
         step_1.add_equation(equation.generate_with_symbols()[0][0].clone());
@@ -128,11 +128,7 @@ impl MethodRunner for MaximumHRRBuilder {
             "Calculate the max HRR of a fuel-controlled fire",
         );
 
-        let equation = QMaxFC::new_boxed(
-            q_max_fc.clone(),
-            a_f.clone(),
-            hrrpua.clone(),
-        );
+        let equation = QMaxFC::new_boxed(q_max_fc.clone(), a_f.clone(), hrrpua.clone());
         step_2.add_field(a_f.to_field());
         step_2.add_field(hrrpua.to_field());
         step_2.add_intro();
@@ -156,8 +152,7 @@ impl MethodRunner for MaximumHRRBuilder {
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
-        let equation =
-            QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
+        let equation = QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
         let step_1 = Step {
             name: "Max HRR for ventilation-controlled fire".to_string(),
             nomenclature: equation.dependencies(),
@@ -168,11 +163,7 @@ impl MethodRunner for MaximumHRRBuilder {
         };
         calc_sheet.write().unwrap().add_step(step_1);
 
-        let equation = QMaxFC::new_boxed(
-            q_max_fc.clone(),
-            a_f.clone(),
-            hrrpua.clone(),
-        );
+        let equation = QMaxFC::new_boxed(q_max_fc.clone(), a_f.clone(), hrrpua.clone());
         let step_2 = Step {
             name: "Max HRR for fuel-controlled fire".to_string(),
             nomenclature: equation.dependencies(),
@@ -202,7 +193,7 @@ impl MethodRunner for MaximumHRRBuilder {
         let hrrpua = method.parameters.get("HRRPUA").as_float();
 
         let q_max_vc = method.parameters.get("\\dot{Q}_{max, \\space VC}");
-        let q_max_fc= method.parameters.get("\\dot{Q}_{max, \\space FC}");
+        let q_max_fc = method.parameters.get("\\dot{Q}_{max, \\space FC}");
 
         let q_max_vc_result = equation_33::q_max_vc(a_v, h_v);
         q_max_vc.update(Some(q_max_vc_result.to_string()))?;
