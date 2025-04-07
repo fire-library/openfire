@@ -1,2 +1,2 @@
-This test verifies the calculation of the HRR at flashover
-following the correlation by Thomas.
+This test verifies the calculation of the maximum HRR
+for a ventilation-controlled fire.
