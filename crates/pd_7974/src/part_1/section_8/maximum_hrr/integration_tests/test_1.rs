@@ -11,12 +11,8 @@ pub fn test() -> Test {
             id: super::super::MaximumHRRBuilder.id(),
             parameters: vec![
                 SavedParameter {
-                    name: "A_t".to_string(),
-                    value: Some(Float(45.0)),
-                },
-                SavedParameter {
                     name: "A_v".to_string(),
-                    value: Some(Float(2.1)),
+                    value: Some(Float(2.0)),
                 },
                 SavedParameter {
                     name: "H_v".to_string(),
@@ -26,7 +22,7 @@ pub fn test() -> Test {
         },
         assertions: vec![Assertion::FloatEqual(
             "\\dot{Q}_{fo, \\space VC}".to_string(),
-            1501.32548611252,
+            4347.41302385683,
         )],
     }
 }
