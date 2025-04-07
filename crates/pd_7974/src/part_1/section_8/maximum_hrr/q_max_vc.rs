@@ -23,7 +23,7 @@ impl QMaxVC {
 impl QMaxVC {
     pub fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
-            "\\dot{{Q}}_{{max, \\space Kawagoe}} = {}",
+            "\\dot{{Q}}_{{max, \\space VC}} = {}",
             Self::q_max_equation(self.a_v.symbol(), self.h_v.symbol(),)
         );
 
@@ -31,7 +31,7 @@ impl QMaxVC {
     }
     pub fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
-            "\\dot{{Q}}_{{max, \\space Kawagoe}} = {}",
+            "\\dot{{Q}}_{{max, \\space VC}} = {}",
             Self::q_max_equation(self.a_v.display_value(), self.h_v.display_value(),)
         );
 

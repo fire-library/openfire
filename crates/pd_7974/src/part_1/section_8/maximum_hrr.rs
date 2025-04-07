@@ -1,8 +1,8 @@
-mod q_max_vc;
 mod q_max_fc;
+mod q_max_vc;
 
-use q_max_vc::QMaxVC;
 use q_max_fc::QMaxFC;
+use q_max_vc::QMaxVC;
 
 pub mod integration_tests;
 
@@ -105,35 +105,29 @@ impl MethodRunner for MaximumHRRBuilder {
             "Input | Eq. 33",
             "Calculate the max HRR of a ventilation-controlled fire, based on Kawagoe",
         );
-        
+
         let equation = QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
         step_1.add_intro();
         step_1.add_equation(equation.generate_with_symbols()[0][0].clone());
 
         for param in params.values().into_iter() {
-            if param.symbol() == "\\dot{Q}_{max, \\space FC}"
+            if param.symbol() == "\\dot{Q}_{max, \\space VC}"
                 || param.symbol() == "HRRPUA"
                 || param.symbol() == "A_f"
+                || param.symbol() == "\\dot{Q}_{max, \\space FC}"
             {
                 continue;
             }
             step_1.add_field(param.to_field())
         }
-        let equation = QMaxVC::new_boxed(q_max_vc.clone(), a_v.clone(), h_v.clone());
-        step_1.add_intro();
-        step_1.add_equation(equation.generate_with_symbols()[0][0].clone());
 
         let mut step_2 = FormStep::new(
             "Input | Eq. 4 (Optional)",
             "Calculate the max HRR of a fuel-controlled fire",
         );
 
-        let equation = QMaxFC::new_boxed(
-            q_max_fc.clone(),
-            a_f.clone(),
-            hrrpua.clone(),
-        );
-        
+        let equation = QMaxFC::new_boxed(q_max_fc.clone(), a_f.clone(), hrrpua.clone());
+
         step_2.add_intro();
         step_2.add_equation(equation.generate_with_symbols()[0][0].clone());
         step_2.add_field(a_f.to_field());
@@ -168,11 +162,7 @@ impl MethodRunner for MaximumHRRBuilder {
         };
         calc_sheet.write().unwrap().add_step(step_1);
 
-        let equation = QMaxFC::new_boxed(
-            q_max_fc.clone(),
-            a_f.clone(),
-            hrrpua.clone(),
-        );
+        let equation = QMaxFC::new_boxed(q_max_fc.clone(), a_f.clone(), hrrpua.clone());
         let step_2 = Step {
             name: "Max HRR for fuel-controlled fire".to_string(),
             nomenclature: equation.dependencies(),
@@ -201,13 +191,17 @@ impl MethodRunner for MaximumHRRBuilder {
         let hrrpua = method.parameters.get("HRRPUA").as_float();
 
         let q_max_vc = method.parameters.get("\\dot{Q}_{max, \\space VC}");
-        let q_max_fc= method.parameters.get("\\dot{Q}_{max, \\space FC}");
+        let q_max_fc = method.parameters.get("\\dot{Q}_{max, \\space FC}");
 
         let q_max_vc_result = equation_33::q_max_vc(a_v, h_v);
         q_max_vc.update(Some(q_max_vc_result.to_string()))?;
 
-        let q_max_fc_result = equation_4::q_max_fc(a_f, hrrpua);
-        q_max_fc.update(Some(q_max_fc_result.to_string()))?;
+        if let Some(a_f) = a_v.get_float() {
+            let q_max_fc_result = equation_4::q_max_fc(a_f, hrrpua);
+            q_max_fc.update(Some(q_max_fc_result.to_string()))?;
+        } else {
+            q_max_fc.update(None)?;
+        }
 
         return Ok(());
     }
