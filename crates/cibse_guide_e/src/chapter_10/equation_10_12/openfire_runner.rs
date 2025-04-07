@@ -48,7 +48,8 @@ pub struct Chapter10Equation12Runner;
 
 impl MethodRunner for Chapter10Equation12Runner {
     fn name(&self) -> String {
-        "Limiting average air velocity for opposed air flow | Room of fire origin to corridor".to_string()
+        "Limiting average air velocity for opposed air flow | Room of fire origin to corridor"
+            .to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_12)
@@ -62,7 +63,7 @@ impl MethodRunner for Chapter10Equation12Runner {
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let v_e = params.get(SYMBOLS.v_e);
 
-        Some(vec![v_e,])
+        Some(vec![v_e])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
@@ -153,7 +154,7 @@ impl MethodRunner for Chapter10Equation12Runner {
             .default_value(Some(ParameterValue::Float(1.0)))
             .required()
             .build();
-        
+
         let t = ParamBuilder::float(SYMBOLS.t)
             .name("Temperature of the downstream mixture of air and smoke")
             .units("K")
@@ -178,7 +179,6 @@ impl MethodRunner for Chapter10Equation12Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-
         let v_e = params.get(SYMBOLS.v_e);
         let k = params.get(SYMBOLS.k);
         let g = params.get(SYMBOLS.g);
@@ -188,30 +188,38 @@ impl MethodRunner for Chapter10Equation12Runner {
         let c = params.get(SYMBOLS.c);
         let t = params.get(SYMBOLS.t);
 
-
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let step = vec![k.clone(), g.clone(), q.clone(), w.clone(), rho.clone(), c.clone(), t.clone()];
+        let step = vec![
+            k.clone(),
+            g.clone(),
+            q.clone(),
+            w.clone(),
+            rho.clone(),
+            c.clone(),
+            t.clone(),
+        ];
         let mut nomenclature = step.clone();
         nomenclature.push(v_e.clone());
-
 
         let step = Step {
             name: "Limiting air velocity | Eq. 10.12".to_string(),
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(super::limiting_velocity_symbols(
-                v_e.symbol(),
-                k.symbol(),
-                g.symbol(),
-                q.symbol(),
-                w.symbol(),
-                rho.symbol(),
-                c.symbol(),
-                t.symbol(),
-            ))]],
+            process: vec![vec![CalculationComponent::Equation(
+                super::limiting_velocity_symbols(
+                    v_e.symbol(),
+                    k.symbol(),
+                    g.symbol(),
+                    q.symbol(),
+                    w.symbol(),
+                    rho.symbol(),
+                    c.symbol(),
+                    t.symbol(),
+                ),
+            )]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 super::limiting_velocity_symbols(
                     v_e.symbol(),
@@ -243,7 +251,7 @@ impl MethodRunner for Chapter10Equation12Runner {
         let v_e = method.parameters.get(SYMBOLS.v_e);
         let k = method.parameters.get(SYMBOLS.k).as_float();
         let g = method.parameters.get(SYMBOLS.g).as_float();
-        let q= method.parameters.get(SYMBOLS.q).as_float();
+        let q = method.parameters.get(SYMBOLS.q).as_float();
         let w = method.parameters.get(SYMBOLS.w).as_float();
         let rho = method.parameters.get(SYMBOLS.rho).as_float();
         let c = method.parameters.get(SYMBOLS.c).as_float();
@@ -255,4 +263,3 @@ impl MethodRunner for Chapter10Equation12Runner {
         return Ok(());
     }
 }
-

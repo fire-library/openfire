@@ -1,7 +1,3 @@
-The calculation of $v_e$ is the implementation of equations
-10.10, 10.11 and 10.12 in _CIBSE Guide E_. This is the
-implementation for equation 10.10.
-
 Comprehensive test coverage can be achieved with a
 single test.
 

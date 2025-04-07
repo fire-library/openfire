@@ -40,7 +40,8 @@ pub struct Chapter10Equation10Runner;
 
 impl MethodRunner for Chapter10Equation10Runner {
     fn name(&self) -> String {
-        "Limiting average air velocity for opposed air flow | Room of fire origin to large volume".to_string()
+        "Limiting average air velocity for opposed air flow | Room of fire origin to large volume"
+            .to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_10)
@@ -64,7 +65,6 @@ impl MethodRunner for Chapter10Equation10Runner {
         let t_f = params.get(SYMBOLS.t_f);
         let t_0 = params.get(SYMBOLS.t_0);
 
-
         let mut step_1 = FormStep::new(
             "Input | Eq. 10.10",
             "Calculate the limiting average air velocity to prevent smoke spread into adjoining large volume.",
@@ -75,13 +75,15 @@ impl MethodRunner for Chapter10Equation10Runner {
         step_1.add_field(t_0.to_field());
 
         step_1.add_intro();
-        step_1.add_equation(CalculationComponent::Equation(super::limiting_velocity_symbols(
-            v_e.symbol(),
-            g.symbol(),
-            h.symbol(),
-            t_f.symbol(),
-            t_0.symbol(),
-        )));
+        step_1.add_equation(CalculationComponent::Equation(
+            super::limiting_velocity_symbols(
+                v_e.symbol(),
+                g.symbol(),
+                h.symbol(),
+                t_f.symbol(),
+                t_0.symbol(),
+            ),
+        ));
 
         Form::new(vec![step_1])
     }
@@ -137,7 +139,6 @@ impl MethodRunner for Chapter10Equation10Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-
         let v_e = params.get(SYMBOLS.v_e);
         let g = params.get(SYMBOLS.g);
         let h = params.get(SYMBOLS.h);
@@ -151,19 +152,20 @@ impl MethodRunner for Chapter10Equation10Runner {
         let mut nomenclature = step.clone();
         nomenclature.push(v_e.clone());
 
-
         let step = Step {
             name: "Limiting air velocity | Eq. 10.10".to_string(),
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(super::limiting_velocity_symbols(
-                v_e.symbol(),
-                g.symbol(),
-                h.symbol(),
-                t_f.symbol(),
-                t_0.symbol(),
-            ))]],
+            process: vec![vec![CalculationComponent::Equation(
+                super::limiting_velocity_symbols(
+                    v_e.symbol(),
+                    g.symbol(),
+                    h.symbol(),
+                    t_f.symbol(),
+                    t_0.symbol(),
+                ),
+            )]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 super::limiting_velocity_symbols(
                     v_e.symbol(),
@@ -192,8 +194,8 @@ impl MethodRunner for Chapter10Equation10Runner {
         let v_e = method.parameters.get(SYMBOLS.v_e);
         let g = method.parameters.get(SYMBOLS.g).as_float();
         let h = method.parameters.get(SYMBOLS.h).as_float();
-        let t_f= method.parameters.get(SYMBOLS.t_f).as_float();
-        let t_0= method.parameters.get(SYMBOLS.t_0).as_float();
+        let t_f = method.parameters.get(SYMBOLS.t_f).as_float();
+        let t_0 = method.parameters.get(SYMBOLS.t_0).as_float();
 
         let result = super::limiting_velocity(g, h, t_f, t_0);
         v_e.update(Some(result.to_string()))?;

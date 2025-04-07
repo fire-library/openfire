@@ -1,12 +1,12 @@
 pub mod equation_10_1;
+pub mod equation_10_10;
+pub mod equation_10_11;
+pub mod equation_10_12;
 pub mod equation_10_2;
 pub mod equation_10_3;
 pub mod equation_10_4;
 pub mod equation_10_7;
 pub mod equation_10_8;
-pub mod equation_10_10;
-pub mod equation_10_11;
-pub mod equation_10_12;
 
 use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;
