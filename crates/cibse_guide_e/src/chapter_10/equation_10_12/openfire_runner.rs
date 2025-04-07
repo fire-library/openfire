@@ -19,7 +19,7 @@ use crate::CIBSEGuideE;
 use std::sync::{Arc, RwLock};
 use std::vec;
 
-use super::limiting_velocity_symbols;
+use super::equation;
 
 struct Symbols {
     v_e: &'static str,
@@ -209,7 +209,7 @@ impl MethodRunner for Chapter10Equation12Runner {
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(
-                super::limiting_velocity_symbols(
+                super::equation(
                     v_e.symbol(),
                     k.symbol(),
                     g.symbol(),
@@ -221,7 +221,7 @@ impl MethodRunner for Chapter10Equation12Runner {
                 ),
             )]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::limiting_velocity_symbols(
+                super::equation(
                     v_e.symbol(),
                     k.display_value(),
                     g.display_value(),
