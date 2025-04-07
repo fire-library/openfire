@@ -21,8 +21,8 @@ pub fn test() -> Test {
             ],
         },
         assertions: vec![Assertion::FloatEqual(
-            "\\dot{Q}_{fo, \\space FC}".to_string(),
-            5000.0,
+            "\\dot{Q}_{max, \\space FC}".to_string(),
+            5000.0000,
         )],
     }
 }
