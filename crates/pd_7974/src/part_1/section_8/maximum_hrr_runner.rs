@@ -169,7 +169,7 @@ impl MethodRunner for MaximumHRRBuilder {
             input: equation.input().into_iter().map(|p| p.into()).collect(),
             process: equation.generate_with_symbols(),
             calculation: equation.generate_with_values(),
-            render: true,
+            render: q_max_fc.get_float().is_some(),
         };
         calc_sheet.write().unwrap().add_step(step_2);
 
