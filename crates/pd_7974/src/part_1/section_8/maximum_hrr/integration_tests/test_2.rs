@@ -11,6 +11,18 @@ pub fn test() -> Test {
             id: super::super::MaximumHRRBuilder.id(),
             parameters: vec![
                 SavedParameter {
+                    name: "A_t".to_string(),
+                    value: Some(Float(45.0)),
+                },
+                SavedParameter {
+                    name: "A_v".to_string(),
+                    value: Some(Float(2.1)),
+                },
+                SavedParameter {
+                    name: "H_v".to_string(),
+                    value: Some(Float(2.1)),
+                },
+                SavedParameter {
                     name: "A_f".to_string(),
                     value: Some(Float(10.0)),
                 },
