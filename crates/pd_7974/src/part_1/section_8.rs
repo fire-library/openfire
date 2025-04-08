@@ -8,7 +8,7 @@ pub mod equation_43;
 pub mod equation_44;
 pub mod hrr_at_flashover_runner;
 pub mod maximum_enclosure_temperature_runner;
-pub mod maximum_hrr;
+pub mod maximum_hrr_runner;
 
 use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;
