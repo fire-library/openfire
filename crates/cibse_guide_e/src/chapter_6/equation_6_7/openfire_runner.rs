@@ -20,19 +20,15 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    v_e: &'static str,
-    g: &'static str,
-    h: &'static str,
-    t_f: &'static str,
-    t_0: &'static str,
+    q_f: &'static str,
+    a_vo: &'static str,
+    h_o: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
-    v_e: "v_e",
-    g: "g",
-    h: "H",
-    t_f: "T_f",
-    t_0: "T_0",
+    q_f: "Q_f",
+    a_vo: "A_{vo}",
+    h_o: "h_o",
 };
 
 #[derive(Default)]
@@ -40,7 +36,7 @@ pub struct Chapter10Equation10Runner;
 
 impl MethodRunner for Chapter10Equation10Runner {
     fn name(&self) -> String {
-        "Limiting average air velocity for opposed air flow | Room of fire origin to large volume"
+        "Heat Release Rate required for flashover"
             .to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
