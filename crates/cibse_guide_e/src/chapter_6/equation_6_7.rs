@@ -1,14 +1,11 @@
 pub mod openfire_runner;
 
-pub fn limiting_velocity(g: f64, h: f64, t_f: f64, t_0: f64) -> f64 {
-    return 0.64 * (g * h * (t_f - t_0) / t_f).powf(0.5);
+pub fn heat_release_rate_flashover(a_vo: f64, h_o: f64) -> f64 {
+    return 600.0 * a_vo * h_o.powf(0.5);
 }
 
-pub fn equation(v_e: String, g: String, h: String, t_f: String, t_0: String) -> String {
-    format!(
-        "{} = 0.64 \\space ({} \\space {} \\space \\frac{{{} - {}}}{{{}}}) ^ {{0.5}}",
-        v_e, g, h, t_f, t_0, t_f,
-    )
+pub fn equation(q_f: String, a_vo: String, h_o: String) -> String {
+    format!("{} = 600 \\space {} \\space {} ^ {{0.5}}", q_f, a_vo, h_o,)
 }
 
 #[cfg(test)]
@@ -17,7 +14,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let result = limiting_velocity(9.8, 2.2, 973.0, 293.0);
-        assert_eq!(result, 2.4842905563450755);
+        let result = heat_release_rate_flashover(2.0, 2.1);
+        assert_eq!(result, 1738.96520954273);
     }
 }
