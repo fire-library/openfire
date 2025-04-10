@@ -4,13 +4,13 @@ use framework::method::parameter::ArcParameter;
 use framework::method::parameter::ParameterTrait;
 
 #[derive(Debug)]
-pub struct QMax {
+pub struct QMaxVC {
     pub q_max: ArcParameter,
     pub a_v: ArcParameter,
     pub h_v: ArcParameter,
 }
 
-impl QMax {
+impl QMaxVC {
     pub fn new_boxed(q_max: ArcParameter, a_v: ArcParameter, h_v: ArcParameter) -> Box<Self> {
         Box::new(Self { a_v, h_v, q_max })
     }
@@ -20,10 +20,10 @@ impl QMax {
     }
 }
 
-impl QMax {
+impl QMaxVC {
     pub fn generate_with_symbols(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
-            "\\dot{{Q}}_{{max, \\space Kawagoe}} = {}",
+            "\\dot{{Q}}_{{max, \\space VC}} = {}",
             Self::q_max_equation(self.a_v.symbol(), self.h_v.symbol(),)
         );
 
@@ -31,7 +31,7 @@ impl QMax {
     }
     pub fn generate_with_values(&self) -> Vec<Vec<CalculationComponent>> {
         let eq_1 = format!(
-            "\\dot{{Q}}_{{max, \\space Kawagoe}} = {}",
+            "\\dot{{Q}}_{{max, \\space VC}} = {}",
             Self::q_max_equation(self.a_v.display_value(), self.h_v.display_value(),)
         );
 
