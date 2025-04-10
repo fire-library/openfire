@@ -1,8 +1,8 @@
 _CIBSE Guide E_ does not explore the limitations
-of equation 6.7, beyond stating that this is the
-simplest correlation described by the _SFPE Handbook
-of Fire Protection Engineering_*. The user is referred
-to that reference for further information.
+of the calculations for the equivalent opening
+area and opening height.
 
-*_Hurley, M.J., et al., 2016. SFPE Handbook of Fire
-Protection Engineering. 5th ed. Springer_.
+However, most correlations that imply the use of these
+parameters were derived from experiments with single-opening
+compartments. The user should exercise care when extending
+these correlations to new geometries.
