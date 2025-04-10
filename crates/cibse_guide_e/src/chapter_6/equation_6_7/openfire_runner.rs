@@ -63,7 +63,6 @@ impl MethodRunner for Chapter6Equation7Runner {
             "Input | Eq. 6.7",
             "Calculate the HRR required for flashover",
         );
-        step_1.add_field(q_f.to_field());
         step_1.add_field(a_vo.to_field());
         step_1.add_field(h_o.to_field());
 

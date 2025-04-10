@@ -5,7 +5,7 @@ pub fn heat_release_rate_flashover(a_vo: f64, h_o: f64) -> f64 {
 }
 
 pub fn equation(q_f: String, a_vo: String, h_o: String) -> String {
-    format!("{} = 600 \\space {} \\space {} ^ {{0.5}}", q_f, a_vo, h_o,)
+    format!("{} = 600 \\space {} \\sqrt {{{}}}", q_f, a_vo, h_o,)
 }
 
 #[cfg(test)]
