@@ -15,6 +15,6 @@ mod tests {
     #[test]
     fn test() {
         let result = heat_release_rate_flashover(2.0, 2.1);
-        assert_eq!(result, 1738.96520954273);
+        assert_eq!(result, 1738.9652095427327);
     }
 }
