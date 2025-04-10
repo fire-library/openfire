@@ -4,20 +4,20 @@ use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
-pub enum Chapter10Method {
+pub enum Chapter6Method {
     Equation6_7,
 }
 
-impl Chapter10Method {
+impl Chapter6Method {
     pub fn id(&self) -> String {
         match self {
-            &Chapter10Method::Equation10_1 => "equation_6_7".to_string(),
+            &Chapter6Method::Equation6_7 => "equation_6_7".to_string(),
         }
     }
 
     pub fn friendly_reference(&self) -> String {
         match self {
-            &Chapter10Method::Equation10_1 => {
+            &Chapter6Method::Equation6_7 => {
                 format!("Ch. 6 | Eq. 6.7")
             }
         }

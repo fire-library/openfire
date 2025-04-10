@@ -8,7 +8,7 @@ pub fn test() -> Test {
         name: "Test 1".to_string(),
         description: include_str!("test_1/description.md").to_string(),
         input: SavedMethod {
-            id: super::super::Chapter10Equation10Runner.id(),
+            id: super::super::Chapter6Equation7Runner.id(),
             parameters: vec![
                 SavedParameter {
                     name: "g".to_string(),
@@ -38,7 +38,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        framework::register_runner::<super::super::super::Chapter10Equation10Runner>();
+        framework::register_runner::<super::super::super::Chapter6Equation7Runner>();
         let test = test();
         let results = framework::method::test::run_test(test).unwrap();
 
