@@ -32,51 +32,46 @@ const SYMBOLS: Symbols = Symbols {
 };
 
 #[derive(Default)]
-pub struct Chapter10Equation10Runner;
+pub struct Chapter6Equation7Runner;
 
-impl MethodRunner for Chapter10Equation10Runner {
+impl MethodRunner for Chapter6Equation7Runner {
     fn name(&self) -> String {
         "Heat Release Rate required for flashover"
             .to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterTen(crate::chapter_10::Chapter10Method::Equation10_10)
+        &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_7)
     }
     fn tags(&self) -> Vec<Tag> {
-        vec![Tag::Ventilation]
+        vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some("Limiting average air velocity where opposed air flow is used to stop smoke spread from room of origin to a large volume".to_string())
+        Some("Heat Release Rate required for flashover. Most simple expression from SFPE Handbook".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let v_e = params.get(SYMBOLS.v_e);
+        let q_f = params.get(SYMBOLS.q_f);
 
-        Some(vec![v_e])
+        Some(vec![q_f])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let v_e = params.get(SYMBOLS.v_e);
-        let g = params.get(SYMBOLS.g);
-        let h = params.get(SYMBOLS.h);
-        let t_f = params.get(SYMBOLS.t_f);
-        let t_0 = params.get(SYMBOLS.t_0);
+        let q_f = params.get(SYMBOLS.q_f);
+        let a_vo = params.get(SYMBOLS.a_vo);
+        let h_o = params.get(SYMBOLS.h_o);
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 10.10",
-            "Calculate the limiting average air velocity to prevent smoke spread into adjoining large volume.",
+            "Input | Eq. 6.7",
+            "Calculate the HRR required for flashover",
         );
-        step_1.add_field(g.to_field());
-        step_1.add_field(h.to_field());
-        step_1.add_field(t_f.to_field());
-        step_1.add_field(t_0.to_field());
+        step_1.add_field(q_f.to_field());
+        step_1.add_field(a_vo.to_field());
+        step_1.add_field(h_o.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation(
-            v_e.symbol(),
-            g.symbol(),
-            h.symbol(),
-            t_f.symbol(),
-            t_0.symbol(),
+            q_f.symbol(),
+            a_vo.symbol(),
+            h_o.symbol(),
         )));
 
         Form::new(vec![step_1])
@@ -84,46 +79,28 @@ impl MethodRunner for Chapter10Equation10Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let v_e = ParamBuilder::float(&SYMBOLS.v_e)
-            .name("Limiting average air velocity")
-            .units("m/s")
+        let q_f = ParamBuilder::float(&SYMBOLS.q_f)
+            .name("HRR required for flashover")
+            .units("kW")
             .build();
 
-        let g = ParamBuilder::float(SYMBOLS.g)
-            .name("Gravity acceleration")
-            .units("m/s^2")
+        let a_vo = ParamBuilder::float(SYMBOLS.a_vo)
+            .name("Area of the opening to the compartment")
+            .units("m^2")
             .min_exclusive(0.0)
             .required()
-            .default_value(Some(ParameterValue::Float(9.8)))
             .build();
 
-        let h = ParamBuilder::float(SYMBOLS.h)
-            .name("Height of the opening measured from the bottom of the opening")
+        let h_o = ParamBuilder::float(SYMBOLS.h_o)
+            .name("Height of the opening")
             .units("m")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let t_f = ParamBuilder::float(SYMBOLS.t_f)
-            .name("Temperature of the heated smoke")
-            .units("K")
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        let t_0 = ParamBuilder::float(SYMBOLS.t_0)
-            .name("Temperature of ambient air")
-            .units("K")
-            .min_exclusive(0.0)
-            .default_value(Some(ParameterValue::Float(293.0)))
-            .required()
-            .build();
-
-        params.add(v_e);
-        params.add(g);
-        params.add(h);
-        params.add(t_f);
-        params.add(t_0);
+        params.add(q_f);
+        params.add(a_vo);
+        params.add(h_o);
 
         return params;
     }
@@ -133,40 +110,34 @@ impl MethodRunner for Chapter10Equation10Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let v_e = params.get(SYMBOLS.v_e);
-        let g = params.get(SYMBOLS.g);
-        let h = params.get(SYMBOLS.h);
-        let t_f = params.get(SYMBOLS.t_f);
-        let t_0 = params.get(SYMBOLS.t_0);
+        let q_f = params.get(SYMBOLS.q_f);
+        let a_vo = params.get(SYMBOLS.a_vo);
+        let h_o = params.get(SYMBOLS.h_o);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let step = vec![g.clone(), h.clone(), t_f.clone(), t_0.clone()];
+        let step = vec![a_vo.clone(), h_o.clone()];
         let mut nomenclature = step.clone();
-        nomenclature.push(v_e.clone());
+        nomenclature.push(q_f.clone());
 
         let step = Step {
-            name: "Limiting air velocity | Eq. 10.10".to_string(),
+            name: "HRR at flashover | Eq. 6.7".to_string(),
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
-                v_e.symbol(),
-                g.symbol(),
-                h.symbol(),
-                t_f.symbol(),
-                t_0.symbol(),
+                q_f.symbol(),
+                a_vo.symbol(),
+                h_o.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 super::equation(
-                    v_e.symbol(),
-                    g.display_value(),
-                    h.display_value(),
-                    t_f.display_value(),
-                    t_0.display_value(),
+                    q_f.symbol(),
+                    a_vo.display_value(),
+                    h_o.display_value(),
                 ),
-                v_e.clone(),
+                q_f.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -183,14 +154,12 @@ impl MethodRunner for Chapter10Equation10Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let v_e = method.parameters.get(SYMBOLS.v_e);
-        let g = method.parameters.get(SYMBOLS.g).as_float();
-        let h = method.parameters.get(SYMBOLS.h).as_float();
-        let t_f = method.parameters.get(SYMBOLS.t_f).as_float();
-        let t_0 = method.parameters.get(SYMBOLS.t_0).as_float();
+        let q_f = method.parameters.get(SYMBOLS.q_f);
+        let a_vo = method.parameters.get(SYMBOLS.a_vo).as_float();
+        let h_o = method.parameters.get(SYMBOLS.h_o).as_float();
 
-        let result = super::limiting_velocity(g, h, t_f, t_0);
-        v_e.update(Some(result.to_string()))?;
+        let result = super::heat_release_rate_flashover(a_vo, h_o);
+        q_f.update(Some(result.to_string()))?;
 
         return Ok(());
     }
