@@ -1,4 +1,5 @@
 pub mod chapter_10;
+pub mod chapter_6;
 
 use framework::method::runner::Reference;
 use framework::serde::{Deserialize, Serialize};
@@ -6,6 +7,7 @@ use framework::specta::Type;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum CIBSEGuideE {
+    Chaptersix(chapter_6::Chapter6Method),
     ChapterTen(chapter_10::Chapter10Method),
     Document,
 }
@@ -14,6 +16,7 @@ impl Reference for CIBSEGuideE {
     fn id(&self) -> String {
         let top_level = self.document_id();
         match self {
+            CIBSEGuideE::Chaptersix(method) => format!("{}_chapter_6_{}", top_level, method.id()),
             CIBSEGuideE::ChapterTen(method) => format!("{}_chapter_10_{}", top_level, method.id()),
             CIBSEGuideE::Document => top_level.to_string(),
         }
@@ -29,6 +32,9 @@ impl Reference for CIBSEGuideE {
 
     fn friendly_reference(&self) -> String {
         match self {
+            CIBSEGuideE::Chaptersix(method) => {
+                format!("{} | {}", self.document_name(), method.friendly_reference())
+            }
             CIBSEGuideE::ChapterTen(method) => {
                 format!("{} | {}", self.document_name(), method.friendly_reference())
             }
@@ -46,6 +52,7 @@ impl Reference for CIBSEGuideE {
 
     fn about_method(&self) -> String {
         match self {
+            CIBSEGuideE::Chaptersix(method) => method.about_method(),
             CIBSEGuideE::ChapterTen(method) => method.about_method(),
             CIBSEGuideE::Document => panic!("Document has no method"),
         }
@@ -53,6 +60,7 @@ impl Reference for CIBSEGuideE {
 
     fn method_limitations(&self) -> String {
         match self {
+            CIBSEGuideE::Chaptersix(method) => method.method_limitations(),
             CIBSEGuideE::ChapterTen(method) => method.method_limitations(),
             CIBSEGuideE::Document => panic!("Document has no method"),
         }

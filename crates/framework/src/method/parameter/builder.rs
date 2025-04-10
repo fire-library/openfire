@@ -201,6 +201,7 @@ impl ParamBuilder {
                     .display_options
                     .into_iter()
                     .filter(|x| {
+                        #[allow(irrefutable_let_patterns)]
                         if let DisplayOptions::DecimalPlaces(_) = x {
                             return false;
                         }
