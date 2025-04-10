@@ -83,7 +83,6 @@ impl MethodRunner for Chapter10Equation8Runner {
 
         let fed = ParamBuilder::float(&SYMBOLS.fed)
             .name("Fractional Effective Dose (FED)")
-            .decimal_places(4)
             .build();
 
         let m_f = ParamBuilder::float(SYMBOLS.m_f)
