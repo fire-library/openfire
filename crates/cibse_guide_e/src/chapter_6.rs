@@ -1,4 +1,5 @@
 pub mod equation_6_7;
+pub mod equation6_appendix;
 
 use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;
@@ -6,12 +7,14 @@ use framework::specta::Type;
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum Chapter6Method {
     Equation6_7,
+    Equation6_Appendix,
 }
 
 impl Chapter6Method {
     pub fn id(&self) -> String {
         match self {
             &Chapter6Method::Equation6_7 => "equation_6_7".to_string(),
+            &Chapter6Method::Equation6_Appendix => "equation_6_appendix".to_string(),
         }
     }
 
@@ -19,6 +22,9 @@ impl Chapter6Method {
         match self {
             &Chapter6Method::Equation6_7 => {
                 format!("Ch. 6 | Eq. 6.7")
+            }
+            &Chapter6Method::Equation6_Appendix => {
+                format!("Ch. 6 | Appendix")
             }
         }
     }
@@ -28,6 +34,9 @@ impl Chapter6Method {
             &Chapter6Method::Equation6_7 => {
                 include_str!("../resources/chapter_6/equation_6_7/description.md").to_string()
             }
+            &Chapter6Method::Equation6_Appendix => {
+                include_str!("../resources/chapter_6/equation_6_appendix/description.md").to_string()
+            }
         }
     }
 
@@ -35,6 +44,9 @@ impl Chapter6Method {
         match self {
             &Chapter6Method::Equation6_7 => {
                 include_str!("../resources/chapter_6/equation_6_7/limitations.md").to_string()
+            }
+            &Chapter6Method::Equation6_Appendix => {
+                include_str!("../resources/chapter_6/equation_6_appendix/limitations.md").to_string()
             }
         }
     }
