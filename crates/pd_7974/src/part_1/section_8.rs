@@ -1,12 +1,14 @@
 pub mod equation_28;
 pub mod equation_29;
 pub mod equation_33;
+pub mod equation_4;
 pub mod equation_41;
 pub mod equation_42;
 pub mod equation_43;
 pub mod equation_44;
 pub mod hrr_at_flashover_runner;
 pub mod maximum_enclosure_temperature_runner;
+pub mod maximum_hrr_runner;
 
 use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;
@@ -15,6 +17,7 @@ use framework::specta::Type;
 pub enum Section8Method {
     HRRAtFlashover,
     MaximumEnclosureTemperature,
+    MaximumHRR,
 }
 
 impl Section8Method {
@@ -24,15 +27,19 @@ impl Section8Method {
             Section8Method::MaximumEnclosureTemperature => {
                 "maximum_enclosure_temperature".to_string()
             }
+            Section8Method::MaximumHRR => "maximum hrr".to_string(),
         }
     }
     pub fn friendly_reference(&self) -> String {
         match self {
             Section8Method::HRRAtFlashover => {
-                format!("Eq. 28, 29 & 33")
+                format!("Eq. 28 & 29")
             }
             Section8Method::MaximumEnclosureTemperature => {
                 format!("Eq. 41, 42, 43 & 44")
+            }
+            Section8Method::MaximumHRR => {
+                format!("Eq. 4 & 33")
             }
         }
     }
@@ -47,6 +54,9 @@ impl Section8Method {
                 "../../resources/part_1/section_8/maximum_enclosure_temperature/about.md"
             )
             .to_string(),
+            Section8Method::MaximumHRR => {
+                include_str!("../../resources/part_1/section_8/maximum_hrr/about.md").to_string()
+            }
         }
     }
 
@@ -60,6 +70,10 @@ impl Section8Method {
                 "../../resources/part_1/section_8/maximum_enclosure_temperature/limitations.md"
             )
             .to_string(),
+            Section8Method::MaximumHRR => {
+                include_str!("../../resources/part_1/section_8/maximum_hrr/limitations.md")
+                    .to_string()
+            }
         }
     }
 }
