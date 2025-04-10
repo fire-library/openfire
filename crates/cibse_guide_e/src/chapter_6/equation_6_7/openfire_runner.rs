@@ -36,8 +36,7 @@ pub struct Chapter6Equation7Runner;
 
 impl MethodRunner for Chapter6Equation7Runner {
     fn name(&self) -> String {
-        "Heat Release Rate required for flashover"
-            .to_string()
+        "Heat Release Rate required for flashover".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_7)
@@ -46,7 +45,10 @@ impl MethodRunner for Chapter6Equation7Runner {
         vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some("Heat Release Rate required for flashover. Most simple expression from SFPE Handbook".to_string())
+        Some(
+            "Heat Release Rate required for flashover. Most simple expression from SFPE Handbook"
+                .to_string(),
+        )
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let q_f = params.get(SYMBOLS.q_f);
@@ -131,11 +133,7 @@ impl MethodRunner for Chapter6Equation7Runner {
                 h_o.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(
-                    q_f.symbol(),
-                    a_vo.display_value(),
-                    h_o.display_value(),
-                ),
+                super::equation(q_f.symbol(), a_vo.display_value(), h_o.display_value()),
                 q_f.clone(),
             )]],
         };
