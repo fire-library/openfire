@@ -5,15 +5,11 @@ use framework::method::test::{Assertion, Test};
 
 pub fn test() -> Test {
     Test {
-        name: "Test 3".to_string(),
-        description: include_str!("test_3/description.md").to_string(),
+        name: "Test 2".to_string(),
+        description: include_str!("test_2/description.md").to_string(),
         input: SavedMethod {
-            id: super::super::HRRAtFlashoverBuilder.id(),
+            id: super::super::MaximumHRRBuilder.id(),
             parameters: vec![
-                SavedParameter {
-                    name: "A_t".to_string(),
-                    value: Some(Float(45.0)),
-                },
                 SavedParameter {
                     name: "A_v".to_string(),
                     value: Some(Float(2.1)),
@@ -22,11 +18,19 @@ pub fn test() -> Test {
                     name: "H_v".to_string(),
                     value: Some(Float(2.1)),
                 },
+                SavedParameter {
+                    name: "A_f".to_string(),
+                    value: Some(Float(10.0)),
+                },
+                SavedParameter {
+                    name: "HRRPUA".to_string(),
+                    value: Some(Float(500.0)),
+                },
             ],
         },
         assertions: vec![Assertion::FloatEqual(
-            "\\dot{Q}_{max, \\space Kawagoe}".to_string(),
-            4564.78367504967,
+            "\\dot{Q}_{max, \\space FC}".to_string(),
+            5000.0000,
         )],
     }
 }
@@ -37,7 +41,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        framework::register_runner::<super::super::super::HRRAtFlashoverBuilder>();
+        framework::register_runner::<super::super::super::MaximumHRRBuilder>();
         let test = test();
         let results = framework::method::test::run_test(test).unwrap();
 

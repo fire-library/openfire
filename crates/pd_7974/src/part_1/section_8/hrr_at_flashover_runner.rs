@@ -1,14 +1,12 @@
 mod q_fo_mccaffrey;
 mod q_fo_thomas;
-mod q_max;
 
 use q_fo_mccaffrey::QFoMcCaffrey;
 use q_fo_thomas::QFoThomas;
-use q_max::QMax;
 
 pub mod integration_tests;
 
-use super::{equation_28, equation_29, equation_33};
+use super::{equation_28, equation_29};
 use framework::method::calculation::Calculation;
 use framework::method::form::{Form, FormStep};
 use framework::method::parameter::Parameters;
@@ -39,14 +37,13 @@ impl MethodRunner for HRRAtFlashoverBuilder {
         vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some("Calculates the HRR at flashover, comparing methods developed by Thomas, McCaffrey et al., and Kawago".to_string())
+        Some("Calculates the HRR at flashover, comparing methods developed by Thomas and McCaffrey et al.,".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let q_fo_thomas = params.get("\\dot{Q}_{fo, \\space Thomas}");
         let q_fo_mccaffrey = params.get("\\dot{Q}_{fo, \\space McCaffrey}");
-        let q_max = params.get("\\dot{Q}_{max, \\space Kawagoe}");
 
-        Some(vec![q_max, q_fo_thomas, q_fo_mccaffrey])
+        Some(vec![q_fo_thomas, q_fo_mccaffrey])
     }
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
@@ -88,16 +85,10 @@ impl MethodRunner for HRRAtFlashoverBuilder {
             .units("kW")
             .build();
 
-        let q_max = ParamBuilder::float("\\dot{Q}_{max, \\space Kawagoe}")
-            .name("Max HRR of ventilation controlled fire")
-            .units("kW")
-            .build();
-
         params.add(a_t);
         params.add(a_v);
         params.add(h_v);
         params.add(h_k);
-        params.add(q_max);
         params.add(q_fo_thomas);
         params.add(q_fo_mccaffrey);
 
@@ -110,7 +101,6 @@ impl MethodRunner for HRRAtFlashoverBuilder {
         let h_k = params.get("h_k");
         let q_fo_thomas = params.get("\\dot{Q}_{fo, \\space Thomas}");
         let q_fo_mccaffrey = params.get("\\dot{Q}_{fo, \\space McCaffrey}");
-        let q_max = params.get("\\dot{Q}_{max, \\space Kawagoe}");
 
         let mut step_1 = FormStep::new(
             "Input | Eq. 28",
@@ -147,15 +137,7 @@ impl MethodRunner for HRRAtFlashoverBuilder {
         step_2.add_intro();
         step_2.add_equation(equation.generate_with_symbols()[0][0].clone());
 
-        let mut step_3 = FormStep::new(
-            "Eq. 33",
-            "Max HRR of ventilation controlled fire (based on Kawagoe). No additional input required.",
-        );
-        let equation = QMax::new_boxed(q_max.clone(), a_v.clone(), h_v.clone());
-        step_3.add_intro();
-        step_3.add_equation(equation.generate_with_symbols()[0][0].clone());
-
-        Form::new(vec![step_1, step_2, step_3])
+        Form::new(vec![step_1, step_2])
     }
 
     fn calc_sheet(
@@ -169,7 +151,6 @@ impl MethodRunner for HRRAtFlashoverBuilder {
         let h_k = params.get("h_k");
         let q_fo_thomas = params.get("\\dot{Q}_{fo, \\space Thomas}");
         let q_fo_mccaffrey = params.get("\\dot{Q}_{fo, \\space McCaffrey}");
-        let q_max = params.get("\\dot{Q}_{max, \\space Kawagoe}");
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
@@ -202,17 +183,6 @@ impl MethodRunner for HRRAtFlashoverBuilder {
         };
         calc_sheet.write().unwrap().add_step(step_2);
 
-        let equation = QMax::new_boxed(q_max.clone(), a_v.clone(), h_v.clone());
-        let step_3 = Step {
-            name: "Max HRR of ventilation controlled fire (based on Kawagoe)".to_string(),
-            nomenclature: equation.dependencies(),
-            input: equation.input().into_iter().map(|p| p.into()).collect(),
-            process: equation.generate_with_symbols(),
-            calculation: equation.generate_with_values(),
-            render: true,
-        };
-        calc_sheet.write().unwrap().add_step(step_3);
-
         calc_sheet
     }
 
@@ -234,13 +204,8 @@ impl MethodRunner for HRRAtFlashoverBuilder {
 
         let q_fo_mccaffrey = method.parameters.get("\\dot{Q}_{fo, \\space McCaffrey}");
 
-        let q_max = method.parameters.get("\\dot{Q}_{max, \\space Kawagoe}");
-
         let thomas_result = equation_28::q_fo(a_t, a_v, h_v);
         q_fo_thomas.update(Some(thomas_result.to_string()))?;
-
-        let q_max_result = equation_33::q_max(a_v, h_v);
-        q_max.update(Some(q_max_result.to_string()))?;
 
         if let Some(h_k) = h_k.get_float() {
             let mccaffrey_result = equation_29::q_fo(h_k, a_t, a_v, h_v);
