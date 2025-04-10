@@ -13,7 +13,7 @@ pub fn simplecase_anet(a_f: f64, h: f64, w1: f64, w2: f64, a_o: f64) -> f64 {
 }
 
 pub fn simplecase_dw(w1: f64, w2: f64) -> f64 {
-    return w2/ w1;
+    return w2 / w1;
 }
 
 pub fn equation_af(q_f: String, a_vo: String, h_o: String) -> String {
