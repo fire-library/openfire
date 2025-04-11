@@ -1,5 +1,5 @@
 pub mod equation_6_7;
-pub mod equation_6_appendix;
+pub mod equation_6_appendix_simplecase;
 
 use openfire::serde::{Deserialize, Serialize};
 use openfire::specta::Type;
@@ -7,7 +7,7 @@ use openfire::specta::Type;
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub enum Chapter10Method {
     Equation6_7,
-    Equation6_Appendix,
+    Equation6_Appendix_SimpleCase,
 }
 
 impl Chapter10Method {
@@ -16,7 +16,7 @@ impl Chapter10Method {
             &Chapter6Method::Equation6_7 => "equation_6_7".to_string(),
         }
         match self {
-            &Chapter6Method::Equation6_Appendix => "equation_6_appendix".to_string(),
+            &Chapter6Method::Equation6_Appendix_SimpleCase => "equation_6_appendix_simplecase".to_string(),
         }
     }
 
@@ -25,8 +25,8 @@ impl Chapter10Method {
             &Chapter6Method::Equation6_7 => {
                 format!("Ch. 6 | Eq. 6.7")
             }
-            &Chapter6Method::Equation6_Appendix => {
-                format!("Ch. 6 | Appendix")
+            &Chapter6Method::Equation6_Appendix_SimpleCase => {
+                format!("Ch. 6 | Appendix simple case")
             }
         }
     }
@@ -36,8 +36,8 @@ impl Chapter10Method {
             &Chapter6Method::Equation6_7 => {
                 include_str!("../resources/chapter_6/equation_6_7/description.md").to_string()
             }
-            &Chapter6Method::Equation6_Appendix => {
-                include_str!("../resources/chapter_6/equation_6_appendix/description.md").to_string()
+            &Chapter6Method::Equation6_Appendix_SimpleCase => {
+                include_str!("../resources/chapter_6/equation_6_appendix_simplecase/description.md").to_string()
             }
         }
     }
@@ -47,8 +47,8 @@ impl Chapter10Method {
             &Chapter6Method::Equation6_7 => {
                 include_str!("../resources/chapter_6/equation_6_7/limitations.md").to_string()
             }
-            &Chapter6Method::Equation6_Appendix => {
-                include_str!("../resources/chapter_6/equation_6_appendix/limitations.md").to_string()
+            &Chapter6Method::Equation6_Appendix_SimpleCase => {
+                include_str!("../resources/chapter_6/equation_6_appendix_simplecase/limitations.md").to_string()
             }
         }
     }
