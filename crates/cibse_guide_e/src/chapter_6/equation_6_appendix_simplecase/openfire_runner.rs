@@ -99,11 +99,22 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             w_2.symbol(),
         )));
         step_1.add_equation(CalculationComponent::Equation(super::equation_ao(
+            a_o.symbol(),
             w_o.symbol(),
             h_o.symbol(),
         )));
-        step_1.add_equation(CalculationComponent::Equation(super::equation_anet()));
-        step_1.add_equation(CalculationComponent::Equation(super::equation_doverw()));
+        step_1.add_equation(CalculationComponent::Equation(super::equation_anet(
+            a_f.symbol(),
+            h.symbol(),
+            w_1.symbol(),
+            w_2.symbol(),
+            a_o.symbol(),
+        )));
+        step_1.add_equation(CalculationComponent::Equation(super::equation_doverw(
+            d_over_w.symbol(),
+            w_2.symbol(),
+            w_1.symbol(),
+        )));
 
         Form::new(vec![step_1])
     }

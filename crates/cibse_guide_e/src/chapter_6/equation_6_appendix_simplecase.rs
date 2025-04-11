@@ -20,16 +20,16 @@ pub fn equation_af(a_f: String, w1: String, w2: String) -> String {
     format!("{} = {} \\space {}", a_f, w1, w2)
 }
 
-pub fn equation_ao(w_o: String, h_o: String) -> String {
-    format!("{} \\space {}", w_o, h_o)
+pub fn equation_ao(a_o: String, w_o: String, h_o: String) -> String {
+    format!("{} = {} \\space {}", a_o, w_o, h_o)
 }
 
 pub fn equation_anet(a_f: String, h: String, w1: String, w2: String, a_o: String) -> String {
     format!("2 {} + 2 {} ({} + {}) - {}", a_f, h, w1, w2, a_o)
 }
 
-pub fn equation_doverw(w2: String, w1: String) -> String {
-    format!("{} / {}", w2, w1)
+pub fn equation_doverw(d_over_w: String, w2: String, w1: String) -> String {
+    format!("{} = {} / {}", d_over_w, w2, w1)
 }
 
 #[cfg(test)]
