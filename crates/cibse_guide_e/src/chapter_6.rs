@@ -14,7 +14,9 @@ impl Chapter6Method {
     pub fn id(&self) -> String {
         match self {
             &Chapter6Method::Equation6_7 => "equation_6_7".to_string(),
-            &Chapter6Method::Equation6_Appendix_SimpleCase => "equation_6_appendix_simplecase".to_string(),
+            &Chapter6Method::Equation6_Appendix_SimpleCase => {
+                "equation_6_appendix_simplecase".to_string()
+            }
         }
     }
 

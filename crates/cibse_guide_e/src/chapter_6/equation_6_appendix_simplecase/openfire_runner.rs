@@ -20,40 +20,55 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    q_f: &'static str,
-    a_vo: &'static str,
+    a_f: &'static str,
+    a_o: &'static str,
+    a_net: &'static str,
+    h: &'static str,
     h_o: &'static str,
+    w_o: &'static str,
+    w_1: &'static str,
+    w_2: &'static str,
+    d_over_w: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
-    q_f: "Q_f",
-    a_vo: "A_{vo}",
+    a_f: "A_f",
+    a_o: "A_o",
+    a_net: "A_{net}",
+    h: "h",
     h_o: "h_o",
+    w_o: "w_o",
+    w_1: "\\omega_1",
+    w_2: "\\omega_2",
+    d_over_w: "d / \\omega",
 };
 
 #[derive(Default)]
-pub struct Chapter6Equation7Runner;
+pub struct Chapter6EquationAppendixSimpleCaseRunner;
 
-impl MethodRunner for Chapter6Equation7Runner {
+impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
     fn name(&self) -> String {
-        "Heat Release Rate required for flashover".to_string()
+        "Relevant dimensions of a room or compartment".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_7)
+        &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_Appendix_SimpleCase)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
         Some(
-            "Heat Release Rate required for flashover. Most simple expression from SFPE Handbook"
+            "Effective or equivalent dimensions of a room or compartment, needed for the use of HRR correlations"
                 .to_string(),
         )
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let q_f = params.get(SYMBOLS.q_f);
+        let a_f = params.get(SYMBOLS.a_f);
+        let a_o = params.get(SYMBOLS.a_o);
+        let a_net = params.get(SYMBOLS.a_net);
+        let d_over_w = params.get(SYMBOLS.d_over_w);
 
-        Some(vec![q_f])
+        Some(vec![a_f, a_o, a_net, d_over_w])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
