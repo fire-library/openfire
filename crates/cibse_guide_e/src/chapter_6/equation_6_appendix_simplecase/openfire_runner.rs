@@ -72,23 +72,38 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let q_f = params.get(SYMBOLS.q_f);
-        let a_vo = params.get(SYMBOLS.a_vo);
+        let a_f = params.get(SYMBOLS.a_f);
+        let a_o = params.get(SYMBOLS.a_o);
+        let a_net = params.get(SYMBOLS.a_net);
+        let h = params.get(SYMBOLS.h);
         let h_o = params.get(SYMBOLS.h_o);
+        let w_o = params.get(SYMBOLS.w_o);
+        let w_1 = params.get(SYMBOLS.w_1);
+        let w_2 = params.get(SYMBOLS.w_2);
+        let d_over_w = params.get(SYMBOLS.d_over_w);
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 6.7",
-            "Calculate the HRR required for flashover",
+            "Input | Simple case",
+            "Dimensions for room with single opening",
         );
-        step_1.add_field(a_vo.to_field());
+        step_1.add_field(w_1.to_field());
+        step_1.add_field(w_2.to_field());
+        step_1.add_field(h.to_field());
+        step_1.add_field(w_o.to_field());
         step_1.add_field(h_o.to_field());
 
         step_1.add_intro();
-        step_1.add_equation(CalculationComponent::Equation(super::equation(
-            q_f.symbol(),
-            a_vo.symbol(),
+        step_1.add_equation(CalculationComponent::Equation(super::equation_af(
+            a_f.symbol(),
+            w_1.symbol(),
+            w_2.symbol(),
+        )));
+        step_1.add_equation(CalculationComponent::Equation(super::equation_ao(
+            w_o.symbol(),
             h_o.symbol(),
         )));
+        step_1.add_equation(CalculationComponent::Equation(super::equation_anet()));
+        step_1.add_equation(CalculationComponent::Equation(super::equation_doverw()));
 
         Form::new(vec![step_1])
     }
