@@ -28,7 +28,6 @@ struct Symbols {
     w_o: &'static str,
     w_1: &'static str,
     w_2: &'static str,
-    d_over_w: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
@@ -38,9 +37,8 @@ const SYMBOLS: Symbols = Symbols {
     h: "h",
     h_o: "h_o",
     w_o: "w_o",
-    w_1: "\\omega_1",
-    w_2: "\\omega_2",
-    d_over_w: "d / \\omega",
+    w_1: "w_1",
+    w_2: "w_2",
 };
 
 #[derive(Default)]
@@ -66,9 +64,8 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         let a_f = params.get(SYMBOLS.a_f);
         let a_o = params.get(SYMBOLS.a_o);
         let a_net = params.get(SYMBOLS.a_net);
-        let d_over_w = params.get(SYMBOLS.d_over_w);
 
-        Some(vec![a_f, a_o, a_net, d_over_w])
+        Some(vec![a_f, a_o, a_net])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
@@ -80,7 +77,6 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         let w_o = params.get(SYMBOLS.w_o);
         let w_1 = params.get(SYMBOLS.w_1);
         let w_2 = params.get(SYMBOLS.w_2);
-        let d_over_w = params.get(SYMBOLS.d_over_w);
 
         let mut step_1 = FormStep::new(
             "Input | Simple case",
@@ -109,11 +105,6 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             w_1.symbol(),
             w_2.symbol(),
             a_o.symbol(),
-        )));
-        step_1.add_equation(CalculationComponent::Equation(super::equation_doverw(
-            d_over_w.symbol(),
-            w_2.symbol(),
-            w_1.symbol(),
         )));
 
         Form::new(vec![step_1])
@@ -158,7 +149,7 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             .build();
 
         let w_1 = ParamBuilder::float(SYMBOLS.w_1)
-            .name("Width of wall containing an opening")
+            .name("Width of wall containing the opening")
             .units("m")
             .min_exclusive(0.0)
             .required()
@@ -200,14 +191,14 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let step = vec![w_1.clone(), w_2.clone()];
-        let mut nomenclature = step.clone();
-        nomenclature.push(a_f.clone());
+        let step_af = vec![w_1.clone(), w_2.clone()];
+        let mut nomenclature_af = step_af.clone();
+        nomenclature_af.push(a_f.clone());
 
-        let step = Step {
+        let step_af = Step {
             name: "Floor area".to_string(),
-            nomenclature: nomenclature,
-            input: step.clone().into_iter().map(|p| p.into()).collect(),
+            nomenclature: nomenclature_af,
+            input: step_af.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation_af(
                 a_f.symbol(),
@@ -216,9 +207,31 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 super::equation_af(a_f.symbol(), w_1.display_value(), w_2.display_value()),
+                a_f.clone(),
             )]],
         };
-        calc_sheet.write().unwrap().add_step(step);
+
+        let step_ao = vec![w_o.clone(), h_o.clone()];
+        let mut nomenclature_ao = step_ao.clone();
+        nomenclature_ao.push(a_o.clone());
+
+        let step_ao = Step {
+            name: "Area of the opening".to_string(),
+            nomenclature: nomenclature_ao,
+            input: step_ao.clone().into_iter().map(|p| p.into()).collect(),
+            render: true,
+            process: vec![vec![CalculationComponent::Equation(super::equation_ao(
+                a_o.symbol(),
+                w_o.symbol(),
+                h_o.symbol(),
+            ))]],
+            calculation: vec![vec![CalculationComponent::EquationWithResult(
+                super::equation_ao(a_o.symbol(), w_o.display_value(), h_o.display_value()),
+                a_o.clone(),
+            )]],
+        };
+
+        calc_sheet.write().unwrap().add_step(step_af);
 
         calc_sheet
     }
@@ -232,10 +245,25 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let a_f = method.parameters.get(SYMBOLS.q_f);
+        let a_f = method.parameters.get(SYMBOLS.a_f);
+        let w_1 = method.parameters.get(SYMBOLS.w_1).as_float();
+        let w_2 = method.parameters.get(SYMBOLS.w_2).as_float();
 
-        let result = super::af(a_vo, h_o);
-        a_f.update(Some(result.to_string()))?;
+        let result_af = super::af(w_1, w_2);
+        a_f.update(Some(result_af.to_string()))?;
+
+        let a_o = method.parameters.get(SYMBOLS.a_o);
+        let w_o = method.parameters.get(SYMBOLS.w_o).as_float();
+        let h_o = method.parameters.get(SYMBOLS.h_o).as_float();
+
+        let result_ao = super::ao(w_o, h_o);
+        a_o.update(Some(result_ao.to_string()));
+
+        let a_net = method.parameters.get(SYMBOLS.a_net);
+        let h = method.parameters.get(SYMBOLS.h).as_float();
+
+        let result_anet = super::anet(result_af, h, w_1, w_2, result_ao);
+        a_net.update(Some(result_anet.to_string()));
 
         return Ok(());
     }
