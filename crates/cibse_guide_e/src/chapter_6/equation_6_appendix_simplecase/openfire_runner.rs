@@ -86,11 +86,11 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             "Input | Simple case",
             "Dimensions for room with single opening",
         );
+        step_1.add_field(h.to_field());
+        step_1.add_field(h_o.to_field());
+        step_1.add_field(w_o.to_field());
         step_1.add_field(w_1.to_field());
         step_1.add_field(w_2.to_field());
-        step_1.add_field(h.to_field());
-        step_1.add_field(w_o.to_field());
-        step_1.add_field(h_o.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation_af(
@@ -121,14 +121,24 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let q_f = ParamBuilder::float(&SYMBOLS.q_f)
-            .name("HRR required for flashover")
-            .units("kW")
+        let a_f = ParamBuilder::float(&SYMBOLS.a_f)
+            .name("Floor area")
+            .units("m^2")
             .build();
 
-        let a_vo = ParamBuilder::float(SYMBOLS.a_vo)
-            .name("Area of the opening to the compartment")
+        let a_o = ParamBuilder::float(SYMBOLS.a_o)
+            .name("Area of opening of room")
             .units("m^2")
+            .build();
+
+        let a_net = ParamBuilder::float(SYMBOLS.a_net)
+            .name("Internal surface area of the room minus area of the openings")
+            .units("m^2")
+            .build();
+
+        let h = ParamBuilder::float(SYMBOLS.h)
+            .name("Floor to ceiling height of room or, height ")
+            .units("m")
             .min_exclusive(0.0)
             .required()
             .build();
@@ -140,9 +150,35 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             .required()
             .build();
 
-        params.add(q_f);
-        params.add(a_vo);
+        let w_o = ParamBuilder::float(SYMBOLS.w_o)
+            .name("Width of the opening")
+            .units("m")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        let w_1 = ParamBuilder::float(SYMBOLS.w_1)
+            .name("Width of wall containing an opening")
+            .units("m")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        let w_2 = ParamBuilder::float(SYMBOLS.w_2)
+            .name("Width of wall without an opening")
+            .units("m")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        params.add(a_f);
+        params.add(a_o);
+        params.add(a_net);
+        params.add(h);
         params.add(h_o);
+        params.add(w_o);
+        params.add(w_1);
+        params.add(w_2);
 
         return params;
     }
@@ -152,30 +188,34 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let q_f = params.get(SYMBOLS.q_f);
-        let a_vo = params.get(SYMBOLS.a_vo);
+        let a_f = params.get(SYMBOLS.a_f);
+        let a_o = params.get(SYMBOLS.a_o);
+        let a_net = params.get(SYMBOLS.a_net);
+        let h = params.get(SYMBOLS.h);
         let h_o = params.get(SYMBOLS.h_o);
+        let w_o = params.get(SYMBOLS.w_o);
+        let w_1 = params.get(SYMBOLS.w_1);
+        let w_2 = params.get(SYMBOLS.w_2);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let step = vec![a_vo.clone(), h_o.clone()];
+        let step = vec![w_1.clone(), w_2.clone()];
         let mut nomenclature = step.clone();
-        nomenclature.push(q_f.clone());
+        nomenclature.push(a_f.clone());
 
         let step = Step {
-            name: "HRR at flashover | Eq. 6.7".to_string(),
+            name: "Floor area".to_string(),
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(super::equation(
-                q_f.symbol(),
-                a_vo.symbol(),
-                h_o.symbol(),
+            process: vec![vec![CalculationComponent::Equation(super::equation_af(
+                a_f.symbol(),
+                w_1.symbol(),
+                w_2.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(q_f.symbol(), a_vo.display_value(), h_o.display_value()),
-                q_f.clone(),
+                super::equation_af(a_f.symbol(), w_1.display_value(), w_2.display_value()),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -192,12 +232,10 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let q_f = method.parameters.get(SYMBOLS.q_f);
-        let a_vo = method.parameters.get(SYMBOLS.a_vo).as_float();
-        let h_o = method.parameters.get(SYMBOLS.h_o).as_float();
+        let a_f = method.parameters.get(SYMBOLS.q_f);
 
-        let result = super::heat_release_rate_flashover(a_vo, h_o);
-        q_f.update(Some(result.to_string()))?;
+        let result = super::af(a_vo, h_o);
+        a_f.update(Some(result.to_string()))?;
 
         return Ok(());
     }
