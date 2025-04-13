@@ -100,6 +100,7 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             h_o.symbol(),
         )));
         step_1.add_equation(CalculationComponent::Equation(super::equation_anet(
+            a_net.symbol(),
             a_f.symbol(),
             h.symbol(),
             w_1.symbol(),
@@ -235,23 +236,39 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
 
         calc_sheet.write().unwrap().add_step(step_ao);
 
-        let step_anet = vec![af.clone(), h.clone(), w_1.clone(), w_2.clone(), a_o.clone()];
-        let mut nomenclature_ao = step_ao.clone();
-        nomenclature_ao.push(a_o.clone());
+        let step_anet = vec![
+            a_f.clone(),
+            h.clone(),
+            w_1.clone(),
+            w_2.clone(),
+            a_o.clone(),
+        ];
+        let mut nomenclature_anet = step_anet.clone();
+        nomenclature_anet.push(a_net.clone());
 
-        let step_ao = Step {
-            name: "Area of the opening".to_string(),
-            nomenclature: nomenclature_ao,
-            input: step_ao.clone().into_iter().map(|p| p.into()).collect(),
+        let step_anet = Step {
+            name: "Internal surface area of the room minus area of the openings".to_string(),
+            nomenclature: nomenclature_anet,
+            input: step_anet.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(super::equation_ao(
+            process: vec![vec![CalculationComponent::Equation(super::equation_anet(
+                a_net.symbol(),
+                a_f.symbol(),
+                h.symbol(),
+                w_1.symbol(),
+                w_2.symbol(),
                 a_o.symbol(),
-                w_o.symbol(),
-                h_o.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation_ao(a_o.symbol(), w_o.display_value(), h_o.display_value()),
-                a_o.clone(),
+                super::equation_anet(
+                    a_net.symbol(),
+                    a_f.display_value(),
+                    h.display_value(),
+                    w_1.display_value(),
+                    w_2.display_value(),
+                    a_o.display_value(),
+                ),
+                a_net.clone(),
             )]],
         };
 
