@@ -211,6 +211,8 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             )]],
         };
 
+        calc_sheet.write().unwrap().add_step(step_af);
+
         let step_ao = vec![w_o.clone(), h_o.clone()];
         let mut nomenclature_ao = step_ao.clone();
         nomenclature_ao.push(a_o.clone());
@@ -231,7 +233,29 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             )]],
         };
 
-        calc_sheet.write().unwrap().add_step(step_af);
+        calc_sheet.write().unwrap().add_step(step_ao);
+
+        let step_anet = vec![af.clone(), h.clone(), w_1.clone(), w_2.clone(), a_o.clone()];
+        let mut nomenclature_ao = step_ao.clone();
+        nomenclature_ao.push(a_o.clone());
+
+        let step_ao = Step {
+            name: "Area of the opening".to_string(),
+            nomenclature: nomenclature_ao,
+            input: step_ao.clone().into_iter().map(|p| p.into()).collect(),
+            render: true,
+            process: vec![vec![CalculationComponent::Equation(super::equation_ao(
+                a_o.symbol(),
+                w_o.symbol(),
+                h_o.symbol(),
+            ))]],
+            calculation: vec![vec![CalculationComponent::EquationWithResult(
+                super::equation_ao(a_o.symbol(), w_o.display_value(), h_o.display_value()),
+                a_o.clone(),
+            )]],
+        };
+
+        calc_sheet.write().unwrap().add_step(step_anet);
 
         calc_sheet
     }
