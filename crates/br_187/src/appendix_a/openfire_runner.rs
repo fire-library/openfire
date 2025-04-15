@@ -192,25 +192,25 @@ impl MethodRunner for BR187AppendixAViewFactorsBuilder {
         Some("Calculates the Incident Heat Flux on a receiving surface".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let total_radiation = params.get(&SYMBOLS.total_radiation);
+        let total_radiation = params.get(SYMBOLS.total_radiation);
         Some(vec![total_radiation])
     }
 
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let surfaces = ParamBuilder::list(&SYMBOLS.surfaces)
+        let surfaces = ParamBuilder::list(SYMBOLS.surfaces)
             .name("Radiating Surfaces")
             .default_value(Some(ParameterValue::List(vec![Self::example_surface()])))
             .build();
 
-        let boltzman = ParamBuilder::float(&SYMBOLS.boltzman)
+        let boltzman = ParamBuilder::float(SYMBOLS.boltzman)
             .name("Stefan Boltzmann constant")
             .units("\\frac{kW}{m^{2}K^{4}}")
             .default_value(Some(ParameterValue::Float(5.67e-11)))
             .build();
 
-        let total_radiation = ParamBuilder::output_float(&SYMBOLS.total_radiation)
+        let total_radiation = ParamBuilder::output_float(SYMBOLS.total_radiation)
             .name("Total Radiation at Receiver")
             .units("\\frac{kW}{m^{2}}")
             .build();
@@ -225,7 +225,7 @@ impl MethodRunner for BR187AppendixAViewFactorsBuilder {
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
         let mut fields = vec![];
 
-        let surfaces = params.get(&SYMBOLS.surfaces).as_list();
+        let surfaces = params.get(SYMBOLS.surfaces).as_list();
         let surface_names = surfaces
             .into_iter()
             .map(|s| s.as_object().values())
@@ -239,7 +239,7 @@ impl MethodRunner for BR187AppendixAViewFactorsBuilder {
 
         fields.push(
             params
-                .get(&SYMBOLS.surfaces)
+                .get(SYMBOLS.surfaces)
                 .to_field_list(Self::example_surface),
         );
 
