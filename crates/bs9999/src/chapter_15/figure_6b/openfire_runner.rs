@@ -21,6 +21,24 @@ use crate::BS9999;
 use crate::chapter_15::Chapter15Method;
 use crate::chapter_15::figure_6b as bs9999_figure6b;
 
+struct Symbols {
+    w_fe: &'static str,
+    s_up: &'static str,
+    s_dn: &'static str,
+    b: &'static str,
+    d: &'static str,
+    x: &'static str,
+}
+
+const SYMBOLS: Symbols = Symbols {
+    w_fe: "W_{FE}",
+    s_up: "S_{up}",
+    s_dn: "S_{dn}",
+    b: "B",
+    d: "D",
+    x: "X",
+};
+
 #[derive(Default)]
 pub struct BS9999Chapter15Figure6bBuilder;
 
@@ -41,18 +59,18 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
         )
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let w_fe = params.get("W_{FE}");
+        let w_fe = params.get(SYMBOLS.w_fe);
 
         Some(vec![w_fe])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let s_up = params.get("S_{up}");
-        let s_dn = params.get("S_{dn}");
-        let b = params.get("B");
-        let d = params.get("D");
-        let x = params.get("X");
-        let w_fe = params.get("W_{FE}");
+        let s_up = params.get(SYMBOLS.s_up);
+        let s_dn = params.get(SYMBOLS.s_dn);
+        let b = params.get(SYMBOLS.b);
+        let d = params.get(SYMBOLS.d);
+        let x = params.get(SYMBOLS.x);
+        let w_fe = params.get(SYMBOLS.w_fe);
 
         let equation = BS9999Chapter15Figure6b::new(
             w_fe.clone(),
@@ -68,7 +86,7 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
             "Input required to calculate the width of the final exit.",
         );
         for param in params.values().into_iter() {
-            if param.symbol() == "W_{FE}" {
+            if param.symbol() == SYMBOLS.w_fe {
                 continue;
             }
             step_1.add_field(param.to_field())
@@ -83,7 +101,7 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let s_up = ParamBuilder::float("S_{up}")
+        let s_up = ParamBuilder::float(SYMBOLS.s_up)
             .name("Stair width for upward portion of the stair")
             .units("mm")
             .min(0.0)
@@ -91,7 +109,7 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
             .required()
             .build();
 
-        let s_dn = ParamBuilder::float("S_{dn}")
+        let s_dn = ParamBuilder::float(SYMBOLS.s_dn)
             .name("Stair width for downward portion of the stair")
             .units("mm")
             .min(0.0)
@@ -99,20 +117,20 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
             .required()
             .build();
 
-        let b = ParamBuilder::float("B")
+        let b = ParamBuilder::float(SYMBOLS.b)
             .name("Number of people served by the stair from below the final exit level")
             .min(0.0)
             .required()
             .build();
 
-        let d = ParamBuilder::float("D")
+        let d = ParamBuilder::float(SYMBOLS.d)
             .name("Distance from the nose of the top going of the downward portion of the stair")
             .units("m")
             .min(0.0)
             .required()
             .build();
 
-        let x = ParamBuilder::float("X")
+        let x = ParamBuilder::float(SYMBOLS.x)
             .name("Minimum door width per person")
             .units("mm/person")
             .min(0.0)
@@ -120,7 +138,7 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
             .default_value(Some(ParameterValue::Float(3.6)))
             .build();
 
-        let w_fe = ParamBuilder::float("W_{FE}")
+        let w_fe = ParamBuilder::float(SYMBOLS.w_fe)
             .name("Width of the final exit")
             .units("mm")
             .build();
@@ -140,12 +158,12 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let s_up = params.get("S_{up}");
-        let s_dn = params.get("S_{dn}");
-        let b = params.get("B");
-        let d = params.get("D");
-        let x = params.get("X");
-        let w_fe = params.get("W_{FE}");
+        let s_up = params.get(SYMBOLS.s_up);
+        let s_dn = params.get(SYMBOLS.s_dn);
+        let b = params.get(SYMBOLS.b);
+        let d = params.get(SYMBOLS.d);
+        let x = params.get(SYMBOLS.x);
+        let w_fe = params.get(SYMBOLS.w_fe);
 
         let equation = BS9999Chapter15Figure6b::new(
             w_fe.clone(),
@@ -180,13 +198,13 @@ impl MethodRunner for BS9999Chapter15Figure6bBuilder {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let s_up = method.parameters.get("S_{up}").as_float();
-        let s_dn = method.parameters.get("S_{dn}").as_float();
-        let b = method.parameters.get("B").as_float();
-        let d = method.parameters.get("D").as_float();
-        let x = method.parameters.get("X").as_float();
+        let s_up = method.parameters.get(SYMBOLS.s_up).as_float();
+        let s_dn = method.parameters.get(SYMBOLS.s_dn).as_float();
+        let b = method.parameters.get(SYMBOLS.b).as_float();
+        let d = method.parameters.get(SYMBOLS.d).as_float();
+        let x = method.parameters.get(SYMBOLS.x).as_float();
 
-        let w_fe = method.parameters.get("W_{FE}");
+        let w_fe = method.parameters.get(SYMBOLS.w_fe);
 
         let result = bs9999_figure6b::calculate_exit_width(b, d, s_up, s_dn, x);
         w_fe.update(Some(result.to_string()))?;
