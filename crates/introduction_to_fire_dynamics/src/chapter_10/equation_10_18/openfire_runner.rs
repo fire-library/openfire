@@ -26,6 +26,26 @@ pub struct BurningRegimeBuilder;
 use crate::IntroductionToFireDynamics;
 use crate::chapter_10::Chapter10Method;
 
+struct Symbols {
+    rho: &'static str,
+    a_w: &'static str,
+    h: &'static str,
+    g: &'static str,
+    a_f: &'static str,
+    factor: &'static str,
+    regime: &'static str,
+}
+
+const SYMBOLS: Symbols = Symbols {
+    rho: "\\rho",
+    a_w: "A_w",
+    h: "H",
+    g: "g",
+    a_f: "A_f",
+    factor: "F",
+    regime: "Regime",
+};
+
 impl MethodRunner for BurningRegimeBuilder {
     fn name(&self) -> String {
         "Burning regime".to_string()
@@ -43,15 +63,15 @@ impl MethodRunner for BurningRegimeBuilder {
         )
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let factor = params.get("F");
-        let regime = params.get("Regime");
+        let factor = params.get(SYMBOLS.factor);
+        let regime = params.get(SYMBOLS.regime);
 
         Some(vec![factor, regime])
     }
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let rho = ParamBuilder::float("\\rho")
+        let rho = ParamBuilder::float(SYMBOLS.rho)
             .name("Density of air")
             .units("kg/m^3")
             .default_value(Some(ParameterValue::Float(1.2)))
@@ -59,39 +79,39 @@ impl MethodRunner for BurningRegimeBuilder {
             .required()
             .build();
 
-        let a_w = ParamBuilder::float("A_w")
+        let a_w = ParamBuilder::float(SYMBOLS.a_w)
             .name("Area of ventilation opening")
             .units("m^2")
             .min(0.0)
             .required()
             .build();
 
-        let h = ParamBuilder::float("H")
+        let h = ParamBuilder::float(SYMBOLS.h)
             .name("Height of ventilation opening")
             .units("m")
             .min(0.0)
             .required()
             .build();
 
-        let g = ParamBuilder::float("g")
+        let g = ParamBuilder::float(SYMBOLS.g)
             .name("Gravitaional acceleration")
             .units("m/s^2")
             .default_value(Some(ParameterValue::Float(9.81)))
             .required()
             .build();
 
-        let a_f = ParamBuilder::float("A_f")
+        let a_f = ParamBuilder::float(SYMBOLS.a_f)
             .name("Surface area of the fuel")
             .units("m^2")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let factor = ParamBuilder::float("F")
+        let factor = ParamBuilder::float(SYMBOLS.factor)
             .name("Burning regime factor")
             .build();
 
-        let regime = ParamBuilder::string("Regime")
+        let regime = ParamBuilder::string(SYMBOLS.regime)
             .name("Burning regime")
             .build();
 
@@ -108,13 +128,13 @@ impl MethodRunner for BurningRegimeBuilder {
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let rho = params.get("\\rho");
-        let a_w = params.get("A_w");
-        let h = params.get("H");
-        let g = params.get("g");
-        let a_f = params.get("A_f");
+        let rho = params.get(SYMBOLS.rho);
+        let a_w = params.get(SYMBOLS.a_w);
+        let h = params.get(SYMBOLS.h);
+        let g = params.get(SYMBOLS.g);
+        let a_f = params.get(SYMBOLS.a_f);
 
-        let factor = params.get("F");
+        let factor = params.get(SYMBOLS.factor);
 
         let factor_equation = Factor::new_boxed(
             factor.clone(),
@@ -130,7 +150,7 @@ impl MethodRunner for BurningRegimeBuilder {
             "Input required to calculate the burning regime of the fire, following Harmathy's method.",
         );
         for param in params.values().into_iter() {
-            if param.symbol() == "F" || param.symbol() == "Regime" {
+            if param.symbol() == SYMBOLS.factor || param.symbol() == SYMBOLS.regime {
                 continue;
             }
             step_1.add_field(param.to_field())
@@ -147,14 +167,14 @@ impl MethodRunner for BurningRegimeBuilder {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let rho = params.get("\\rho");
-        let a_w = params.get("A_w");
-        let h = params.get("H");
-        let g = params.get("g");
-        let a_f = params.get("A_f");
+        let rho = params.get(SYMBOLS.rho);
+        let a_w = params.get(SYMBOLS.a_w);
+        let h = params.get(SYMBOLS.h);
+        let g = params.get(SYMBOLS.g);
+        let a_f = params.get(SYMBOLS.a_f);
 
-        let factor = params.get("F");
-        let regime = params.get("Regime");
+        let factor = params.get(SYMBOLS.factor);
+        let regime = params.get(SYMBOLS.regime);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
@@ -212,14 +232,14 @@ impl MethodRunner for BurningRegimeBuilder {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let rho = method.parameters.get("\\rho").as_float();
-        let a_w = method.parameters.get("A_w").as_float();
-        let h = method.parameters.get("H").as_float();
-        let g = method.parameters.get("g").as_float();
-        let a_f = method.parameters.get("A_f").as_float();
+        let rho = method.parameters.get(SYMBOLS.rho).as_float();
+        let a_w = method.parameters.get(SYMBOLS.a_w).as_float();
+        let h = method.parameters.get(SYMBOLS.h).as_float();
+        let g = method.parameters.get(SYMBOLS.g).as_float();
+        let a_f = method.parameters.get(SYMBOLS.a_f).as_float();
 
-        let factor = method.parameters.get("F");
-        let regime = method.parameters.get("Regime");
+        let factor = method.parameters.get(SYMBOLS.factor);
+        let regime = method.parameters.get(SYMBOLS.regime);
 
         let regime_result = equation_10_18::calculate(rho, g, a_w, h, a_f);
         factor.update(Some(regime_result.to_string()))?;
