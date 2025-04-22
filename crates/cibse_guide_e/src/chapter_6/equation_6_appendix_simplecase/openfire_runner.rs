@@ -142,7 +142,7 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             .build();
 
         let h = ParamBuilder::float(SYMBOLS.h)
-            .name("Floor to ceiling height of room or, height ")
+            .name("Floor to ceiling height of room or, height above base of fire")
             .units("m")
             .min_exclusive(0.0)
             .required()

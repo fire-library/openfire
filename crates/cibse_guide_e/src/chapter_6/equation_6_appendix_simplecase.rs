@@ -65,6 +65,6 @@ mod tests {
     #[test]
     fn test_doverw() {
         let result = d_over_w(3.5, 5.0);
-        assert_eq!(result, 1.42857142857143);
+        assert_eq!(result, 1.4285714285714286);
     }
 }
