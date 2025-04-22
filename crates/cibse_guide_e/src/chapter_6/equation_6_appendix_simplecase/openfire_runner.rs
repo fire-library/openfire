@@ -28,6 +28,7 @@ struct Symbols {
     w_o: &'static str,
     w_1: &'static str,
     w_2: &'static str,
+    d_over_w: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
@@ -39,6 +40,7 @@ const SYMBOLS: Symbols = Symbols {
     w_o: "w_o",
     w_1: "w_1",
     w_2: "w_2",
+    d_over_w: "d/w",
 };
 
 #[derive(Default)]
@@ -46,7 +48,7 @@ pub struct Chapter6EquationAppendixSimpleCaseRunner;
 
 impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
     fn name(&self) -> String {
-        "Relevant dimensions of a room or compartment".to_string()
+        "Relevant dimensions of a room or compartment. Single opening".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_Appendix_SimpleCase)
@@ -64,14 +66,16 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         let a_f = params.get(SYMBOLS.a_f);
         let a_o = params.get(SYMBOLS.a_o);
         let a_net = params.get(SYMBOLS.a_net);
+        let d_over_w = params.get(SYMBOLS.d_over_w);
 
-        Some(vec![a_f, a_o, a_net])
+        Some(vec![a_f, a_o, a_net, d_over_w])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
         let a_f = params.get(SYMBOLS.a_f);
         let a_o = params.get(SYMBOLS.a_o);
         let a_net = params.get(SYMBOLS.a_net);
+        let d_over_w = params.get(SYMBOLS.d_over_w);
         let h = params.get(SYMBOLS.h);
         let h_o = params.get(SYMBOLS.h_o);
         let w_o = params.get(SYMBOLS.w_o);
@@ -107,6 +111,11 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             w_2.symbol(),
             a_o.symbol(),
         )));
+        step_1.add_equation(CalculationComponent::Equation(super::equation_doverw(
+            d_over_w.symbol(),
+            w_1.symbol(),
+            w_2.symbol(),
+        )));
 
         Form::new(vec![step_1])
     }
@@ -126,6 +135,10 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         let a_net = ParamBuilder::float(SYMBOLS.a_net)
             .name("Internal surface area of the room minus area of the openings")
             .units("m^2")
+            .build();
+
+        let d_over_w = ParamBuilder::float(SYMBOLS.d_over_w)
+            .name("Depth of the opening divided by the width of the opening")
             .build();
 
         let h = ParamBuilder::float(SYMBOLS.h)
@@ -166,6 +179,7 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         params.add(a_f);
         params.add(a_o);
         params.add(a_net);
+        params.add(d_over_w);
         params.add(h);
         params.add(h_o);
         params.add(w_o);
@@ -183,6 +197,7 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
         let a_f = params.get(SYMBOLS.a_f);
         let a_o = params.get(SYMBOLS.a_o);
         let a_net = params.get(SYMBOLS.a_net);
+        let d_over_w = params.get(SYMBOLS.d_over_w);
         let h = params.get(SYMBOLS.h);
         let h_o = params.get(SYMBOLS.h_o);
         let w_o = params.get(SYMBOLS.w_o);
@@ -274,6 +289,26 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
 
         calc_sheet.write().unwrap().add_step(step_anet);
 
+        let step_doverw = vec![w_1.clone(), w_2.clone()];
+        let mut nomenclature_doverw = step_doverw.clone();
+        nomenclature_doverw.push(d_over_w.clone());
+
+        let step_doverw = Step {
+            name: "Depth of the opening divided by the width of the opening".to_string(),
+            nomenclature: nomenclature_doverw,
+            input: step_doverw.clone().into_iter().map(|p| p.into()).collect(),
+            render: true,
+            process: vec![vec![CalculationComponent::Equation(
+                super::equation_doverw(d_over_w.symbol(), w_o.symbol(), h_o.symbol()),
+            )]],
+            calculation: vec![vec![CalculationComponent::EquationWithResult(
+                super::equation_ao(a_o.symbol(), w_o.display_value(), h_o.display_value()),
+                a_o.clone(),
+            )]],
+        };
+
+        calc_sheet.write().unwrap().add_step(step_doverw);
+
         calc_sheet
     }
 
@@ -305,6 +340,10 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
 
         let result_anet = super::anet(result_af, h, w_1, w_2, result_ao);
         a_net.update(Some(result_anet.to_string()));
+
+        let d_over_w = method.parameters.get(SYMBOLS.d_over_w);
+        let result_doverw = super::d_over_w(w_1, w_2);
+        d_over_w.update(Some(result_doverw.to_string()));
 
         return Ok(());
     }

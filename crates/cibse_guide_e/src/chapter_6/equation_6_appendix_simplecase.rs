@@ -38,7 +38,7 @@ pub fn equation_anet(
     )
 }
 
-pub fn equation_doverw(d_over_w: String, w2: String, w1: String) -> String {
+pub fn equation_doverw(d_over_w: String, w1: String, w2: String) -> String {
     format!("{} = {} / {}", d_over_w, w2, w1)
 }
 
@@ -47,23 +47,23 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test() {
+    fn test_af() {
         let result = af(4.0, 5.0);
         assert_eq!(result, 20.000);
     }
 
     #[test]
-    fn test() {
+    fn test_ao() {
         let result = ao(2.0, 1.5);
         assert_eq!(result, 3.000);
     }
     #[test]
-    fn test() {
+    fn test_anet() {
         let result = anet(20.0, 3.0, 4.0, 5.0, 3.0);
         assert_eq!(result, 91.000);
     }
     #[test]
-    fn test() {
+    fn test_doverw() {
         let result = d_over_w(4.0, 5.0);
         assert_eq!(result, 1.25);
     }
