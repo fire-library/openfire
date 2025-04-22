@@ -21,6 +21,20 @@ use crate::chapter_1::equation_1 as br_187_equation_1;
 #[derive(Default)]
 pub struct BR187Chapter1Equation1Builder;
 
+struct Symbols {
+    a_s: &'static str,
+    a: &'static str,
+    h: &'static str,
+    o: &'static str,
+}
+
+const SYMBOLS: Symbols = Symbols {
+    a_s: "A_s",
+    a: "A",
+    h: "H",
+    o: "O",
+};
+
 impl MethodRunner for BR187Chapter1Equation1Builder {
     fn name(&self) -> String {
         "Ventilation factor".to_string()
@@ -35,22 +49,22 @@ impl MethodRunner for BR187Chapter1Equation1Builder {
         Some("Calculates the Ventilation Factor".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let o = params.get("O");
+        let o = params.get(SYMBOLS.o);
         Some(vec![o])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let a_s = params.get("A_s");
-        let a = params.get("A");
-        let h = params.get("H");
-        let o = params.get("O");
+        let a_s = params.get(SYMBOLS.a_s);
+        let a = params.get(SYMBOLS.a);
+        let h = params.get(SYMBOLS.h);
+        let o = params.get(SYMBOLS.o);
 
         let mut step_1 = FormStep::new(
             "Input | Eq. 1",
             "Input required to calculate the ventilation factor.",
         );
         for param in params.values().into_iter() {
-            if param.symbol() == "O" {
+            if param.symbol() == SYMBOLS.o {
                 continue;
             }
             step_1.add_field(param.to_field())
@@ -65,7 +79,7 @@ impl MethodRunner for BR187Chapter1Equation1Builder {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let a_s = ParamBuilder::float("A_s")
+        let a_s = ParamBuilder::float(SYMBOLS.a_s)
             .name("Surface Area of Compartment (less openings and floor)")
             .units("m^{2}")
             .min(0.0)
@@ -73,21 +87,21 @@ impl MethodRunner for BR187Chapter1Equation1Builder {
             .required()
             .build();
 
-        let a = ParamBuilder::float("A")
+        let a = ParamBuilder::float(SYMBOLS.a)
             .name("Area of Ventilation Opening")
             .units("m^{2}")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let h = ParamBuilder::float("H")
+        let h = ParamBuilder::float(SYMBOLS.h)
             .name("Height of Ventilation Opening")
             .units("m")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let o = ParamBuilder::float("O")
+        let o = ParamBuilder::float(SYMBOLS.o)
             .name("Ventilation Factor")
             .units("m^{-1/2}")
             .build();
@@ -105,10 +119,10 @@ impl MethodRunner for BR187Chapter1Equation1Builder {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let a_s = params.get("A_s");
-        let a = params.get("A");
-        let h = params.get("H");
-        let o = params.get("O");
+        let a_s = params.get(SYMBOLS.a_s);
+        let a = params.get(SYMBOLS.a);
+        let h = params.get(SYMBOLS.h);
+        let o = params.get(SYMBOLS.o);
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
@@ -134,11 +148,11 @@ impl MethodRunner for BR187Chapter1Equation1Builder {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let a_s = method.parameters.get("A_s").as_float();
-        let a = method.parameters.get("A").as_float();
-        let h = method.parameters.get("H").as_float();
+        let a_s = method.parameters.get(SYMBOLS.a_s).as_float();
+        let a = method.parameters.get(SYMBOLS.a).as_float();
+        let h = method.parameters.get(SYMBOLS.h).as_float();
 
-        let o = method.parameters.get("O");
+        let o = method.parameters.get(SYMBOLS.o);
 
         let result = br_187_equation_1::calculate_ventilation_factor(a_s, a, h);
         o.update(Some(result.to_string()))?;

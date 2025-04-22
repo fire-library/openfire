@@ -99,7 +99,7 @@ impl MethodRunner for TR17Section2Equation1Builder {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let q_dot = ParamBuilder::float(&SYMBOLS.q_dot)
+        let q_dot = ParamBuilder::float(SYMBOLS.q_dot)
             .name("Heat Release Rate")
             .units("kW")
             .min(0.0)
