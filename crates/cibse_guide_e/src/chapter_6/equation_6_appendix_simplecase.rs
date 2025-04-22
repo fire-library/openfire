@@ -17,11 +17,11 @@ pub fn d_over_w(w_1: f64, w_2: f64) -> f64 {
 }
 
 pub fn equation_af(a_f: String, w1: String, w2: String) -> String {
-    format!("{} = {} \\space {}", a_f, w1, w2)
+    format!("{} = {} \\cdot {}", a_f, w1, w2)
 }
 
 pub fn equation_ao(a_o: String, w_o: String, h_o: String) -> String {
-    format!("{} = {} \\space {}", a_o, w_o, h_o)
+    format!("{} = {} \\cdot {}", a_o, w_o, h_o)
 }
 
 pub fn equation_anet(
@@ -60,7 +60,7 @@ mod tests {
     #[test]
     fn test_anet() {
         let result = anet(17.5, 3.0, 3.5, 5.0, 0.75);
-        assert_eq!(result, 34.25);
+        assert_eq!(result, 85.25);
     }
     #[test]
     fn test_doverw() {

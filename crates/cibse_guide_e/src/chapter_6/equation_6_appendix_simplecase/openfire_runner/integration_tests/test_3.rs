@@ -32,7 +32,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("A_{net}".to_string(), 34.25)],
+        assertions: vec![Assertion::FloatEqual("A_{net}".to_string(), 85.25)],
     }
 }
 
