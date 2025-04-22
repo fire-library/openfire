@@ -1,2 +1,3 @@
-This test verifies the result for the implementation
-of equation 10.10.
+This test verifies the result for the calculation
+of the internal surface area of the room  minus the area
+of openings, $A_{net}$.

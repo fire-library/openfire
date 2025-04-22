@@ -1,2 +1,2 @@
-This test verifies the result for the implementation
-of equation 10.10.
+This test verifies the result for the calculation
+of the area of the opening, $A_o$.

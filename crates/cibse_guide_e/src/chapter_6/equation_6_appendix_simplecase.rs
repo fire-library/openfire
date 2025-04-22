@@ -1,7 +1,7 @@
 pub mod openfire_runner;
 
 pub fn af(w_1: f64, w_2: f64) -> f64 {
-    return w_1  * w_2;
+    return w_1 * w_2;
 }
 
 pub fn ao(w_o: f64, h_o: f64) -> f64 {

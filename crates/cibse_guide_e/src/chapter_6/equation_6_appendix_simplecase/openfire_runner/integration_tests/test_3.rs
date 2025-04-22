@@ -5,8 +5,8 @@ use framework::method::test::{Assertion, Test};
 
 pub fn test() -> Test {
     Test {
-        name: "Test 1".to_string(),
-        description: include_str!("test_1/description.md").to_string(),
+        name: "Test 3".to_string(),
+        description: include_str!("test_3/description.md").to_string(),
         input: SavedMethod {
             id: super::super::Chapter6EquationAppendixSimpleCaseRunner.id(),
             parameters: vec![
@@ -32,7 +32,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("A_f".to_string(), 17.5)],
+        assertions: vec![Assertion::FloatEqual("A_{net}".to_string(), 34.25)],
     }
 }
 
