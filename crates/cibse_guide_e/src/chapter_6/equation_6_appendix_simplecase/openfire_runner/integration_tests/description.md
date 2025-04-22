@@ -1,4 +1,4 @@
-Comprehensive test coverage can be achieved with a
+Comprehensive test coverage can be achieved with
 four tests, one for each equation.
 
 If the results are correct, we can be confident in

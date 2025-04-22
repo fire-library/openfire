@@ -11,16 +11,16 @@ pub fn test() -> Test {
             id: super::super::Chapter6EquationAppendixSimpleCaseRunner.id(),
             parameters: vec![
                 SavedParameter {
-                    name: "A_{vo}".to_string(),
-                    value: Some(Float(2.0)),
+                    name: "w_1".to_string(),
+                    value: Some(Float(3.5)),
                 },
                 SavedParameter {
-                    name: "h_o".to_string(),
-                    value: Some(Float(2.1)),
+                    name: "w_2".to_string(),
+                    value: Some(Float(5.0)),
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("Q_f".to_string(), 1738.96520954273)],
+        assertions: vec![Assertion::FloatEqual("A_f".to_string(), 17.5)],
     }
 }
 
