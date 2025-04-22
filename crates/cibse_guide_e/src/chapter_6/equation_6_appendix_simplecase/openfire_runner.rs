@@ -299,11 +299,11 @@ impl MethodRunner for Chapter6EquationAppendixSimpleCaseRunner {
             input: step_doverw.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(
-                super::equation_doverw(d_over_w.symbol(), w_o.symbol(), h_o.symbol()),
+                super::equation_doverw(d_over_w.symbol(), w_1.symbol(), w_2.symbol()),
             )]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation_ao(a_o.symbol(), w_o.display_value(), h_o.display_value()),
-                a_o.clone(),
+                super::equation_doverw(d_over_w.symbol(), w_1.display_value(), w_2.display_value()),
+                d_over_w.clone(),
             )]],
         };
 
