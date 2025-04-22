@@ -1,19 +1,19 @@
 pub mod openfire_runner;
 
-pub fn af(w1: f64, w2: f64) -> f64 {
-    return w1 * w2;
+pub fn af(w_1: f64, w_2: f64) -> f64 {
+    return w_1  * w_2;
 }
 
 pub fn ao(w_o: f64, h_o: f64) -> f64 {
     return w_o * h_o;
 }
 
-pub fn anet(a_f: f64, h: f64, w1: f64, w2: f64, a_o: f64) -> f64 {
-    return 2.0 * a_f + 2.0 * h * (w1 + w2) - a_o;
+pub fn anet(a_f: f64, h: f64, w_1: f64, w_2: f64, a_o: f64) -> f64 {
+    return 2.0 * a_f + 2.0 * h * (w_1 + w_2) - a_o;
 }
 
-pub fn d_over_w(w1: f64, w2: f64) -> f64 {
-    return w2 / w1;
+pub fn d_over_w(w_1: f64, w_2: f64) -> f64 {
+    return w_2 / w_1;
 }
 
 pub fn equation_af(a_f: String, w1: String, w2: String) -> String {
@@ -38,8 +38,8 @@ pub fn equation_anet(
     )
 }
 
-pub fn equation_doverw(d_over_w: String, w1: String, w2: String) -> String {
-    format!("{} = {} / {}", d_over_w, w2, w1)
+pub fn equation_doverw(d_over_w: String, w_1: String, w_2: String) -> String {
+    format!("{} = {} / {}", d_over_w, w_2, w_1)
 }
 
 #[cfg(test)]
@@ -48,23 +48,23 @@ mod tests {
 
     #[test]
     fn test_af() {
-        let result = af(4.0, 5.0);
-        assert_eq!(result, 20.000);
+        let result = af(3.5, 5.0);
+        assert_eq!(result, 17.5);
     }
 
     #[test]
     fn test_ao() {
-        let result = ao(2.0, 1.5);
-        assert_eq!(result, 3.000);
+        let result = ao(1.5, 0.5);
+        assert_eq!(result, 0.75);
     }
     #[test]
     fn test_anet() {
-        let result = anet(20.0, 3.0, 4.0, 5.0, 3.0);
-        assert_eq!(result, 91.000);
+        let result = anet(17.5, 3.0, 3.5, 5.0, 0.75);
+        assert_eq!(result, 34.25);
     }
     #[test]
     fn test_doverw() {
-        let result = d_over_w(4.0, 5.0);
-        assert_eq!(result, 1.25);
+        let result = d_over_w(3.5, 5.0);
+        assert_eq!(result, 1.42857142857143);
     }
 }
