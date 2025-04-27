@@ -41,7 +41,7 @@ impl Method {
     }
 
     pub fn update_form(&mut self) {
-        // self.form = self.reference.builder().form(&self.parameters);
+        self.form = crate::get_runner(&self.id).form(&self.parameters);
     }
 }
 
