@@ -43,7 +43,7 @@ impl Reference for CIBSEGuideE {
     }
 
     fn harvard_reference(&self) -> String {
-        "CIBSE (Chartered Institution of Building Services Engineers). (2019). CIBSE Guide E: Fire Safety Engineering. 4th edn. London: CIBSE.".to_string()
+        "CIBSE (Chartered Institution of Building Services Engineers). 2019. CIBSE Guide E: Fire Safety Engineering. 4th edn. London: CIBSE.".to_string()
     }
 
     fn about_document(&self) -> String {
