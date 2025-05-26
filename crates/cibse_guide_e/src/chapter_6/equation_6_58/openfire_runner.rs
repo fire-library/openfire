@@ -50,10 +50,7 @@ impl MethodRunner for Chapter6Equation58Runner {
         vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some(
-            "Ventilation-controlled rate of burning for cellulosic fires"
-                .to_string(),
-        )
+        Some("Ventilation-controlled rate of burning for cellulosic fires".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let r = params.get(SYMBOLS.r);
@@ -177,7 +174,14 @@ impl MethodRunner for Chapter6Equation58Runner {
                 d.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(r.symbol(), a_t.display_value(), a_o.display_value(), h_o.display_value(), w.display_value(), d.display_value()),
+                super::equation(
+                    r.symbol(),
+                    a_t.display_value(),
+                    a_o.display_value(),
+                    h_o.display_value(),
+                    w.display_value(),
+                    d.display_value(),
+                ),
                 r.clone(),
             )]],
         };

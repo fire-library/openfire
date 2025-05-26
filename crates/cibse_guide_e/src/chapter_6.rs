@@ -1,5 +1,5 @@
-pub mod equation_6_7;
 pub mod equation_6_58;
+pub mod equation_6_7;
 
 use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;

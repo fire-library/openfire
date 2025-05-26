@@ -11,15 +11,15 @@ pub fn test() -> Test {
             id: super::super::Chapter6Equation58Runner.id(),
             parameters: vec![
                 SavedParameter {
-                    name: "A_t".to_string(),
+                    name: "A_{t}".to_string(),
                     value: Some(Float(45.0)),
                 },
                 SavedParameter {
-                    name: "A_o".to_string(),
+                    name: "A_{o}".to_string(),
                     value: Some(Float(2.1)),
                 },
                 SavedParameter {
-                    name: "h_o".to_string(),
+                    name: "h_{o}".to_string(),
                     value: Some(Float(2.1)),
                 },
                 SavedParameter {
@@ -32,7 +32,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("R".to_string(), 0.197903622836789)],
+        assertions: vec![Assertion::FloatEqual("R".to_string(), 0.1979036228367894)],
     }
 }
 
