@@ -37,9 +37,9 @@ const SYMBOLS: Symbols = Symbols {
 };
 
 #[derive(Default)]
-pub struct Chapter6Equation7Runner;
+pub struct Chapter6Equation58Runner;
 
-impl MethodRunner for Chapter6Equation7Runner {
+impl MethodRunner for Chapter6Equation58Runner {
     fn name(&self) -> String {
         "Ventilation-controlled rate of burning".to_string()
     }
