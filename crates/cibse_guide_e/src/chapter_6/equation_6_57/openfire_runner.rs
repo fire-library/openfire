@@ -32,7 +32,6 @@ const SYMBOLS: Symbols = Symbols {
     h_o: "h_{o}",
 };
 
-
 #[derive(Default)]
 pub struct Chapter6Equation57Runner;
 
@@ -107,7 +106,6 @@ impl MethodRunner for Chapter6Equation57Runner {
             .required()
             .build();
 
-
         params.add(z_fo);
         params.add(r);
         params.add(w);
@@ -137,7 +135,8 @@ impl MethodRunner for Chapter6Equation57Runner {
             nomenclature: nomenclature,
             input: step.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
-            process: vec![vec![CalculationComponent::Equation(super::equation(z_fo.symbol(),
+            process: vec![vec![CalculationComponent::Equation(super::equation(
+                z_fo.symbol(),
                 r.symbol(),
                 w.symbol(),
                 h_o.symbol(),
