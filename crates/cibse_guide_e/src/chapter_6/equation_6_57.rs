@@ -14,7 +14,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let result = heightofflame_aboveopening(0.2, 3.0, 2.1);
-        assert_eq!(result, 2.27753842349235);
+        let result = heightofflame_aboveopening(0.2, 1.0, 2.1);
+        assert_eq!(result, 2.2775384234923455);
     }
 }

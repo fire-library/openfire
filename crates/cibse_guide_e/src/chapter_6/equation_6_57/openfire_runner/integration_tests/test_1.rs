@@ -26,7 +26,7 @@ pub fn test() -> Test {
         },
         assertions: vec![Assertion::FloatEqual(
             "z_{fo}".to_string(),
-            2.27753842349235,
+            2.2775384234923455,
         )],
     }
 }
