@@ -49,7 +49,7 @@ impl MethodRunner for Chapter6Equation57Runner {
         Some("Height of the flame projection above the top of the opening".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let z_fo = params.get(SYMBOLS.r);
+        let z_fo = params.get(SYMBOLS.z_fo);
         Some(vec![z_fo])
     }
 
@@ -165,10 +165,10 @@ impl MethodRunner for Chapter6Equation57Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
+        let z_fo = method.parameters.get(SYMBOLS.z_fo);
         let r = method.parameters.get(SYMBOLS.r).as_float();
         let w = method.parameters.get(SYMBOLS.w).as_float();
         let h_o = method.parameters.get(SYMBOLS.h_o).as_float();
-        let z_fo = method.parameters.get(SYMBOLS.z_fo);
 
         let result = super::heightofflame_aboveopening(r, w, h_o);
         z_fo.update(Some(result.to_string()))?;
