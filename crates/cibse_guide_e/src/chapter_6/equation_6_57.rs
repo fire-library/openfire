@@ -1,0 +1,23 @@
+pub mod openfire_runner;
+
+pub fn heightofflame_aboveopening(r: f64, w: f64, h_o: f64) -> f64 {
+    return 12.8 * (r/w).powf(2.0/3.0) - h_o;
+}
+
+pub fn equation(z_fo: String, r: String, w: String, h_o: String) -> String {
+    format!(
+        "{} = 12.8 ({} / {})^(2/3) - {}",
+        z_fo, r, w, h_o,
+    )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        let result = heightofflame_aboveopening(0.2, 3.0, 2.1);
+        assert_eq!(result,2.27753842349235 );
+    }
+}
