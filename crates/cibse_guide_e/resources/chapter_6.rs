@@ -1,40 +1,48 @@
 pub mod equation_6_7;
+pub mod equation_6_58;
 
-use openfire::serde::{Deserialize, Serialize};
-use openfire::specta::Type;
+use framework::serde::{Deserialize, Serialize};
+use framework::specta::Type;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
-pub enum Chapter10Method {
+pub enum Chapter6Method {
     Equation6_7,
+    Equation6_58,
 }
 
-impl Chapter10Method {
+impl Chapter6Method {
     pub fn id(&self) -> String {
         match self {
-            &Chapter10Method::Equation10_1 => "equation_6_7".to_string(),
+            Chapter6Method::Equation6_7 => "equation_6_7".to_string(),
+            Chapter6Method::Equation6_58 => "equation_6_58".to_string(),
         }
     }
 
     pub fn friendly_reference(&self) -> String {
         match self {
-            &Chapter10Method::Equation10_1 => {
-                format!("Ch. 6 | Eq. 6.7")
-            }
+            Chapter6Method::Equation6_7 => format!("Ch. 6 | Eq. 6.7"),
+            Chapter6Method::Equation6_58 => format!("Ch. 6 | Eq. 6.58"),
         }
     }
 
     pub fn about_method(&self) -> String {
         match self {
-            &Chapter6Method::Equation6_7 => {
+            Chapter6Method::Equation6_7 => {
                 include_str!("../resources/chapter_6/equation_6_7/description.md").to_string()
+            }
+            Chapter6Method::Equation6_58 => {
+                include_str!("../resources/chapter_6/equation_6_58/description.md").to_string()
             }
         }
     }
 
     pub fn method_limitations(&self) -> String {
         match self {
-            &Chapter6Method::Equation6_7 => {
+            Chapter6Method::Equation6_7 => {
                 include_str!("../resources/chapter_6/equation_6_7/limitations.md").to_string()
+            }
+            Chapter6Method::Equation6_58 => {
+                include_str!("../resources/chapter_6/equation_6_58/limitations.md").to_string()
             }
         }
     }
