@@ -40,7 +40,7 @@ impl MethodRunner for Chapter6Equation57Runner {
         "Height of the flame above the top of the opening".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_57)
+        &CIBSEGuideE::ChapterSix(crate::chapter_6::Chapter6Method::Equation6_57)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::HRR, Tag::FireDynamics]
@@ -127,13 +127,13 @@ impl MethodRunner for Chapter6Equation57Runner {
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let step = vec![r.clone(), w.clone(), h_o.clone()];
-        let nomenclature = step.clone();
+        let input = vec![r.clone(), w.clone(), h_o.clone()];
+        let nomenclature = input.clone();
 
         let step = Step {
             name: "Height of flame above opening | Eq. 6.57".to_string(),
             nomenclature: nomenclature,
-            input: step.clone().into_iter().map(|p| p.into()).collect(),
+            input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
                 z_fo.symbol(),
@@ -170,7 +170,7 @@ impl MethodRunner for Chapter6Equation57Runner {
         let w = method.parameters.get(SYMBOLS.w).as_float();
         let h_o = method.parameters.get(SYMBOLS.h_o).as_float();
 
-        let result = super::heightofflame_aboveopening(r, w, h_o);
+        let result = super::height_of_flame_aboveopening(r, w, h_o);
         z_fo.update(Some(result.to_string()))?;
 
         Ok(())

@@ -44,7 +44,7 @@ impl MethodRunner for Chapter6Equation58Runner {
         "Ventilation-controlled rate of burning".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_58)
+        &CIBSEGuideE::ChapterSix(crate::chapter_6::Chapter6Method::Equation6_58)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::HRR, Tag::FireDynamics]
@@ -156,14 +156,14 @@ impl MethodRunner for Chapter6Equation58Runner {
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let step = vec![a_t.clone(), a_o.clone(), h_o.clone(), w.clone(), d.clone()];
-        let mut nomenclature = step.clone();
+        let input = vec![a_t.clone(), a_o.clone(), h_o.clone(), w.clone(), d.clone()];
+        let mut nomenclature = input.clone();
         nomenclature.push(r.clone());
 
         let step = Step {
             name: "Ventilation-controlled rate of burning | Eq. 6.58".to_string(),
             nomenclature: nomenclature,
-            input: step.clone().into_iter().map(|p| p.into()).collect(),
+            input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
                 r.symbol(),
@@ -206,7 +206,7 @@ impl MethodRunner for Chapter6Equation58Runner {
         let w = method.parameters.get(SYMBOLS.w).as_float();
         let d = method.parameters.get(SYMBOLS.d).as_float();
 
-        let result = super::ventcontrolled_rate_of_burning(a_t, a_o, h_o, w, d);
+        let result = super::vent_controlled_rate_of_burning(a_t, a_o, h_o, w, d);
         r.update(Some(result.to_string()))?;
 
         Ok(())

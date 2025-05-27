@@ -38,7 +38,7 @@ impl MethodRunner for Chapter6Equation7Runner {
         "Heat Release Rate required for flashover".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_7)
+        &CIBSEGuideE::ChapterSix(crate::chapter_6::Chapter6Method::Equation6_7)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::HRR, Tag::FireDynamics]
