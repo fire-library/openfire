@@ -70,36 +70,20 @@ impl MethodRunner for Chapter6Equation57Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let z_fo = ParamBuilder::float(SYMBOLS.z_fo)
-            .name("Flame height above the top of the opening")
+        let z_f = ParamBuilder::float(SYMBOLS.z_f)
+            .name("Mean flame height")
             .units("m")
             .build();
 
-        let r = ParamBuilder::float(SYMBOLS.r)
-            .name("Rate of fuel combustion")
-            .units("kg/s")
+        let q_t = ParamBuilder::float(SYMBOLS.q_t)
+            .name("Total heat output of the fire")
+            .units("kW")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let h_o = ParamBuilder::float(SYMBOLS.h_o)
-            .name("Height of the opening")
-            .units("m")
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        let w = ParamBuilder::float(SYMBOLS.w)
-            .name("Width of the compartment opening")
-            .units("m")
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        params.add(z_fo);
-        params.add(r);
-        params.add(w);
-        params.add(h_o);
+        params.add(z_f);
+        params.add(q_t);
 
         return params;
     }
@@ -109,36 +93,30 @@ impl MethodRunner for Chapter6Equation57Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let z_fo = params.get(SYMBOLS.z_fo);
-        let r = params.get(SYMBOLS.r);
-        let w = params.get(SYMBOLS.w);
-        let h_o = params.get(SYMBOLS.h_o);
+        let z_f = params.get(SYMBOLS.z_f);
+        let q_t = params.get(SYMBOLS.q_t);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let input = vec![r.clone(), w.clone(), h_o.clone()];
+        let input = vec![q_t.clone()];
         let nomenclature = input.clone();
 
         let step = Step {
-            name: "Height of flame above opening | Eq. 6.57".to_string(),
+            name: "Height of flame | Eq. 6.55".to_string(),
             nomenclature: nomenclature,
             input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
-                z_fo.symbol(),
-                r.symbol(),
-                w.symbol(),
-                h_o.symbol(),
+                z_f.symbol(),
+                q_t.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
                 super::equation(
-                    z_fo.symbol(),
-                    r.display_value(),
-                    w.display_value(),
-                    h_o.display_value(),
+                    z_f.symbol(),
+                    q_t.display_value(),
                 ),
-                z_fo.clone(),
+                z_f.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -155,13 +133,11 @@ impl MethodRunner for Chapter6Equation57Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let z_fo = method.parameters.get(SYMBOLS.z_fo);
-        let r = method.parameters.get(SYMBOLS.r).as_float();
-        let w = method.parameters.get(SYMBOLS.w).as_float();
-        let h_o = method.parameters.get(SYMBOLS.h_o).as_float();
+        let z_f = method.parameters.get(SYMBOLS.z_f);
+        let q_t = method.parameters.get(SYMBOLS.q_t).as_float();
 
-        let result = super::height_of_flame_aboveopening(r, w, h_o);
-        z_fo.update(Some(result.to_string()))?;
+        let result = super::mean_flame_height(q_t);
+        z_f.update(Some(result.to_string()))?;
 
         Ok(())
     }
