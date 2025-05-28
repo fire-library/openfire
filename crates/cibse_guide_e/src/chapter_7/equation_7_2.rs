@@ -1,11 +1,12 @@
 pub mod openfire_runner;
 
-pub fn stair_capacity(w: f64, n: i8) -> i8 {
-    return 200 * w + 50*(w - 0.3) * (n - 1);
+pub fn stair_capacity(w: f64, n: f64) -> f64 {
+    let result: f64 =  200.0 * w + 50.0 *(w - 0.3) * (n - 1.0);
+    return result.floor();
 }
 
-pub fn equation(q_f: String, a_vo: String, h_o: String) -> String {
-    format!("{} = 600 \\cdot {} \\sqrt {{{}}}", q_f, a_vo, h_o,)
+pub fn equation(p: String, w: String, n: String) -> String {
+    format!("{} = 200 \\cdot {} + 50 \\cdot ({} - 0.3) \\cdot ({} - 1)", p, w, w, n)
 }
 
 #[cfg(test)]
@@ -13,8 +14,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test() {
-        let result = heat_release_rate_flashover(2.0, 2.1);
-        assert_eq!(result, 1738.9652095427327);
+a_vo, h_    fn test() {
+        let result = stair_capacity(1.2, 6);
+        assert_eq!(result, 465.0);
     }
 }
