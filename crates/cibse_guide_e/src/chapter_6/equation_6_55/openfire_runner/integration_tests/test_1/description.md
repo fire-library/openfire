@@ -1,2 +1,2 @@
 This test verifies the result for the implementation
-of equation 6.57.
+of equation 6.55.

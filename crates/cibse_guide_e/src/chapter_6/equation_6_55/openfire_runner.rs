@@ -29,9 +29,9 @@ const SYMBOLS: Symbols = Symbols {
 };
 
 #[derive(Default)]
-pub struct Chapter6Equation57Runner;
+pub struct Chapter6Equation55Runner;
 
-impl MethodRunner for Chapter6Equation57Runner {
+impl MethodRunner for Chapter6Equation55Runner {
     fn name(&self) -> String {
         "Mean flame height of luminous flames".to_string()
     }
