@@ -19,59 +19,59 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    q_f: &'static str,
-    a_vo: &'static str,
-    h_o: &'static str,
+    p: &'static str,
+    w: &'static str,
+    n: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
-    q_f: "Q_f",
-    a_vo: "A_{vo}",
-    h_o: "h_o",
+    p: "P",
+    w: "w",
+    n: "n",
 };
 
 #[derive(Default)]
-pub struct Chapter6Equation7Runner;
+pub struct Chapter7Equation2Runner;
 
-impl MethodRunner for Chapter6Equation7Runner {
+impl MethodRunner for Chapter7Equation2Runner {
     fn name(&self) -> String {
-        "Heat Release Rate required for flashover".to_string()
+        "Capacity of a stair for simultaneous evacuation".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::Chaptersix(crate::chapter_6::Chapter6Method::Equation6_7)
+        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_2)
     }
     fn tags(&self) -> Vec<Tag> {
-        vec![Tag::HRR, Tag::FireDynamics]
+        vec![Tag::Evacuation]
     }
     fn description(&self) -> Option<String> {
         Some(
-            "Heat Release Rate required for flashover. Most simple expression from SFPE Handbook"
+            "Capacit of a stair for simulataneous evacuation, subject to minimum stair widths"
                 .to_string(),
         )
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let q_f = params.get(SYMBOLS.q_f);
+        let p = params.get(SYMBOLS.p);
 
-        Some(vec![q_f])
+        Some(vec![p])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let q_f = params.get(SYMBOLS.q_f);
-        let a_vo = params.get(SYMBOLS.a_vo);
-        let h_o = params.get(SYMBOLS.h_o);
+        let p = params.get(SYMBOLS.p);
+        let w = params.get(SYMBOLS.w);
+        let n = params.get(SYMBOLS.n);
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 6.7",
-            "Calculate the HRR required for flashover",
+            "Input | Eq. 7.2",
+            "Calculate the capacity of a stair",
         );
-        step_1.add_field(a_vo.to_field());
-        step_1.add_field(h_o.to_field());
+        step_1.add_field(w.to_field());
+        step_1.add_field(n.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation(
-            q_f.symbol(),
-            a_vo.symbol(),
-            h_o.symbol(),
+            p.symbol(),
+            w.symbol(),
+            n.symbol(),
         )));
 
         Form::new(vec![step_1])
@@ -79,28 +79,27 @@ impl MethodRunner for Chapter6Equation7Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let q_f = ParamBuilder::float(&SYMBOLS.q_f)
-            .name("HRR required for flashover")
-            .units("kW")
+        let p = ParamBuilder::float(&SYMBOLS.p)
+            .name("Number of people that can be served by a stair")
+            .units("persons")
             .build();
 
-        let a_vo = ParamBuilder::float(SYMBOLS.a_vo)
-            .name("Area of the opening to the compartment")
-            .units("m^2")
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        let h_o = ParamBuilder::float(SYMBOLS.h_o)
-            .name("Height of the opening")
+        let w = ParamBuilder::float(SYMBOLS.w)
+            .name("Width of the stair")
             .units("m")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        params.add(q_f);
-        params.add(a_vo);
-        params.add(h_o);
+        let n = ParamBuilder::float(SYMBOLS.n)
+            .name("Number of storeys served")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        params.add(p);
+        params.add(w);
+        params.add(n);
 
         return params;
     }
@@ -110,30 +109,30 @@ impl MethodRunner for Chapter6Equation7Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let q_f = params.get(SYMBOLS.q_f);
-        let a_vo = params.get(SYMBOLS.a_vo);
-        let h_o = params.get(SYMBOLS.h_o);
+        let p = params.get(SYMBOLS.p);
+        let w = params.get(SYMBOLS.w);
+        let n = params.get(SYMBOLS.n);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let step = vec![a_vo.clone(), h_o.clone()];
-        let mut nomenclature = step.clone();
-        nomenclature.push(q_f.clone());
+        let input = vec![w.clone(), n.clone()];
+        let mut nomenclature = input.clone();
+        nomenclature.push(p.clone());
 
         let step = Step {
-            name: "HRR at flashover | Eq. 6.7".to_string(),
+            name: "Capacity of a stair  | Eq. 7.2".to_string(),
             nomenclature: nomenclature,
-            input: step.clone().into_iter().map(|p| p.into()).collect(),
+            input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
-                q_f.symbol(),
-                a_vo.symbol(),
-                h_o.symbol(),
+                p.symbol(),
+                w.symbol(),
+                n.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(q_f.symbol(), a_vo.display_value(), h_o.display_value()),
-                q_f.clone(),
+                super::equation(p.symbol(), w.display_value(), n.display_value()),
+                p.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -150,12 +149,12 @@ impl MethodRunner for Chapter6Equation7Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let q_f = method.parameters.get(SYMBOLS.q_f);
-        let a_vo = method.parameters.get(SYMBOLS.a_vo).as_float();
-        let h_o = method.parameters.get(SYMBOLS.h_o).as_float();
+        let p = method.parameters.get(SYMBOLS.p);
+        let w = method.parameters.get(SYMBOLS.w).as_float();
+        let n = method.parameters.get(SYMBOLS.n).as_float();
 
-        let result = super::heat_release_rate_flashover(a_vo, h_o);
-        q_f.update(Some(result.to_string()))?;
+        let result = super::stair_capacity(w, n);
+        p.update(Some(result.to_string()))?;
 
         return Ok(());
     }
