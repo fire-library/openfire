@@ -9,17 +9,12 @@ pub fn test() -> Test {
         description: include_str!("test_1/description.md").to_string(),
         input: SavedMethod {
             id: super::super::Chapter6Equation55Runner.id(),
-            parameters: vec![
-                SavedParameter {
-                    name: "Q_{t}".to_string(),
-                    value: Some(Float(1000.0)),
-                },
-            ],
+            parameters: vec![SavedParameter {
+                name: "Q_{t}".to_string(),
+                value: Some(Float(1000.0)),
+            }],
         },
-        assertions: vec![Assertion::FloatEqual(
-            "z_{f}".to_string(),
-            3.16978638492223,
-        )],
+        assertions: vec![Assertion::FloatEqual("z_{f}".to_string(), 3.16978638492223)],
     }
 }
 

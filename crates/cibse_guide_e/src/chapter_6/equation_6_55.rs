@@ -15,6 +15,6 @@ mod tests {
     #[test]
     fn test() {
         let result = mean_flame_height(1000.0);
-        assert_eq!(result, 3.16978638492223);
+        assert_eq!(result, 3.1697863849222276);
     }
 }

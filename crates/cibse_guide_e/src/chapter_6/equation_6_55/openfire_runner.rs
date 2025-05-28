@@ -112,10 +112,7 @@ impl MethodRunner for Chapter6Equation55Runner {
                 q_t.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(
-                    z_f.symbol(),
-                    q_t.display_value(),
-                ),
+                super::equation(z_f.symbol(), q_t.display_value()),
                 z_f.clone(),
             )]],
         };
