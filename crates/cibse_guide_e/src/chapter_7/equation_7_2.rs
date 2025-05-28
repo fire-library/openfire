@@ -14,8 +14,8 @@ mod tests {
     use super::*;
 
     #[test]
-a_vo, h_    fn test() {
-        let result = stair_capacity(1.2, 6);
+    fn test() {
+        let result = stair_capacity(1.2, 6.0);
         assert_eq!(result, 465.0);
     }
 }
