@@ -16,7 +16,7 @@ pub fn test() -> Test {
                 },
                 SavedParameter {
                     name: "n".to_string(),
-                    value: Some(Float(6.0)),
+                    value: Some(Float(6)),
                 },
             ],
         },

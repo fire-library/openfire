@@ -148,7 +148,7 @@ impl MethodRunner for Chapter7Equation2Runner {
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
         let p = method.parameters.get(SYMBOLS.p);
         let w = method.parameters.get(SYMBOLS.w).as_float();
-        let n = method.parameters.get(SYMBOLS.n).as_float();
+        let n = method.parameters.get(SYMBOLS.n).as_integer();
 
         let result = super::stair_capacity(w, n);
         p.update(Some(result.to_string()))?;
