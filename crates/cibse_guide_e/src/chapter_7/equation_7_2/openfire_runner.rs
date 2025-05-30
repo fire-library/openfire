@@ -60,10 +60,7 @@ impl MethodRunner for Chapter7Equation2Runner {
         let w = params.get(SYMBOLS.w);
         let n = params.get(SYMBOLS.n);
 
-        let mut step_1 = FormStep::new(
-            "Input | Eq. 7.2",
-            "Calculate the capacity of a stair",
-        );
+        let mut step_1 = FormStep::new("Input | Eq. 7.2", "Calculate the capacity of a stair");
         step_1.add_field(w.to_field());
         step_1.add_field(n.to_field());
 
