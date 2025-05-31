@@ -39,7 +39,8 @@ impl Chapter6Method {
                 include_str!("../resources/chapter_6/equation_6_7/description.md").to_string()
             }
             Chapter6Method::Equation6_55and6_56 => {
-                include_str!("../resources/chapter_6/equation_6_55_and_6_56/description.md").to_string()
+                include_str!("../resources/chapter_6/equation_6_55_and_6_56/description.md")
+                    .to_string()
             }
             Chapter6Method::Equation6_57 => {
                 include_str!("../resources/chapter_6/equation_6_57/description.md").to_string()
@@ -56,7 +57,8 @@ impl Chapter6Method {
                 include_str!("../resources/chapter_6/equation_6_7/limitations.md").to_string()
             }
             Chapter6Method::Equation6_55and6_56 => {
-                include_str!("../resources/chapter_6/equation_6_55_and_6_56/limitations.md").to_string()
+                include_str!("../resources/chapter_6/equation_6_55_and_6_56/limitations.md")
+                    .to_string()
             }
             Chapter6Method::Equation6_57 => {
                 include_str!("../resources/chapter_6/equation_6_57/limitations.md").to_string()

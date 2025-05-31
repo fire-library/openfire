@@ -100,7 +100,7 @@ pub fn register_runners() {
         cibse_guide_e::chapter_6::equation_6_7::openfire_runner::Chapter6Equation7Runner,
     >();
     framework::register_runner::<
-        cibse_guide_e::chapter_6::equation_6_55_and_6_56::openfire_runner::Chapter6Equation55and56Runner.index_page(),
+        cibse_guide_e::chapter_6::equation_6_55_and_6_56::openfire_runner::Chapter6Equation55and56Runner,
     >();
     framework::register_runner::<
         cibse_guide_e::chapter_6::equation_6_57::openfire_runner::Chapter6Equation57Runner,
