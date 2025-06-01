@@ -1,8 +1,9 @@
 pub mod openfire_runner;
 
-pub fn stair_capacity(w: f64, n: f64) -> f64 {
-    let result: f64 = 200.0 * w + 50.0 * (w - 0.3) * (n - 1.0);
-    return result.floor();
+pub fn stair_capacity(w: f64, n: i32) -> i32 {
+    let result: f64 = 200.0 * w + 50.0 * (w - 0.3) * (n as f64 - 1.0);
+    return result.floor() as i32;
+
 }
 
 pub fn equation(p: String, w: String, n: String) -> String {
@@ -18,7 +19,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let result = stair_capacity(1.2, 6.0);
-        assert_eq!(result, 465.0);
+        let result = stair_capacity(1.2, 6);
+        assert_eq!(result, 465);
     }
 }

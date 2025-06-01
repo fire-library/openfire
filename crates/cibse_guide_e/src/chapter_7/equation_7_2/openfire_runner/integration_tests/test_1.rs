@@ -1,5 +1,6 @@
 use framework::filesystem::saved_method::{SavedMethod, SavedParameter};
 use framework::method::parameter::ParameterValue::Float;
+use framework::method::parameter::ParameterValue::Integer;
 use framework::method::runner::MethodRunner;
 use framework::method::test::{Assertion, Test};
 
@@ -16,11 +17,11 @@ pub fn test() -> Test {
                 },
                 SavedParameter {
                     name: "n".to_string(),
-                    value: Some(Float(6.0)),
+                    value: Some(Integer(6)),
                 },
             ],
         },
-        assertions: vec![Assertion::FloatEqual("P".to_string(), 465.0)],
+        assertions: vec![Assertion::IntegerEqual("P".to_string(), 465)],
     }
 }
 

@@ -45,7 +45,7 @@ impl MethodRunner for Chapter7Equation2Runner {
     }
     fn description(&self) -> Option<String> {
         Some(
-            "Capacit of a stair for simulataneous evacuation, subject to minimum stair widths"
+            "Capacity of a stair for simulataneous evacuation, subject to minimum stair widths"
                 .to_string(),
         )
     }
@@ -88,7 +88,7 @@ impl MethodRunner for Chapter7Equation2Runner {
             .required()
             .build();
 
-        let n = ParamBuilder::float(SYMBOLS.n)
+        let n = ParamBuilder::integer(SYMBOLS.n)
             .name("Number of storeys served")
             .min_exclusive(0.0)
             .required()
@@ -148,7 +148,7 @@ impl MethodRunner for Chapter7Equation2Runner {
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
         let p = method.parameters.get(SYMBOLS.p);
         let w = method.parameters.get(SYMBOLS.w).as_float();
-        let n = method.parameters.get(SYMBOLS.n).as_float();
+        let n = method.parameters.get(SYMBOLS.n).as_integer();
 
         let result = super::stair_capacity(w, n);
         p.update(Some(result.to_string()))?;
