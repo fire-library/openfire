@@ -7,6 +7,7 @@ use super::{ArcParameter, Parameter, ParameterValue, object::Object};
 pub enum ParameterType {
     String(Parameter<String>),
     Float(Parameter<f64>),
+    Integer(Parameter<i32>),
     OutputFloat(Parameter<f64>),
     Bool(Parameter<bool>),
     Object(Parameter<Object>),
