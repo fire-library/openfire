@@ -85,7 +85,6 @@ impl MethodRunner for HRRAtFlashoverBuilder {
             .units("kW")
             .build();
 
-        params.add(integer);
         params.add(a_t);
         params.add(a_v);
         params.add(h_v);
