@@ -69,13 +69,6 @@ impl MethodRunner for HRRAtFlashoverBuilder {
             .required()
             .build();
 
-        let integer = ParamBuilder::integer("I_{32}")
-            .name("An integer that I am testing")
-            .units("m")
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
         let h_k = ParamBuilder::float("h_k")
             .name("Effective heat transfer coefficient of the enclosure")
             .units("kW m^{-2} K^{-1}")
