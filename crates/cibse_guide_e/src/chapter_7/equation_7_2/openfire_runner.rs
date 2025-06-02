@@ -76,7 +76,7 @@ impl MethodRunner for Chapter7Equation2Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let p = ParamBuilder::float(&SYMBOLS.p)
+        let p = ParamBuilder::integer(&SYMBOLS.p)
             .name("Number of people that can be served by a stair")
             .units("persons")
             .build();
