@@ -10,6 +10,7 @@ use super::{
 
 #[derive(Clone, Serialize, Deserialize, Debug, Type)]
 pub enum Assertion {
+    IntegerEqual(String, i32),
     FloatEqual(String, f64),
     StringEqual(String, String),
 }
@@ -49,6 +50,13 @@ pub fn run_test(test: Test) -> Result<Vec<AssertionResult>, Vec<ParameterError>>
     let mut results = Vec::new();
     for assertion in test.assertions {
         match assertion {
+            Assertion::IntegerEqual(symbol, value) => {
+                let parameter = method.parameters.get(&symbol);
+                results.push(AssertionResult::Equal(
+                    parameter.clone(),
+                    ((parameter.as_integer() - value).abs()) == 0,
+                ));
+            }
             Assertion::FloatEqual(symbol, value) => {
                 let parameter = method.parameters.get(&symbol);
                 results.push(AssertionResult::Equal(

@@ -3,7 +3,6 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
-#[serde(untagged)]
 pub enum ParameterValue {
     String(String),
     Float(f64),
