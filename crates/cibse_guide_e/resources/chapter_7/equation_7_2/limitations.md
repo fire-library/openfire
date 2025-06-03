@@ -1,5 +1,5 @@
 Eq. 7.2 is based on British guidance. The calculation
-is subjec to minimum stair widths (w) which are a function
+is subject to minimum stair widths (w) which are a function
 of the occupancy type.
 
 The capacity of a stair is dependent on the rate at which people
