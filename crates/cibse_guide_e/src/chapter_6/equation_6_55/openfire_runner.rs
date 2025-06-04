@@ -42,7 +42,7 @@ impl MethodRunner for Chapter6Equation55Runner {
         vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some("Mean flame height of luminous flames fires away from walls".to_string())
+        Some("Mean flame height of fires away from walls".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let z_f = params.get(SYMBOLS.z_f);
