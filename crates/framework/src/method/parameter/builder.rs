@@ -15,6 +15,7 @@ use super::object::Object;
 
 pub enum ParamBuilder {
     Float(ParameterBuilder<f64>),
+    Integer(ParameterBuilder<i32>),
     OutputFloat(ParameterBuilder<f64>),
     String(ParameterBuilder<String>),
     StringEnum(ParameterBuilder<String>, Vec<String>),
@@ -40,6 +41,17 @@ impl ParamBuilder {
             validations: vec![],
             value: None,
             display_options: vec![DisplayOptions::DecimalPlaces(2)],
+        })
+    }
+
+    pub fn integer(symbol: &str) -> Self {
+        ParamBuilder::Integer(ParameterBuilder::<i32> {
+            symbol: symbol.to_string(),
+            name: None,
+            units: None,
+            validations: vec![],
+            value: None,
+            display_options: vec![],
         })
     }
 
@@ -103,6 +115,10 @@ impl ParamBuilder {
 
     pub fn name(self, name: &str) -> Self {
         match self {
+            ParamBuilder::Integer(mut builder) => {
+                builder.name = Some(name.to_string());
+                ParamBuilder::Integer(builder)
+            }
             ParamBuilder::Float(mut builder) => {
                 builder.name = Some(name.to_string());
                 ParamBuilder::Float(builder)
@@ -136,6 +152,10 @@ impl ParamBuilder {
                 builder.units = Some(units.to_string());
                 ParamBuilder::Float(builder)
             }
+            ParamBuilder::Integer(mut builder) => {
+                builder.units = Some(units.to_string());
+                ParamBuilder::Integer(builder)
+            }
             ParamBuilder::OutputFloat(mut builder) => {
                 builder.units = Some(units.to_string());
                 ParamBuilder::OutputFloat(builder)
@@ -161,6 +181,13 @@ impl ParamBuilder {
                     _ => panic!("Invalid value type"),
                 });
                 ParamBuilder::Float(builder)
+            }
+            ParamBuilder::Integer(mut builder) => {
+                builder.value = value.map(|v| match v {
+                    ParameterValue::Integer(f) => f,
+                    _ => panic!("Invalid value type"),
+                });
+                ParamBuilder::Integer(builder)
             }
             ParamBuilder::OutputFloat(mut builder) => {
                 builder.value = value.map(|v| match v {
@@ -219,6 +246,7 @@ impl ParamBuilder {
                     .push(DisplayOptions::DecimalPlaces(decimal_places));
                 ParamBuilder::OutputFloat(builder)
             }
+            ParamBuilder::Integer(_) => panic!("Invalid display option for an integer"),
             ParamBuilder::StringEnum(_, _) => panic!("Invalid display option for a string enum"),
             ParamBuilder::String(_) => panic!("Invalid display option for a string"),
             ParamBuilder::Object(_) => panic!("An object cannot have display options"),
@@ -231,6 +259,10 @@ impl ParamBuilder {
             ParamBuilder::Float(mut builder) => {
                 builder.validations.push(Validation::Required);
                 ParamBuilder::Float(builder)
+            }
+            ParamBuilder::Integer(mut builder) => {
+                builder.validations.push(Validation::Required);
+                ParamBuilder::Integer(builder)
             }
             ParamBuilder::OutputFloat(mut builder) => {
                 builder.validations.push(Validation::Required);
@@ -275,6 +307,10 @@ impl ParamBuilder {
                 builder.validations.push(Validation::Min(min));
                 ParamBuilder::Float(builder)
             }
+            ParamBuilder::Integer(mut builder) => {
+                builder.validations.push(Validation::Min(min));
+                ParamBuilder::Integer(builder)
+            }
             ParamBuilder::OutputFloat(mut builder) => {
                 builder.validations.push(Validation::Min(min));
                 ParamBuilder::OutputFloat(builder)
@@ -295,6 +331,14 @@ impl ParamBuilder {
                         parameter.clone(),
                     )));
                 ParamBuilder::Float(builder)
+            }
+            ParamBuilder::Integer(mut builder) => {
+                builder
+                    .validations
+                    .push(Validation::Relation(Comparison::LessThanOrEqual(
+                        parameter.clone(),
+                    )));
+                ParamBuilder::Integer(builder)
             }
             ParamBuilder::OutputFloat(mut builder) => {
                 builder
@@ -317,6 +361,10 @@ impl ParamBuilder {
                 builder.validations.push(Validation::MinExclusive(min));
                 ParamBuilder::Float(builder)
             }
+            ParamBuilder::Integer(mut builder) => {
+                builder.validations.push(Validation::MinExclusive(min));
+                ParamBuilder::Integer(builder)
+            }
             ParamBuilder::OutputFloat(mut builder) => {
                 builder.validations.push(Validation::MinExclusive(min));
                 ParamBuilder::OutputFloat(builder)
@@ -333,6 +381,10 @@ impl ParamBuilder {
             ParamBuilder::Float(mut builder) => {
                 builder.validations.push(Validation::Max(max));
                 ParamBuilder::Float(builder)
+            }
+            ParamBuilder::Integer(mut builder) => {
+                builder.validations.push(Validation::Max(max));
+                ParamBuilder::Integer(builder)
             }
             ParamBuilder::OutputFloat(mut builder) => {
                 builder.validations.push(Validation::Max(max));
@@ -352,6 +404,15 @@ impl ParamBuilder {
     pub fn build_raw(self) -> ParameterType {
         match self {
             ParamBuilder::Float(p) => ParameterType::Float(Parameter::<f64> {
+                name: p.name.unwrap(),
+                id: Uuid::new_v4().to_string(),
+                symbol: p.symbol,
+                units: p.units,
+                validations: p.validations,
+                value: p.value,
+                display_options: p.display_options,
+            }),
+            ParamBuilder::Integer(p) => ParameterType::Integer(Parameter::<i32> {
                 name: p.name.unwrap(),
                 id: Uuid::new_v4().to_string(),
                 symbol: p.symbol,

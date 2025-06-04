@@ -61,11 +61,17 @@ impl TryFrom<SavedMethod> for Method {
                 (ParameterType::Float(float), Some(ParameterValue::Float(saved))) => {
                     float.value = Some(saved);
                 }
+                (ParameterType::Integer(integer), Some(ParameterValue::Integer(saved))) => {
+                    integer.value = Some(saved);
+                }
                 (ParameterType::String(string), Some(ParameterValue::String(saved))) => {
                     string.value = Some(saved);
                 }
                 (ParameterType::Float(float), None) => {
                     float.value = None;
+                }
+                (ParameterType::Integer(integer), None) => {
+                    integer.value = None;
                 }
                 (ParameterType::String(string), None) => {
                     string.value = None;

@@ -321,6 +321,153 @@ impl Parameter<bool> {
     }
 }
 
+impl Parameter<i32> {
+    pub fn validate(&self) -> Result<(), ParameterError> {
+        for validation in &self.validations {
+            match validation {
+                Validation::Required => match &self.value {
+                    Some(_value) => {}
+                    None => {
+                        return Err(ParameterError::new(
+                            &self.id,
+                            &self.symbol,
+                            "required".to_string(),
+                        ));
+                    }
+                },
+                Validation::Range(min, max) => match &self.value {
+                    Some(value) => {
+                        let int_as_float = *value as f64;
+                        if &int_as_float < min || &int_as_float > max {
+                            return Err(ParameterError::new(
+                                &self.id,
+                                &self.symbol,
+                                format!("must be between {} and {}", min, max),
+                            ));
+                        }
+                    }
+                    None => {}
+                },
+                Validation::Min(min) => match &self.value {
+                    Some(value) => {
+                        let int_as_float = *value as f64;
+                        if &int_as_float < min {
+                            return Err(ParameterError::new(
+                                &self.id,
+                                &self.symbol,
+                                format!("min: {}", min),
+                            ));
+                        }
+                    }
+                    None => {}
+                },
+                Validation::Max(max) => match &self.value {
+                    Some(value) => {
+                        let int_as_float = *value as f64;
+                        if &int_as_float > max {
+                            return Err(ParameterError::new(
+                                &self.id,
+                                &self.symbol,
+                                format!("max: {}", max),
+                            ));
+                        }
+                    }
+                    None => {}
+                },
+                Validation::MinExclusive(min) => match &self.value {
+                    Some(value) => {
+                        let int_as_float = *value as f64;
+                        if &int_as_float <= min {
+                            return Err(ParameterError::new(
+                                &self.id,
+                                &self.symbol,
+                                format!("must be greater than {}", min),
+                            ));
+                        }
+                    }
+                    None => {}
+                },
+                Validation::Relation(validation) => match &validation {
+                    Comparison::GreaterThanOrEqual(param) => {
+                        if let Some(value) = self.value {
+                            match &*param.read().unwrap() {
+                                ParameterType::Integer(param) => {
+                                    if let Some(param_value) = param.value {
+                                        if value < param_value {
+                                            return Err(ParameterError::new(
+                                                &self.id,
+                                                &self.symbol,
+                                                format!(
+                                                    "must be less than or equal to: {}",
+                                                    param.name
+                                                ),
+                                            ));
+                                        }
+                                    }
+                                }
+                                _ => {}
+                            }
+                        }
+                    }
+                    Comparison::Unique(params) => {
+                        if let Some(value) = self.value {
+                            for param in params {
+                                match &*param.read().unwrap() {
+                                    ParameterType::Integer(param) => {
+                                        if let Some(param_value) = param.value {
+                                            if value == param_value {
+                                                return Err(ParameterError::new(
+                                                    &self.id,
+                                                    &self.symbol,
+                                                    format!("must be unique"),
+                                                ));
+                                            }
+                                        }
+                                    }
+                                    _ => {
+                                        return Err(ParameterError::new(
+                                            &self.id,
+                                            &self.symbol,
+                                            format!(
+                                                "Parameter {} cannot be compared for uniqueness against {}",
+                                                self.symbol,
+                                                param.read().unwrap().symbol()
+                                            ),
+                                        ));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Comparison::LessThanOrEqual(param) => {
+                        if let Some(value) = self.value {
+                            match &*param.read().unwrap() {
+                                ParameterType::Integer(param) => {
+                                    if let Some(param_value) = param.value {
+                                        if value > param_value {
+                                            return Err(ParameterError::new(
+                                                &self.id,
+                                                &self.symbol,
+                                                format!(
+                                                    "must be less than or equal to: {}",
+                                                    param.name
+                                                ),
+                                            ));
+                                        }
+                                    }
+                                }
+                                _ => {}
+                            }
+                        }
+                    }
+                },
+                _ => {}
+            }
+        }
+        Ok(())
+    }
+}
+
 #[derive(Clone, Type, Serialize, Deserialize, Debug)]
 pub struct Parameters {
     params: HashMap<String, ArcParameter>,
@@ -363,6 +510,7 @@ impl ParameterType {
         match self {
             ParameterType::Float(p) => p.id.clone(),
             ParameterType::OutputFloat(p) => p.id.clone(),
+            ParameterType::Integer(p) => p.id.clone(),
             ParameterType::String(p) => p.id.clone(),
             ParameterType::Bool(p) => p.id.clone(),
             ParameterType::Object(p) => p.id.clone(),
@@ -376,6 +524,7 @@ impl ParameterType {
         match self {
             ParameterType::Float(p) => p.symbol.clone(),
             ParameterType::OutputFloat(p) => p.symbol.clone(),
+            ParameterType::Integer(p) => p.symbol.clone(),
             ParameterType::String(p) => p.symbol.clone(),
             ParameterType::Bool(p) => p.symbol.clone(),
             ParameterType::Object(p) => p.symbol.clone(),
@@ -391,6 +540,7 @@ pub trait ParameterTrait {
     fn to_field(&self) -> Option<ArcField>;
     fn to_field_list(&self, create_function: fn() -> ArcParameter) -> ArcField;
     fn as_float(&self) -> f64;
+    fn as_integer(&self) -> i32;
     fn as_string(&self) -> String;
     fn as_list(&self) -> Vec<ArcParameter>;
     fn as_object(&self) -> Object;
@@ -430,6 +580,7 @@ impl ParameterTrait for ArcParameter {
                 }
             }
             ParameterType::Float(parameter) => parameter.validate().map_err(|e| vec![e])?,
+            ParameterType::Integer(parameter) => parameter.validate().map_err(|e| vec![e])?,
             ParameterType::OutputFloat(parameter) => parameter.validate().map_err(|e| vec![e])?,
             ParameterType::String(parameter) => parameter.validate().map_err(|e| vec![e])?,
             ParameterType::Bool(parameter) => parameter.validate().map_err(|e| vec![e])?,
@@ -470,6 +621,18 @@ impl ParameterTrait for ArcParameter {
                 parameter: self.clone(),
                 create_type: None,
             })))),
+            ParameterType::Integer(p) => {
+                Some(Arc::new(RwLock::new(FieldType::Individual(Field {
+                    id: p.id.clone(),
+                    name: p.name.clone(),
+                    value: p.value.as_ref().map(|v| v.to_string()),
+                    symbol: p.symbol.clone(),
+                    units: p.units.clone(),
+                    touched: false,
+                    parameter: self.clone(),
+                    create_type: None,
+                }))))
+            }
             ParameterType::StringEnum(p, values) => {
                 Some(Arc::new(RwLock::new(FieldType::StringEnum(
                     Field {
@@ -551,6 +714,10 @@ impl ParameterTrait for ArcParameter {
                 let validations = get_validations(v.validations.clone());
                 v.validations = validations;
             }
+            ParameterType::Integer(v) => {
+                let validations = get_validations(v.validations.clone());
+                v.validations = validations;
+            }
             ParameterType::OutputFloat(v) => {
                 let validations = get_validations(v.validations.clone());
                 v.validations = validations;
@@ -614,6 +781,23 @@ impl ParameterTrait for ArcParameter {
                             &p.id,
                             &p.symbol,
                             "Invalid Number".to_string(),
+                        )]);
+                    }
+                } else {
+                    p.value = None
+                }
+            }
+            ParameterType::Integer(p) => {
+                if let Some(value) = value {
+                    if let Ok(value) = value.parse::<i32>() {
+                        p.value = Some(value);
+                    } else if value.is_empty() {
+                        p.value = None;
+                    } else {
+                        return Err(vec![ParameterError::new(
+                            &p.id,
+                            &p.symbol,
+                            "Invalid Integer".to_string(),
                         )]);
                     }
                 } else {
@@ -709,6 +893,17 @@ impl ParameterTrait for ArcParameter {
         }
     }
 
+    fn as_integer(&self) -> i32 {
+        let p = self.read().unwrap();
+        match &*p {
+            ParameterType::Integer(integer) => match integer.value {
+                Some(v) => v,
+                _ => panic!("Value should be a float"),
+            },
+            _ => panic!("Value should be an integer"),
+        }
+    }
+
     fn get_float(&self) -> Option<f64> {
         let p = self.read().unwrap();
         match &*p {
@@ -768,6 +963,13 @@ impl ParameterTrait for ArcParameter {
                 Some(v) => v.clone(),
                 _ => "".to_string(),
             },
+            ParameterType::Integer(param) => {
+                if let Some(value) = param.value {
+                    value.to_string()
+                } else {
+                    "".to_string()
+                }
+            }
             ParameterType::Float(param) => {
                 let decimal_places = param.display_options.decimal_places();
 
@@ -800,6 +1002,7 @@ impl ParameterTrait for ArcParameter {
     fn id(&self) -> String {
         match &*self.read().unwrap() {
             ParameterType::Float(p) => p.id.clone(),
+            ParameterType::Integer(p) => p.id.clone(),
             ParameterType::OutputFloat(p) => p.id.clone(),
             ParameterType::String(p) => p.id.clone(),
             ParameterType::Bool(p) => p.id.clone(),
@@ -812,6 +1015,7 @@ impl ParameterTrait for ArcParameter {
     fn name(&self) -> String {
         match &*self.read().unwrap() {
             ParameterType::Float(p) => p.name.clone(),
+            ParameterType::Integer(p) => p.name.clone(),
             ParameterType::OutputFloat(p) => p.name.clone(),
             ParameterType::String(p) => p.name.clone(),
             ParameterType::Bool(p) => p.name.clone(),
@@ -824,6 +1028,7 @@ impl ParameterTrait for ArcParameter {
     fn symbol(&self) -> String {
         match &*self.read().unwrap() {
             ParameterType::Float(p) => p.symbol.clone(),
+            ParameterType::Integer(p) => p.symbol.clone(),
             ParameterType::OutputFloat(p) => p.symbol.clone(),
             ParameterType::String(p) => p.symbol.clone(),
             ParameterType::Bool(p) => p.symbol.clone(),
@@ -836,6 +1041,7 @@ impl ParameterTrait for ArcParameter {
     fn units(&self) -> Option<String> {
         match &*self.read().unwrap() {
             ParameterType::Float(p) => p.units.clone(),
+            ParameterType::Integer(p) => p.units.clone(),
             ParameterType::OutputFloat(p) => p.units.clone(),
             ParameterType::String(p) => p.units.clone(),
             ParameterType::Bool(p) => p.units.clone(),

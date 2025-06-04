@@ -31,43 +31,43 @@ const SYMBOLS: Symbols = Symbols {
 };
 
 #[derive(Default)]
-pub struct Chapter7Equation2Runner;
+pub struct Chapter7Equation3Runner;
 
-impl MethodRunner for Chapter7Equation2Runner {
+impl MethodRunner for Chapter7Equation3Runner {
     fn name(&self) -> String {
-        "Capacity of a stair for simultaneous evacuation".to_string()
+        "Required width of the stair".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_2)
+        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_3)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::Evacuation]
     }
     fn description(&self) -> Option<String> {
-        Some(
-            "Capacity of a stair for simulataneous evacuation, subject to minimum stair widths"
-                .to_string(),
-        )
+        Some("Required width of the stair for simultaneous evacuation".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let p = params.get(SYMBOLS.p);
+        let w = params.get(SYMBOLS.w);
 
-        Some(vec![p])
+        Some(vec![w])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let p = params.get(SYMBOLS.p);
         let w = params.get(SYMBOLS.w);
+        let p = params.get(SYMBOLS.p);
         let n = params.get(SYMBOLS.n);
 
-        let mut step_1 = FormStep::new("Input | Eq. 7.2", "Calculate the capacity of a stair");
-        step_1.add_field(w.to_field());
+        let mut step_1 = FormStep::new(
+            "Input | Eq. 7.3",
+            "Calculate the required width of the stair",
+        );
+        step_1.add_field(p.to_field());
         step_1.add_field(n.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation(
-            p.symbol(),
             w.symbol(),
+            p.symbol(),
             n.symbol(),
         )));
 
@@ -76,14 +76,14 @@ impl MethodRunner for Chapter7Equation2Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let p = ParamBuilder::integer(&SYMBOLS.p)
-            .name("Number of people that can be served by a stair")
-            .units("persons")
-            .build();
-
         let w = ParamBuilder::float(SYMBOLS.w)
             .name("Width of the stair")
             .units("m")
+            .build();
+
+        let p = ParamBuilder::integer(&SYMBOLS.p)
+            .name("Number of people that can be served by a stair")
+            .units("persons")
             .min_exclusive(0.0)
             .required()
             .build();
@@ -94,8 +94,8 @@ impl MethodRunner for Chapter7Equation2Runner {
             .required()
             .build();
 
-        params.add(p);
         params.add(w);
+        params.add(p);
         params.add(n);
 
         return params;
@@ -106,30 +106,30 @@ impl MethodRunner for Chapter7Equation2Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let p = params.get(SYMBOLS.p);
         let w = params.get(SYMBOLS.w);
+        let p = params.get(SYMBOLS.p);
         let n = params.get(SYMBOLS.n);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let input = vec![w.clone(), n.clone()];
+        let input = vec![p.clone(), n.clone()];
         let mut nomenclature = input.clone();
         nomenclature.push(p.clone());
 
         let step = Step {
-            name: "Capacity of a stair  | Eq. 7.2".to_string(),
+            name: "Required width of the stair  | Eq. 7.3".to_string(),
             nomenclature: nomenclature,
             input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
-                p.symbol(),
                 w.symbol(),
+                p.symbol(),
                 n.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(p.symbol(), w.display_value(), n.display_value()),
-                p.clone(),
+                super::equation(w.symbol(), p.display_value(), n.display_value()),
+                w.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -146,12 +146,12 @@ impl MethodRunner for Chapter7Equation2Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let p = method.parameters.get(SYMBOLS.p);
-        let w = method.parameters.get(SYMBOLS.w).as_float();
+        let w = method.parameters.get(SYMBOLS.w);
+        let p = method.parameters.get(SYMBOLS.p).as_integer();
         let n = method.parameters.get(SYMBOLS.n).as_integer();
 
-        let result = super::stair_capacity(w, n);
-        p.update(Some(result.to_string()))?;
+        let result = super::required_width_stair(p, n);
+        w.update(Some(result.to_string()))?;
 
         return Ok(());
     }

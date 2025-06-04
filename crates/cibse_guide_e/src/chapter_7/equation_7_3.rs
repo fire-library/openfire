@@ -1,13 +1,13 @@
 pub mod openfire_runner;
 
-pub fn required_width_stair(p: i16, n: i16) -> f64 {
-    return (p + 15*n - 15) / (150 + 50 * n);
+pub fn required_width_stair(p: i32, n: i32) -> f64 {
+    return (p as f64 + 15.0 * n as f64 - 15.0) / (150.0 + 50.0 * n as f64);
 }
 
-pub fn equation(p: String, w: String, n: String) -> String {
+pub fn equation(w: String, p: String, n: String) -> String {
     format!(
-        "{} = 200 \\cdot {} + 50 \\cdot ({} - 0.3) \\cdot ({} - 1)",
-        p, w, w, n
+        "{} = \\frac{{{} + 15 \\cdot {} - 15}}{{150 + 50 \\cdot {}}}",
+        w, p, n, n
     )
 }
 
@@ -17,7 +17,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let result = stair_capacity(1.2, 6);
-        assert_eq!(result, 465.0);
+        let result = required_width_stair(550, 6);
+        assert_eq!(result, 1.3888888888888889);
     }
 }

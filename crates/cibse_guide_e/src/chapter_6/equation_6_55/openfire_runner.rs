@@ -19,56 +19,50 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    p: &'static str,
-    w: &'static str,
-    n: &'static str,
+    z_f: &'static str,
+    q_t: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
-    p: "P",
-    w: "w",
-    n: "n",
+    z_f: "z_{f}",
+    q_t: "Q_{t}",
 };
 
 #[derive(Default)]
-pub struct Chapter7Equation2Runner;
+pub struct Chapter6Equation55Runner;
 
-impl MethodRunner for Chapter7Equation2Runner {
+impl MethodRunner for Chapter6Equation55Runner {
     fn name(&self) -> String {
-        "Capacity of a stair for simultaneous evacuation".to_string()
+        "Mean flame height of luminous flames".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_2)
+        &CIBSEGuideE::ChapterSix(crate::chapter_6::Chapter6Method::Equation6_55)
     }
     fn tags(&self) -> Vec<Tag> {
-        vec![Tag::Evacuation]
+        vec![Tag::HRR, Tag::FireDynamics]
     }
     fn description(&self) -> Option<String> {
-        Some(
-            "Capacity of a stair for simulataneous evacuation, subject to minimum stair widths"
-                .to_string(),
-        )
+        Some("Mean flame height of fires away from walls".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let p = params.get(SYMBOLS.p);
-
-        Some(vec![p])
+        let z_f = params.get(SYMBOLS.z_f);
+        Some(vec![z_f])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let p = params.get(SYMBOLS.p);
-        let w = params.get(SYMBOLS.w);
-        let n = params.get(SYMBOLS.n);
+        let z_f = params.get(SYMBOLS.z_f);
+        let q_t = params.get(SYMBOLS.q_t);
 
-        let mut step_1 = FormStep::new("Input | Eq. 7.2", "Calculate the capacity of a stair");
-        step_1.add_field(w.to_field());
-        step_1.add_field(n.to_field());
+        let mut step_1 = FormStep::new(
+            "Input | Eq. 6.55",
+            "Calculate the mean flame height of luminous flames",
+        );
+        step_1.add_field(q_t.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation(
-            p.symbol(),
-            w.symbol(),
-            n.symbol(),
+            z_f.symbol(),
+            q_t.symbol(),
         )));
 
         Form::new(vec![step_1])
@@ -76,27 +70,20 @@ impl MethodRunner for Chapter7Equation2Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let p = ParamBuilder::integer(&SYMBOLS.p)
-            .name("Number of people that can be served by a stair")
-            .units("persons")
-            .build();
-
-        let w = ParamBuilder::float(SYMBOLS.w)
-            .name("Width of the stair")
+        let z_f = ParamBuilder::float(SYMBOLS.z_f)
+            .name("Mean flame height")
             .units("m")
+            .build();
+
+        let q_t = ParamBuilder::float(SYMBOLS.q_t)
+            .name("Total heat output of the fire")
+            .units("kW")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let n = ParamBuilder::integer(SYMBOLS.n)
-            .name("Number of storeys served")
-            .min_exclusive(0.0)
-            .required()
-            .build();
-
-        params.add(p);
-        params.add(w);
-        params.add(n);
+        params.add(z_f);
+        params.add(q_t);
 
         return params;
     }
@@ -106,30 +93,27 @@ impl MethodRunner for Chapter7Equation2Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let p = params.get(SYMBOLS.p);
-        let w = params.get(SYMBOLS.w);
-        let n = params.get(SYMBOLS.n);
+        let z_f = params.get(SYMBOLS.z_f);
+        let q_t = params.get(SYMBOLS.q_t);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let input = vec![w.clone(), n.clone()];
-        let mut nomenclature = input.clone();
-        nomenclature.push(p.clone());
+        let input = vec![q_t.clone()];
+        let nomenclature = input.clone();
 
         let step = Step {
-            name: "Capacity of a stair  | Eq. 7.2".to_string(),
+            name: "Height of flame | Eq. 6.55".to_string(),
             nomenclature: nomenclature,
             input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
-                p.symbol(),
-                w.symbol(),
-                n.symbol(),
+                z_f.symbol(),
+                q_t.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(p.symbol(), w.display_value(), n.display_value()),
-                p.clone(),
+                super::equation(z_f.symbol(), q_t.display_value()),
+                z_f.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -146,13 +130,12 @@ impl MethodRunner for Chapter7Equation2Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let p = method.parameters.get(SYMBOLS.p);
-        let w = method.parameters.get(SYMBOLS.w).as_float();
-        let n = method.parameters.get(SYMBOLS.n).as_integer();
+        let z_f = method.parameters.get(SYMBOLS.z_f);
+        let q_t = method.parameters.get(SYMBOLS.q_t).as_float();
 
-        let result = super::stair_capacity(w, n);
-        p.update(Some(result.to_string()))?;
+        let result = super::mean_flame_height(q_t);
+        z_f.update(Some(result.to_string()))?;
 
-        return Ok(());
+        Ok(())
     }
 }
