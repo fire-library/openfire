@@ -44,10 +44,7 @@ impl MethodRunner for Chapter7Equation3Runner {
         vec![Tag::Evacuation]
     }
     fn description(&self) -> Option<String> {
-        Some(
-            "Required width of the stair for simultaneous evacuation"
-                .to_string(),
-        )
+        Some("Required width of the stair for simultaneous evacuation".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let w = params.get(SYMBOLS.w);
@@ -60,7 +57,10 @@ impl MethodRunner for Chapter7Equation3Runner {
         let p = params.get(SYMBOLS.p);
         let n = params.get(SYMBOLS.n);
 
-        let mut step_1 = FormStep::new("Input | Eq. 7.3", "Calculate the required width of the stair");
+        let mut step_1 = FormStep::new(
+            "Input | Eq. 7.3",
+            "Calculate the required width of the stair",
+        );
         step_1.add_field(p.to_field());
         step_1.add_field(n.to_field());
 

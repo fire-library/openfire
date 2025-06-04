@@ -18,6 +18,6 @@ mod tests {
     #[test]
     fn test() {
         let result = required_width_stair(550, 6);
-        assert_eq!(result, 1.38888888888889);        
+        assert_eq!(result, 1.38888888888889);
     }
 }
