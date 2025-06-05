@@ -115,7 +115,7 @@ impl MethodRunner for Chapter7Equation3Runner {
 
         let input = vec![p.clone(), n.clone()];
         let mut nomenclature = input.clone();
-        nomenclature.push(p.clone());
+        nomenclature.push(w.clone());
 
         let step = Step {
             name: "Required width of the stair  | Eq. 7.3".to_string(),
