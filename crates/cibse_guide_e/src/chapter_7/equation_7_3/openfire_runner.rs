@@ -82,7 +82,7 @@ impl MethodRunner for Chapter7Equation3Runner {
             .build();
 
         let p = ParamBuilder::integer(&SYMBOLS.p)
-            .name("Number of people that can be served by a stair")
+            .name("Number of people served by the stair")
             .units("persons")
             .min_exclusive(0.0)
             .required()
