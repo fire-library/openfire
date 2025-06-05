@@ -3,4 +3,5 @@ capacity of a stair (i.e., the number of people
 that can be served by the stair) if designed for simultaneous
 evacuation 
 
-The formulation is based on British guidance.
+_CIBSE Guide E_ states that the formulation is based on
+British guidance, although no futher details are provided.
