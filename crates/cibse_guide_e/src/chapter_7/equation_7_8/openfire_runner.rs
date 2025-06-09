@@ -19,56 +19,51 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    p: &'static str,
+    f_p: &'static str,
     w: &'static str,
-    n: &'static str,
 }
 
 const SYMBOLS: Symbols = Symbols {
-    p: "P",
+    f_p: "F_p",
     w: "w",
-    n: "n",
 };
 
 #[derive(Default)]
-pub struct Chapter7Equation3Runner;
+pub struct Chapter7Equation8Runner;
 
-impl MethodRunner for Chapter7Equation3Runner {
+impl MethodRunner for Chapter7Equation8Runner {
     fn name(&self) -> String {
-        "Required width of the stair".to_string()
+        "Maximum flow rate of persons through a doorway".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_3)
+        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_8)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::Evacuation]
     }
     fn description(&self) -> Option<String> {
-        Some("Required width of the stair for simultaneous evacuation".to_string())
+        Some("Maximum flow rate of persons through a doorway or level corridor".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let w = params.get(SYMBOLS.w);
+        let f_p = params.get(SYMBOLS.f_p);
 
-        Some(vec![w])
+        Some(vec![f_p])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
+        let f_p = params.get(SYMBOLS.f_p);
         let w = params.get(SYMBOLS.w);
-        let p = params.get(SYMBOLS.p);
-        let n = params.get(SYMBOLS.n);
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 7.3",
-            "Calculate the required width of the stair",
+            "Input | Eq. 7.8",
+            "Calculate the maximum flow rate of persons through a doorway or level corridor",
         );
-        step_1.add_field(p.to_field());
-        step_1.add_field(n.to_field());
+        step_1.add_field(w.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation(
+            f_p.symbol(),
             w.symbol(),
-            p.symbol(),
-            n.symbol(),
         )));
 
         Form::new(vec![step_1])
