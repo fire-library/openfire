@@ -71,27 +71,21 @@ impl MethodRunner for Chapter7Equation8Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let w = ParamBuilder::float(SYMBOLS.w)
-            .name("Width of the stair")
+        let f_p = ParamBuilder::float(SYMBOLS.f_p)
+            .name("Maximum flow rate of persons through an opening")
+            .units("persons/s")
+            .build();
+
+        let w = ParamBuilder::integer(&SYMBOLS.w)
+            .name("Width of the opening or corridor")
             .units("m")
-            .build();
-
-        let p = ParamBuilder::integer(&SYMBOLS.p)
-            .name("Number of people served by the stair")
-            .units("persons")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        let n = ParamBuilder::integer(SYMBOLS.n)
-            .name("Number of storeys served")
-            .min_exclusive(0.0)
-            .required()
-            .build();
 
+        params.add(f_p);
         params.add(w);
-        params.add(p);
-        params.add(n);
 
         return params;
     }
@@ -101,30 +95,28 @@ impl MethodRunner for Chapter7Equation8Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
+        let f_p = params.get(SYMBOLS.f_p);
         let w = params.get(SYMBOLS.w);
-        let p = params.get(SYMBOLS.p);
-        let n = params.get(SYMBOLS.n);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let input = vec![p.clone(), n.clone()];
+        let input = vec![w.clone()];
         let mut nomenclature = input.clone();
-        nomenclature.push(w.clone());
+        nomenclature.push(f_p.clone());
 
         let step = Step {
-            name: "Required width of the stair  | Eq. 7.3".to_string(),
+            name: "Maximum flow rate of persons  | Eq. 7.8".to_string(),
             nomenclature: nomenclature,
             input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
+                f_p.symbol(),
                 w.symbol(),
-                p.symbol(),
-                n.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(w.symbol(), p.display_value(), n.display_value()),
-                w.clone(),
+                super::equation(f_p.symbol(), w.display_value()),
+                f_p.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -141,12 +133,11 @@ impl MethodRunner for Chapter7Equation8Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let w = method.parameters.get(SYMBOLS.w);
-        let p = method.parameters.get(SYMBOLS.p).as_integer();
-        let n = method.parameters.get(SYMBOLS.n).as_integer();
+        let f_p = method.parameters.get(SYMBOLS.f_p);
+        let w = method.parameters.get(SYMBOLS.w).as_float();
 
-        let result = super::required_width_stair(p, n);
-        w.update(Some(result.to_string()))?;
+        let result = super::maximum_flowrate_persons(w);
+        f_p.update(Some(result.to_string()))?;
 
         return Ok(());
     }
