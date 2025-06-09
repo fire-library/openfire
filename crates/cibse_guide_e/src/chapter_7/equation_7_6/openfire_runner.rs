@@ -23,20 +23,17 @@ struct Symbols {
     w: &'static str,
 }
 
-const SYMBOLS: Symbols = Symbols {
-    f_p: "F_p",
-    w: "w",
-};
+const SYMBOLS: Symbols = Symbols { f_p: "F_p", w: "w" };
 
 #[derive(Default)]
-pub struct Chapter7Equation8Runner;
+pub struct Chapter7Equation6Runner;
 
-impl MethodRunner for Chapter7Equation8Runner {
+impl MethodRunner for Chapter7Equation6Runner {
     fn name(&self) -> String {
         "Maximum flow rate of persons through a doorway".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_8)
+        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_6)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::Evacuation]
@@ -82,7 +79,6 @@ impl MethodRunner for Chapter7Equation8Runner {
             .min_exclusive(0.0)
             .required()
             .build();
-
 
         params.add(f_p);
         params.add(w);
