@@ -73,7 +73,7 @@ impl MethodRunner for Chapter7Equation6Runner {
             .units("persons/s")
             .build();
 
-        let w = ParamBuilder::integer(&SYMBOLS.w)
+        let w = ParamBuilder::float(&SYMBOLS.w)
             .name("Width of the opening or corridor")
             .units("m")
             .min_exclusive(0.0)
