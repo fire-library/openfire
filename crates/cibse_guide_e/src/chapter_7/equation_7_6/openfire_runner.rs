@@ -102,7 +102,7 @@ impl MethodRunner for Chapter7Equation6Runner {
         nomenclature.push(f_p.clone());
 
         let step = Step {
-            name: "Maximum flow rate of persons  | Eq. 7.8".to_string(),
+            name: "Maximum flow rate of persons  | Eq. 7.6".to_string(),
             nomenclature: nomenclature,
             input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
