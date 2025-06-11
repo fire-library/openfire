@@ -3,13 +3,13 @@ use std::sync::RwLock;
 
 use uuid::Uuid;
 
+use super::super::parameters::Parameters;
 use super::ArcParameter;
 use super::Comparison;
 use super::DisplayOptions;
 use super::Parameter;
 use super::ParameterType;
 use super::ParameterValue;
-use super::Parameters;
 use super::Validation;
 use super::object::Object;
 
