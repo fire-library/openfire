@@ -101,8 +101,7 @@ mod tests {
         let mut generator = SchemaGenerator::default();
         let schema = params.json_schema(&mut generator);
         let schema_json = serde_json::to_value(&schema).unwrap();
-        println!("Schema JSON: {}", schema_json);
-        // Check that the schema is an object with the correct properties
+
         assert_eq!(schema_json["type"], "object");
         assert!(schema_json["properties"].get("x").is_some());
         assert!(schema_json["properties"].get("s").is_some());
