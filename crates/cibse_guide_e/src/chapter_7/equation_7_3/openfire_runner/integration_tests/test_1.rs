@@ -1,5 +1,4 @@
 use framework::filesystem::saved_method::{SavedMethod, SavedParameter};
-use framework::method::parameter::ParameterValue::Float;
 use framework::method::parameter::ParameterValue::Integer;
 use framework::method::runner::MethodRunner;
 use framework::method::test::{Assertion, Test};
