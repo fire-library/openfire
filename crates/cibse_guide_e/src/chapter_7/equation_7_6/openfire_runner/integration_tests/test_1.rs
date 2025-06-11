@@ -14,7 +14,7 @@ pub fn test() -> Test {
                 value: Some(Float(1.2)),
             }],
         },
-        assertions: vec![Assertion::FloatEqual("F".to_string(), 1.5996)],
+        assertions: vec![Assertion::FloatEqual("F_p".to_string(), 1.5996)],
     }
 }
 
