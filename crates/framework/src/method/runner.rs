@@ -1,5 +1,5 @@
 use crate::method::form::Form;
-use crate::method::parameter::Parameters;
+use crate::method::parameters::Parameters;
 use crate::method::tag::Tag;
 
 use crate::method::Method;

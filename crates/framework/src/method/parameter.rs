@@ -13,7 +13,6 @@ use crate::method::form::Field;
 use core::panic;
 use serde::{Deserialize, Serialize};
 use specta::Type;
-use std::collections::HashMap;
 
 use std::sync::{Arc, RwLock};
 
@@ -66,6 +65,16 @@ pub struct Parameter<T> {
     #[specta(skip)]
     #[serde(skip)]
     pub validations: Vec<Validation>,
+}
+
+pub trait JsonSchemaTrait {
+    fn is_required(&self) -> bool;
+}
+
+impl JsonSchemaTrait for Vec<Validation> {
+    fn is_required(&self) -> bool {
+        self.iter().any(|v| matches!(v, Validation::Required))
+    }
 }
 
 impl<T: PartialEq + Clone> PartialEq for Parameter<T> {
@@ -465,41 +474,6 @@ impl Parameter<i32> {
             }
         }
         Ok(())
-    }
-}
-
-#[derive(Clone, Type, Serialize, Deserialize, Debug)]
-pub struct Parameters {
-    params: HashMap<String, ArcParameter>,
-    order: Vec<String>,
-}
-
-impl Parameters {
-    pub fn new() -> Self {
-        Parameters {
-            params: HashMap::new(),
-            order: vec![],
-        }
-    }
-
-    pub fn get(&self, symbol: &str) -> ArcParameter {
-        if let Some(parameter) = self.params.get(symbol) {
-            return parameter.clone();
-        } else {
-            panic!("Parameter {} not found", symbol);
-        }
-    }
-
-    pub fn values(&self) -> Vec<ArcParameter> {
-        self.order.iter().map(|name| self.get(name)).collect()
-    }
-
-    pub fn add(&mut self, parameter: ArcParameter) {
-        let order = &self.order;
-        self.params.insert(parameter.symbol(), parameter.clone());
-        if !order.contains(&parameter.symbol()) {
-            self.order.push(parameter.symbol());
-        }
     }
 }
 
