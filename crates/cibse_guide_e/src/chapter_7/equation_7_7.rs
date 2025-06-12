@@ -16,7 +16,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let result = maximum_flowrate_persons(1.2);
-        assert_eq!(result, 1.5996);
+        let result = maximum_people_in_stair(3.5, 8.0, 6);
+        assert_eq!(result, 168);
     }
 }
