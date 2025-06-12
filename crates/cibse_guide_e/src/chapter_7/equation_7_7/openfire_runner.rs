@@ -19,48 +19,54 @@ use std::sync::{Arc, RwLock};
 use std::vec;
 
 struct Symbols {
-    f_p: &'static str,
-    w: &'static str,
+    n_c: &'static str,
+    p: &'static str,
+    a: &'static str,
+    s: &'static str,
 }
 
-const SYMBOLS: Symbols = Symbols { f_p: "F_p", w: "w" };
+const SYMBOLS: Symbols = Symbols { n_c: "N_c", p: "p", a: "A", s: "S" };
 
 #[derive(Default)]
-pub struct Chapter7Equation6Runner;
+pub struct Chapter7Equation7Runner;
 
-impl MethodRunner for Chapter7Equation6Runner {
+impl MethodRunner for Chapter7Equation7Runner {
     fn name(&self) -> String {
-        "Maximum flow rate of persons through a doorway".to_string()
+        "Maximum number of people that can be accomodated within a stairway".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
-        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_6)
+        &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_7)
     }
     fn tags(&self) -> Vec<Tag> {
         vec![Tag::Evacuation]
     }
     fn description(&self) -> Option<String> {
-        Some("Maximum flow rate of persons through a doorway or level corridor".to_string())
+        Some("Maximum number of people that can me accomodated within a stairway at any one time".to_string())
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
-        let f_p = params.get(SYMBOLS.f_p);
+        let n_c = params.get(SYMBOLS.n_c);
 
-        Some(vec![f_p])
+        Some(vec![n_c])
     }
 
     fn form(&self, params: &Parameters) -> framework::method::form::Form {
-        let f_p = params.get(SYMBOLS.f_p);
-        let w = params.get(SYMBOLS.w);
+        let n_c = params.get(SYMBOLS.n_c);
+        let p = params.get(SYMBOLS.p);
+        let a = params.get(SYMBOLS.a);
+        let s = params.get(SYMBOLS.s);
 
         let mut step_1 = FormStep::new(
-            "Input | Eq. 7.6",
-            "Calculate the maximum flow rate of persons through a doorway or level corridor",
+            "Input | Eq. 7.7",
+            "Calculate the maximum number of people that can be accommodated within a stairway at any one time",
         );
-        step_1.add_field(w.to_field());
+        step_1.add_field(n_c.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation(
-            f_p.symbol(),
-            w.symbol(),
+            n_c.symbol(),
+            p.symbol(),
+            a.symbol(),
+            s.symbol(),
         )));
 
         Form::new(vec![step_1])
@@ -68,20 +74,35 @@ impl MethodRunner for Chapter7Equation6Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let f_p = ParamBuilder::float(SYMBOLS.f_p)
-            .name("Maximum flow rate of persons through an opening")
-            .units("persons/s")
+        let n_c = ParamBuilder::float(SYMBOLS.n_c)
+            .name("Maximum number of people within a stairway")
+            .units("persons")
             .build();
 
-        let w = ParamBuilder::float(&SYMBOLS.w)
-            .name("Width of the opening or corridor")
-            .units("m")
+        let p = ParamBuilder::float(&SYMBOLS.p)
+            .name("Maximum occupant density of the stair")
+            .units("persons/m^2")
             .min_exclusive(0.0)
             .required()
             .build();
 
-        params.add(f_p);
-        params.add(w);
+        let a = ParamBuilder::float(&SYMBOLS.a)
+            .name("Horizontal area of the stair and landings per storey")
+            .units("m^2")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+
+        let s = ParamBuilder::float(&SYMBOLS.s)
+            .name("Number of storeys")
+            .min_exclusive(0.0)
+            .required()
+            .build();
+        
+        params.add(n_c);
+        params.add(p);
+        params.add(a);
+        params.add(s);
 
         return params;
     }
@@ -91,28 +112,32 @@ impl MethodRunner for Chapter7Equation6Runner {
         params: &Parameters,
         stale: Option<bool>,
     ) -> framework::method::calculation::ArcCalculation {
-        let f_p = params.get(SYMBOLS.f_p);
-        let w = params.get(SYMBOLS.w);
+        let n_c = params.get(SYMBOLS.n_c);
+        let p = params.get(SYMBOLS.p);
+        let a = params.get(SYMBOLS.a);
+        let s = params.get(SYMBOLS.s);
 
         let stale = stale.unwrap_or(false);
         let calc_sheet: Arc<RwLock<Calculation>> = Arc::new(RwLock::new(Calculation::new(stale)));
 
-        let input = vec![w.clone()];
+        let input = vec![p.clone(), a.clone(), s.clone()];
         let mut nomenclature = input.clone();
-        nomenclature.push(f_p.clone());
+        nomenclature.push(n_c.clone());
 
         let step = Step {
-            name: "Maximum flow rate of persons  | Eq. 7.6".to_string(),
+            name: "Maximum number of people in stairway  | Eq. 7.7".to_string(),
             nomenclature: nomenclature,
             input: input.clone().into_iter().map(|p| p.into()).collect(),
             render: true,
             process: vec![vec![CalculationComponent::Equation(super::equation(
-                f_p.symbol(),
-                w.symbol(),
+                n_c.symbol(),
+                p.symbol(),
+                a.symbol(),
+                s.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(f_p.symbol(), w.display_value()),
-                f_p.clone(),
+                super::equation(n_c.symbol(), p.display_value(), a.display_value(), s.display_value()),
+                n_c.clone(),
             )]],
         };
         calc_sheet.write().unwrap().add_step(step);
@@ -129,10 +154,12 @@ impl MethodRunner for Chapter7Equation6Runner {
     }
 
     fn evaluate(&self, method: &mut Method) -> Result<(), Vec<ParameterError>> {
-        let f_p = method.parameters.get(SYMBOLS.f_p);
-        let w = method.parameters.get(SYMBOLS.w).as_float();
+        let n_c = method.parameters.get(SYMBOLS.n_c);
+        let p = method.parameters.get(SYMBOLS.p).as_float();
+        let a = method.parameters.get(SYMBOLS.a).as_float();
+        let s = method.parameters.get(SYMBOLS.s).as_float();
 
-        let result = super::maximum_flowrate_persons(w);
+        let result = super::maximum_people_in_stair(p, a, s);
         f_p.update(Some(result.to_string()))?;
 
         return Ok(());
