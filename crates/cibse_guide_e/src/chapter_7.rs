@@ -1,5 +1,6 @@
 pub mod equation_7_2;
 pub mod equation_7_3;
+pub mod equation_7_6;
 
 use framework::serde::{Deserialize, Serialize};
 use framework::specta::Type;
@@ -8,6 +9,7 @@ use framework::specta::Type;
 pub enum Chapter7Method {
     Equation7_2,
     Equation7_3,
+    Equation7_6,
 }
 
 impl Chapter7Method {
@@ -15,6 +17,7 @@ impl Chapter7Method {
         match self {
             &Chapter7Method::Equation7_2 => "equation_7_2".to_string(),
             &Chapter7Method::Equation7_3 => "equation_7_3".to_string(),
+            &Chapter7Method::Equation7_6 => "equation_7_6".to_string(),
         }
     }
 
@@ -25,6 +28,9 @@ impl Chapter7Method {
             }
             &Chapter7Method::Equation7_3 => {
                 format!("Ch. 7 | Eq. 7.3")
+            }
+            &Chapter7Method::Equation7_6 => {
+                format!("Ch. 7 | Eq. 7.6")
             }
         }
     }
@@ -37,6 +43,9 @@ impl Chapter7Method {
             &Chapter7Method::Equation7_3 => {
                 include_str!("../resources/chapter_7/equation_7_3/description.md").to_string()
             }
+            &Chapter7Method::Equation7_6 => {
+                include_str!("../resources/chapter_7/equation_7_6/description.md").to_string()
+            }
         }
     }
 
@@ -47,6 +56,9 @@ impl Chapter7Method {
             }
             &Chapter7Method::Equation7_3 => {
                 include_str!("../resources/chapter_7/equation_7_3/limitations.md").to_string()
+            }
+            &Chapter7Method::Equation7_6 => {
+                include_str!("../resources/chapter_7/equation_7_6/limitations.md").to_string()
             }
         }
     }
