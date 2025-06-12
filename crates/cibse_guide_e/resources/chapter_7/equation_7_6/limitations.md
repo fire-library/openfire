@@ -1,4 +1,4 @@
-Eq. 7.6, as stated above, is built on the assumption
+Eq. 7.6 is built on the assumption
 of a notional exit time of 2.5 minutes and, a capacity of
 1 person per 5 mm of exit width.
 
