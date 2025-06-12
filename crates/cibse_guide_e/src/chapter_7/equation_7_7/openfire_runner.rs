@@ -25,7 +25,12 @@ struct Symbols {
     s: &'static str,
 }
 
-const SYMBOLS: Symbols = Symbols { n_c: "N_c", p: "p", a: "A", s: "S" };
+const SYMBOLS: Symbols = Symbols {
+    n_c: "N_c",
+    p: "p",
+    a: "A",
+    s: "S",
+};
 
 #[derive(Default)]
 pub struct Chapter7Equation7Runner;
@@ -41,7 +46,10 @@ impl MethodRunner for Chapter7Equation7Runner {
         vec![Tag::Evacuation]
     }
     fn description(&self) -> Option<String> {
-        Some("Maximum number of people that can me accomodated within a stairway at any one time".to_string())
+        Some(
+            "Maximum number of people that can me accomodated within a stairway at any one time"
+                .to_string(),
+        )
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {
         let n_c = params.get(SYMBOLS.n_c);
@@ -59,7 +67,9 @@ impl MethodRunner for Chapter7Equation7Runner {
             "Input | Eq. 7.7",
             "Calculate the maximum number of people that can be accommodated within a stairway at any one time",
         );
-        step_1.add_field(n_c.to_field());
+        step_1.add_field(p.to_field());
+        step_1.add_field(a.to_field());
+        step_1.add_field(s.to_field());
 
         step_1.add_intro();
         step_1.add_equation(CalculationComponent::Equation(super::equation(
@@ -93,12 +103,12 @@ impl MethodRunner for Chapter7Equation7Runner {
             .required()
             .build();
 
-        let s = ParamBuilder::float(&SYMBOLS.s)
+        let s = ParamBuilder::integer(&SYMBOLS.s)
             .name("Number of storeys")
             .min_exclusive(0.0)
             .required()
             .build();
-        
+
         params.add(n_c);
         params.add(p);
         params.add(a);
@@ -136,7 +146,12 @@ impl MethodRunner for Chapter7Equation7Runner {
                 s.symbol(),
             ))]],
             calculation: vec![vec![CalculationComponent::EquationWithResult(
-                super::equation(n_c.symbol(), p.display_value(), a.display_value(), s.display_value()),
+                super::equation(
+                    n_c.symbol(),
+                    p.display_value(),
+                    a.display_value(),
+                    s.display_value(),
+                ),
                 n_c.clone(),
             )]],
         };
@@ -157,10 +172,10 @@ impl MethodRunner for Chapter7Equation7Runner {
         let n_c = method.parameters.get(SYMBOLS.n_c);
         let p = method.parameters.get(SYMBOLS.p).as_float();
         let a = method.parameters.get(SYMBOLS.a).as_float();
-        let s = method.parameters.get(SYMBOLS.s).as_float();
+        let s = method.parameters.get(SYMBOLS.s).as_integer();
 
         let result = super::maximum_people_in_stair(p, a, s);
-        f_p.update(Some(result.to_string()))?;
+        n_c.update(Some(result.to_string()))?;
 
         return Ok(());
     }

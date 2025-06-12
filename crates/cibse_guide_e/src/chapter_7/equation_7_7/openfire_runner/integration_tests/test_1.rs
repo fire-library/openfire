@@ -10,20 +10,20 @@ pub fn test() -> Test {
         description: include_str!("test_1/description.md").to_string(),
         input: SavedMethod {
             id: super::super::Chapter7Equation7Runner.id(),
-            parameters: vec![SavedParameter {
-                name: "p".to_string(),
-                value: Some(Float(3.5)),
-            },
-            SavedParameter {
-                name: "A".to_string(),
-                value: Some(Float(8.0)),
-            },
-            SavedParameter {
-                name: "S".to_string(),
-                value: Some(Integer(6)),
-            }],
-],
-],
+            parameters: vec![
+                SavedParameter {
+                    name: "p".to_string(),
+                    value: Some(Float(3.5)),
+                },
+                SavedParameter {
+                    name: "A".to_string(),
+                    value: Some(Float(8.0)),
+                },
+                SavedParameter {
+                    name: "S".to_string(),
+                    value: Some(Integer(6)),
+                },
+            ],
         },
         assertions: vec![Assertion::IntegerEqual("N_c".to_string(), 168)],
     }
