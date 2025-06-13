@@ -1,4 +1,5 @@
-use super::{ArcParameter, Parameters};
+use super::ArcParameter;
+use crate::method::parameters::Parameters;
 
 use serde::{Deserialize, Serialize};
 use specta::Type;
