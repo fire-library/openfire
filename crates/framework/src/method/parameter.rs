@@ -857,13 +857,13 @@ impl ParameterTrait for ArcParameter {
         match &*p {
             ParameterType::Float(float) => match float.value {
                 Some(v) => v,
-                _ => panic!("Value should be a float"),
+                _ => panic!("Value {:?} should be a float", self),
             },
             ParameterType::OutputFloat(float) => match float.value {
                 Some(v) => v,
-                _ => panic!("Value should be a float"),
+                _ => panic!("Value {:?} should be a float", self),
             },
-            _ => panic!("Value should be a float"),
+            _ => panic!("Value {:?} should be a float", self),
         }
     }
 
@@ -872,9 +872,9 @@ impl ParameterTrait for ArcParameter {
         match &*p {
             ParameterType::Integer(integer) => match integer.value {
                 Some(v) => v,
-                _ => panic!("Value should be a float"),
+                _ => panic!("Value {:?} should be an integer", self),
             },
-            _ => panic!("Value should be an integer"),
+            _ => panic!("Value {:?} should be an integer", self),
         }
     }
 
