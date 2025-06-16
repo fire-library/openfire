@@ -7,4 +7,6 @@ equation 7.6.
 Eq. 7.8 assumes a density of people in the stairs of 3.5
 m$^2$/persons, which is considered a maximum density of
 people without suffering extreme discomfort. _CIBSE Guide E_ does
-not provide a reference for this value.
+not provide a reference for this value. Note that this
+implementation of the method
+automatically rounds down to the nearest integer.

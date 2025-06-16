@@ -19,7 +19,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let result = exit_capacity_stair(1.2, 150.0, 5.0, 10);
+        let result = exit_capacity_stair(1.2, 150.0, 10.0, 5);
         assert_eq!(result, 379);
     }
 }
