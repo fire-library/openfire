@@ -1,0 +1,10 @@
+Eq. 7.8 allows for the calculatoin of the stairway capacity
+of the stair, which is defined as the maximum number of people able
+to enter the stair within a specified period. This is primarily limited
+by the width of the final exit, which can be calculated using
+equation 7.6.
+
+Eq. 7.8 assumes a density of people in the staris as 3.5
+m$^2$/persons, which is considered a maximum density of
+people without suffering extreme discomfort. _CIBSE Guide E_ does
+not provide a reference for this value.
