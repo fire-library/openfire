@@ -37,7 +37,7 @@ pub struct Chapter7Equation7Runner;
 
 impl MethodRunner for Chapter7Equation7Runner {
     fn name(&self) -> String {
-        "Maximum number of people that can be accomodated within a stairway".to_string()
+        "Maximum number of people that can be accommodated within a stairway".to_string()
     }
     fn reference(&self) -> &dyn framework::method::runner::Reference {
         &CIBSEGuideE::ChapterSeven(crate::chapter_7::Chapter7Method::Equation7_7)
