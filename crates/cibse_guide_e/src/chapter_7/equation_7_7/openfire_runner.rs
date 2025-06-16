@@ -84,7 +84,7 @@ impl MethodRunner for Chapter7Equation7Runner {
     fn parameters(&self) -> Parameters {
         let mut params = Parameters::new();
 
-        let n_c = ParamBuilder::float(SYMBOLS.n_c)
+        let n_c = ParamBuilder::integer(SYMBOLS.n_c)
             .name("Maximum number of people within a stairway")
             .units("persons")
             .build();
