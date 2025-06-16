@@ -5,7 +5,7 @@ use framework::method::calculation::CalculationComponent;
 use framework::method::form::{Form, FormStep};
 use framework::method::parameter::ArcParameter;
 use framework::method::parameter::ParameterTrait;
-use framework::method::parameter::Parameters;
+use framework::method::parameters::Parameters;
 use framework::method::parameter::builder::ParamBuilder;
 use framework::method::runner::MethodRunner;
 use framework::method::tag::Tag;
