@@ -5,8 +5,8 @@ use framework::method::calculation::CalculationComponent;
 use framework::method::form::{Form, FormStep};
 use framework::method::parameter::ArcParameter;
 use framework::method::parameter::ParameterTrait;
-use framework::method::parameter::builder::ParamBuilder;
 use framework::method::parameter::ParameterValue;
+use framework::method::parameter::builder::ParamBuilder;
 use framework::method::parameters::Parameters;
 use framework::method::runner::MethodRunner;
 use framework::method::tag::Tag;
@@ -52,7 +52,8 @@ impl MethodRunner for Chapter7Equation9Runner {
     }
     fn description(&self) -> Option<String> {
         Some(
-            "Maximum number of people able to enter the stair within a specified period".to_string(),
+            "Maximum number of people able to enter the stair within a specified period"
+                .to_string(),
         )
     }
     fn quick_calc(&self, params: &Parameters) -> Option<Vec<ArcParameter>> {

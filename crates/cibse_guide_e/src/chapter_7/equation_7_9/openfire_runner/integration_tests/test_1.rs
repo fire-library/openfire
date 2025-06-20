@@ -12,7 +12,7 @@ pub fn test() -> Test {
             id: super::super::Chapter7Equation9Runner.id(),
             parameters: vec![
                 SavedParameter {
-                    name: "W_s".to_string(),
+                    name: "W_e".to_string(),
                     value: Some(Float(0.9)),
                 },
                 SavedParameter {
