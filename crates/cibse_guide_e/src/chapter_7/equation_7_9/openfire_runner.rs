@@ -98,7 +98,7 @@ impl MethodRunner for Chapter7Equation9Runner {
             .build();
 
         let w_e = ParamBuilder::float(&SYMBOLS.w_e)
-            .name("Effective stairway width of the stair")
+            .name("Effective width of the stair")
             .units("m")
             .min_exclusive(0.0)
             .required()
