@@ -1,5 +1,5 @@
 Equation 7.9 allows for an assessment of the total
-number of persons that a stairway can accomodate in
+number of persons that a stairway can accommodate in
 a specified period of time.
 
 This is similar to the calculation
