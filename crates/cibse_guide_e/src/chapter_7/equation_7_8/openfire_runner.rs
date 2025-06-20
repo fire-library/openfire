@@ -49,7 +49,7 @@ impl MethodRunner for Chapter7Equation8Runner {
     }
     fn description(&self) -> Option<String> {
         Some(
-            "Exit capacity of a stairway, limited primarily by the width of the final exit"
+            "Exit capacity of a stairway. Calculates the maximum number of people that can enter the stair in a specified period."
                 .to_string(),
         )
     }
