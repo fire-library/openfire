@@ -9,15 +9,19 @@ pub fn test() -> Test {
         name: "Test 1".to_string(),
         description: include_str!("test_1/description.md").to_string(),
         input: SavedMethod {
-            id: super::super::Chapter7Equation8Runner.id(),
+            id: super::super::Chapter7Equation9Runner.id(),
             parameters: vec![
                 SavedParameter {
                     name: "W_s".to_string(),
-                    value: Some(Float(1.2)),
+                    value: Some(Float(0.9)),
                 },
                 SavedParameter {
                     name: "t".to_string(),
                     value: Some(Float(150.0)),
+                },
+                SavedParameter {
+                    name: "p".to_string(),
+                    value: Some(Float(2.0)),
                 },
                 SavedParameter {
                     name: "A".to_string(),
@@ -29,7 +33,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::IntegerEqual("N_{in_{max}}".to_string(), 379)],
+        assertions: vec![Assertion::IntegerEqual("N_{in_{max}}".to_string(), 242)],
     }
 }
 
@@ -39,7 +43,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        framework::register_runner::<super::super::super::Chapter7Equation8Runner>();
+        framework::register_runner::<super::super::super::Chapter7Equation9Runner>();
         let test = test();
         let results = framework::method::test::run_test(test).unwrap();
 
