@@ -20,7 +20,7 @@ pub fn test() -> Test {
                     value: Some(Float(150.0)),
                 },
                 SavedParameter {
-                    name: "$//rho$".to_string(),
+                    name: "\\rho".to_string(),
                     value: Some(Float(2.0)),
                 },
                 SavedParameter {

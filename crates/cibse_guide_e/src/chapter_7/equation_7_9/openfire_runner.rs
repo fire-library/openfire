@@ -32,7 +32,7 @@ const SYMBOLS: Symbols = Symbols {
     n_in: "N_{in_(max)}",
     w_e: "W_e",
     t: "t",
-    p: "$//rho$",
+    p: "\\rho",
     a: "A",
     s: "S",
 };
