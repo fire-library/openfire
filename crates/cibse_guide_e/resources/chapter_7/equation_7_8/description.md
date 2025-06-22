@@ -16,4 +16,4 @@ density) is summarised below. This equation uses a flow of
 opposed to 1.2 $person/s/m$ in equation 7.9 of _CIBSE Guide E_) and,
 an occupant density in the stair ($//rho$) of 3.5 $person/m^2$ (as opposed to
 2 $person/m^2$ used in equation 7.9 of _CIBSE Guide E_). Hence, this
-equation does not represents the more conservative approach.
+equation does not represent the more conservative approach.
