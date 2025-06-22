@@ -1,11 +1,19 @@
-Eq. 7.8 allows for the calculation of the exit capacity
-of the stair, which is defined as the maximum number of people able
-to enter the stair within a specified period. This is primarily limited
-by the width of the final exit.
+Equations 7.8 and 7.9 in _CIBSE Guide E_
+allow for an assessment of the total
+number of persons that a stairway can accommodate in
+a specified period of time. This equation (7.8)
+calculates the total number of persons within a specified
+period without suffering extreme discomfort (using maximum values
+of flow through the openings and occupant density).
+Equation 7.9 calculates a lower, "acceptance"
+number of persons that a stairway can accomodate,
+by allowing for a lower occupant density in the stair to
+be used.
 
-Eq. 7.8 assumes a density of people in the stairs of 3.5
-m$^2$/person, which is considered a maximum density of
-people without suffering extreme discomfort. _CIBSE Guide E_ does
-not provide a reference for this value. Note that this
-implementation of the method
-automatically rounds down to the nearest integer.
+The comparison in the relevant parameters (flow and occupant
+density) is summarised below. This equation uses a flow of
+1.333  $person/s/m$ of effective stair width (as
+opposed to 1.2 $person/s/m$ in equation 7.9 of _CIBSE Guide E_) and,
+an occupant density in the stair ($//rho$) of 3.5 $person/m^2$ (as opposed to
+2 $person/m^2$ used in equation 7.9 of _CIBSE Guide E_). Hence, this
+equation does not represents the more conservative approach.

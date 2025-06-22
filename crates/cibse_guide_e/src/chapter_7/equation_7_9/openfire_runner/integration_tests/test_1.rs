@@ -20,7 +20,7 @@ pub fn test() -> Test {
                     value: Some(Float(150.0)),
                 },
                 SavedParameter {
-                    name: "p".to_string(),
+                    name: "$//rho$".to_string(),
                     value: Some(Float(2.0)),
                 },
                 SavedParameter {
@@ -33,7 +33,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::IntegerEqual("N_{in_{max}}".to_string(), 242)],
+        assertions: vec![Assertion::IntegerEqual("N_{in_(max)}".to_string(), 242)],
     }
 }
 

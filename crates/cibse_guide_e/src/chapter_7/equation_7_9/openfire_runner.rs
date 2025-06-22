@@ -29,10 +29,10 @@ struct Symbols {
 }
 
 const SYMBOLS: Symbols = Symbols {
-    n_in: "N_{in_{max}}",
+    n_in: "N_{in_(max)}",
     w_e: "W_e",
     t: "t",
-    p: "p",
+    p: "$//rho$",
     a: "A",
     s: "S",
 };
@@ -52,7 +52,7 @@ impl MethodRunner for Chapter7Equation9Runner {
     }
     fn description(&self) -> Option<String> {
         Some(
-            "Maximum number of people able to enter the stair within a specified period"
+            "Maximum number of people able to enter the stair within a specified period given a certain occupant density in the stairs and landing"
                 .to_string(),
         )
     }
@@ -105,7 +105,7 @@ impl MethodRunner for Chapter7Equation9Runner {
             .build();
 
         let t = ParamBuilder::float(&SYMBOLS.t)
-            .name("Available exiting time")
+            .name("Time available for escape")
             .units("s")
             .min_exclusive(0.0)
             .required()

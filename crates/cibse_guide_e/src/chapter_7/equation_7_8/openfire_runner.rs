@@ -27,7 +27,7 @@ struct Symbols {
 }
 
 const SYMBOLS: Symbols = Symbols {
-    n_in: "N_{in_{max}}",
+    n_in: "N_{in_(max)}",
     w_s: "W_s",
     t: "t",
     a: "A",
@@ -49,7 +49,7 @@ impl MethodRunner for Chapter7Equation8Runner {
     }
     fn description(&self) -> Option<String> {
         Some(
-            "Exit capacity of a stairway. Calculates the maximum number of people that can enter the stair in a specified period."
+            "Maximum number of people able to enter the stair within a specified period without suffering extreme discomfort"
                 .to_string(),
         )
     }

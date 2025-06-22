@@ -4,4 +4,4 @@ into the stair may be constrained if the storey exits
 are too narrow.
 
 Consider that the effective stair width $W_e$ is
-0.3 metres than the actual width.
+0.3 metres narrower metres than the actual width.

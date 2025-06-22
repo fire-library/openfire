@@ -29,7 +29,7 @@ pub fn test() -> Test {
                 },
             ],
         },
-        assertions: vec![Assertion::IntegerEqual("N_{in_{max}}".to_string(), 379)],
+        assertions: vec![Assertion::IntegerEqual("N_{in_(max)}".to_string(), 379)],
     }
 }
 
