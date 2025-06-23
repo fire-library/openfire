@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn fractional_effective_dose(m_f: f64, t: f64, lc_50: f64) -> f64 {
     return m_f * t / lc_50;
 }

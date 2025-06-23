@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn acceptance_capacity_stair(w_e: f64, t: f64, rho: f64, a: f64, s: i32) -> i32 {
     let s = s as f64;
     let result = 1.2 * w_e * t + rho * a * (s - 1.0);

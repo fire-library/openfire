@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn required_width_stair(p: i32, n: i32) -> f64 {
     let p = p as f64;
     let n = n as f64;

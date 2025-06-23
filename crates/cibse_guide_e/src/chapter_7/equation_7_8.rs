@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn exit_capacity_stair(w_s: f64, t: f64, a: f64, s: i32) -> i32 {
     let s = s as f64;
     let result = 1.333 * w_s * t + 3.5 * a * (s - 1.0);

@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn limiting_velocity(q: f64, z: f64) -> f64 {
     return 0.057 * (q / z).powf(1.0 / 3.0);
 }
