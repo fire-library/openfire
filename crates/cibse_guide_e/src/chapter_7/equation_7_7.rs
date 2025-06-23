@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn maximum_people_in_stair(p: f64, a: f64, s: i32) -> i32 {
     let s = s as f64;
     let result = p * a * s;

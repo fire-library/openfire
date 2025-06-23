@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn calculate_nondime_hrr(q_dot: f64, rho_a: f64, c_p: f64, t_a: f64, g: f64, h_e: f64) -> f64 {
     return q_dot / (rho_a * c_p * t_a * g.powf(0.5) * h_e.powf(5.0 / 2.0));
 }

@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn mean_flame_height(q_t: f64) -> f64 {
     return 0.2 * q_t.powf(2.0 / 5.0);
 }

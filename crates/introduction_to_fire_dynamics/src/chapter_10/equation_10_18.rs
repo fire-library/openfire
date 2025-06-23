@@ -2,8 +2,6 @@
 //! Both equations are identical. The only difference is the range that
 //! defines the regime of the fire.
 
-pub mod openfire_runner;
-
 pub fn calculate(rho: f64, g: f64, a_w: f64, h: f64, a_f: f64) -> f64 {
     let numerator = rho * g.powf(0.5) * a_w * h.powf(0.5);
 
