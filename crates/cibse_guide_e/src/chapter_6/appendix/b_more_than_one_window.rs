@@ -1,8 +1,8 @@
-pub fn areas_of_openings(opening_characteristics: Vec<(f64, f64)>) -> Vec<f64> {
-    return dimensions.iter().map(|(w, h)| w * h).collect()
+pub fn areas_of_openings(openings_dimensions: Vec<(f64, f64)>) -> Vec<f64> {
+    return openings_dimensions.iter().map(|(w, h)| w * h).collect()
 }
 
-pub fn equivalent_area_of_opening(areas_of_openings: Vec<f64>) -> f64 {
+pub fn equivalent_area_of_openings(areas_of_openings: Vec<f64>) -> f64 {
     return areas_of_openings.iter().sum()
 }
 
@@ -16,9 +16,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_sum_areas() {
-        let areas = vec![1.2, 3.4, 5.6];
-        let result = sum_areas(areas);
+    fn test_equivalent_area_of_openings() {
+        let areas_of_openings = vec![1.2, 3.4, 5.6];
+        let result = sum_areas(areas_of_openings);
         assert!((result - 10.2).abs() < 1e-10);
     }
 
