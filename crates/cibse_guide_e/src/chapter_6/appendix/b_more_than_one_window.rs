@@ -7,7 +7,8 @@ pub fn equivalent_area_of_openings(areas_of_openings: Vec<f64>) -> f64 {
 }
 
 pub fn equation_equivalent_area_of_openings(a_o: String, areas_of_openings: Vec<String>) -> String {
-    format!("{} = {} + {} + ...", a_o, areas_of_openings.into_iter().next(), areas_of_openings.into_iter().next())
+    let formatted_areas = areas_of_openings.join(" + ");
+    format!("{} = {}", a_o, formatted_areas)
 }
 
 
