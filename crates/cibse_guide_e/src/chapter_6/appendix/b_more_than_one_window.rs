@@ -53,7 +53,7 @@ mod tests {
     fn test_equivalent_width_of_openings() {
         let widths_of_openings = vec![2.0, 3.0, 5.0];
         let result = equivalent_width_of_openings(widths_of_openings);
-        assert!((result - 10.0).abs() < 1e-10
+        assert!((result - 10.0).abs() < 1e-10);
     }
 
     #[test]
