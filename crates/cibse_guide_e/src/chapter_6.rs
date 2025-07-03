@@ -1,3 +1,4 @@
+pub mod appendix;
 pub mod equation_6_55;
 pub mod equation_6_57;
 pub mod equation_6_58;
