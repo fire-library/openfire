@@ -2,7 +2,7 @@ pub fn floor_area(w1: f64, w2: f64) -> f64 {
     return w1 * w2
 }
 
-pub fn equation_floor_area(a_f: String, w1: String, w2: String) -> String {
+pub fn floor_area_equation(a_f: String, w1: String, w2: String) -> String {
     format!("{} = {} \\cdot {}", a_f, w1, w2,)
 }
 
