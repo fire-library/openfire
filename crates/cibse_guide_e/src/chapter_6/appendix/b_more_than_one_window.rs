@@ -27,9 +27,6 @@ pub fn equivalent_height_of_openings(
     equivalent_area_of_openings: f64,
     equivalent_width_of_openings: f64,
 ) -> f64 {
-    if equivalent_width_of_openings == 0.0 {
-        return 0.0; // Avoid division by zero
-    }
     return equivalent_area_of_openings / equivalent_width_of_openings;
 }
 

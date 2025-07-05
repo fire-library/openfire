@@ -22,9 +22,6 @@ pub fn total_area_of_openings_equation(a_o: String, areas_of_openings: Vec<Strin
 }
 
 pub fn ratio_depth_over_height(w1: f64, w2: f64, ao_w1: f64, ao: f64) -> f64 {
-    if w1 == 0.0 || ao == 0.0 {
-        return 0.0; // Avoid division by zero
-    }
     return (w2 / w1) * (ao_w1 / ao);
 }
 

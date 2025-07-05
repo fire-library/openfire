@@ -48,9 +48,6 @@ pub fn ratio_depth_over_height_compartment_with_core(
     ao: f64,
     ao_w1: f64,
 ) -> f64 {
-    if w1 - c1 == 0.0 || ao == 0.0 {
-        return 0.0; // Avoid division by zero
-    }
     return ((w2 - c2) * ao_w1) / ((w1 - c1) * ao);
 }
 pub fn ratio_depth_over_height_compartment_with_core_equation(
