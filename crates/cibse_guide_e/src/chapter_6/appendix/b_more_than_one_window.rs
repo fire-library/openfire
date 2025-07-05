@@ -24,41 +24,20 @@ pub fn sum_width_of_compartment_openings(widths_of_openings: Vec<f64>) -> f64 {
     return common::sum_width_of_compartment_openings(widths_of_openings);
 }
 
-pub fn equivalent_width_of_openings_equation(
+pub fn sum_width_of_compartment_openings_equation(
     w_o: String,
     widths_of_openings: Vec<String>,
 ) -> String {
-    let formatted_widths = widths_of_openings.join(" + ");
-    return format!("{} = {}", w_o, formatted_widths);
+    return common::sum_width_of_compartment_openings_equation(w_o, widths_of_openings);
 }
 
-pub fn equivalent_height_of_openings(
+pub fn equivalent_height_for_compartment_openings(
     equivalent_area_of_openings: f64,
     equivalent_width_of_openings: f64,
 ) -> f64 {
-    return equivalent_area_of_openings / equivalent_width_of_openings;
+    return common::equivalent_height_for_compartment_openings(equivalent_area_of_openings, equivalent_width_of_openings);
 }
 
-pub fn equivalent_height_of_openings_equation(h_o: String, a_o: String, w_o: String) -> String {
-    return format!("{} = {} / {}", h_o, a_o, w_o);
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_sum_width_of_compartment_openings() {
-        let widths_of_openings = vec![2.0, 3.0, 5.0];
-        let result = sum_width_of_compartment_openings(widths_of_openings);
-        assert!((result - 10.0).abs() < 1e-10);
-    }
-
-    #[test]
-    fn test_equivalent_height_of_openings() {
-        let equivalent_area = 10.0;
-        let equivalent_width = 2.0;
-        let result = equivalent_height_of_openings(equivalent_area, equivalent_width);
-        assert!((result - 5.0).abs() < 1e-10);
-    }
+pub fn equivalent_height_for_compartment_openings_equation(h_o: String, a_o: String, w_o: String) -> String {
+    return common::equivalent_height_for_compartment_openings_equation(h_o, a_o, w_o);
 }
