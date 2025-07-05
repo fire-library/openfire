@@ -8,7 +8,7 @@ pub fn total_area_of_openings(areas_of_openings: Vec<f64>) -> f64 {
 
 pub fn total_area_of_openings_equation(a_o: String, areas_of_openings: Vec<String>) -> String {
     let formatted_areas = areas_of_openings.join(" + ");
-    return format!("{} = {}", a_o, formatted_areas)
+    return format!("{} = {}", a_o, formatted_areas);
 }
 
 pub fn equivalent_width_of_openings(widths_of_openings: Vec<f64>) -> f64 {
@@ -20,7 +20,7 @@ pub fn equivalent_width_of_openings_equation(
     widths_of_openings: Vec<String>,
 ) -> String {
     let formatted_widths = widths_of_openings.join(" + ");
-    return format!("{} = {}", w_o, formatted_widths)
+    return format!("{} = {}", w_o, formatted_widths);
 }
 
 pub fn equivalent_height_of_openings(
@@ -34,7 +34,7 @@ pub fn equivalent_height_of_openings(
 }
 
 pub fn equivalent_height_of_openings_equation(h_o: String, a_o: String, w_o: String) -> String {
-    return format!("{} = {} / {}", h_o, a_o, w_o)
+    return format!("{} = {} / {}", h_o, a_o, w_o);
 }
 
 #[cfg(test)]
