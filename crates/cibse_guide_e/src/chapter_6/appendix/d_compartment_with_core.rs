@@ -1,5 +1,5 @@
 pub fn floor_area_of_compartment_with_core(w1: f64, w2: f64, c1: f64, c2: f64) -> f64 {
-    return w1 * w2 - c1 * c2;
+    w1 * w2 - c1 * c2
 }
 
 pub fn floor_area_of_compartment_with_core_equation(
