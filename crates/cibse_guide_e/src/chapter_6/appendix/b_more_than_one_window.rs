@@ -1,18 +1,27 @@
-pub fn areas_of_openings(openings_dimensions: Vec<(f64, f64)>) -> Vec<f64> {
-    return openings_dimensions.iter().map(|(w, h)| w * h).collect();
+pub use super::common;
+
+pub fn area_of_floor(w1: f64, w2: f64) -> f64 {
+    return common::area_of_floor(w1, w2);
 }
 
-pub fn total_area_of_openings(areas_of_openings: Vec<f64>) -> f64 {
-    return areas_of_openings.iter().sum();
+pub fn area_of_floor_equation(a_f: String, w1: String, w2: String) -> String {
+    return common::area_of_floor_equation(a_f, w1, w2);
 }
 
-pub fn total_area_of_openings_equation(a_o: String, areas_of_openings: Vec<String>) -> String {
-    let formatted_areas = areas_of_openings.join(" + ");
-    return format!("{} = {}", a_o, formatted_areas);
+pub fn areas_of_openings_multiple_openings(openings_dimensions: Vec<(f64, f64)>) -> Vec<f64> {
+    return common::areas_of_openings_multiple_openings(openings_dimensions);
 }
 
-pub fn equivalent_width_of_openings(widths_of_openings: Vec<f64>) -> f64 {
-    return widths_of_openings.iter().sum();
+pub fn sum_areas_of_openings(areas_of_openings: Vec<f64>) -> f64 {
+    return common::sum_areas_of_openings(areas_of_openings);
+}
+
+pub fn sum_area_of_openings_equation(a_o: String, areas_of_openings: Vec<String>) -> String {
+    return common::sum_areas_of_openings_equation(a_o, areas_of_openings);
+}
+
+pub fn sum_width_of_compartment_openings(widths_of_openings: Vec<f64>) -> f64 {
+    return common::sum_width_of_compartment_openings(widths_of_openings);
 }
 
 pub fn equivalent_width_of_openings_equation(
@@ -39,23 +48,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_areas_of_openings() {
-        let openings_dimensions = vec![(2.0, 3.0), (1.5, 4.0), (5.0, 0.5)];
-        let result = areas_of_openings(openings_dimensions);
-        assert_eq!(result, vec![6.0, 6.0, 2.5]);
-    }
-
-    #[test]
-    fn test_total_area_of_openings() {
-        let areas_of_openings = vec![1.2, 3.4, 5.6];
-        let result = total_area_of_openings(areas_of_openings);
-        assert!((result - 10.2).abs() < 1e-10);
-    }
-
-    #[test]
-    fn test_equivalent_width_of_openings() {
+    fn test_sum_width_of_compartment_openings() {
         let widths_of_openings = vec![2.0, 3.0, 5.0];
-        let result = equivalent_width_of_openings(widths_of_openings);
+        let result = sum_width_of_compartment_openings(widths_of_openings);
         assert!((result - 10.0).abs() < 1e-10);
     }
 
