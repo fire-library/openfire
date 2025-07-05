@@ -35,9 +35,16 @@ pub fn equivalent_height_for_compartment_openings(
     equivalent_area_of_openings: f64,
     equivalent_width_of_openings: f64,
 ) -> f64 {
-    return common::equivalent_height_for_compartment_openings(equivalent_area_of_openings, equivalent_width_of_openings);
+    return common::equivalent_height_for_compartment_openings(
+        equivalent_area_of_openings,
+        equivalent_width_of_openings,
+    );
 }
 
-pub fn equivalent_height_for_compartment_openings_equation(h_o: String, a_o: String, w_o: String) -> String {
+pub fn equivalent_height_for_compartment_openings_equation(
+    h_o: String,
+    a_o: String,
+    w_o: String,
+) -> String {
     return common::equivalent_height_for_compartment_openings_equation(h_o, a_o, w_o);
 }

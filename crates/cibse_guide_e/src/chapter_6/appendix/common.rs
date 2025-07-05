@@ -41,7 +41,10 @@ pub fn ratio_depth_over_height_equation(d: String, w: String, w1: String, w2: St
 }
 
 pub fn areas_of_openings_multiple_openings(openings_dimensions: Vec<(f64, f64)>) -> Vec<f64> {
-    return openings_dimensions.iter().map(|(w, h)| area_of_opening(w, h)).collect();
+    return openings_dimensions
+        .iter()
+        .map(|(w, h)| area_of_opening(*w, *h))
+        .collect();
 }
 
 pub fn sum_areas_of_openings(areas_of_openings: Vec<f64>) -> f64 {
