@@ -72,7 +72,11 @@ pub fn equivalent_height_for_compartment_openings(
     return equivalent_area_of_openings / equivalent_width_of_openings;
 }
 
-pub fn equivalent_height_for_compartment_openings_equation(h_o: String, a_o: String, w_o: String) -> String {
+pub fn equivalent_height_for_compartment_openings_equation(
+    h_o: String,
+    a_o: String,
+    w_o: String,
+) -> String {
     return format!("{} = {} / {}", h_o, a_o, w_o);
 }
 
