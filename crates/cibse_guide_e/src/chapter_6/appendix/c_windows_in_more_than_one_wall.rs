@@ -1,5 +1,5 @@
-#[path = "b_more_than_one_window.rs"]
-pub mod b_more_than_one_window;
+mod b_more_than_one_window;
+pub use b_more_than_one_window::*;
 
 pub fn total_area_of_openings_per_wall(dimensions_of_openings_wall1: Vec<(f64, f64)>) -> f64 {
     let vector_of_areas_wall1 =
