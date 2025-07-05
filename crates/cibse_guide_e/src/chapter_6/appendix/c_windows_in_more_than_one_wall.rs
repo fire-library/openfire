@@ -1,16 +1,24 @@
-pub use super::b_more_than_one_window;
+pub use super::common;
 
-pub fn total_area_of_openings_per_wall(dimensions_of_openings_wall1: Vec<(f64, f64)>) -> f64 {
-    let vector_of_areas_wall1 =
-        b_more_than_one_window::areas_of_openings(dimensions_of_openings_wall1);
-    return b_more_than_one_window::total_area_of_openings(vector_of_areas_wall1);
+pub fn area_of_floor(w1: f64, w2: f64) -> f64 {
+    return common::area_of_floor(w1, w2);
 }
 
-pub fn total_area_of_openings_per_wall_equation(
+pub fn area_of_floor_equation(a_f: String, w1: String, w2: String) -> String {
+    return common::area_of_floor_equation(a_f, w1, w2);
+}
+
+pub fn sum_area_of_openings_per_wall(dimensions_of_openings_wall_per_wall: Vec<(f64, f64)>) -> f64 {
+    let vector_of_areas_wall1 =
+        common::areas_of_openings_multiple_openings(dimensions_of_openings_wall_per_wall);
+    return common::sum_areas_of_openings(vector_of_areas_wall1);
+}
+
+pub fn sum_area_of_openings_per_wall_equation(
     a_o: String,
     areas_of_openings: Vec<String>,
 ) -> String {
-    return b_more_than_one_window::total_area_of_openings_equation(a_o, areas_of_openings);
+    return common::sum_areas_of_openings_equation(a_o, areas_of_openings);
 }
 
 pub fn total_area_of_openings(areas_of_openings: Vec<f64>) -> f64 {
