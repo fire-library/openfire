@@ -31,10 +31,10 @@ pub fn internal_surface_area_equation(
     return common::internal_surface_area_equation(a_net, a_f, h, w1, w2, a_o);
 }
 
-pub fn ratio_depth_over_height(w1: f64, w2: f64) -> f64 {
+pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
     return common::ratio_depth_over_width(w1, w2);
 }
 
-pub fn ratio_depth_over_height_equation(d_over_w: String, w1: String, w2: String) -> String {
+pub fn ratio_depth_over_width_equation(d_over_w: String, w1: String, w2: String) -> String {
     return common::ratio_depth_over_width_equation(d_over_w, w1, w2);
 }
