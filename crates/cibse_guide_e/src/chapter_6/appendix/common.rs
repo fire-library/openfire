@@ -36,8 +36,8 @@ pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
     return w2 / w1;
 }
 
-pub fn ratio_depth_over_width_equation(d: String, w: String, w1: String, w2: String) -> String {
-    return format!("{} / {} = {} / {}", d, w, w2, w1);
+pub fn ratio_depth_over_width_equation(d_over_w: String, w1: String, w2: String) -> String {
+    return format!("{} = {} / {}", d_over_w, w2, w1);
 }
 
 pub fn areas_of_openings_multiple_openings(openings_dimensions: Vec<(f64, f64)>) -> Vec<f64> {

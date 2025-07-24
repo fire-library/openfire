@@ -35,6 +35,6 @@ pub fn ratio_depth_over_height(w1: f64, w2: f64) -> f64 {
     return common::ratio_depth_over_width(w1, w2);
 }
 
-pub fn ratio_depth_over_height_equation(d: String, w: String, w1: String, w2: String) -> String {
-    return common::ratio_depth_over_width_equation(d, w, w1, w2);
+pub fn ratio_depth_over_height_equation(d_over_w: String, w1: String, w2: String) -> String {
+    return common::ratio_depth_over_width_equation(d_over_w, w1, w2);
 }
