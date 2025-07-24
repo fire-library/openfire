@@ -32,11 +32,11 @@ pub fn internal_surface_area_equation(
     );
 }
 
-pub fn ratio_depth_over_height(w1: f64, w2: f64) -> f64 {
+pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
     return w2 / w1;
 }
 
-pub fn ratio_depth_over_height_equation(d: String, w: String, w1: String, w2: String) -> String {
+pub fn ratio_depth_over_width_equation(d: String, w: String, w1: String, w2: String) -> String {
     return format!("{} / {} = {} / {}", d, w, w2, w1);
 }
 
@@ -106,8 +106,8 @@ mod tests {
     }
 
     #[test]
-    fn test_ratio_depth_over_height() {
-        let result = ratio_depth_over_height(4.5, 3.5);
+    fn test_ratio_depth_over_width() {
+        let result = ratio_depth_over_width(4.5, 3.5);
         assert_eq!(result, 0.7777777777777778)
     }
 
