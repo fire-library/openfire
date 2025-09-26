@@ -16,7 +16,7 @@ mod tests {
     #[test]
     fn test_time_to_ignition_thermally_thick() {
         let result = time_to_ignition_thermally_thick(0.19, 1190.0, 1420.0, 300.0, 25.0, 20.0);
-        assert_eq!(result, 47.67428456491);
+        assert_eq!(result, 47.67428456490953);
     }
 
 }
