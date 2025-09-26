@@ -6,7 +6,7 @@ pub fn time_to_ignition_thermally_thick(k: f64, rho: f64, c: f64, temp_ig: f64, 
 }
 
 pub fn time_to_ignition_thermallythick_equation(t_ig: String, k: String, rho: String, c: String, temp_ig: String, temp_o: String, q_r: String) -> String {
-    return format!("{} = \\frac{{\\pi}}{{4}} \\cdot {} \\cdot {} \\cdot {} ({} - {})^2 / {}^2", t_ig, k, rho, c, temp_ig, temp_o, q_r);
+    return format!("{} = \\frac{{\\pi}}{{4}} \\cdot {} \\cdot {} \\cdot {} ({} - {})^2 / ({} * 1000)^2", t_ig, k, rho, c, temp_ig, temp_o, q_r);
 }
 
 #[cfg(test)]
