@@ -14,28 +14,56 @@ mod tests {
 
     #[test]
     fn test_height_smoke_layer_interface() {
-        let time_values = vec![100.0, 200.0, 300.0];
-        let results = height_smoke_layer_interface(1.0, 100.0, time_values, 0.5, 3.0);
+        // Test values: k = 0.025, q = 500, a_c = 20, h_c = 2.75, t = [25, 50, 75]
+        let k = 0.025;
+        let q = 500.0;
+        let a_c = 20.0;
+        let h_c = 2.75;
+        let time_values = vec![25.0, 50.0, 75.0];
+        let expected_results = vec![1.803939505, 1.298521222, 0.991770071];
+        
+        let results = height_smoke_layer_interface(k, q, time_values, a_c, h_c);
         
         assert_eq!(results.len(), 3, "Should return same number of results as input times");
-        for result in results {
-            assert!(result > 0.0, "All results should be positive");
+        
+        for (i, (actual, expected)) in results.iter().zip(expected_results.iter()).enumerate() {
+            assert!(
+                (actual - expected).abs() < 1e-8,
+                "Result at index {} should be approximately {}, but got {}",
+                i, expected, actual
+            );
         }
     }
 
     #[test]
     fn test_height_smoke_layer_interface_single_value() {
-        let time_values = vec![300.0];
-        let results = height_smoke_layer_interface(1.0, 100.0, time_values, 0.5, 3.0);
+        // Test with single time value t = 25
+        let k = 0.025;
+        let q = 500.0;
+        let a_c = 20.0;
+        let h_c = 2.75;
+        let time_values = vec![25.0];
+        let expected_result = 1.803939505;
+        
+        let results = height_smoke_layer_interface(k, q, time_values, a_c, h_c);
         
         assert_eq!(results.len(), 1, "Should return one result for one time value");
-        assert!(results[0] > 0.0, "Result should be positive");
+        assert!(
+            (results[0] - expected_result).abs() < 1e-8,
+            "Result should be approximately {}, but got {}",
+            expected_result, results[0]
+        );
     }
 
     #[test]
     fn test_height_smoke_layer_interface_empty_vector() {
+        let k = 0.025;
+        let q = 500.0;
+        let a_c = 20.0;
+        let h_c = 2.75;
         let time_values = vec![];
-        let results = height_smoke_layer_interface(1.0, 100.0, time_values, 0.5, 3.0);
+        
+        let results = height_smoke_layer_interface(k, q, time_values, a_c, h_c);
         
         assert_eq!(results.len(), 0, "Should return empty vector for empty input");
     }
