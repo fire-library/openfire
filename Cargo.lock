@@ -71,6 +71,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "fire_dynamics_tools"
+version = "0.1.0"
+
+[[package]]
 name = "generic-array"
 version = "0.14.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -133,6 +137,7 @@ dependencies = [
  "br_187",
  "bs9999",
  "cibse_guide_e",
+ "fire_dynamics_tools",
  "hex-literal",
  "introduction_to_fire_dynamics",
  "lazy_static",
