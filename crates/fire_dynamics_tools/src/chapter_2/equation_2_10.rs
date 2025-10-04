@@ -1,7 +1,7 @@
 pub fn height_smoke_layer_interface(k: f64, q: f64, t: Vec<f64>, a_c: f64, h_c: f64) -> Vec<f64> {
-    return t.iter().map(|&time| {
+    t.iter().map(|&time| {
         (((2.0 * k * q.powf(1.0/3.0) * time) / (3.0 * a_c)) + (1.0 / h_c.powf(2.0/3.0))).powf(-3.0/2.0)
-    }).collect();
+    }).collect()
 }
 
 pub fn height_smoke_layer_interface_equation(z: String, k: String, q: String, t: String, a_c: String, h_c: String) -> String {
