@@ -137,6 +137,7 @@ dependencies = [
  "br_187",
  "bs9999",
  "cibse_guide_e",
+ "fire_dynamics_tools",
  "hex-literal",
  "introduction_to_fire_dynamics",
  "lazy_static",

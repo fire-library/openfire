@@ -18,6 +18,7 @@ hex-literal = "1.0.0"
 br_187 = { path = "./crates/br_187" }
 bs9999 = { path = "./crates/bs9999" }
 cibse_guide_e = { path = "./crates/cibse_guide_e" }
+fire_dynamics_tools = { path = "./crates/fire_dynamics_tools" }
 introduction_to_fire_dynamics = { path = "./crates/introduction_to_fire_dynamics" }
 pd_7974 = { path = "./crates/pd_7974" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
