@@ -5,7 +5,7 @@ pub fn height_smoke_layer_interface(k: f64, q: f64, t: Vec<f64>, a_c: f64, h_c: 
 }
 
 pub fn height_smoke_layer_interface_equation(z: String, k: String, q: String, t: String, a_c: String, h_c: String) -> String {
-    return format!("{} = \\left( \\frac{{2 \\cdot {} \\cdot {}^{{1/3}} \\cdot {} }}{{3 \\cdot {} }} + \\frac{{1}}{{ {}^{{2/3}} }} \\right)^{{-3/2}}", z, k, q, t, a_c, h_c);
+    format!("{} = \\left( \\frac{{2 \\cdot {} \\cdot {}^{{1/3}} \\cdot {} }}{{3 \\cdot {} }} + \\frac{{1}}{{ {}^{{2/3}} }} \\right)^{{-3/2}}", z, k, q, t, a_c, h_c)
 }
 
 #[cfg(test)]
