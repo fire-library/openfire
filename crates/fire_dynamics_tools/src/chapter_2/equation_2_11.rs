@@ -1,11 +1,12 @@
-pub fn height_smoke_layer_interface_2_11(k: f64, q: f64, t: Vec<f64>, a_c: f64, h_c: f64) -> Vec<f64> {
-    t.iter().map(|&time| {
-        (((2.0 * k * q.powf(1.0/3.0) * time) / (3.0 * a_c)) + (1.0 / h_c.powf(2.0/3.0))).powf(-3.0/2.0)
-    }).collect()
+pub fn k_constant_smoke_layer_height(rho_g: f64, rho_a: f64, g: f64, c_p: f64, t_a: f64) -> f64 {
+   let left = 0.21 / rho_g;
+   let right_top = rho_a.powf(2.0) * g;
+   let right_bottom = c_p * t_a;
+   return left * (right_top / right_bottom).powf(1.0/3.0); 
 }
 
-pub fn height_smoke_layer_interface_2_11_equation(z: String, k: String, q: String, t: String, a_c: String, h_c: String) -> String {
-    format!("{} = \\left( \\frac{{2 \\cdot {} \\cdot {}^{{1/3}} \\cdot {} }}{{3 \\cdot {} }} + \\frac{{1}}{{ {}^{{2/3}} }} \\right)^{{-3/2}}", z, k, q, t, a_c, h_c)
+pub fn height_smoke_layer_interface_2_11_equation(k: String, rho_g: String, rho_a: String, g: String, c_p: String, t_a: String) -> String {
+    format!("{} = \\frac{{0.21}}{{{}}} \\cdot \\left( \\frac{{{}^{{2}} \\cdot {} }}{{ {} \\cdot {} }} \\right)^{{1/3}}", k, rho_g, rho_a, g, c_p, t_a)
 }
 
 #[cfg(test)]
@@ -13,58 +14,86 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_height_smoke_layer_interface_2_11() {
-        // Test values: k = 0.025, q = 500, a_c = 20, h_c = 2.75, t = [25, 50, 75]
-        let k = 0.025;
-        let q = 500.0;
-        let a_c = 20.0;
-        let h_c = 2.75;
-        let time_values = vec![25.0, 50.0, 75.0];
-        let expected_results = vec![1.803939505, 1.298521222, 0.991770071];
+    fn test_k_constant_smoke_layer_height() {
+        // Test with typical values for fire dynamics
+        let rho_g = 0.3; // kg/m³ (hot gas density)
+        let rho_a = 1.2; // kg/m³ (ambient air density)
+        let g = 9.81; // m/s² (gravitational acceleration)
+        let c_p = 1005.0; // J/(kg·K) (specific heat capacity of air)
+        let t_a = 293.15; // K (ambient temperature = 20°C)
         
-        let results = height_smoke_layer_interface_2_11(k, q, time_values, a_c, h_c);
+        let result = k_constant_smoke_layer_height(rho_g, rho_a, g, c_p, t_a);
         
-        assert_eq!(results.len(), 3, "Should return same number of results as input times");
+        // Expected calculation:
+        // left = 0.21 / 0.3 = 0.7
+        // right_top = 1.2² * 9.81 = 14.1264
+        // right_bottom = 1005.0 * 293.15 = 294,615.75
+        // right = (14.1264 / 294,615.75)^(1/3) = (4.7927e-5)^(1/3) ≈ 0.03631
+        // k = 0.7 * 0.03631 ≈ 0.02542
+        let expected_result = 0.02542;
         
-        for (i, (actual, expected)) in results.iter().zip(expected_results.iter()).enumerate() {
-            assert!(
-                (actual - expected).abs() < 1e-8,
-                "Result at index {} should be approximately {}, but got {}",
-                i, expected, actual
-            );
-        }
-    }
-
-    #[test]
-    fn test_height_smoke_layer_interface_2_11_single_value() {
-        // Test with single time value t = 25
-        let k = 0.025;
-        let q = 500.0;
-        let a_c = 20.0;
-        let h_c = 2.75;
-        let time_values = vec![25.0];
-        let expected_result = 1.803939505;
-        
-        let results = height_smoke_layer_interface_2_11(k, q, time_values, a_c, h_c);
-        
-        assert_eq!(results.len(), 1, "Should return one result for one time value");
         assert!(
-            (results[0] - expected_result).abs() < 1e-8,
+            (result - expected_result).abs() < 1e-4,
             "Result should be approximately {}, but got {}",
-            expected_result, results[0]
+            expected_result, result
         );
     }
 
     #[test]
-    fn test_height_smoke_layer_interface_2_11_empty_vector() {
-        let k = 0.025;
-        let q = 500.0;
-        let a_c = 20.0;
-        let h_c = 2.75;
-        let time_values = vec![];
+    fn test_k_constant_with_different_densities() {
+        // Test with different gas density
+        let rho_g = 0.5; // kg/m³ (cooler gas)
+        let rho_a = 1.2; // kg/m³ (ambient air density)
+        let g = 9.81; // m/s² 
+        let c_p = 1005.0; // J/(kg·K)
+        let t_a = 293.15; // K
         
-        let results = height_smoke_layer_interface_2_11(k, q, time_values, a_c, h_c);
+        let result = k_constant_smoke_layer_height(rho_g, rho_a, g, c_p, t_a);
         
-        assert_eq!(results.len(), 0, "Should return empty vector for empty input");
+        // With higher gas density, k should be lower
+        let expected_result = 0.01525; // Approximate expected value
+        
+        assert!(
+            (result - expected_result).abs() < 1e-4,
+            "Result should be approximately {}, but got {}",
+            expected_result, result
+        );
+    }
+
+    #[test]
+    fn test_k_constant_with_higher_temperature() {
+        // Test with higher ambient temperature
+        let rho_g = 0.3; // kg/m³
+        let rho_a = 1.2; // kg/m³
+        let g = 9.81; // m/s²
+        let c_p = 1005.0; // J/(kg·K)
+        let t_a = 373.15; // K (100°C)
+        
+        let result = k_constant_smoke_layer_height(rho_g, rho_a, g, c_p, t_a);
+        
+        // With higher temperature, k should be lower
+        let expected_result = 0.02347; // Approximate expected value
+        
+        assert!(
+            (result - expected_result).abs() < 1e-4,
+            "Result should be approximately {}, but got {}",
+            expected_result, result
+        );
+    }
+
+    #[test]
+    fn test_height_smoke_layer_interface_2_11_equation() {
+        // Test the LaTeX equation formatting
+        let k = "k".to_string();
+        let rho_g = "\\rho_g".to_string();
+        let rho_a = "\\rho_a".to_string();
+        let g = "g".to_string();
+        let c_p = "c_p".to_string();
+        let t_a = "T_a".to_string();
+        
+        let equation = height_smoke_layer_interface_2_11_equation(k, rho_g, rho_a, g, c_p, t_a);
+        let expected = "k = \\frac{0.21}{\\rho_g} \\cdot \\left( \\frac{\\rho_a^{2} \\cdot g }{ c_p \\cdot T_a } \\right)^{1/3}";
+        
+        assert_eq!(equation, expected, "LaTeX equation should match expected format");
     }
 }
