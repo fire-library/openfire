@@ -2,7 +2,11 @@ pub fn heat_transfer_coefficient_longtimes_or_thinwalls(k: f64, delta: f64) -> f
     return k / delta;
 }
 
-pub fn heat_transfer_coefficient_longtimes_or_thinwalls_equation(h_k: String, k: String, delta: String) -> String {
+pub fn heat_transfer_coefficient_longtimes_or_thinwalls_equation(
+    h_k: String,
+    k: String,
+    delta: String,
+) -> String {
     format!("{} = \\frac{{{}}}{{{}}}", h_k, k, delta)
 }
 
@@ -21,8 +25,8 @@ mod tests {
         assert!(
             (result - expected_result).abs() < 1.0e-6,
             "Result should be approximately {}, but got {}",
-            expected_result, result
+            expected_result,
+            result
         );
     }
-
 }
