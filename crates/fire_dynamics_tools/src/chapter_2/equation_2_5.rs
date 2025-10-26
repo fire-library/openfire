@@ -1,11 +1,9 @@
-pub fn placeholder_equation_2_5(q: f64, a_v: f64, h_v: f64, a_t: f64, h_k: f64) -> f64 {
-    // TODO: Replace with actual equation 2-5 implementation
-    return 6.85 * (q.powf(2.0)/ ((a_v * h_v.powf(0.5)) + (a_t * h_k))).powf(1.0/3.0);
+pub fn heat_transfer_coefficient_shortimes_or_thickwalls(k: f64, rho: f64, c: f64, t: f64) -> f64 {
+    return (k * rho * c/ t).powf(0.5);
 }
 
-pub fn placeholder_equation_2_5_latex(result: String, q: String, a_v:String, h_v: String, a_t: String, h_k: String) -> String {
-    // TODO: Replace with actual equation 2-5 LaTeX formula
-    format!("{} = 6.85 \\cdot \\left( \\frac{{{}}}{{ {} \\cdot {} + {} \\cdot {} }} \\right)^{{1/3}}", result, q, a_v, h_v, a_t, h_k)
+pub fn heat_transfer_coefficient_shortimes_or_thickwalls_equation(h_k: String, k: String, rho: String, c: String, t: String) -> String {
+    return format!("{} = \\left( \\frac{{ {} \\cdot {} \\cdot {} }}{{ {} }} \\right)^{{1/2}}", h_k, k, rho, c, t);
 }
 
 #[cfg(test)]
@@ -13,52 +11,19 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_placeholder_equation_2_5() {
-        // TODO: Replace with actual equation 2-5 test values
-        let q = 500.0;
-        let a_v = 20.0;
-        let h_v = 2.75;
-        let a_t = 30.0;
-        let h_k = 1.5;
+    fn test_heat_transfer_coefficient_shortimes_or_thickwalls() {
+        let k = 0.002;
+        let rho = 2400.0;
+        let c = 1.17;
+        let t = 1800.0;
 
-        let result = placeholder_equation_2_5(q, a_v, h_v, a_t, h_k);
-        let expected_result = 101.0;
+        let result = heat_transfer_coefficient_shortimes_or_thickwalls(k, rho, c, t);
+        let expected_result = 0.05585696018;
         
         assert!(
-            (result - expected_result).abs() < 1.0,
+            (result - expected_result).abs() < 1.0e-6,
             "Result should be approximately {}, but got {}",
             expected_result, result
         );
-    }
-
-    #[test]
-    fn test_placeholder_equation_2_5_different_values() {
-        // TODO: Replace with actual equation 2-5 test values
-        let q = 100.0;
-        let a_v = 10.0;
-        let h_v = 2.0;
-        let a_t = 15.0;
-        let h_k = 1.0;
-
-        let result = placeholder_equation_2_5(q, a_v, h_v, a_t, h_k);
-        
-        assert!(result > 0.0, "Result should be positive");
-        assert!(result < 200.0, "Result should be reasonable");
-    }
-
-    #[test]
-    fn test_placeholder_equation_2_5_latex_formatting() {
-        // TODO: Replace with actual equation 2-5 LaTeX test
-        let result = "R".to_string();
-        let q = "Q".to_string();
-        let a_v = "A_v".to_string();
-        let h_v = "H_v".to_string();
-        let a_t = "A_t".to_string();
-        let h_k = "H_k".to_string();
-        
-        let equation = placeholder_equation_2_5_latex(result, q, a_v, h_v, a_t, h_k);
-        let expected = "R = 6.85 \\cdot \\left( \\frac{Q}{ A_v \\cdot H_v + A_t \\cdot H_k } \\right)^{1/3}";
-        
-        assert_eq!(equation, expected, "LaTeX equation should match expected format");
     }
 }
