@@ -20,7 +20,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_comparment_interior_surface_area() {
+    fn test_compartment_interior_surface_area() {
         let w_c = 7.5;
         let l_c = 4.0;
         let h_c = 2.75;
