@@ -18,8 +18,7 @@ fn calculate_nondime_hrr(
     ))
 }
 
-#[pymodule]
-pub fn equation_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn equation_1_intro(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(calculate_nondime_hrr, m)?)?;
     Ok(())
 }
