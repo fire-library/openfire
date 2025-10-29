@@ -1,4 +1,4 @@
-pub fn hot_gas_temperature_natural_ventilation_mqh(
+pub fn hot_gas_temperature_increase_natural_ventilation_mqh(
     q: Vec<f64>,
     a_v: Vec<f64>,
     h_v: Vec<f64>,
@@ -16,7 +16,7 @@ pub fn hot_gas_temperature_natural_ventilation_mqh(
         .collect()
 }
 
-pub fn hot_gas_temperature_natural_ventilation_mqh_equation(
+pub fn hot_gas_temperature_increase_natural_ventilation_mqh_equation(
     delta_t_g: String,
     q: String,
     a_v: String,
@@ -35,7 +35,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_hot_gas_temperature_natural_ventilation_mqh() {
+    fn test_hot_gas_temperature_increase_natural_ventilation_mqh() {
         let q = vec![500.0, 1000.0, 1500.0];
         let a_v = vec![2.5, 1.5];
         let h_v = vec![2.0, 1.0];
@@ -43,7 +43,7 @@ mod tests {
         let h_k = 0.035;
         let expected_results = vec![182.5067636, 289.7114284, 379.6293664];
 
-        let results = hot_gas_temperature_natural_ventilation_mqh(q, a_v, h_v, a_t, h_k);
+        let results = hot_gas_temperature_increase_natural_ventilation_mqh(q, a_v, h_v, a_t, h_k);
 
         assert_eq!(
             results.len(),

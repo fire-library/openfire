@@ -1,4 +1,4 @@
-pub fn hot_gas_temperature_natural_ventilation_beyler_closed_compartment(
+pub fn hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(
     k: f64,
     rho: f64,
     c: f64,
@@ -19,7 +19,7 @@ pub fn hot_gas_temperature_natural_ventilation_beyler_closed_compartment(
         .collect()
 }
 
-pub fn hot_gas_temperature_natural_ventilation_beyler_closed_compartment_equation(
+pub fn hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment_equation(
     delta_t_g: String,
     k: String,
     rho: String,
@@ -40,7 +40,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_placeholder_equation_2_6() {
+    fn test_hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment() {
         let k = 0.002;
         let rho = 2400.0;
         let c = 1.17;
@@ -49,7 +49,7 @@ mod tests {
         let q = vec![250.0, 500.0, 750.0];
         let t = 60.0;
 
-        let result = hot_gas_temperature_natural_ventilation_beyler_closed_compartment(
+        let result = hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(
             k, rho, c, t, m, c_p, q,
         );
         let expected_result = vec![142.9192524, 285.8385048, 428.7577571];

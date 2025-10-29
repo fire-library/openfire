@@ -15,7 +15,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_placeholder_equation_2_3() {
+    fn test_heat_transfer_coefficient_longtimes_or_thinwalls() {
         let k = 0.002;
         let delta = 0.25;
 

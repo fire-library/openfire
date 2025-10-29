@@ -93,6 +93,9 @@ mod tests {
         let equation = placeholder_equation_2_8_latex(result, q, a_v, h_v, a_t, h_k);
         let expected = "R = 6.85 \\cdot \\left( \\frac{Q^{2}}{\\left(\\sum_{i} A_v \\cdot \\sqrt{H_v}\\right) \\cdot (A_t \\cdot H_k)} \\right)^{1/3}";
 
-        assert_eq!(equation, expected, "LaTeX equation should match expected format");
+        assert_eq!(
+            equation, expected,
+            "LaTeX equation should match expected format"
+        );
     }
 }
