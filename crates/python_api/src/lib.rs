@@ -6,6 +6,8 @@ mod cibse_guide_e;
 mod fire_dynamics_tools;
 mod introduction_to_fire_dynamics;
 mod pd_7974;
+mod sfpe_handbook;
+mod tr_17;
 
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
@@ -20,5 +22,7 @@ fn openfire(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(
         introduction_to_fire_dynamics::introduction_to_fire_dynamics
     ))?;
+    m.add_wrapped(wrap_pymodule!(sfpe_handbook::sfpe_handbook))?;
+    m.add_wrapped(wrap_pymodule!(tr_17::tr_17))?;
     Ok(())
 }
