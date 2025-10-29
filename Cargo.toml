@@ -27,3 +27,4 @@ tr17 = { path = "./crates/tr17" }
 
 [workspace]
 members = ["crates/*"]
+resolver = "2"
