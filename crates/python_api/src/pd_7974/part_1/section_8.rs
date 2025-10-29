@@ -3,10 +3,10 @@ use pyo3::wrap_pymodule;
 
 // Import all pd_7974 functions
 use ::openfire::pd_7974::part_1::section_8::{
-    equation_28 as rust_equation_28, equation_29 as rust_equation_29, 
-    equation_33 as rust_equation_33, equation_4 as rust_equation_4, 
-    equation_41 as rust_equation_41, equation_42 as rust_equation_42, 
-    equation_43 as rust_equation_43, equation_44 as rust_equation_44
+    equation_4 as rust_equation_4, equation_28 as rust_equation_28,
+    equation_29 as rust_equation_29, equation_33 as rust_equation_33,
+    equation_41 as rust_equation_41, equation_42 as rust_equation_42,
+    equation_43 as rust_equation_43, equation_44 as rust_equation_44,
 };
 
 // Equation 28 module functions
@@ -60,49 +60,49 @@ fn equation_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 41 module functions
 #[pyfunction]
-fn calculate_41(omega: f64) -> PyResult<f64> {
-    Ok(rust_equation_41::calculate(omega))
+fn t_g_max(omega: f64) -> PyResult<f64> {
+    Ok(rust_equation_41::t_g_max(omega))
 }
 
 #[pymodule]
 fn equation_41(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_41, m)?)?;
+    m.add_function(wrap_pyfunction!(t_g_max, m)?)?;
     Ok(())
 }
 
 // Equation 42 module functions
 #[pyfunction]
-fn calculate_42(a_t: f64, a_v: f64, h_v: f64) -> PyResult<f64> {
-    Ok(rust_equation_42::calculate(a_t, a_v, h_v))
+fn omega(a_t: f64, a_v: f64, h_v: f64) -> PyResult<f64> {
+    Ok(rust_equation_42::omega(a_t, a_v, h_v))
 }
 
 #[pymodule]
 fn equation_42(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_42, m)?)?;
+    m.add_function(wrap_pyfunction!(omega, m)?)?;
     Ok(())
 }
 
 // Equation 43 module functions
 #[pyfunction]
-fn calculate_43(t_g_max: f64, psi: f64) -> PyResult<f64> {
-    Ok(rust_equation_43::calculate(t_g_max, psi))
+fn t_g(t_g_max: f64, psi: f64) -> PyResult<f64> {
+    Ok(rust_equation_43::t_g(t_g_max, psi))
 }
 
 #[pymodule]
 fn equation_43(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_43, m)?)?;
+    m.add_function(wrap_pyfunction!(t_g, m)?)?;
     Ok(())
 }
 
 // Equation 44 module functions
 #[pyfunction]
-fn calculate_44(m_e: f64, a_v: f64, a_t: f64) -> PyResult<f64> {
-    Ok(rust_equation_44::calculate(m_e, a_v, a_t))
+fn psi(m_e: f64, a_v: f64, a_t: f64) -> PyResult<f64> {
+    Ok(rust_equation_44::psi(m_e, a_v, a_t))
 }
 
 #[pymodule]
 fn equation_44(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_44, m)?)?;
+    m.add_function(wrap_pyfunction!(psi, m)?)?;
     Ok(())
 }
 
