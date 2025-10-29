@@ -1,9 +1,9 @@
 #![allow(unsafe_op_in_unsafe_fn)]
 
-mod pd_7974;
 mod br_187;
 mod bs9999;
 mod cibse_guide_e;
+mod pd_7974;
 
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;

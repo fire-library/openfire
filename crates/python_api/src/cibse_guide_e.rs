@@ -1,6 +1,6 @@
+pub mod chapter_10;
 pub mod chapter_6;
 pub mod chapter_7;
-pub mod chapter_10;
 
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;

@@ -71,7 +71,9 @@ fn equation_7_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation 7_9 module functions
 #[pyfunction]
 fn acceptance_capacity_stair(w_e: f64, t: f64, rho: f64, a: f64, s: i32) -> PyResult<i32> {
-    Ok(rust_equation_7_9::acceptance_capacity_stair(w_e, t, rho, a, s))
+    Ok(rust_equation_7_9::acceptance_capacity_stair(
+        w_e, t, rho, a, s,
+    ))
 }
 
 #[pymodule]

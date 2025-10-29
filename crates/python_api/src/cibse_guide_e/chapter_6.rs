@@ -5,8 +5,8 @@ use pyo3::wrap_pymodule;
 
 // Import CIBSE Guide E chapter 6 functions
 use ::openfire::cibse_guide_e::chapter_6::{
-    equation_6_55 as rust_equation_6_55, equation_6_57 as rust_equation_6_57,
-    equation_6_58 as rust_equation_6_58, equation_6_7 as rust_equation_6_7,
+    equation_6_7 as rust_equation_6_7, equation_6_55 as rust_equation_6_55,
+    equation_6_57 as rust_equation_6_57, equation_6_58 as rust_equation_6_58,
 };
 
 // Equation 6_7 module functions
@@ -48,7 +48,9 @@ fn equation_6_57(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation 6_58 module functions
 #[pyfunction]
 fn vent_controlled_rate_of_burning(a_t: f64, a_o: f64, h_o: f64, w: f64, d: f64) -> PyResult<f64> {
-    Ok(rust_equation_6_58::vent_controlled_rate_of_burning(a_t, a_o, h_o, w, d))
+    Ok(rust_equation_6_58::vent_controlled_rate_of_burning(
+        a_t, a_o, h_o, w, d,
+    ))
 }
 
 #[pymodule]

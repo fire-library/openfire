@@ -11,7 +11,11 @@ use ::openfire::br_187::appendix_a::{
 // Equation A1 module functions
 #[pyfunction]
 fn radiation_intensity(sigma: f64, emissivity: f64, temperature: f64) -> PyResult<f64> {
-    Ok(rust_equation_a1::radiation_intensity(sigma, emissivity, temperature))
+    Ok(rust_equation_a1::radiation_intensity(
+        sigma,
+        emissivity,
+        temperature,
+    ))
 }
 
 #[pymodule]

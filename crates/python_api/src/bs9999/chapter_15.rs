@@ -44,7 +44,9 @@ fn calculate_exit_width_6c(
     w_se: f64,
     x: f64,
 ) -> PyResult<f64> {
-    Ok(rust_figure_6c::calculate_exit_width(b, n, d, s_up, s_dn, w_se, x))
+    Ok(rust_figure_6c::calculate_exit_width(
+        b, n, d, s_up, s_dn, w_se, x,
+    ))
 }
 
 #[pymodule]
