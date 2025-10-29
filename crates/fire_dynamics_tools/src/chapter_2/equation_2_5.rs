@@ -1,8 +1,8 @@
-pub fn heat_transfer_coefficient_shortimes_or_thickwalls(k: f64, rho: f64, c: f64, t: f64) -> f64 {
+pub fn heat_transfer_coefficient_shorttimes_or_thickwalls(k: f64, rho: f64, c: f64, t: f64) -> f64 {
     return (k * rho * c / t).powf(0.5);
 }
 
-pub fn heat_transfer_coefficient_shortimes_or_thickwalls_equation(
+pub fn heat_transfer_coefficient_shorttimes_or_thickwalls_equation(
     h_k: String,
     k: String,
     rho: String,
@@ -26,7 +26,7 @@ mod tests {
         let c = 1.17;
         let t = 1800.0;
 
-        let result = heat_transfer_coefficient_shortimes_or_thickwalls(k, rho, c, t);
+        let result = heat_transfer_coefficient_shorttimes_or_thickwalls(k, rho, c, t);
         let expected_result = 0.05585696018;
 
         assert!(
