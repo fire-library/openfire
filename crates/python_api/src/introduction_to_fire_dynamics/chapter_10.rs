@@ -24,7 +24,7 @@ fn equation_10_18(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-pub fn chapter_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn chapter_10_intro(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_10_18))?;
     Ok(())
 }
