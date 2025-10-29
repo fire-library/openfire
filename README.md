@@ -22,15 +22,6 @@ openfire/
 └── src/                       # Main library source that only exposes the crates
 ```
 
-## Core Components
-
-### Framework Crate
-
-The `framework` crate serves as the foundation for defining and executing methods. It provides:
-
-- The `Method` struct, which represents the structure of a fire engineering method.
-- The `MethodRunner` trait, which provides an interface for executing the logic behind each method.
-
 ### Domain-Specific Crates
 
-Each crate in the `crates/` directory corresponds to a specific document or domain in fire engineering. These crates implement multiple `MethodRunner` trait instances, each representing a different fire engineering method.
+Each crate in the `crates/` directory corresponds to a specific document or domain in fire engineering.
