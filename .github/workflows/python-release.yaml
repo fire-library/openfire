@@ -87,7 +87,6 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           command: publish
-          args: --skip-existing
-          working-directory: crates/python_api
+          args: --skip-existing dist/*
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
