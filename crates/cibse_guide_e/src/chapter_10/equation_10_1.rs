@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn max_volumetric_flow_rate(gamma: f64, d: f64, t_s: f64, t_0: f64) -> f64 {
     let left = 4.16 * gamma * d.powf(5.0 / 2.0);
     let right = ((t_s - t_0) / t_0).powf(0.5);

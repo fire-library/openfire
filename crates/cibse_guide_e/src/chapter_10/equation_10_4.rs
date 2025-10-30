@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn time_burning_skin(q: f64) -> f64 {
     return 1.33 * q.powf(-1.35);
 }

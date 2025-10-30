@@ -1,5 +1,3 @@
-pub mod openfire_runner;
-
 pub fn calculate_exit_width(s_up: f64, w_se: f64, n: f64, d: f64, x: f64) -> f64 {
     let w_fe;
     if n > 60.0 && d < 2.0 {
