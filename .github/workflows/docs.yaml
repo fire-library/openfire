@@ -36,6 +36,13 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Create virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
+          echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
+
       - name: Install documentation dependencies
         run: |
           pip install -r docs-requirements.txt
@@ -45,6 +52,10 @@ jobs:
           cd crates/python_api
           pip install maturin
           maturin develop
+
+      - name: Verify ofire installation
+        run: |
+          python -c "import ofire; print('ofire modules:', dir(ofire))"
 
       - name: Build documentation
         run: |
