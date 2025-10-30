@@ -33,13 +33,18 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
       - name: Install documentation dependencies
         run: |
           pip install -r docs-requirements.txt
 
       - name: Install ofire package for API docs
         run: |
-          pip install ofire
+          cd crates/python_api
+          pip install maturin
+          maturin develop
 
       - name: Build documentation
         run: |
