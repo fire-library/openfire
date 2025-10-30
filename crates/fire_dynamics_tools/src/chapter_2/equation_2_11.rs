@@ -1,11 +1,21 @@
-pub fn k_constant_smoke_layer_height(rho_g: f64, rho_a: f64, g: f64, c_p: f64, t_a: f64) -> f64 {
-    let left = 0.21 / rho_g;
+pub fn k_constant_smoke_layer_height_yamana_tanaka(
+    rho_g: Vec<f64>,
+    rho_a: f64,
+    g: f64,
+    c_p: f64,
+    t_a: f64,
+) -> Vec<f64> {
     let right_top = rho_a.powf(2.0) * g;
     let right_bottom = c_p * t_a;
-    return left * (right_top / right_bottom).powf(1.0 / 3.0);
+    let right_side = (right_top / right_bottom).powf(1.0 / 3.0);
+
+    rho_g
+        .iter()
+        .map(|&rho_g_val| (0.21 / rho_g_val) * right_side)
+        .collect()
 }
 
-pub fn height_smoke_layer_interface_2_11_equation(
+pub fn k_constant_smoke_layer_height_yamana_tanaka_equation(
     k: String,
     rho_g: String,
     rho_a: String,
@@ -21,32 +31,36 @@ pub fn height_smoke_layer_interface_2_11_equation(
 
 #[cfg(test)]
 mod tests {
+    use std::vec;
+
     use super::*;
 
     #[test]
     fn test_k_constant_smoke_layer_height() {
-        // Test with typical values for fire dynamics
-        let rho_g = 0.3; // kg/m³ (hot gas density)
-        let rho_a = 1.2; // kg/m³ (ambient air density)
-        let g = 9.81; // m/s² (gravitational acceleration)
-        let c_p = 1005.0; // J/(kg·K) (specific heat capacity of air)
-        let t_a = 293.15; // K (ambient temperature = 20°C)
+        let rho_g = vec![0.75, 0.5, 0.25];
+        let rho_a = 1.2;
+        let g = 9.81;
+        let c_p = 1.0;
+        let t_a = 293.15;
 
-        let result = k_constant_smoke_layer_height(rho_g, rho_a, g, c_p, t_a);
+        let result = k_constant_smoke_layer_height_yamana_tanaka(rho_g, rho_a, g, c_p, t_a);
 
-        // Expected calculation:
-        // left = 0.21 / 0.3 = 0.7
-        // right_top = 1.2² * 9.81 = 14.1264
-        // right_bottom = 1005.0 * 293.15 = 294,615.75
-        // right = (14.1264 / 294,615.75)^(1/3) = (4.7927e-5)^(1/3) ≈ 0.03631
-        // k = 0.7 * 0.03631 ≈ 0.02542
-        let expected_result = 0.02542;
+        let expected_result = vec![0.1018916429, 0.1528374644, 0.3056749288];
 
-        assert!(
-            (result - expected_result).abs() < 1e-4,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
+        assert_eq!(
+            result.len(),
+            expected_result.len(),
+            "Should return same number of results as input densities"
         );
+
+        for (i, (actual, expected)) in result.iter().zip(expected_result.iter()).enumerate() {
+            assert!(
+                (actual - expected).abs() < 1e-4,
+                "Result at index {} should be approximately {}, but got {}",
+                i,
+                expected,
+                actual
+            );
+        }
     }
 }

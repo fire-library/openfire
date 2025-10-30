@@ -9,5 +9,3 @@ pub mod equation_2_6;
 pub mod equation_2_7;
 pub mod equation_2_8;
 pub mod equation_2_9;
-pub mod equation_2_10;
-
