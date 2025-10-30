@@ -6,9 +6,9 @@ build-backend = "maturin"
 name = "ofire"
 version = "0.1.0"
 description = "Fire safety engineering tools implemented in Rust with Python bindings."
-readme = "../../README.md"
+# readme = "README.md"
 requires-python = ">=3.8"
-license = { file = "../../LICENSE" }
+license = { file = "LICENSE" }
 authors = [{ name = "EmberonTech", email = "jamie@emberontech.com" }]
 classifiers = [
     "Programming Language :: Python :: 3",
