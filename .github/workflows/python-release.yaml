@@ -37,6 +37,7 @@ jobs:
           command: build
           args: --release --out dist
           target: ${{ matrix.target }}
+          working-directory: crates/python_api
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4
@@ -60,6 +61,7 @@ jobs:
         with:
           command: sdist
           args: --out dist
+          working-directory: crates/python_api
 
       - name: Upload sdist
         uses: actions/upload-artifact@v4
@@ -86,5 +88,6 @@ jobs:
         with:
           command: publish
           args: --skip-existing
+          working-directory: crates/python_api
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
