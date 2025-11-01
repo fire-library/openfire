@@ -45,7 +45,7 @@ jobs:
 
       - name: Install documentation dependencies
         run: |
-          pip install -r docs-requirements.txt
+          pip install -r docs/docs-requirements.txt
 
       - name: Install ofire package for API docs
         run: |
@@ -59,7 +59,7 @@ jobs:
 
       - name: Build documentation with Sphinx
         run: |
-          sphinx-build -b html . _build
+          sphinx-build -b html docs _build
 
       - name: Setup Pages
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'

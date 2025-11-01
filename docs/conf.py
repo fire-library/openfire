@@ -3,8 +3,8 @@
 import sys
 import os
 
-# Add the current directory to Python path so sphinx can import ofire
-sys.path.insert(0, os.path.abspath('.'))
+# Add the parent directory to Python path so sphinx can import ofire
+sys.path.insert(0, os.path.abspath('..'))
 
 # Project information
 project = 'OpenFire'
@@ -26,7 +26,7 @@ extensions = [
 templates_path = ['_templates']
 
 # List of patterns to ignore when looking for source files
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'crates', 'docs', 'stubs', '.venv']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'crates', 'stubs', '.venv']
 
 # HTML theme
 html_theme = 'furo'
