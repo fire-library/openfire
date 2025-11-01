@@ -57,9 +57,9 @@ jobs:
         run: |
           python -c "import ofire; print('ofire modules:', dir(ofire))"
 
-      - name: Build documentation
+      - name: Build documentation with Sphinx
         run: |
-          mkdocs build --strict
+          sphinx-build -b html . _build
 
       - name: Setup Pages
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
@@ -69,7 +69,7 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./site
+          path: ./_build
 
   deploy:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
