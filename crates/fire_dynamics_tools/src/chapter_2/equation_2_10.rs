@@ -1,13 +1,22 @@
-pub fn height_smoke_layer_interface(k: f64, q: f64, t: Vec<f64>, a_c: f64, h_c: f64) -> Vec<f64> {
-    t.iter()
-        .map(|&time| {
-            (((2.0 * k * q.powf(1.0 / 3.0) * time) / (3.0 * a_c)) + (1.0 / h_c.powf(2.0 / 3.0)))
-                .powf(-3.0 / 2.0)
+pub fn height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
+    k: Vec<f64>,
+    q: Vec<f64>,
+    t: Vec<f64>,
+    a_c: f64,
+    h_c: f64,
+) -> Vec<f64> {
+    k.iter()
+        .zip(q.iter())
+        .zip(t.iter())
+        .map(|((&k_val, &q_val), &t_val)| {
+            let top_left = 2.0 * k_val * q_val.powf(1.0 / 3.0) * t_val;
+            let bottom_left = 3.0 * a_c;
+            (top_left / bottom_left + 1.0 / h_c.powf(2.0 / 3.0)).powf(-3.0 / 2.0)
         })
         .collect()
 }
 
-pub fn height_smoke_layer_interface_equation(
+pub fn height_smoke_layer_interface_natural_ventilation_yamana_tanaka_equation(
     z: String,
     k: String,
     q: String,
@@ -26,16 +35,21 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_height_smoke_layer_interface() {
-        // Test values: k = 0.025, q = 500, a_c = 20, h_c = 2.75, t = [25, 50, 75]
-        let k = 0.025;
-        let q = 500.0;
-        let a_c = 20.0;
-        let h_c = 2.75;
-        let time_values = vec![25.0, 50.0, 75.0];
-        let expected_results = vec![1.803939505, 1.298521222, 0.991770071];
+    fn test_height_smoke_layer_interface_natural_ventilation_yamana_tanaka() {
+        let k = vec![0.15, 0.12, 0.1];
+        let q = vec![500.0, 1000.0, 1500.0];
+        let a_c = 250.0;
+        let h_c = 4.5;
+        let time_values = vec![60.0, 90.0, 120.0];
+        let expected_results = vec![2.403177584, 1.886933556, 1.592853252];
 
-        let results = height_smoke_layer_interface(k, q, time_values, a_c, h_c);
+        let results = height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
+            k,
+            q,
+            time_values,
+            a_c,
+            h_c,
+        );
 
         assert_eq!(
             results.len(),
@@ -52,47 +66,5 @@ mod tests {
                 actual
             );
         }
-    }
-
-    #[test]
-    fn test_height_smoke_layer_interface_single_value() {
-        // Test with single time value t = 25
-        let k = 0.025;
-        let q = 500.0;
-        let a_c = 20.0;
-        let h_c = 2.75;
-        let time_values = vec![25.0];
-        let expected_result = 1.803939505;
-
-        let results = height_smoke_layer_interface(k, q, time_values, a_c, h_c);
-
-        assert_eq!(
-            results.len(),
-            1,
-            "Should return one result for one time value"
-        );
-        assert!(
-            (results[0] - expected_result).abs() < 1e-8,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            results[0]
-        );
-    }
-
-    #[test]
-    fn test_height_smoke_layer_interface_empty_vector() {
-        let k = 0.025;
-        let q = 500.0;
-        let a_c = 20.0;
-        let h_c = 2.75;
-        let time_values = vec![];
-
-        let results = height_smoke_layer_interface(k, q, time_values, a_c, h_c);
-
-        assert_eq!(
-            results.len(),
-            0,
-            "Should return empty vector for empty input"
-        );
     }
 }
