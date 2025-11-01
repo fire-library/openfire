@@ -50,7 +50,14 @@ autodoc_default_options = {
     'undoc-members': True,
     'show-inheritance': True,
     'special-members': '__init__',
+    'imported-members': True,
+    'exclude-members': '__weakref__',
 }
+
+# Additional autodoc settings
+autodoc_member_order = 'bysource'
+autodoc_typehints = 'description'
+autodoc_typehints_description_target = 'documented'
 
 # Napoleon settings for Google-style docstrings
 napoleon_google_docstring = True

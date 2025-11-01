@@ -38,7 +38,7 @@ Project Structure
 
    installation
    guide/index
-   api
+   api/index
 
 Contributing
 ------------

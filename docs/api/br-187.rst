@@ -1,0 +1,25 @@
+BR 187 - External Fire Spread
+==============================
+
+BR 187 provides guidance on external fire spread calculations for building design.
+
+.. automodule:: ofire.br_187
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Chapter 1
+---------
+
+.. automodule:: ofire.br_187.chapter_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Appendix A
+----------
+
+.. automodule:: ofire.br_187.appendix_a
+   :members:
+   :undoc-members:
+   :show-inheritance:

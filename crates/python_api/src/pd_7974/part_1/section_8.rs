@@ -49,6 +49,7 @@ fn q_fo_29(h_k: f64, a_t: f64, a_v: f64, h_v: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
+/// PD 7974 Part 1 Section 8 Equation 29 - Heat release rate calculations with heat of combustion.
 fn equation_29(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(q_fo_29, m)?)?;
     Ok(())
@@ -69,6 +70,7 @@ fn q_max_vc(a_v: f64, h_v: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
+/// PD 7974 Part 1 Section 8 Equation 33 - Ventilation-controlled heat release rate calculations.
 fn equation_33(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(q_max_vc, m)?)?;
     Ok(())
@@ -89,6 +91,7 @@ fn q_max_fc(a_f: f64, hrrpua: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
+/// PD 7974 Part 1 Section 8 Equation 4 - Fuel-controlled heat release rate calculations.
 fn equation_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(q_max_fc, m)?)?;
     Ok(())
@@ -96,11 +99,19 @@ fn equation_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 41 module functions
 #[pyfunction]
+/// Calculate maximum gas temperature (Equation 41).
+/// 
+/// Args:
+///     omega: Opening factor (m^0.5)
+/// 
+/// Returns:
+///     Maximum gas temperature (°C)
 fn t_g_max(omega: f64) -> PyResult<f64> {
     Ok(rust_equation_41::t_g_max(omega))
 }
 
 #[pymodule]
+/// PD 7974 Part 1 Section 8 Equation 41 - Maximum gas temperature calculations.
 fn equation_41(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(t_g_max, m)?)?;
     Ok(())
@@ -108,11 +119,21 @@ fn equation_41(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 42 module functions
 #[pyfunction]
+/// Calculate opening factor (Equation 42).
+/// 
+/// Args:
+///     a_t: Total floor area (m²)
+///     a_v: Area of ventilation openings (m²)
+///     h_v: Height of ventilation openings (m)
+/// 
+/// Returns:
+///     Opening factor (m^0.5)
 fn omega(a_t: f64, a_v: f64, h_v: f64) -> PyResult<f64> {
     Ok(rust_equation_42::omega(a_t, a_v, h_v))
 }
 
 #[pymodule]
+/// PD 7974 Part 1 Section 8 Equation 42 - Opening factor calculations.
 fn equation_42(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(omega, m)?)?;
     Ok(())
@@ -120,11 +141,20 @@ fn equation_42(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 43 module functions
 #[pyfunction]
+/// Calculate gas temperature (Equation 43).
+/// 
+/// Args:
+///     t_g_max: Maximum gas temperature (°C)
+///     psi: Fuel load density parameter
+/// 
+/// Returns:
+///     Gas temperature (°C)
 fn t_g(t_g_max: f64, psi: f64) -> PyResult<f64> {
     Ok(rust_equation_43::t_g(t_g_max, psi))
 }
 
 #[pymodule]
+/// PD 7974 Part 1 Section 8 Equation 43 - Gas temperature calculations.
 fn equation_43(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(t_g, m)?)?;
     Ok(())
@@ -132,11 +162,21 @@ fn equation_43(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 44 module functions
 #[pyfunction]
+/// Calculate fuel load density parameter (Equation 44).
+/// 
+/// Args:
+///     m_e: Fuel load density (kg/m²)
+///     a_v: Area of ventilation openings (m²)
+///     a_t: Total floor area (m²)
+/// 
+/// Returns:
+///     Fuel load density parameter (dimensionless)
 fn psi(m_e: f64, a_v: f64, a_t: f64) -> PyResult<f64> {
     Ok(rust_equation_44::psi(m_e, a_v, a_t))
 }
 
 #[pymodule]
+/// PD 7974 Part 1 Section 8 Equation 44 - Fuel load density parameter calculations.
 fn equation_44(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(psi, m)?)?;
     Ok(())
@@ -147,6 +187,16 @@ fn equation_44(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// 
 /// This section provides various equations for calculating heat release rates,
 /// temperatures, and fire growth parameters according to PD 7974 Part 1.
+/// 
+/// Available submodules:
+///     equation_28: Heat release rate for fuel-controlled fire (Equation 28)
+///     equation_29: Heat release rate with heat of combustion (Equation 29)
+///     equation_33: Ventilation-controlled heat release rate (Equation 33)
+///     equation_4: Fuel-controlled heat release rate (Equation 4)
+///     equation_41: Maximum gas temperature (Equation 41)
+///     equation_42: Opening factor (Equation 42)
+///     equation_43: Gas temperature (Equation 43)
+///     equation_44: Fuel load density parameter (Equation 44)
 pub fn section_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_28))?;
     m.add_wrapped(wrap_pymodule!(equation_29))?;
