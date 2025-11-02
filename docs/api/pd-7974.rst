@@ -28,7 +28,7 @@ Equation Modules
 ^^^^^^^^^^^^^^^^
 
 Equation 28 - Heat Release Rate (Fuel-Controlled)
-"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.pd_7974.part_1.section_8.equation_28
    :members:
@@ -36,7 +36,7 @@ Equation 28 - Heat Release Rate (Fuel-Controlled)
    :show-inheritance:
 
 Equation 29 - Heat Release Rate with Heat of Combustion
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.pd_7974.part_1.section_8.equation_29
    :members:
@@ -44,7 +44,7 @@ Equation 29 - Heat Release Rate with Heat of Combustion
    :show-inheritance:
 
 Equation 33 - Ventilation-Controlled Heat Release Rate
-""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.pd_7974.part_1.section_8.equation_33
    :members:
@@ -60,7 +60,7 @@ Equation 4 - Fuel-Controlled Heat Release Rate
    :show-inheritance:
 
 Equation 41 - Maximum Gas Temperature
-""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.pd_7974.part_1.section_8.equation_41
    :members:
@@ -76,7 +76,7 @@ Equation 42 - Opening Factor
    :show-inheritance:
 
 Equation 43 - Gas Temperature
-""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.pd_7974.part_1.section_8.equation_43
    :members:
