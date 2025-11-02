@@ -1,3 +1,7 @@
+---
+applyTo: "crates/python_api/**"
+---
+
 ## Copilot – Python API docstring and binding guide (python_api only)
 
 Scope: This file applies when editing code under `crates/python_api/` only. Follow these steps; search the codebase only if something here is missing or incorrect.
