@@ -28,6 +28,7 @@ pip install maturin
 ```
 
 Notes:
+
 - No system packages are needed on macOS to build/test Rust. CI installs some Ubuntu libs (webkit, appindicator, rsvg, patchelf) but they are not required for unit tests here.
 
 ## Build, test, run – Rust
@@ -35,6 +36,7 @@ Notes:
 Preconditions: Rust stable toolchain installed.
 
 Commands that work reliably from repo root:
+
 - Build the workspace:
   - `cargo build`
 - Compile tests without running (fast feedback):
@@ -45,9 +47,11 @@ Commands that work reliably from repo root:
   - `cargo test --workspace --verbose`
 
 Observed behavior and workarounds:
+
 - On macOS, a doctest in `crates/br_187` can fail due to Unicode math in a doc code block. If you hit a doctest failure during local runs, re-run with `--lib` to iterate quickly. Before opening a PR, prefer keeping doctests non-compiling snippets fenced as text (```text) or annotated with `ignore` in the code comment to prevent compilation.
 
 Useful maintenance:
+
 - Format: `cargo fmt` (optional but recommended before commits).
 - Lint: `cargo clippy --workspace --all-targets -- -D warnings` (not enforced by CI but helpful).
 - Clean build: `cargo clean` (if caching issues suspected).
@@ -57,6 +61,7 @@ Useful maintenance:
 The Python package lives in `crates/python_api` and builds a module named `ofire`.
 
 - Editable install for local dev (ensures Rust code is built and importable in venv):
+
   - From repo root, with venv active:
     - `cd crates/python_api && maturin develop`
   - Quick validation:
@@ -66,6 +71,7 @@ The Python package lives in `crates/python_api` and builds a module named `ofire
   - `maturin build --release -m crates/python_api/pyproject.toml`
 
 Notes:
+
 - The crate `crates/python_api/Cargo.toml` uses `crate-type = ["cdylib"]` and depends on the root `openfire` crate via a path dependency.
 
 ## Documentation (Sphinx)
@@ -73,6 +79,7 @@ Notes:
 Docs live under `docs/`. API docs import the Python module built via `maturin develop`.
 
 Steps to build locally:
+
 ```bash
 source .venv/bin/activate
 cd crates/python_api && maturin develop && cd -
@@ -80,17 +87,20 @@ sphinx-build -b html docs _build
 ```
 
 Observed warnings (harmless):
+
 - `html_static_path entry '_static' does not exist` – fine if you don’t use custom static assets.
 - A reStructuredText title underline length warning in `docs/index.rst` and an `unknown document: '../api'` reference – docs still build.
 
 ## CI and release checks
 
 GitHub Actions workflows:
+
 - `.github/workflows/test.yaml` – cargo test on Ubuntu stable Rust; restores Cargo caches; installs some system libs; runs `cargo test --workspace --verbose`.
 - `.github/workflows/docs.yaml` – sets up Python 3.11 and Rust; installs docs deps; runs `maturin develop` for `ofire`; builds Sphinx HTML and deploys to GitHub Pages on main/master.
 - `.github/workflows/python-release.yaml` – builds wheels via `PyO3/maturin-action` for Linux, Windows, and macOS targets, plus sdist, then uploads to PyPI on `release` branch with OIDC.
 
 To replicate CI locally:
+
 - Tests: `cargo test --workspace --verbose` (see doctest note above).
 - Docs: follow the “Documentation” steps with an active venv and `maturin develop`.
 - Python wheels: run `maturin build` (a matrix of targets requires OS-specific toolchains; local builds will produce host wheels).
@@ -106,6 +116,7 @@ To replicate CI locally:
 - PDFs: `Documents/` – reference documents used to implement formulas (not used by builds/tests).
 
 Hidden gotchas and dependencies:
+
 - Doctest Unicode: non-Rust snippets in doc comments should be fenced as `text` or marked `ignore` to avoid doctest compilation errors.
 - macOS SSL warning from urllib3 during docs build may appear (LibreSSL vs OpenSSL); currently harmless.
 
