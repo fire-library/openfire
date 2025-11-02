@@ -119,6 +119,7 @@ Hidden gotchas and dependencies:
 
 - Doctest Unicode: non-Rust snippets in doc comments should be fenced as `text` or marked `ignore` to avoid doctest compilation errors.
 - macOS SSL warning from urllib3 during docs build may appear (LibreSSL vs OpenSSL); currently harmless.
+- Copilot instruction mapping: if you rely on repo-scoped instruction files, ensure the path pattern is recursive. For this repo, use `crates/python_api/**` (not `crates/python_api/*`) so edits under `crates/python_api/src/...` load `.github/instructions/python.instructions.md`.
 
 ## Quick file map (root level)
 
