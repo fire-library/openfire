@@ -16,10 +16,11 @@ use ::openfire::br_187::appendix_a::{
 ///
 /// .. math::
 ///
-///    I = \sigma \cdot \varepsilon \cdot T^4
+///    I_s = \sigma \cdot \varepsilon \cdot T^4
 ///
 /// where:
-/// - :math:`I` is the radiation intensity (kW/m²)
+///
+/// - :math:`I_s` is the radiation intensity (kW/m²)
 /// - :math:`\sigma` is the Stefan-Boltzmann constant (5.67 × 10⁻¹¹ kW/m²K⁴)
 /// - :math:`\varepsilon` is the surface emissivity (dimensionless, 0-1)
 /// - :math:`T` is the absolute temperature (K)
@@ -56,6 +57,16 @@ fn equation_a1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Calculates the thermal radiation intensity received at a target location
 /// considering geometric view factors.
 ///
+/// .. math::
+///
+///    I_R = \phi \cdot I_s
+///
+/// where:
+///
+/// - :math:`I_R` is the radiation intensity at receiver (W/m²)
+/// - :math:`\phi` is the view factor (dimensionless)
+/// - :math:`I_s` is the source radiation intensity (W/m²)
+///
 /// Args:
 ///     phi: View factor (dimensionless)
 ///     i_s: Source radiation intensity (W/m²)
@@ -85,6 +96,16 @@ fn equation_a2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 #[pyo3(name = "x")]
 /// Calculate dimensionless width parameter (Equation A3).
 ///
+/// .. math::
+///
+///    X = \frac{W}{2 \cdot S}
+///
+/// where:
+///
+/// - :math:`X` is the dimensionless width parameter
+/// - :math:`W` is the width of radiation source (m)
+/// - :math:`S` is the distance from source to receiver (m)
+///
 /// Args:
 ///     w: Width of radiation source (m)
 ///     s: Distance from source to receiver (m)
@@ -98,6 +119,16 @@ fn x_a3(w: f64, s: f64) -> PyResult<f64> {
 #[pyfunction]
 #[pyo3(name = "y")]
 /// Calculate dimensionless height parameter (Equation A3).
+///
+/// .. math::
+///
+///    Y = \frac{H}{2 \cdot S}
+///
+/// where:
+///
+/// - :math:`Y` is the dimensionless height parameter
+/// - :math:`H` is the height of radiation source (m)
+/// - :math:`S` is the distance from source to receiver (m)
 ///
 /// Args:
 ///     h: Height of radiation source (m)
@@ -113,13 +144,15 @@ fn y_a3(h: f64, s: f64) -> PyResult<f64> {
 #[pyo3(name = "phi")]
 /// Calculate view factor using dimensionless parameters (Equation A3).
 ///
-/// Calculates the view factor using the formula:
+/// Calculates the view factor for parallel source and receiver surfaces
+/// that are centre aligned using dimensionless parameters.
 ///
 /// .. math::
 ///
-///    \phi = \frac{1}{\pi} \left[ \tan^{-1}\left(\frac{X}{\sqrt{Y^2 + 1}}\right) + \tan^{-1}\left(\frac{Y}{\sqrt{X^2 + 1}}\right) \right]
+///    \phi = \frac{2}{\pi}\left(\frac{X}{\sqrt{1+X^2}}\tan^{-1}\left(\frac{Y}{\sqrt{1+X^2}}\right)+\frac{Y}{\sqrt{1+Y^2}}\tan^{-1}\left(\frac{X}{\sqrt{1+Y^2}}\right)\right)
 ///
 /// where:
+///
 /// - :math:`\phi` is the view factor (dimensionless)
 /// - :math:`X` is the dimensionless width parameter
 /// - :math:`Y` is the dimensionless height parameter
@@ -152,6 +185,16 @@ fn equation_a3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 #[pyo3(name = "x")]
 /// Calculate dimensionless width parameter (Equation A4).
 ///
+/// .. math::
+///
+///    X = \frac{W}{S}
+///
+/// where:
+///
+/// - :math:`X` is the dimensionless width parameter
+/// - :math:`W` is the width of radiation source (m)
+/// - :math:`S` is the distance from source to receiver (m)
+///
 /// Args:
 ///     w: Width of radiation source (m)
 ///     s: Distance from source to receiver (m)
@@ -166,6 +209,16 @@ fn x_a4(w: f64, s: f64) -> PyResult<f64> {
 #[pyo3(name = "y")]
 /// Calculate dimensionless height parameter (Equation A4).
 ///
+/// .. math::
+///
+///    Y = \frac{H}{S}
+///
+/// where:
+///
+/// - :math:`Y` is the dimensionless height parameter
+/// - :math:`H` is the height of radiation source (m)
+/// - :math:`S` is the distance from source to receiver (m)
+///
 /// Args:
 ///     h: Height of radiation source (m)
 ///     s: Distance from source to receiver (m)
@@ -179,6 +232,19 @@ fn y_a4(h: f64, s: f64) -> PyResult<f64> {
 #[pyfunction]
 #[pyo3(name = "phi")]
 /// Calculate view factor using alternative method (Equation A4).
+///
+/// Calculates the view factor for parallel source and receiver surfaces
+/// that are corner aligned.
+///
+/// .. math::
+///
+///    \phi = \frac{1}{2\pi}\left(\frac{X}{\sqrt{1+X^2}}\tan^{-1}\left(\frac{Y}{\sqrt{1+X^2}}\right)+\frac{Y}{\sqrt{1+Y^2}}\tan^{-1}\left(\frac{X}{\sqrt{1+Y^2}}\right)\right)
+///
+/// where:
+///
+/// - :math:`\phi` is the view factor (dimensionless)
+/// - :math:`X` is the dimensionless width parameter
+/// - :math:`Y` is the dimensionless height parameter
 ///
 /// Args:
 ///     x: Dimensionless width parameter
@@ -208,6 +274,16 @@ fn equation_a4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 #[pyo3(name = "x")]
 /// Calculate dimensionless width parameter (Equation A5).
 ///
+/// .. math::
+///
+///    X = \frac{W}{S}
+///
+/// where:
+///
+/// - :math:`X` is the dimensionless width parameter
+/// - :math:`W` is the width of radiation source (m)
+/// - :math:`S` is the distance from source to receiver (m)
+///
 /// Args:
 ///     w: Width of radiation source (m)
 ///     s: Distance from source to receiver (m)
@@ -222,6 +298,16 @@ fn x_a5(w: f64, s: f64) -> PyResult<f64> {
 #[pyo3(name = "y")]
 /// Calculate dimensionless height parameter (Equation A5).
 ///
+/// .. math::
+///
+///    Y = \frac{H}{S}
+///
+/// where:
+///
+/// - :math:`Y` is the dimensionless height parameter
+/// - :math:`H` is the height of radiation source (m)
+/// - :math:`S` is the distance from source to receiver (m)
+///
 /// Args:
 ///     h: Height of radiation source (m)
 ///     s: Distance from source to receiver (m)
@@ -235,6 +321,19 @@ fn y_a5(h: f64, s: f64) -> PyResult<f64> {
 #[pyfunction]
 #[pyo3(name = "phi")]
 /// Calculate view factor for specific geometric configuration (Equation A5).
+///
+/// Calculates the view factor for perpendicular source and receiver surfaces
+/// that are corner aligned.
+///
+/// .. math::
+///
+///    \phi = \frac{1}{2\pi}\left(\tan^{-1}(X) - \frac{1}{\sqrt{Y^2 + 1}}\tan^{-1}\left(\frac{X}{\sqrt{Y^2 + 1}}\right)\right)
+///
+/// where:
+///
+/// - :math:`\phi` is the view factor (dimensionless)
+/// - :math:`X` is the dimensionless width parameter
+/// - :math:`Y` is the dimensionless height parameter
 ///
 /// Args:
 ///     x: Dimensionless width parameter

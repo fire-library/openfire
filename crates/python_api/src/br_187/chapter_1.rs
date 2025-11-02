@@ -11,13 +11,24 @@ use ::openfire::br_187::chapter_1::equation_1 as rust_equation_1;
 /// This function calculates the ventilation factor used in BR 187 methodologies
 /// for assessing external fire spread between buildings.
 /// 
+/// .. math::
+/// 
+///    O = \frac{A_s}{A \cdot \sqrt{H}}
+/// 
+/// where:
+/// 
+/// - :math:`O` is the ventilation factor (m⁻¹/²)
+/// - :math:`A_s` is the area of external wall surface (m²)
+/// - :math:`A` is the area of openings in the external wall (m²)
+/// - :math:`H` is the height of openings (m)
+/// 
 /// Args:
 ///     a_s: Area of external wall surface (m²)
 ///     a: Area of openings in the external wall (m²)
 ///     h: Height of openings (m)
 /// 
 /// Returns:
-///     Ventilation factor (dimensionless)
+///     Ventilation factor (m⁻¹/²)
 /// 
 /// Example:
 ///     >>> import ofire
@@ -41,9 +52,6 @@ fn equation_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// 
 /// This chapter provides fundamental calculations for external fire spread
 /// assessment including ventilation factors and building geometry considerations.
-/// 
-/// Available equations:
-///     equation_1: Ventilation factor calculations
 pub fn chapter_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_1))?;
     Ok(())
