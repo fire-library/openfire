@@ -26,12 +26,12 @@ use ::openfire::br_187::appendix_a::{
 /// - :math:`T` is the absolute temperature (K)
 ///
 /// Args:
-///     sigma: Stefan-Boltzmann constant (kW/m²K⁴)
-///     emissivity: Surface emissivity (dimensionless, 0-1)
-///     temperature: Absolute temperature (K)
+///     sigma (float): Stefan-Boltzmann constant (kW/m²K⁴)
+///     emissivity (float): Surface emissivity (dimensionless, 0-1)
+///     temperature (float): Absolute temperature (K)
 ///
 /// Returns:
-///     Radiation intensity (kW/m²)
+///     float: Radiation intensity (kW/m²)
 fn radiation_intensity(sigma: f64, emissivity: f64, temperature: f64) -> PyResult<f64> {
     Ok(rust_equation_a1::radiation_intensity(
         sigma,
@@ -68,11 +68,11 @@ fn equation_a1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`I_s` is the source radiation intensity (W/m²)
 ///
 /// Args:
-///     phi: View factor (dimensionless)
-///     i_s: Source radiation intensity (W/m²)
+///     phi (float): View factor (dimensionless)
+///     i_s (float): Source radiation intensity (W/m²)
 ///
 /// Returns:
-///     Radiation intensity at receiver (W/m²)
+///     float: Radiation intensity at receiver (W/m²)
 ///
 /// Example:
 ///     >>> import ofire
@@ -107,11 +107,11 @@ fn equation_a2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`S` is the distance from source to receiver (m)
 ///
 /// Args:
-///     w: Width of radiation source (m)
-///     s: Distance from source to receiver (m)
+///     w (float): Width of radiation source (m)
+///     s (float): Distance from source to receiver (m)
 ///
 /// Returns:
-///     Dimensionless width parameter
+///     float: Dimensionless width parameter
 fn x_a3(w: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a3::x(w, s))
 }
@@ -131,11 +131,11 @@ fn x_a3(w: f64, s: f64) -> PyResult<f64> {
 /// - :math:`S` is the distance from source to receiver (m)
 ///
 /// Args:
-///     h: Height of radiation source (m)
-///     s: Distance from source to receiver (m)
+///     h (float): Height of radiation source (m)
+///     s (float): Distance from source to receiver (m)
 ///
 /// Returns:
-///     Dimensionless height parameter
+///     float: Dimensionless height parameter
 fn y_a3(h: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a3::y(h, s))
 }
@@ -158,12 +158,12 @@ fn y_a3(h: f64, s: f64) -> PyResult<f64> {
 /// - :math:`Y` is the dimensionless height parameter
 ///
 /// Args:
-///     x: Dimensionless width parameter
-///     y: Dimensionless height parameter
-///     additive: Whether this view factor is positive or negative
+///     x (float): Dimensionless width parameter
+///     y (float): Dimensionless height parameter
+///     additive (bool): Whether this view factor is positive or negative
 ///
 /// Returns:
-///     View factor (dimensionless)
+///     float: View factor (dimensionless)
 fn phi_a3(x: f64, y: f64, additive: bool) -> PyResult<f64> {
     Ok(rust_equation_a3::phi(x, y, additive))
 }
@@ -196,11 +196,11 @@ fn equation_a3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`S` is the distance from source to receiver (m)
 ///
 /// Args:
-///     w: Width of radiation source (m)
-///     s: Distance from source to receiver (m)
+///     w (float): Width of radiation source (m)
+///     s (float): Distance from source to receiver (m)
 ///
 /// Returns:
-///     Dimensionless width parameter
+///     float: Dimensionless width parameter
 fn x_a4(w: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a4::x(w, s))
 }
@@ -220,11 +220,11 @@ fn x_a4(w: f64, s: f64) -> PyResult<f64> {
 /// - :math:`S` is the distance from source to receiver (m)
 ///
 /// Args:
-///     h: Height of radiation source (m)
-///     s: Distance from source to receiver (m)
+///     h (float): Height of radiation source (m)
+///     s (float): Distance from source to receiver (m)
 ///
 /// Returns:
-///     Dimensionless height parameter
+///     float: Dimensionless height parameter
 fn y_a4(h: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a4::y(h, s))
 }
@@ -247,12 +247,12 @@ fn y_a4(h: f64, s: f64) -> PyResult<f64> {
 /// - :math:`Y` is the dimensionless height parameter
 ///
 /// Args:
-///     x: Dimensionless width parameter
-///     y: Dimensionless height parameter
-///     additive: Whether this view factor is positive or negative
+///     x (float): Dimensionless width parameter
+///     y (float): Dimensionless height parameter
+///     additive (bool): Whether this view factor is positive or negative
 ///
 /// Returns:
-///     View factor (dimensionless)
+///     float: View factor (dimensionless)
 fn phi_a4(x: f64, y: f64, additive: bool) -> PyResult<f64> {
     Ok(rust_equation_a4::phi(x, y, additive))
 }
@@ -285,11 +285,11 @@ fn equation_a4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`S` is the distance from source to receiver (m)
 ///
 /// Args:
-///     w: Width of radiation source (m)
-///     s: Distance from source to receiver (m)
+///     w (float): Width of radiation source (m)
+///     s (float): Distance from source to receiver (m)
 ///
 /// Returns:
-///     Dimensionless width parameter
+///     float: Dimensionless width parameter
 fn x_a5(w: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a5::x(w, s))
 }
@@ -309,11 +309,11 @@ fn x_a5(w: f64, s: f64) -> PyResult<f64> {
 /// - :math:`S` is the distance from source to receiver (m)
 ///
 /// Args:
-///     h: Height of radiation source (m)
-///     s: Distance from source to receiver (m)
+///     h (float): Height of radiation source (m)
+///     s (float): Distance from source to receiver (m)
 ///
 /// Returns:
-///     Dimensionless height parameter
+///     float: Dimensionless height parameter
 fn y_a5(h: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a5::y(h, s))
 }
@@ -336,12 +336,12 @@ fn y_a5(h: f64, s: f64) -> PyResult<f64> {
 /// - :math:`Y` is the dimensionless height parameter
 ///
 /// Args:
-///     x: Dimensionless width parameter
-///     y: Dimensionless height parameter
-///     additive: Whether this view factor is positive or negative
+///     x (float): Dimensionless width parameter
+///     y (float): Dimensionless height parameter
+///     additive (bool): Whether this view factor is positive or negative
 ///
 /// Returns:
-///     View factor (dimensionless)
+///     float: View factor (dimensionless)
 fn phi_a5(x: f64, y: f64, additive: bool) -> PyResult<f64> {
     Ok(rust_equation_a5::phi(x, y, additive))
 }

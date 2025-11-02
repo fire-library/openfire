@@ -23,12 +23,12 @@ use ::openfire::br_187::chapter_1::equation_1 as rust_equation_1;
 /// - :math:`H` is the height of openings (m)
 /// 
 /// Args:
-///     a_s: Area of external wall surface (m²)
-///     a: Area of openings in the external wall (m²)
-///     h: Height of openings (m)
+///     a_s (float): Area of external wall surface (m²)
+///     a (float): Area of openings in the external wall (m²)
+///     h (float): Height of openings (m)
 /// 
 /// Returns:
-///     Ventilation factor (m⁻¹/²)
+///     float: Ventilation factor (m⁻¹/²)
 /// 
 /// Example:
 ///     >>> import ofire
