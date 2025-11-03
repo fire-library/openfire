@@ -49,6 +49,10 @@ fn calculate_exit_width_6a(s_up: f64, w_se: f64, n: f64, d: f64, x: f64) -> PyRe
 }
 
 #[pymodule]
+/// BS 9999 Chapter 15 Figure 6a - Exit width for stairs serving upper floors only.
+/// 
+/// Calculations for required exit width of stairs that only serve floors above
+/// the ground level, based on BS 9999 fire safety requirements.
 fn figure_6a(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(calculate_exit_width_6a, m)?)?;
     Ok(())
@@ -97,6 +101,10 @@ fn calculate_exit_width_6b(b: f64, d: f64, s_up: f64, s_dn: f64, x: f64) -> PyRe
 }
 
 #[pymodule]
+/// BS 9999 Chapter 15 Figure 6b - Exit width for stairs serving upper and lower floors.
+/// 
+/// Calculations for required exit width of stairs that serve both floors above
+/// and below the ground level, based on BS 9999 fire safety requirements.
 fn figure_6b(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(calculate_exit_width_6b, m)?)?;
     Ok(())
@@ -160,12 +168,25 @@ fn calculate_exit_width_6c(
 }
 
 #[pymodule]
+/// BS 9999 Chapter 15 Figure 6c - Exit width for complex stair configurations.
+/// 
+/// Calculations for required exit width of stairs with complex configurations
+/// serving multiple floors above and below ground level.
 fn figure_6c(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(calculate_exit_width_6c, m)?)?;
     Ok(())
 }
 
 #[pymodule]
+/// BS 9999 Chapter 15 - Means of Escape.
+/// 
+/// This module provides calculations for means of escape from buildings
+/// as specified in BS 9999 Chapter 15, including exit width calculations
+/// for different stair configurations.
+/// 
+/// Example:
+///     >>> import ofire
+///     >>> ofire.bs9999.chapter_15.figure_6a.calculate_exit_width(1000.0, 2.0, 5, 0.5, 40.0)
 pub fn chapter_15(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(figure_6a))?;
     m.add_wrapped(wrap_pymodule!(figure_6b))?;

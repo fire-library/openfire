@@ -1,5 +1,5 @@
 OpenFire Documentation
-=====================
+======================
 
 Fire safety engineering tools implemented in Rust with Python bindings.
 
