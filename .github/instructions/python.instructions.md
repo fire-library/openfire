@@ -1,5 +1,5 @@
 ---
-applyTo: "crates/python_api/**"
+applyTo: "**/crates/python_api/src/**"
 ---
 
 ## Copilot – Python API docstring and binding guide (python_api only)
