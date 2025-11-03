@@ -31,14 +31,14 @@ use ::openfire::bs9999::chapter_15::{
 /// - :math:`x` is the stair flow capacity (persons/m/min)
 ///
 /// Args:
-///     s_up (float): Total floor area served by the stair on upper floors, m²
-///     w_se (float): Width of exit at discharge level, m
-///     n (float): Number of floors served by the stair above discharge level, floors
-///     d (float): Design occupant density, persons/m²
-///     x (float): Stair flow capacity, persons/m/min
+///     s_up (float): Total floor area served by the stair on upper floors (m²)
+///     w_se (float): Width of exit at discharge level (m)
+///     n (float): Number of floors served by the stair above discharge level (floors)
+///     d (float): Design occupant density (persons/m²)
+///     x (float): Stair flow capacity (persons/m/min)
 ///
 /// Returns:
-///     float: Required exit width, m
+///     float: Required exit width (m)
 ///
 /// Example:
 ///     >>> import ofire
@@ -79,14 +79,14 @@ fn figure_6a(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`x` is the stair flow capacity (persons/m/min)
 ///
 /// Args:
-///     b (float): Number of basement floors served by the stair, floors
-///     d (float): Design occupant density, persons/m²
-///     s_up (float): Total floor area served by the stair on upper floors, m²
-///     s_dn (float): Total floor area served by the stair on basement floors, m²
-///     x (float): Stair flow capacity, persons/m/min
+///     b (float): Number of basement floors served by the stair (floors)
+///     d (float): Design occupant density (persons/m²)
+///     s_up (float): Total floor area served by the stair on upper floors (m²)
+///     s_dn (float): Total floor area served by the stair on basement floors (m²)
+///     x (float): Stair flow capacity (persons/m/min)
 ///
 /// Returns:
-///     float: Required exit width, m
+///     float: Required exit width (m)
 ///
 /// Example:
 ///     >>> import ofire
@@ -130,16 +130,16 @@ fn figure_6b(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`x` is the stair flow capacity (persons/m/min)
 ///
 /// Args:
-///     b (float): Number of basement floors served by the stair, floors
-///     n (float): Number of floors served by the stair above discharge level, floors
-///     d (float): Design occupant density, persons/m²
-///     s_up (float): Total floor area served by the stair on upper floors, m²
-///     s_dn (float): Total floor area served by the stair on basement floors, m²
-///     w_se (float): Width of exit at discharge level, m
-///     x (float): Stair flow capacity, persons/m/min
+///     b (float): Number of basement floors served by the stair (floors)
+///     n (float): Number of floors served by the stair above discharge level (floors)
+///     d (float): Design occupant density (persons/m²)
+///     s_up (float): Total floor area served by the stair on upper floors (m²)
+///     s_dn (float): Total floor area served by the stair on basement floors (m²)
+///     w_se (float): Width of exit at discharge level (m)
+///     x (float): Stair flow capacity (persons/m/min)
 ///
 /// Returns:
-///     float: Required exit width, m
+///     float: Required exit width (m)
 ///
 /// Example:
 ///     >>> import ofire
