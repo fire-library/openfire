@@ -145,7 +145,9 @@ fn y_a3(h: f64, s: f64) -> PyResult<f64> {
 /// Calculate view factor using dimensionless parameters (Equation A3).
 ///
 /// Calculates the view factor for parallel source and receiver surfaces
-/// that are centre aligned using dimensionless parameters.
+/// that are centre aligned using dimensionless parameters X and Y calculated
+/// by :func:`ofire.br_187.appendix_a.equation_a3.x` and 
+/// :func:`ofire.br_187.appendix_a.equation_a3.y`.
 ///
 /// .. math::
 ///
@@ -154,8 +156,8 @@ fn y_a3(h: f64, s: f64) -> PyResult<f64> {
 /// where:
 ///
 /// - :math:`\phi` is the view factor (dimensionless)
-/// - :math:`X` is the dimensionless width parameter
-/// - :math:`Y` is the dimensionless height parameter
+/// - :math:`X` is the dimensionless width parameter (see :func:`~ofire.br_187.appendix_a.equation_a3.x`)
+/// - :math:`Y` is the dimensionless height parameter (see :func:`~ofire.br_187.appendix_a.equation_a3.y`)
 ///
 /// Args:
 ///     x (float): Dimensionless width parameter
