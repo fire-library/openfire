@@ -17,3 +17,22 @@ target/
 #.idea/
 
 /Documents
+
+# Sphinx documentation
+_build/
+_static/
+_templates/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+
+# Stub files
+stubs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo

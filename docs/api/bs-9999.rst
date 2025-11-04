@@ -1,0 +1,41 @@
+BS 9999 - Fire Safety in Buildings
+==================================
+
+BS 9999 provides guidance on fire safety in the design, management and use of buildings.
+
+.. automodule:: ofire.bs9999
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Chapter 15
+----------
+
+.. automodule:: ofire.bs9999.chapter_15
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Figure 6a - Exit Width for Stairs Serving Upper Floors Only
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.bs9999.chapter_15.figure_6a
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Figure 6b - Exit Width for Stairs Serving Upper and Lower Floors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.bs9999.chapter_15.figure_6b
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Figure 6c - Exit Width for Complex Stair Configurations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.bs9999.chapter_15.figure_6c
+   :members:
+   :undoc-members:
+   :show-inheritance:

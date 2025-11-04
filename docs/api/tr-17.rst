@@ -1,0 +1,17 @@
+TR 17 - Technical Report
+========================
+
+Technical report calculations and guidance.
+
+.. automodule:: ofire.tr_17
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Section 2
+---------
+
+.. automodule:: ofire.tr_17.section_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
