@@ -146,7 +146,7 @@ fn y_a3(h: f64, s: f64) -> PyResult<f64> {
 ///
 /// Calculates the view factor for parallel source and receiver surfaces
 /// that are centre aligned using dimensionless parameters X and Y calculated
-/// by :func:`ofire.br_187.appendix_a.equation_a3.x` and 
+/// by :func:`ofire.br_187.appendix_a.equation_a3.x` and
 /// :func:`ofire.br_187.appendix_a.equation_a3.y`.
 ///
 /// .. math::
