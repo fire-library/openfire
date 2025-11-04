@@ -2,7 +2,7 @@
 /// 
 /// The radiation intensity is calculated using the Stefan-Boltzmann law:
 /// 
-/// ```
+/// ```text
 /// I = σ ε T⁴
 /// ```
 /// 
@@ -22,7 +22,7 @@
 /// 
 /// # Example
 /// ```
-/// use openfire::br_187::appendix_a::equation_a1::radiation_intensity;
+/// use br_187::appendix_a::equation_a1::radiation_intensity;
 /// 
 /// let sigma = 5.67e-11; // kW/m²K⁴
 /// let emissivity = 0.9;
