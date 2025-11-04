@@ -1,53 +1,32 @@
 Examples
 ========
 
-This page contains practical examples of using OpenFire for fire safety engineering.
+This section contains practical examples of using OpenFire for fire safety engineering calculations.
 
-Basic Fire Dynamics
---------------------
+The examples are organized by topic to help you find relevant workflows for your specific needs.
 
-Heat Release Rate Calculation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Available Example Categories
+---------------------------
 
-.. code-block:: python
+.. toctree::
+   :maxdepth: 1
 
-   import ofire
+   thermal-radiation-examples
+   fire-dynamics-examples
 
-   # Example: Calculate heat release rate
-   # (Add actual examples once the Python API is implemented)
+Getting Started
+---------------
 
-Temperature Prediction
-~~~~~~~~~~~~~~~~~~~~~~
+If you're new to OpenFire, we recommend starting with the :doc:`thermal-radiation-examples` page, 
+which demonstrates complete workflows using the BR 187 thermal radiation calculations.
 
-.. code-block:: python
+Each example page includes:
 
-   import ofire
-
-   # Example: Predict temperature development
-   # (Add actual examples once the Python API is implemented)
-
-Advanced Analysis
------------------
-
-Evacuation Modeling
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   import ofire
-
-   # Example: Model evacuation scenarios
-   # (Add actual examples once the Python API is implemented)
-
-Structural Analysis
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   import ofire
-
-   # Example: Analyze structural fire resistance
-   # (Add actual examples once the Python API is implemented)
+- Complete code workflows
+- Practical scenarios
+- Typical parameter values
+- Assessment criteria
+- Multiple configuration comparisons
 
 .. note::
    More examples will be added as the Python API is developed. Check back regularly for updates.
