@@ -1,12 +1,9 @@
-pub fn placeholder_equation_2_13(rho_g: Vec<f64>) -> Vec<f64> {
-    rho_g.iter().map(|&rho_g_val| 0.076 / rho_g_val).collect()
+pub fn density_hot_gas_layer(t_g: Vec<f64>) -> Vec<f64> {
+    t_g.iter().map(|&t_g_val| 353.0 / t_g_val).collect()
 }
 
-pub fn placeholder_equation_2_13_latex(
-    result: String,
-    rho_g: String,
-) -> String {
-    format!("{} = \\frac{{0.076}}{{{}}} ", result, rho_g,)
+pub fn density_hot_gas_layer_equation(rho_g: String, t_g: String) -> String {
+    format!("{} = \\frac{{353.0}}{{{}}} ", rho_g, t_g,)
 }
 
 #[cfg(test)]
@@ -16,12 +13,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_placeholder_equation_2_13() {
-        let rho_g = vec![0.75, 0.5, 0.25];
+    fn test_density_hot_gas_layer() {
+        let t_g = vec![400.0, 500.0, 600.0];
 
-        let result = placeholder_equation_2_13(rho_g);
+        let result = density_hot_gas_layer(t_g);
 
-        let expected_result = vec![0.1013333333, 0.1520000000, 0.3040000000];
+        let expected_result = vec![0.8825, 0.706, 0.5883333333333334];
 
         assert_eq!(
             result.len(),
