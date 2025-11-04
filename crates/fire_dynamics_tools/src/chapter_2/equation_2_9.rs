@@ -1,10 +1,4 @@
-pub fn convective_heat_transfer_coefficient(
-    k: f64,
-    rho: f64,
-    c: f64,
-    t: f64,
-    delta: f64,
-) -> f64 {
+pub fn convective_heat_transfer_coefficient(k: f64, rho: f64, c: f64, t: f64, delta: f64) -> f64 {
     let left = (k * rho * c / t).powf(0.5);
     let right = k / delta;
     0.4 * left.max(right)
