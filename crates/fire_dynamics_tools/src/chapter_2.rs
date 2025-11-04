@@ -1,6 +1,7 @@
 pub mod equation_2_1;
 pub mod equation_2_10;
 pub mod equation_2_11;
+pub mod equation_2_12;
 pub mod equation_2_2;
 pub mod equation_2_3;
 pub mod equation_2_4;
