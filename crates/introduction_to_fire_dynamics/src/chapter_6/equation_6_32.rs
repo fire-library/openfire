@@ -8,7 +8,7 @@ pub fn time_to_ignition_thermally_thick(
     temp_o: f64,
     q_r: f64,
 ) -> f64 {
-    return (PI / 4.0) * (k * rho * c) * (temp_ig - temp_o).powf(2.0) / (q_r).powf(2.0);
+    (PI / 4.0) * (k * rho * c) * (temp_ig - temp_o).powf(2.0) / (q_r).powf(2.0)
 }
 
 pub fn time_to_ignition_thermallythick_equation(

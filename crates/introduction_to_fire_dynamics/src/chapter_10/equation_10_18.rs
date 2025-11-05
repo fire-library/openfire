@@ -5,7 +5,7 @@
 pub fn calculate(rho: f64, g: f64, a_w: f64, h: f64, a_f: f64) -> f64 {
     let numerator = rho * g.powf(0.5) * a_w * h.powf(0.5);
 
-    return numerator / a_f;
+    numerator / a_f
 }
 
 #[derive(Debug, PartialEq)]
@@ -26,7 +26,7 @@ impl BurningRegime {
 }
 pub fn heating_regime(number: f64) -> BurningRegime {
     if number < 0.235 {
-        return BurningRegime::VentilationControlled;
+        BurningRegime::VentilationControlled
     } else if number > 0.290 {
         return BurningRegime::FuelControlled;
     } else {
