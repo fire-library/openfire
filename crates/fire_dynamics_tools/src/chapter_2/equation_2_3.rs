@@ -1,5 +1,5 @@
 pub fn heat_transfer_coefficient_longtimes_or_thinwalls(k: f64, delta: f64) -> f64 {
-    return k / delta;
+    k / delta
 }
 
 pub fn heat_transfer_coefficient_longtimes_or_thinwalls_equation(

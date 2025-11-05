@@ -1,5 +1,5 @@
 pub fn q_fo(a_t: f64, a_v: f64, h_v: f64) -> f64 {
-    return 7.8 * a_t + 378.0 * a_v * h_v.powf(0.5);
+    7.8 * a_t + 378.0 * a_v * h_v.powf(0.5)
 }
 
 #[cfg(test)]
