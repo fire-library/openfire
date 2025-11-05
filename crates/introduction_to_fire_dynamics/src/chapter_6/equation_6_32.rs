@@ -20,10 +20,10 @@ pub fn time_to_ignition_thermallythick_equation(
     temp_o: String,
     q_r: String,
 ) -> String {
-    return format!(
+    format!(
         "{} = \\dfrac{{\\pi}}{{4}} \\cdot {} \\cdot {} \\cdot {} \\cdot \\left( {} - {} \\right)^{{2}} \\cdot \\dfrac{{1}}{{{} ^{{2}}}}",
         t_ig, k, rho, c, temp_ig, temp_o, q_r
-    );
+    )
 }
 
 #[cfg(test)]

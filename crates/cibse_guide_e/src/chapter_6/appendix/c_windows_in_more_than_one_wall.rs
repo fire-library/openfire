@@ -41,10 +41,10 @@ pub fn ratio_depth_over_height_equation(
     ao_w1: String,
     ao: String,
 ) -> String {
-    return format!(
+    format!(
         "{} / {} = ({} / {}) \\cdot ({} / {})",
         d, w, w2, w1, ao_w1, ao
-    );
+    )
 }
 
 #[cfg(test)]

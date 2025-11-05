@@ -9,10 +9,10 @@ pub fn heat_transfer_coefficient_shorttimes_or_thickwalls_equation(
     c: String,
     t: String,
 ) -> String {
-    return format!(
+    format!(
         "{} = \\left( \\frac{{ {} \\cdot {} \\cdot {} }}{{ {} }} \\right)^{{1/2}}",
         h_k, k, rho, c, t
-    );
+    )
 }
 
 #[cfg(test)]

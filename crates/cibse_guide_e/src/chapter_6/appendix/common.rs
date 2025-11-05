@@ -3,7 +3,7 @@ pub fn area_of_floor(w1: f64, w2: f64) -> f64 {
 }
 
 pub fn area_of_floor_equation(a_f: String, w1: String, w2: String) -> String {
-    return format!("{} = {} \\cdot {}", a_f, w1, w2,);
+    format!("{} = {} \\cdot {}", a_f, w1, w2,)
 }
 
 pub fn area_of_opening(wo: f64, ho: f64) -> f64 {
@@ -11,7 +11,7 @@ pub fn area_of_opening(wo: f64, ho: f64) -> f64 {
 }
 
 pub fn area_of_opening_equation(a_o: String, w_o: String, h_o: String) -> String {
-    return format!("{} = {} \\cdot {}", a_o, w_o, h_o,);
+    format!("{} = {} \\cdot {}", a_o, w_o, h_o,)
 }
 
 pub fn internal_surface_area(a_f: f64, h: f64, w1: f64, w2: f64, a_o: f64) -> f64 {
@@ -26,10 +26,10 @@ pub fn internal_surface_area_equation(
     w2: String,
     a_o: String,
 ) -> String {
-    return format!(
+    format!(
         "{} = 2 \\cdot {} + 2 \\cdot {} ({} + {}) - {}",
         a_net, a_f, h, w1, w2, a_o
-    );
+    )
 }
 
 pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
@@ -37,7 +37,7 @@ pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
 }
 
 pub fn ratio_depth_over_width_equation(d_over_w: String, w1: String, w2: String) -> String {
-    return format!("{} = {} / {}", d_over_w, w2, w1);
+    format!("{} = {} / {}", d_over_w, w2, w1)
 }
 
 pub fn areas_of_openings_multiple_openings(openings_dimensions: Vec<(f64, f64)>) -> Vec<f64> {
@@ -53,7 +53,7 @@ pub fn sum_areas_of_openings(areas_of_openings: Vec<f64>) -> f64 {
 
 pub fn sum_areas_of_openings_equation(a_o: String, areas_of_openings: Vec<String>) -> String {
     let formatted_areas = areas_of_openings.join(" + ");
-    return format!("{} = {}", a_o, formatted_areas);
+    format!("{} = {}", a_o, formatted_areas)
 }
 
 pub fn sum_width_of_compartment_openings(widths_of_openings: Vec<f64>) -> f64 {
@@ -65,7 +65,7 @@ pub fn sum_width_of_compartment_openings_equation(
     widths_of_openings: Vec<String>,
 ) -> String {
     let formatted_widths = widths_of_openings.join(" + ");
-    return format!("{} = {}", w_o, formatted_widths);
+    format!("{} = {}", w_o, formatted_widths)
 }
 
 pub fn equivalent_height_for_compartment_openings(
@@ -80,7 +80,7 @@ pub fn equivalent_height_for_compartment_openings_equation(
     a_o: String,
     w_o: String,
 ) -> String {
-    return format!("{} = {} / {}", h_o, a_o, w_o);
+    format!("{} = {} / {}", h_o, a_o, w_o)
 }
 
 #[cfg(test)]
