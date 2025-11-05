@@ -45,7 +45,7 @@ html_static_path = ['_static']
 html_title = f"{project} {release}"
 
 # Autodoc settings
-autodoc_default_options = {
+autodoc_default_options = { # pyright: ignore[reportUnknownVariableType]
     'members': True,
     'undoc-members': True,
     'show-inheritance': True,
