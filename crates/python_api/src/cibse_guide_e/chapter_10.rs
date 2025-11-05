@@ -12,6 +12,35 @@ use ::openfire::cibse_guide_e::chapter_10::{
 
 // Equation 10_1 module functions
 #[pyfunction]
+/// Calculates the maximum volumetric flow rate (Equation 10.1).
+///
+/// This equation determines the maximum volumetric flow rate through
+/// an opening based on discharge coefficient, opening diameter, and temperature difference.
+///
+/// .. math::
+///
+///    V = 4.16 \cdot \gamma \cdot d^{5/2} \cdot \left(\frac{T_s - T_0}{T_0}\right)^{1/2}
+///
+/// where:
+///
+/// - :math:`V` is the maximum volumetric flow rate (m³/s)
+/// - :math:`\gamma` is the discharge coefficient (dimensionless)
+/// - :math:`d` is the diameter of opening (m)
+/// - :math:`T_s` is the smoke temperature (K)
+/// - :math:`T_0` is the ambient temperature (K)
+///
+/// Args:
+///     gamma (float): Discharge coefficient (dimensionless)
+///     d (float): Diameter of opening (m)
+///     t_s (float): Smoke temperature (K)
+///     t_0 (float): Ambient temperature (K)
+///
+/// Returns:
+///     float: Maximum volumetric flow rate (m³/s)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_1.max_volumetric_flow_rate(0.5, 1.5, 300.0, 290.0)
 fn max_volumetric_flow_rate(gamma: f64, d: f64, t_s: f64, t_0: f64) -> PyResult<f64> {
     Ok(rust_equation_10_1::max_volumetric_flow_rate(
         gamma, d, t_s, t_0,
@@ -19,6 +48,10 @@ fn max_volumetric_flow_rate(gamma: f64, d: f64, t_s: f64, t_0: f64) -> PyResult<
 }
 
 #[pymodule]
+/// Equation 10.1 - Maximum Volumetric Flow Rate.
+///
+/// Calculates the maximum volumetric flow rate through an opening
+/// based on temperature and geometric parameters.
 fn equation_10_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(max_volumetric_flow_rate, m)?)?;
     Ok(())
@@ -26,11 +59,37 @@ fn equation_10_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_2 module functions
 #[pyfunction]
+/// Calculates the minimum separation distance (Equation 10.2).
+///
+/// This equation determines the minimum separation distance
+/// based on the escape velocity.
+///
+/// .. math::
+///
+///    d = 0.9 \cdot V_e^{0.5}
+///
+/// where:
+///
+/// - :math:`d` is the minimum separation distance (m)
+/// - :math:`V_e` is the escape velocity (m/s)
+///
+/// Args:
+///     v_e (float): Escape velocity (m/s)
+///
+/// Returns:
+///     float: Minimum separation distance (m)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_2.min_separation_dist(0.3)
 fn min_separation_dist(v_e: f64) -> PyResult<f64> {
     Ok(rust_equation_10_2::min_separation_dist(v_e))
 }
 
 #[pymodule]
+/// Equation 10.2 - Minimum Separation Distance.
+///
+/// Calculates the minimum separation distance based on escape velocity.
 fn equation_10_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(min_separation_dist, m)?)?;
     Ok(())

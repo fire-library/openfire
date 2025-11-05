@@ -59,7 +59,11 @@ fn hot_gas_temperature_increase_natural_ventilation_mqh(
     a_t: f64,
     h_k: f64,
 ) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_1::hot_gas_temperature_increase_natural_ventilation_mqh(q, a_v, h_v, a_t, h_k))
+    Ok(
+        rust_equation_2_1::hot_gas_temperature_increase_natural_ventilation_mqh(
+            q, a_v, h_v, a_t, h_k,
+        ),
+    )
 }
 
 #[pyfunction]
@@ -93,13 +97,10 @@ fn hot_gas_temperature_increase_natural_ventilation_mqh(
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_2.compartment_interior_surface_area(7.5, 4.0, 2.75, 4.5)
-fn compartment_interior_surface_area(
-    w_c: f64,
-    l_c: f64,
-    h_c: f64,
-    a_v: f64,
-) -> PyResult<f64> {
-    Ok(rust_equation_2_2::comparment_interior_surface_area(w_c, l_c, h_c, a_v))
+fn compartment_interior_surface_area(w_c: f64, l_c: f64, h_c: f64, a_v: f64) -> PyResult<f64> {
+    Ok(rust_equation_2_2::comparment_interior_surface_area(
+        w_c, l_c, h_c, a_v,
+    ))
 }
 
 #[pyfunction]
@@ -186,7 +187,11 @@ fn height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
     a_c: f64,
     h_c: f64,
 ) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_10::height_smoke_layer_interface_natural_ventilation_yamana_tanaka(k, q, t, a_c, h_c))
+    Ok(
+        rust_equation_2_10::height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
+            k, q, t, a_c, h_c,
+        ),
+    )
 }
 
 #[pyfunction]
@@ -216,10 +221,7 @@ fn height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_3.heat_transfer_coefficient_longtimes_or_thinwalls(0.002, 0.25)
-fn heat_transfer_coefficient_longtimes_or_thinwalls(
-    k: f64,
-    delta: f64,
-) -> PyResult<f64> {
+fn heat_transfer_coefficient_longtimes_or_thinwalls(k: f64, delta: f64) -> PyResult<f64> {
     Ok(rust_equation_2_3::heat_transfer_coefficient_longtimes_or_thinwalls(k, delta))
 }
 
@@ -253,13 +255,10 @@ fn heat_transfer_coefficient_longtimes_or_thinwalls(
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_4.thermal_penetration_time(2400.0, 1.17, 0.002, 0.25)
-fn thermal_penetration_time(
-    rho: f64,
-    c_p: f64,
-    k: f64,
-    delta: f64,
-) -> PyResult<f64> {
-    Ok(rust_equation_2_4::thermal_penetration_time(rho, c_p, k, delta))
+fn thermal_penetration_time(rho: f64, c_p: f64, k: f64, delta: f64) -> PyResult<f64> {
+    Ok(rust_equation_2_4::thermal_penetration_time(
+        rho, c_p, k, delta,
+    ))
 }
 
 #[pyfunction]
@@ -354,7 +353,11 @@ fn nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
     a_t: f64,
     c_p: f64,
 ) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_7::nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(q, m, t_a, h_k, a_t, c_p))
+    Ok(
+        rust_equation_2_7::nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
+            q, m, t_a, h_k, a_t, c_p,
+        ),
+    )
 }
 
 #[pyfunction]
@@ -397,7 +400,11 @@ fn hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(
     h_k: f64,
     a_t: f64,
 ) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_8::hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(q, m, c_p, h_k, a_t))
+    Ok(
+        rust_equation_2_8::hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(
+            q, m, c_p, h_k, a_t,
+        ),
+    )
 }
 
 #[pyfunction]
@@ -439,7 +446,9 @@ fn convective_heat_transfer_coefficient(
     t: f64,
     delta: f64,
 ) -> PyResult<f64> {
-    Ok(rust_equation_2_9::convective_heat_transfer_coefficient(k, rho, c, t, delta))
+    Ok(rust_equation_2_9::convective_heat_transfer_coefficient(
+        k, rho, c, t, delta,
+    ))
 }
 
 #[pyfunction]
@@ -549,16 +558,19 @@ fn density_hot_gas_layer(t_g: Vec<f64>) -> PyResult<Vec<f64>> {
 
 #[pymodule]
 /// Hot gas temperature increase calculations (Equation 2.1).
-/// 
+///
 /// Natural ventilation calculations using the MQH correlation method.
 fn equation_2_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(hot_gas_temperature_increase_natural_ventilation_mqh, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        hot_gas_temperature_increase_natural_ventilation_mqh,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Compartment interior surface area calculations (Equation 2.2).
-/// 
+///
 /// Calculate total interior surface area for compartments.
 fn equation_2_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(compartment_interior_surface_area, m)?)?;
@@ -567,16 +579,19 @@ fn equation_2_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 #[pymodule]
 /// Heat transfer coefficient calculations for long times (Equation 2.3).
-/// 
+///
 /// Calculate heat transfer coefficients for long times or thin walls.
 fn equation_2_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(heat_transfer_coefficient_longtimes_or_thinwalls, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        heat_transfer_coefficient_longtimes_or_thinwalls,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Thermal penetration time calculations (Equation 2.4).
-/// 
+///
 /// Calculate thermal penetration time for materials.
 fn equation_2_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(thermal_penetration_time, m)?)?;
@@ -585,43 +600,55 @@ fn equation_2_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 #[pymodule]
 /// Heat transfer coefficient calculations for short times (Equation 2.5).
-/// 
+///
 /// Calculate heat transfer coefficients for short times or thick walls.
 fn equation_2_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(heat_transfer_coefficient_shorttimes_or_thickwalls, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        heat_transfer_coefficient_shorttimes_or_thickwalls,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Closed compartment temperature calculations (Equation 2.6).
-/// 
+///
 /// Hot gas temperature increase for closed compartments using Beyler correlation.
 fn equation_2_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Forced ventilation FPA correlation calculations (Equation 2.7).
-/// 
+///
 /// Nondimensional hot gas temperature increase for forced ventilation.
 fn equation_2_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Forced ventilation Deal-Beyler calculations (Equation 2.8).
-/// 
+///
 /// Hot gas temperature increase for forced ventilation using Deal and Beyler correlation.
 fn equation_2_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(hot_gas_temperature_increase_forced_ventilation_deal_and_beyler, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        hot_gas_temperature_increase_forced_ventilation_deal_and_beyler,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Convective heat transfer coefficient calculations (Equation 2.9).
-/// 
+///
 /// Calculate convective heat transfer coefficients.
 fn equation_2_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(convective_heat_transfer_coefficient, m)?)?;
@@ -630,34 +657,43 @@ fn equation_2_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 #[pymodule]
 /// Smoke layer interface height calculations (Equation 2.10).
-/// 
+///
 /// Natural ventilation calculations using the Yamana-Tanaka correlation.
 fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(height_smoke_layer_interface_natural_ventilation_yamana_tanaka, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        height_smoke_layer_interface_natural_ventilation_yamana_tanaka,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Yamana-Tanaka k constant calculations (Equation 2.11).
-/// 
+///
 /// Calculate entrainment coefficient for smoke layer height.
 fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(k_constant_smoke_layer_height_yamana_tanaka, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        k_constant_smoke_layer_height_yamana_tanaka,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Simplified Yamana-Tanaka k constant calculations (Equation 2.12).
-/// 
+///
 /// Calculate entrainment coefficient using simplified correlation.
 fn equation_2_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(k_constant_smoke_layer_height_yamana_tanaka_post_substitution, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        k_constant_smoke_layer_height_yamana_tanaka_post_substitution,
+        m
+    )?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Hot gas density calculations (Equation 2.13).
-/// 
+///
 /// Calculate density of hot gas layer based on temperature.
 fn equation_2_13(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(density_hot_gas_layer, m)?)?;
@@ -666,11 +702,11 @@ fn equation_2_13(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 #[pymodule]
 /// Chapter 2 - General fire dynamics tools and calculations.
-/// 
+///
 /// This module contains fundamental fire dynamics calculations including
 /// hot gas temperatures, smoke layer heights, heat transfer coefficients,
 /// and compartment geometry calculations.
-/// 
+///
 /// These equations are essential for fire safety engineering analysis
 /// and compartment fire modeling.
 pub fn chapter_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
