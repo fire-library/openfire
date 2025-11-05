@@ -136,10 +136,107 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 4. **Include proper spacing** - empty lines matter for reStructuredText rendering
 5. **Test compilation** - run `maturin develop` to verify syntax
 
+## Exposing Documentation in Sphinx
+
+After creating or updating docstrings, you must also update the Sphinx documentation configuration to expose the new modules and functions.
+
+### Module Structure Requirements
+
+1. **Use `#[pymodule]` decorator**: All module functions must have the `#[pymodule]` decorator
+2. **Use `wrap_pymodule!` pattern**: Main modules should use `wrap_pymodule!` to expose submodules
+3. **Avoid naming conflicts**: Use descriptive suffixes based on the source document if module names conflict
+
+#### Naming Convention for Conflicts:
+When multiple documents have the same chapter numbers (e.g., Chapter 6), use a suffix that reflects the source document:
+- `chapter_6_intro` for "Introduction to Fire Dynamics" 
+- `chapter_6_br187` for "BR 187"
+- `chapter_6_pd7974` for "PD 7974"
+
+**Do not use generic suffixes like `_intro` without context** - the suffix should clearly indicate the source document.
+
+#### Example Module Structure:
+```rust
+// In main module file (e.g., introduction_to_fire_dynamics.rs)
+#[pymodule]
+/// Module Name - Brief description.
+pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add_wrapped(wrap_pymodule!(chapter_6::chapter_6_intro))?;
+    m.add_wrapped(wrap_pymodule!(chapter_10::chapter_10_intro))?;
+    Ok(())
+}
+
+// In chapter file (e.g., chapter_6.rs)
+#[pymodule]
+/// Chapter Name - Brief description.
+pub fn chapter_6_intro(m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add_wrapped(wrap_pymodule!(equation_6_32))?;
+    Ok(())
+}
+```
+
+### Updating Sphinx Documentation
+
+1. **Navigate to docs/api/** directory
+2. **Find or create** the `.rst` file for your module (e.g., `introduction-to-fire-dynamics.rst`)
+3. **Add automodule directives** following the hierarchy pattern:
+
+#### Example Documentation Structure:
+```rst
+Module Name
+===========
+
+Brief description of the module.
+
+.. automodule:: ofire.module_name
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Chapter Name
+------------
+
+.. automodule:: ofire.module_name.chapter_name_suffix
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation Modules
+~~~~~~~~~~~~~~~~
+
+Equation X.Y - Brief Description
+"""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.module_name.chapter_name_suffix.equation_x_y
+   :members:
+   :undoc-members:
+   :show-inheritance:
+```
+
+### Building and Testing
+
+1. **Build the Python module**: Run `maturin develop` to compile changes
+2. **Test imports**: Verify modules can be imported in Python
+3. **Build documentation**: Run Sphinx to generate documentation
+4. **Check for warnings**: Fix any import or module errors
+
+### Common Issues
+
+1. **ModuleNotFoundError**: Check that module names in `.rst` files match actual Python module names
+2. **Missing `#[pymodule]`**: Ensure all module functions have the decorator
+3. **Naming conflicts**: Use descriptive suffixes based on source document (not generic ones)
+4. **Import path mismatches**: Verify the full import path matches the module hierarchy
+
 ## Example Files
 
 See the following for reference implementations:
 - `crates/python_api/src/br_187/appendix_a.rs`
 - `crates/python_api/src/br_187/chapter_1.rs`
+- `crates/python_api/src/introduction_to_fire_dynamics/chapter_6.rs` (uses `_intro` suffix for "Introduction" document)
+- `crates/python_api/src/pd_7974/part_1/section_8.rs`
 
-These files demonstrate the complete docstring format with LaTeX equations, proper type annotations, and variable definitions.
+And their corresponding documentation files:
+- `docs/api/br-187.rst`
+- `docs/api/introduction-to-fire-dynamics.rst`
+- `docs/api/pd-7974.rst`
+
+These files demonstrate the complete docstring format with LaTeX equations, proper type annotations, variable definitions, and proper Sphinx integration.
