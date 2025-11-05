@@ -15,3 +15,110 @@ Chapter 2
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation Modules
+~~~~~~~~~~~~~~~~
+
+Equation 2.1 - Hot Gas Temperature Increase (MQH Method)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.2 - Compartment Interior Surface Area
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.3 - Heat Transfer Coefficient (Long Times/Thin Walls)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.4 - Thermal Penetration Time
+""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_4
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.5 - Heat Transfer Coefficient (Short Times/Thick Walls)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_5
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.6 - Hot Gas Temperature Increase (Beyler Closed Compartment)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_6
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.7 - Nondimensional Hot Gas Temperature Increase (FPA)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_7
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.8 - Hot Gas Temperature Increase (Deal and Beyler)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_8
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.9 - Convective Heat Transfer Coefficient
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_9
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.10 - Smoke Layer Interface Height (Yamana-Tanaka)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_10
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.11 - K Constant for Smoke Layer Height (Yamana-Tanaka)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_11
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.12 - K Constant for Smoke Layer Height (Simplified)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_12
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 2.13 - Hot Gas Density
+""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_2.equation_2_13
+   :members:
+   :undoc-members:
+   :show-inheritance:
