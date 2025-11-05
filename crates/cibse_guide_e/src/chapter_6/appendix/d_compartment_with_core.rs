@@ -21,7 +21,7 @@ pub fn internal_surface_area_of_compartment_with_core(
     c2: f64,
     a_o: f64,
 ) -> f64 {
-    return 2.0 * a_f + 2.0 * h * (w1 + w2 + c1 + c2) - a_o;
+    2.0 * a_f + 2.0 * h * (w1 + w2 + c1 + c2) - a_o
 }
 
 pub fn internal_surface_area_of_compartment_with_core_equation(
@@ -48,7 +48,7 @@ pub fn ratio_depth_over_height_compartment_with_core(
     ao: f64,
     ao_w1: f64,
 ) -> f64 {
-    return ((w2 - c2) * ao_w1) / ((w1 - c1) * ao);
+    ((w2 - c2) * ao_w1) / ((w1 - c1) * ao)
 }
 pub fn ratio_depth_over_height_compartment_with_core_equation(
     d: String,

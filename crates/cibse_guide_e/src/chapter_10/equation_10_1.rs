@@ -4,7 +4,7 @@ pub fn max_volumetric_flow_rate(gamma: f64, d: f64, t_s: f64, t_0: f64) -> f64 {
 
     let v_max = left * right;
 
-    return v_max;
+    v_max
 }
 
 #[cfg(test)]

@@ -1,5 +1,5 @@
 pub fn volumetric_flow_rate(m: f64, t_s: f64, rho_0: f64, t_0: f64) -> f64 {
-    return (m * t_s) / (rho_0 * t_0);
+    (m * t_s) / (rho_0 * t_0)
 }
 
 #[cfg(test)]

@@ -1,5 +1,5 @@
 pub fn min_separation_dist(v_e: f64) -> f64 {
-    return 0.9 * v_e.powf(0.5);
+    0.9 * v_e.powf(0.5)
 }
 
 #[cfg(test)]

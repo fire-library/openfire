@@ -1,5 +1,5 @@
 pub fn area_of_floor(w1: f64, w2: f64) -> f64 {
-    return w1 * w2;
+    w1 * w2
 }
 
 pub fn area_of_floor_equation(a_f: String, w1: String, w2: String) -> String {
@@ -7,7 +7,7 @@ pub fn area_of_floor_equation(a_f: String, w1: String, w2: String) -> String {
 }
 
 pub fn area_of_opening(wo: f64, ho: f64) -> f64 {
-    return wo * ho;
+    wo * ho
 }
 
 pub fn area_of_opening_equation(a_o: String, w_o: String, h_o: String) -> String {
@@ -15,7 +15,7 @@ pub fn area_of_opening_equation(a_o: String, w_o: String, h_o: String) -> String
 }
 
 pub fn internal_surface_area(a_f: f64, h: f64, w1: f64, w2: f64, a_o: f64) -> f64 {
-    return 2.0 * a_f + 2.0 * h * (w1 + w2) - a_o;
+    2.0 * a_f + 2.0 * h * (w1 + w2) - a_o
 }
 
 pub fn internal_surface_area_equation(
@@ -33,7 +33,7 @@ pub fn internal_surface_area_equation(
 }
 
 pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
-    return w2 / w1;
+    w2 / w1
 }
 
 pub fn ratio_depth_over_width_equation(d_over_w: String, w1: String, w2: String) -> String {
@@ -41,14 +41,14 @@ pub fn ratio_depth_over_width_equation(d_over_w: String, w1: String, w2: String)
 }
 
 pub fn areas_of_openings_multiple_openings(openings_dimensions: Vec<(f64, f64)>) -> Vec<f64> {
-    return openings_dimensions
+    openings_dimensions
         .iter()
         .map(|(w, h)| area_of_opening(*w, *h))
-        .collect();
+        .collect()
 }
 
 pub fn sum_areas_of_openings(areas_of_openings: Vec<f64>) -> f64 {
-    return areas_of_openings.iter().sum();
+    areas_of_openings.iter().sum()
 }
 
 pub fn sum_areas_of_openings_equation(a_o: String, areas_of_openings: Vec<String>) -> String {
@@ -57,7 +57,7 @@ pub fn sum_areas_of_openings_equation(a_o: String, areas_of_openings: Vec<String
 }
 
 pub fn sum_width_of_compartment_openings(widths_of_openings: Vec<f64>) -> f64 {
-    return widths_of_openings.iter().sum();
+    widths_of_openings.iter().sum()
 }
 
 pub fn sum_width_of_compartment_openings_equation(
@@ -72,7 +72,7 @@ pub fn equivalent_height_for_compartment_openings(
     equivalent_area_of_openings: f64,
     equivalent_width_of_openings: f64,
 ) -> f64 {
-    return equivalent_area_of_openings / equivalent_width_of_openings;
+    equivalent_area_of_openings / equivalent_width_of_openings
 }
 
 pub fn equivalent_height_for_compartment_openings_equation(
