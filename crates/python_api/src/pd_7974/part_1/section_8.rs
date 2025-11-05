@@ -13,7 +13,7 @@ use ::openfire::pd_7974::part_1::section_8::{
 #[pyfunction]
 /// Calculate heat release rate for fuel-controlled fire (Equation 28).
 ///
-/// This equation calculates the heat release rate for a fuel-controlled fire based on 
+/// This equation calculates the heat release rate for a fuel-controlled fire based on
 /// the total floor area and ventilation opening characteristics.
 ///
 /// .. math::
