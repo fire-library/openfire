@@ -1,5 +1,5 @@
 pub fn heat_transfer_coefficient_shorttimes_or_thickwalls(k: f64, rho: f64, c: f64, t: f64) -> f64 {
-    return (k * rho * c / t).powf(0.5);
+    (k * rho * c / t).powf(0.5)
 }
 
 pub fn heat_transfer_coefficient_shorttimes_or_thickwalls_equation(
@@ -9,10 +9,10 @@ pub fn heat_transfer_coefficient_shorttimes_or_thickwalls_equation(
     c: String,
     t: String,
 ) -> String {
-    return format!(
+    format!(
         "{} = \\left( \\frac{{ {} \\cdot {} \\cdot {} }}{{ {} }} \\right)^{{1/2}}",
         h_k, k, rho, c, t
-    );
+    )
 }
 
 #[cfg(test)]

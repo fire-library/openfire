@@ -1,5 +1,5 @@
 pub fn limiting_velocity(k: f64, g: f64, q: f64, omega: f64, rho: f64, c: f64, t: f64) -> f64 {
-    return k * ((g * q) / (omega * rho * c * t)).powf(1.0 / 3.0);
+    k * ((g * q) / (omega * rho * c * t)).powf(1.0 / 3.0)
 }
 
 pub fn equation(

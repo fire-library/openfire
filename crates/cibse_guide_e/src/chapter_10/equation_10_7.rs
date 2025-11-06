@@ -1,5 +1,5 @@
 pub fn visibility(k: f64, d: f64) -> f64 {
-    return k / (2.303 * d);
+    k / (2.303 * d)
 }
 
 #[cfg(test)]

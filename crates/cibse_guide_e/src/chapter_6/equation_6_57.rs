@@ -1,5 +1,5 @@
 pub fn height_of_flame_aboveopening(r: f64, w: f64, h_o: f64) -> f64 {
-    return 12.8 * (r / w).powf(2.0 / 3.0) - h_o;
+    12.8 * (r / w).powf(2.0 / 3.0) - h_o
 }
 
 pub fn equation(z_fo: String, r: String, w: String, h_o: String) -> String {

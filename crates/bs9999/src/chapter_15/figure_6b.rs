@@ -1,11 +1,9 @@
 pub fn calculate_exit_width(b: f64, d: f64, s_up: f64, s_dn: f64, x: f64) -> f64 {
-    let w_fe;
     if b > 60.0 && d < 2.0 {
-        w_fe = s_up + s_dn;
+        s_up + s_dn
     } else {
-        w_fe = (b * x) + 0.75 * s_up;
+        (b * x) + 0.75 * s_up
     }
-    return w_fe;
 }
 
 #[cfg(test)]

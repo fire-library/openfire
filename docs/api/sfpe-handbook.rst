@@ -23,3 +23,11 @@ Alpert Correlations
    :members:
    :undoc-members:
    :show-inheritance:
+
+Heat Release Rate Correlations
+""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.sfpe_handbook.chapter_14.alpert.heat_release
+   :members:
+   :undoc-members:
+   :show-inheritance:

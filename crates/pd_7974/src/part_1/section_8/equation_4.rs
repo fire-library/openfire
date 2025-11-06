@@ -1,5 +1,5 @@
 pub fn q_max_fc(a_f: f64, hrrpua: f64) -> f64 {
-    return a_f * hrrpua;
+    a_f * hrrpua
 }
 
 #[cfg(test)]

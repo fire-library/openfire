@@ -2,7 +2,7 @@ pub fn t_g_max(omega: f64) -> f64 {
     let numerator = 1.0 - (-0.1 * omega).exp();
     let denominator = omega.sqrt();
 
-    return 6000.0 * (numerator / denominator);
+    6000.0 * (numerator / denominator)
 }
 
 #[cfg(test)]

@@ -9,7 +9,7 @@ pub fn floor_area_of_compartment_with_core_equation(
     c1: String,
     c2: String,
 ) -> String {
-    return format!("{} = {} \\cdot {} - {} \\cdot {}", a_f, w1, w2, c1, c2);
+    format!("{} = {} \\cdot {} - {} \\cdot {}", a_f, w1, w2, c1, c2)
 }
 
 pub fn internal_surface_area_of_compartment_with_core(
@@ -21,7 +21,7 @@ pub fn internal_surface_area_of_compartment_with_core(
     c2: f64,
     a_o: f64,
 ) -> f64 {
-    return 2.0 * a_f + 2.0 * h * (w1 + w2 + c1 + c2) - a_o;
+    2.0 * a_f + 2.0 * h * (w1 + w2 + c1 + c2) - a_o
 }
 
 pub fn internal_surface_area_of_compartment_with_core_equation(
@@ -34,10 +34,10 @@ pub fn internal_surface_area_of_compartment_with_core_equation(
     c2: String,
     a_o: String,
 ) -> String {
-    return format!(
+    format!(
         "{} = 2 \\cdot {} + 2 \\cdot {} ({} + {} + {} + {}) - {}",
         a_net, a_f, h, w1, w2, c1, c2, a_o
-    );
+    )
 }
 
 pub fn ratio_depth_over_height_compartment_with_core(
@@ -48,7 +48,7 @@ pub fn ratio_depth_over_height_compartment_with_core(
     ao: f64,
     ao_w1: f64,
 ) -> f64 {
-    return ((w2 - c2) * ao_w1) / ((w1 - c1) * ao);
+    ((w2 - c2) * ao_w1) / ((w1 - c1) * ao)
 }
 pub fn ratio_depth_over_height_compartment_with_core_equation(
     d: String,
@@ -60,10 +60,10 @@ pub fn ratio_depth_over_height_compartment_with_core_equation(
     ao: String,
     ao_w1: String,
 ) -> String {
-    return format!(
+    format!(
         "{} / {} = (({} - {}) \\cdot {}) / (({} - {}) \\cdot {})",
         d, w, w2, c2, ao_w1, w1, c1, ao
-    );
+    )
 }
 
 #[cfg(test)]

@@ -10,12 +10,12 @@ pub fn from_temperature_and_position(
         q = q.powf(3.0 / 2.0);
     } else {
         q = (temp - temp_amb) * (radial_position / height).powf(2.0 / 3.0);
-        q = q * height.powf(5.0 / 3.0);
-        q = q / 5.38;
+        q *= height.powf(5.0 / 3.0);
+        q /= 5.38;
         q = q.powf(3.0 / 2.0);
     }
 
-    return q;
+    q
 }
 
 #[cfg(test)]

@@ -1,5 +1,5 @@
 pub fn maximum_flowrate_persons(w: f64) -> f64 {
-    return 1.333 * w;
+    1.333 * w
 }
 
 pub fn equation(f: String, w: String) -> String {

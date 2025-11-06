@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Python API Docstring Guide for Fire Engineering Functions
 
 This guide documents the standardized format for writing Python docstrings in the `crates/python_api/` module of this fire engineering library.
@@ -11,6 +15,7 @@ This guide documents the standardized format for writing Python docstrings in th
 ## Docstring Format
 
 ### Basic Structure
+
 ```rust
 #[pyfunction]
 /// Brief description of what the function calculates (Equation X).
@@ -47,6 +52,7 @@ fn function_name(params) -> PyResult<type> {
 4. **Use proper notation** - follow the standard symbols used in the engineering documents
 
 #### Example LaTeX Formats:
+
 ```latex
 I_s = \sigma \cdot \varepsilon \cdot T^4                    # Simple equation
 O = \frac{A_s}{A \cdot \sqrt{H}}                           # Fraction with square root
@@ -63,6 +69,7 @@ X = \frac{W}{S}                                            # Simple fraction
 5. **Specify dimensionless** for unitless quantities
 
 #### Format:
+
 ```rust
 /// where:
 ///
@@ -78,6 +85,7 @@ X = \frac{W}{S}                                            # Simple fraction
 4. **Be consistent** with variable names from LaTeX section
 
 #### Examples:
+
 ```rust
 /// Args:
 ///     sigma (float): Stefan-Boltzmann constant (kW/m²K⁴)
@@ -92,6 +100,7 @@ X = \frac{W}{S}                                            # Simple fraction
 2. **Include units** for physical quantities
 
 #### Examples:
+
 ```rust
 /// Returns:
 ///     float: Radiation intensity (kW/m²)
@@ -102,6 +111,7 @@ X = \frac{W}{S}                                            # Simple fraction
 ## Common Patterns
 
 ### Equation Verification Process
+
 1. **Read the Rust source** in the corresponding crate (e.g., `crates/br_187/src/`)
 2. **Find equation functions** (usually named `*_equation()`)
 3. **Check actual implementation** to verify formula
@@ -109,14 +119,15 @@ X = \frac{W}{S}                                            # Simple fraction
 5. **Test for accuracy** - ensure LaTeX matches the code
 
 ### Module-Level Docstrings
+
 Keep module docstrings concise and factual. Avoid subjective language:
 
 ```rust
 #[pymodule]
 /// Module Name - Brief description.
-/// 
+///
 /// This module contains equations for [specific technical area].
-/// 
+///
 /// These calculations cover [factual description of scope].
 pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ```
@@ -130,29 +141,35 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ## Documentation Style Guidelines
 
 ### Language and Tone
+
 1. **Use factual, objective language** - Stick to technical facts and avoid subjective terms
 2. **Avoid words like "essential", "critical", "important"** - These are subjective judgments
 3. **Focus on function, not importance** - Describe what calculations do, not their significance
 4. **Be precise and concise** - Remove unnecessary qualifiers and marketing language
 
 ### Example Descriptions
+
 **Good (Factual):**
+
 - "This equation determines the maximum flow rate of people through a given width."
 - "Calculates the minimum stair width required to accommodate a given number of people."
 - "This chapter contains equations for fire dynamics and smoke behavior in compartment fires."
 
 **Avoid (Subjective):**
-- "This essential equation determines..." 
+
+- "This essential equation determines..."
 - "These critical calculations are vital for..."
 - "This important chapter provides essential guidance..."
 
 ### Code Examples
+
 1. **Show executable code only** - Do not include expected outputs or results
 2. **Print statements are allowed** - Users can include print() calls in examples
 3. **Keep examples copyable** - Users should be able to copy and paste the code directly
 4. **Use realistic parameter values** - Based on test cases or typical engineering values
 
 #### Example Format:
+
 ```rust
 /// Example:
 ///     >>> import ofire
@@ -161,6 +178,7 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ```
 
 **Not (showing output):**
+
 ```rust
 /// Example:
 ///     >>> import ofire
@@ -189,14 +207,17 @@ After creating or updating docstrings, you must also update the Sphinx documenta
 3. **Avoid naming conflicts**: Use descriptive suffixes based on the source document if module names conflict
 
 #### Naming Convention for Conflicts:
+
 When multiple documents have the same chapter numbers (e.g., Chapter 6), use a suffix that reflects the source document:
-- `chapter_6_intro` for "Introduction to Fire Dynamics" 
+
+- `chapter_6_intro` for "Introduction to Fire Dynamics"
 - `chapter_6_br187` for "BR 187"
 - `chapter_6_pd7974` for "PD 7974"
 
 **Do not use generic suffixes like `_intro` without context** - the suffix should clearly indicate the source document.
 
 #### Example Module Structure:
+
 ```rust
 // In main module file (e.g., introduction_to_fire_dynamics.rs)
 #[pymodule]
@@ -223,6 +244,7 @@ pub fn chapter_6_intro(m: &Bound<'_, PyModule>) -> PyResult<()> {
 3. **Add automodule directives** following the hierarchy pattern:
 
 #### Example Documentation Structure:
+
 ```rst
 Module Name
 ===========
@@ -271,12 +293,14 @@ Equation X.Y - Brief Description
 ## Example Files
 
 See the following for reference implementations:
+
 - `crates/python_api/src/br_187/appendix_a.rs`
 - `crates/python_api/src/br_187/chapter_1.rs`
 - `crates/python_api/src/introduction_to_fire_dynamics/chapter_6.rs` (uses `_intro` suffix for "Introduction" document)
 - `crates/python_api/src/pd_7974/part_1/section_8.rs`
 
 And their corresponding documentation files:
+
 - `docs/api/br-187.rst`
 - `docs/api/introduction-to-fire-dynamics.rst`
 - `docs/api/pd-7974.rst`

@@ -1,5 +1,5 @@
 pub fn comparment_interior_surface_area(w_c: f64, l_c: f64, h_c: f64, a_v: f64) -> f64 {
-    return (2.0 * (w_c * l_c) + 2.0 * (h_c * w_c) + 2.0 * (h_c * l_c)) - a_v;
+    (2.0 * (w_c * l_c) + 2.0 * (h_c * w_c) + 2.0 * (h_c * l_c)) - a_v
 }
 
 pub fn comparment_interior_surface_area_equation(
