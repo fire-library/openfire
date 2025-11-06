@@ -59,11 +59,9 @@ fn hot_gas_temperature_increase(
     a_t: f64,
     h_k: f64,
 ) -> PyResult<f64> {
-    Ok(
-        rust_equation_2_1::hot_gas_temperature_increase(
-            q, a_v, h_v, a_t, h_k,
-        ),
-    )
+    Ok(rust_equation_2_1::hot_gas_temperature_increase(
+        q, a_v, h_v, a_t, h_k,
+    ))
 }
 
 #[pyfunction]
