@@ -35,32 +35,32 @@ use ::openfire::fire_dynamics_tools::chapter_2::equation_2_13 as rust_equation_2
 /// - :math:`h_k` is the heat transfer coefficient (kW/m²K)
 ///
 /// Args:
-///     q (list[float]): Heat release rates (kW)
+///     q (float): Heat release rate (kW)
 ///     a_v (list[float]): Ventilation opening areas (m²)
 ///     h_v (list[float]): Ventilation opening heights (m)
 ///     a_t (float): Total interior surface area (m²)
 ///     h_k (float): Heat transfer coefficient (kW/m²K)
 ///
 /// Returns:
-///     list[float]: Hot gas temperature increases (K)
+///     float: Hot gas temperature increase (K)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [500.0, 1000.0, 1500.0]
+///     >>> q = 1000.0
 ///     >>> a_v = [2.5, 1.5]
 ///     >>> h_v = [2.0, 1.0]
 ///     >>> a_t = 75.0
 ///     >>> h_k = 0.035
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_1.hot_gas_temperature_increase_natural_ventilation_mqh(q, a_v, h_v, a_t, h_k)
-fn hot_gas_temperature_increase_natural_ventilation_mqh(
-    q: Vec<f64>,
+fn hot_gas_temperature_increase(
+    q: f64,
     a_v: Vec<f64>,
     h_v: Vec<f64>,
     a_t: f64,
     h_k: f64,
-) -> PyResult<Vec<f64>> {
+) -> PyResult<f64> {
     Ok(
-        rust_equation_2_1::hot_gas_temperature_increase_natural_ventilation_mqh(
+        rust_equation_2_1::hot_gas_temperature_increase(
             q, a_v, h_v, a_t, h_k,
         ),
     )
