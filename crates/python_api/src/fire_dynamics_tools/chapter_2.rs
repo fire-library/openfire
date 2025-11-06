@@ -161,32 +161,27 @@ fn heat_transfer_coefficient_shorttimes_or_thickwalls(
 /// - :math:`H_c` is the compartment height (m)
 ///
 /// Args:
-///     k (list[float]): Entrainment coefficients (dimensionless)
-///     q (list[float]): Heat release rates (kW)
-///     t (list[float]): Time values (s)
+///     k (float): Entrainment coefficient (dimensionless)
+///     q (float): Heat release rate (kW)
+///     t (float): Time (s)
 ///     a_c (float): Compartment floor area (m²)
 ///     h_c (float): Compartment height (m)
 ///
 /// Returns:
-///     list[float]: Heights of smoke layer interface (m)
+///     float: Height of smoke layer interface (m)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> k = [0.15, 0.12, 0.1]
-///     >>> q = [500.0, 1000.0, 1500.0]
-///     >>> t = [60.0, 90.0, 120.0]
-///     >>> a_c = 250.0
-///     >>> h_c = 4.5
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_10.height_smoke_layer_interface_natural_ventilation_yamana_tanaka(k, q, t, a_c, h_c)
-fn height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
-    k: Vec<f64>,
-    q: Vec<f64>,
-    t: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_10.height_smoke_layer_interface_natural_ventilation(0.12, 1000.0, 90.0, 250.0, 4.5)
+fn height_smoke_layer_interface_natural_ventilation(
+    k: f64,
+    q: f64,
+    t: f64,
     a_c: f64,
     h_c: f64,
-) -> PyResult<Vec<f64>> {
+) -> PyResult<f64> {
     Ok(
-        rust_equation_2_10::height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
+        rust_equation_2_10::height_smoke_layer_interface_natural_ventilation(
             k, q, t, a_c, h_c,
         ),
     )
@@ -657,7 +652,7 @@ fn equation_2_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Natural ventilation calculations using the Yamana-Tanaka correlation.
 fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        height_smoke_layer_interface_natural_ventilation_yamana_tanaka,
+        height_smoke_layer_interface_natural_ventilation,
         m
     )?)?;
     Ok(())
