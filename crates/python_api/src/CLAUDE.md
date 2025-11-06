@@ -109,16 +109,15 @@ X = \frac{W}{S}                                            # Simple fraction
 5. **Test for accuracy** - ensure LaTeX matches the code
 
 ### Module-Level Docstrings
-Keep module docstrings concise since equations appear in navigation:
+Keep module docstrings concise and factual. Avoid subjective language:
 
 ```rust
 #[pymodule]
 /// Module Name - Brief description.
 /// 
-/// Explanation of what this module contains and its purpose
-/// in the fire engineering context.
+/// This module contains equations for [specific technical area].
 /// 
-/// These calculations are essential for [specific use case].
+/// These calculations cover [factual description of scope].
 pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ```
 
@@ -128,6 +127,48 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 - **Rust source equations**: `crates/{crate_name}/src/`
 - **Documentation**: Generated from these docstrings
 
+## Documentation Style Guidelines
+
+### Language and Tone
+1. **Use factual, objective language** - Stick to technical facts and avoid subjective terms
+2. **Avoid words like "essential", "critical", "important"** - These are subjective judgments
+3. **Focus on function, not importance** - Describe what calculations do, not their significance
+4. **Be precise and concise** - Remove unnecessary qualifiers and marketing language
+
+### Example Descriptions
+**Good (Factual):**
+- "This equation determines the maximum flow rate of people through a given width."
+- "Calculates the minimum stair width required to accommodate a given number of people."
+- "This chapter contains equations for fire dynamics and smoke behavior in compartment fires."
+
+**Avoid (Subjective):**
+- "This essential equation determines..." 
+- "These critical calculations are vital for..."
+- "This important chapter provides essential guidance..."
+
+### Code Examples
+1. **Show executable code only** - Do not include expected outputs or results
+2. **Print statements are allowed** - Users can include print() calls in examples
+3. **Keep examples copyable** - Users should be able to copy and paste the code directly
+4. **Use realistic parameter values** - Based on test cases or typical engineering values
+
+#### Example Format:
+```rust
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover(2.0, 2.1)
+///     >>> print(f"{result:.1f} kW")
+```
+
+**Not (showing output):**
+```rust
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover(2.0, 2.1)
+///     >>> print(f"{result:.1f} kW")
+///     1738.9 kW
+```
+
 ## Important Notes
 
 1. **Don't duplicate equation lists** - they appear in docs navigation
@@ -135,6 +176,7 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 3. **Use proper symbols** - follow engineering standard notation
 4. **Include proper spacing** - empty lines matter for reStructuredText rendering
 5. **Test compilation** - run `maturin develop` to verify syntax
+6. **Follow style guidelines** - Use factual language and show executable code without outputs
 
 ## Exposing Documentation in Sphinx
 
