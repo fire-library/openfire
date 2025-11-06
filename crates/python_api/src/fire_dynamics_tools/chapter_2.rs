@@ -377,28 +377,27 @@ fn nondimensional_hot_gas_temperature_increase(
 /// - :math:`A_t` is the total interior surface area (m²)
 ///
 /// Args:
-///     q (list[float]): Heat release rates (kW)
+///     q (float): Heat release rate (kW)
 ///     m (float): Mass flow rate (kg/s)
 ///     c_p (float): Specific heat capacity (kJ/kgK)
 ///     h_k (float): Heat transfer coefficient (kW/m²K)
 ///     a_t (float): Total interior surface area (m²)
 ///
 /// Returns:
-///     list[float]: Hot gas temperature increases (K)
+///     float: Hot gas temperature increase (K)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [150.0, 300.0, 450.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_8.hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(q, 2.5, 1.0, 0.035, 100.0)
-fn hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(
-    q: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_8.hot_gas_temperature_increase_forced_ventilation(300.0, 2.5, 1.0, 0.035, 100.0)
+fn hot_gas_temperature_increase_forced_ventilation(
+    q: f64,
     m: f64,
     c_p: f64,
     h_k: f64,
     a_t: f64,
-) -> PyResult<Vec<f64>> {
+) -> PyResult<f64> {
     Ok(
-        rust_equation_2_8::hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(
+        rust_equation_2_8::hot_gas_temperature_increase(
             q, m, c_p, h_k, a_t,
         ),
     )
@@ -637,7 +636,7 @@ fn equation_2_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Hot gas temperature increase for forced ventilation using Deal and Beyler correlation.
 fn equation_2_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        hot_gas_temperature_increase_forced_ventilation_deal_and_beyler,
+        hot_gas_temperature_increase_forced_ventilation,
         m
     )?)?;
     Ok(())
