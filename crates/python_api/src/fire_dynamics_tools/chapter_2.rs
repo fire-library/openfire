@@ -352,7 +352,7 @@ fn nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
     c_p: f64,
 ) -> PyResult<Vec<f64>> {
     Ok(
-        rust_equation_2_7::nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
+        rust_equation_2_7::nondimensional_hot_gas_temperature_increase(
             q, m, t_a, h_k, a_t, c_p,
         ),
     )
