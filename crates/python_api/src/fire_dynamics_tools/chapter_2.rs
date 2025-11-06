@@ -329,7 +329,7 @@ fn hot_gas_temperature_increase_beyler_closed_compartment(
 /// - :math:`A_t` is the total interior surface area (m²)
 ///
 /// Args:
-///     q (list[float]): Heat release rates (kW)
+///     q (float): Heat release rate (kW)
 ///     m (float): Mass flow rate (kg/s)
 ///     t_a (float): Ambient temperature (K)
 ///     h_k (float): Heat transfer coefficient (kW/m²K)
@@ -337,20 +337,19 @@ fn hot_gas_temperature_increase_beyler_closed_compartment(
 ///     c_p (float): Specific heat capacity (kJ/kgK)
 ///
 /// Returns:
-///     list[float]: Nondimensional hot gas temperature increases (dimensionless)
+///     float: Nondimensional hot gas temperature increase (dimensionless)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [150.0, 300.0, 450.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_7.nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(q, 2.5, 293.0, 0.035, 100.0, 1.0)
-fn nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
-    q: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_7.nondimensional_hot_gas_temperature_increase(300.0, 2.5, 293.0, 0.035, 100.0, 1.0)
+fn nondimensional_hot_gas_temperature_increase(
+    q: f64,
     m: f64,
     t_a: f64,
     h_k: f64,
     a_t: f64,
     c_p: f64,
-) -> PyResult<Vec<f64>> {
+) -> PyResult<f64> {
     Ok(
         rust_equation_2_7::nondimensional_hot_gas_temperature_increase(
             q, m, t_a, h_k, a_t, c_p,
@@ -626,7 +625,7 @@ fn equation_2_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Nondimensional hot gas temperature increase for forced ventilation.
 fn equation_2_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa,
+        nondimensional_hot_gas_temperature_increase,
         m
     )?)?;
     Ok(())
