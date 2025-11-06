@@ -260,10 +260,11 @@ fn thermal_penetration_time(rho: f64, c_p: f64, k: f64, delta: f64) -> PyResult<
 }
 
 #[pyfunction]
-/// Calculate hot gas temperature increase for closed compartment using Beyler correlation (Equation 2.6).
+/// Calculate hot gas temperature increase using the Beyler correlation for closed compartments (Equation 2.6).
 ///
-/// This function computes the temperature increase of hot gases in closed
-/// compartments using the Beyler correlation for transient heating conditions.
+/// This function calculates the temperature increase of hot gases in a closed
+/// compartment using Beyler's correlation, accounting for thermal properties
+/// of the enclosure and fire characteristics.
 ///
 /// .. math::
 ///
@@ -274,38 +275,37 @@ fn thermal_penetration_time(rho: f64, c_p: f64, k: f64, delta: f64) -> PyResult<
 /// - :math:`\Delta T_g` is the hot gas temperature increase (K)
 /// - :math:`Q` is the heat release rate (kW)
 /// - :math:`m` is the mass flow rate (kg/s)
-/// - :math:`c_p` is the specific heat capacity (kJ/kgK)
+/// - :math:`c_p` is the specific heat capacity of air (kJ/kgK)
 /// - :math:`k` is the thermal conductivity (kW/mK)
 /// - :math:`\rho` is the density (kg/m³)
-/// - :math:`c` is the specific heat capacity (kJ/kgK)
+/// - :math:`c` is the specific heat capacity of the internal lining (kJ/kgK)
 /// - :math:`t` is the time (s)
 ///
 /// Args:
 ///     k (float): Thermal conductivity (kW/mK)
 ///     rho (float): Density (kg/m³)
-///     c (float): Specific heat capacity (kJ/kgK)
+///     c (float): Specific heat capacity of internal lining (kJ/kgK)
 ///     t (float): Time (s)
 ///     m (float): Mass flow rate (kg/s)
-///     c_p (float): Specific heat capacity (kJ/kgK)
-///     q (list[float]): Heat release rates (kW)
+///     c_p (float): Specific heat capacity of air (kJ/kgK)
+///     q (float): Heat release rate (kW)
 ///
 /// Returns:
-///     list[float]: Hot gas temperature increases (K)
+///     float: Hot gas temperature increase (K)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [250.0, 500.0, 750.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_6.hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(0.002, 2400.0, 1.17, 60.0, 100.0, 1.0, q)
-fn hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_6.hot_gas_temperature_increase_beyler_closed_compartment(0.002, 2400.0, 1.17, 60.0, 100.0, 1.0, 500.0)
+fn hot_gas_temperature_increase_beyler_closed_compartment(
     k: f64,
     rho: f64,
     c: f64,
     t: f64,
     m: f64,
     c_p: f64,
-    q: Vec<f64>,
-) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_6::hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(k, rho, c, t, m, c_p, q))
+    q: f64,
+) -> PyResult<f64> {
+    Ok(rust_equation_2_6::hot_gas_temperature_increase(k, rho, c, t, m, c_p, q))
 }
 
 #[pyfunction]
@@ -560,7 +560,7 @@ fn density_hot_gas_layer(t_g: Vec<f64>) -> PyResult<Vec<f64>> {
 /// Natural ventilation calculations using the MQH correlation method.
 fn equation_2_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        hot_gas_temperature_increase_natural_ventilation_mqh,
+        hot_gas_temperature_increase,
         m
     )?)?;
     Ok(())
@@ -614,7 +614,7 @@ fn equation_2_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Hot gas temperature increase for closed compartments using Beyler correlation.
 fn equation_2_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment,
+        hot_gas_temperature_increase_beyler_closed_compartment,
         m
     )?)?;
     Ok(())
