@@ -28,12 +28,17 @@ use ::openfire::pd_7974::part_1::section_8::{
 /// - :math:`H_v` is the height of ventilation openings (m)
 ///
 /// Args:
-///     a_t: Total floor area (m²)
-///     a_v: Area of ventilation openings (m²)  
-///     h_v: Height of ventilation openings (m)
+///     a_t (float): Total floor area (m²)
+///     a_v (float): Area of ventilation openings (m²)
+///     h_v (float): Height of ventilation openings (m)
 ///
 /// Returns:
 ///     float: Heat release rate (kW)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_28.q_fo(100.0, 10.0, 2.5)
+///     >>> print(f"{result:.1f} kW")
 fn q_fo(a_t: f64, a_v: f64, h_v: f64) -> PyResult<f64> {
     Ok(rust_equation_28::q_fo(a_t, a_v, h_v))
 }
@@ -67,13 +72,18 @@ fn equation_28(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`H_v` is the height of ventilation openings (m)
 ///
 /// Args:
-///     h_k: Heat of combustion (MJ/kg)
-///     a_t: Total floor area (m²)
-///     a_v: Area of ventilation openings (m²)
-///     h_v: Height of ventilation openings (m)
+///     h_k (float): Heat of combustion (MJ/kg)
+///     a_t (float): Total floor area (m²)
+///     a_v (float): Area of ventilation openings (m²)
+///     h_v (float): Height of ventilation openings (m)
 ///
 /// Returns:
 ///     float: Heat release rate (kW)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_29.q_fo(18.0, 100.0, 10.0, 2.5)
+///     >>> print(f"{result:.1f} kW")
 #[pyo3(name = "q_fo")]
 fn q_fo_29(h_k: f64, a_t: f64, a_v: f64, h_v: f64) -> PyResult<f64> {
     Ok(rust_equation_29::q_fo(h_k, a_t, a_v, h_v))
@@ -106,11 +116,16 @@ fn equation_29(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`H_v` is the height of ventilation openings (m)
 ///
 /// Args:
-///     a_v: Area of ventilation openings (m²)
-///     h_v: Height of ventilation openings (m)
+///     a_v (float): Area of ventilation openings (m²)
+///     h_v (float): Height of ventilation openings (m)
 ///
 /// Returns:
 ///     float: Maximum heat release rate (kW)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_33.q_max_vc(10.0, 2.5)
+///     >>> print(f"{result:.1f} kW")
 fn q_max_vc(a_v: f64, h_v: f64) -> PyResult<f64> {
     Ok(rust_equation_33::q_max_vc(a_v, h_v))
 }
@@ -142,11 +157,16 @@ fn equation_33(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`HRRPUA` is the heat release rate per unit area (kW/m²)
 ///
 /// Args:
-///     a_f: Floor area of fire (m²)
-///     hrrpua: Heat release rate per unit area (kW/m²)
+///     a_f (float): Floor area of fire (m²)
+///     hrrpua (float): Heat release rate per unit area (kW/m²)
 ///
 /// Returns:
 ///     float: Maximum heat release rate (kW)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_4.q_max_fc(50.0, 250.0)
+///     >>> print(f"{result:.1f} kW")
 fn q_max_fc(a_f: f64, hrrpua: f64) -> PyResult<f64> {
     Ok(rust_equation_4::q_max_fc(a_f, hrrpua))
 }
@@ -177,10 +197,15 @@ fn equation_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`\omega` is the opening factor (m^0.5)
 ///
 /// Args:
-///     omega: Opening factor (m^0.5)
+///     omega (float): Opening factor (m^0.5)
 ///
 /// Returns:
 ///     float: Maximum gas temperature (°C)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_41.t_g_max(0.05)
+///     >>> print(f"{result:.1f} °C")
 fn t_g_max(omega: f64) -> PyResult<f64> {
     Ok(rust_equation_41::t_g_max(omega))
 }
@@ -213,12 +238,17 @@ fn equation_41(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`H_v` is the height of ventilation openings (m)
 ///
 /// Args:
-///     a_t: Total floor area (m²)
-///     a_v: Area of ventilation openings (m²)
-///     h_v: Height of ventilation openings (m)
+///     a_t (float): Total floor area (m²)
+///     a_v (float): Area of ventilation openings (m²)
+///     h_v (float): Height of ventilation openings (m)
 ///
 /// Returns:
 ///     float: Opening factor (m^0.5)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_42.omega(100.0, 10.0, 2.5)
+///     >>> print(f"{result:.3f} m^0.5")
 fn omega(a_t: f64, a_v: f64, h_v: f64) -> PyResult<f64> {
     Ok(rust_equation_42::omega(a_t, a_v, h_v))
 }
@@ -250,11 +280,16 @@ fn equation_42(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`\psi` is the fuel load density parameter (dimensionless)
 ///
 /// Args:
-///     t_g_max: Maximum gas temperature (°C)
-///     psi: Fuel load density parameter
+///     t_g_max (float): Maximum gas temperature (°C)
+///     psi (float): Fuel load density parameter (dimensionless)
 ///
 /// Returns:
 ///     float: Gas temperature (°C)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_43.t_g(800.0, 2.0)
+///     >>> print(f"{result:.1f} °C")
 fn t_g(t_g_max: f64, psi: f64) -> PyResult<f64> {
     Ok(rust_equation_43::t_g(t_g_max, psi))
 }
@@ -293,6 +328,11 @@ fn equation_43(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Fuel load density parameter (dimensionless)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.pd_7974.part_1.section_8.equation_44.psi(50.0, 10.0, 100.0)
+///     >>> print(f"{result:.3f}")
 fn psi(m_e: f64, a_v: f64, a_t: f64) -> PyResult<f64> {
     Ok(rust_equation_44::psi(m_e, a_v, a_t))
 }
