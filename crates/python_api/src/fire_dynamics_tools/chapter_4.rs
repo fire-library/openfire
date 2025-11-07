@@ -8,8 +8,8 @@ use ::openfire::fire_dynamics_tools::chapter_4::equation_4_3 as rust_equation_4_
 #[pyfunction]
 /// Calculates wall fire flame height (Equation 4-1).
 ///
-/// This equation determines the flame height for fires adjacent to walls based on 
-/// the heat release rate. The wall effect increases flame height compared to 
+/// This equation determines the flame height for fires adjacent to walls based on
+/// the heat release rate. The wall effect increases flame height compared to
 /// free-burning fires due to reduced air entrainment.
 ///
 /// .. math::
@@ -35,44 +35,22 @@ fn wall_fire_flame_height(q: f64) -> PyResult<f64> {
     Ok(rust_equation_4_1::wall_fire_flame_height(q))
 }
 
-#[pyfunction]
-/// Returns the LaTeX equation for wall fire flame height calculation.
-///
-/// This function provides the mathematical equation in LaTeX format for 
-/// documentation and display purposes.
-///
-/// Args:
-///     h_f (str): Symbol for flame height
-///     q (str): Symbol for heat release rate
-///
-/// Returns:
-///     str: LaTeX formatted equation
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.fire_dynamics_tools.chapter_4.equation_4_1.wall_fire_flame_height_equation("h_f", "q")
-///     >>> print(equation)
-fn wall_fire_flame_height_equation(h_f: String, q: String) -> PyResult<String> {
-    Ok(rust_equation_4_1::wall_fire_flame_height_equation(h_f, q))
-}
-
 #[pymodule]
 /// Equation 4-1 - Wall Fire Flame Height.
 ///
-/// This module contains calculations for determining flame height of fires 
-/// adjacent to walls. Wall fires exhibit different characteristics compared 
+/// This module contains calculations for determining flame height of fires
+/// adjacent to walls. Wall fires exhibit different characteristics compared
 /// to free-burning fires due to the restriction of air entrainment from one side.
 fn equation_4_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(wall_fire_flame_height, m)?)?;
-    m.add_function(wrap_pyfunction!(wall_fire_flame_height_equation, m)?)?;
     Ok(())
 }
 
 #[pyfunction]
 /// Calculates line fire flame height (Equation 4-2).
 ///
-/// This equation determines the flame height for line fires, which are fires 
-/// that spread along a linear fuel source. Line fires have different flame 
+/// This equation determines the flame height for line fires, which are fires
+/// that spread along a linear fuel source. Line fires have different flame
 /// characteristics compared to point source fires due to their geometry.
 ///
 /// .. math::
@@ -98,27 +76,6 @@ fn line_fire_flame_height(q: f64) -> PyResult<f64> {
     Ok(rust_equation_4_2::line_fire_flame_height(q))
 }
 
-#[pyfunction]
-/// Returns the LaTeX equation for line fire flame height calculation.
-///
-/// This function provides the mathematical equation in LaTeX format for 
-/// documentation and display purposes.
-///
-/// Args:
-///     h_f (str): Symbol for flame height
-///     q (str): Symbol for heat release rate
-///
-/// Returns:
-///     str: LaTeX formatted equation
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.fire_dynamics_tools.chapter_4.equation_4_2.line_fire_flame_height_equation("h_f", "q")
-///     >>> print(equation)
-fn line_fire_flame_height_equation(h_f: String, q: String) -> PyResult<String> {
-    Ok(rust_equation_4_2::line_fire_flame_height_equation(h_f, q))
-}
-
 #[pymodule]
 /// Equation 4-2 - Line Fire Flame Height.
 ///
@@ -127,15 +84,14 @@ fn line_fire_flame_height_equation(h_f: String, q: String) -> PyResult<String> {
 /// flame dynamics compared to point source or area fires.
 fn equation_4_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(line_fire_flame_height, m)?)?;
-    m.add_function(wrap_pyfunction!(line_fire_flame_height_equation, m)?)?;
     Ok(())
 }
 
 #[pyfunction]
 /// Calculates corner fire flame height (Equation 4-3).
 ///
-/// This equation determines the flame height for fires located in corners, 
-/// where two walls meet. Corner fires have restricted air entrainment from 
+/// This equation determines the flame height for fires located in corners,
+/// where two walls meet. Corner fires have restricted air entrainment from
 /// two sides, resulting in higher flame heights compared to wall fires.
 ///
 /// .. math::
@@ -161,44 +117,22 @@ fn corner_fire_flame_height(q: f64) -> PyResult<f64> {
     Ok(rust_equation_4_3::corner_fire_flame_height(q))
 }
 
-#[pyfunction]
-/// Returns the LaTeX equation for corner fire flame height calculation.
-///
-/// This function provides the mathematical equation in LaTeX format for 
-/// documentation and display purposes.
-///
-/// Args:
-///     h_f (str): Symbol for flame height
-///     q (str): Symbol for heat release rate
-///
-/// Returns:
-///     str: LaTeX formatted equation
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.fire_dynamics_tools.chapter_4.equation_4_3.corner_fire_flame_height_equation("h_f", "q")
-///     >>> print(equation)
-fn corner_fire_flame_height_equation(h_f: String, q: String) -> PyResult<String> {
-    Ok(rust_equation_4_3::corner_fire_flame_height_equation(h_f, q))
-}
-
 #[pymodule]
 /// Equation 4-3 - Corner Fire Flame Height.
 ///
-/// This module contains calculations for determining flame height of fires 
-/// located in corners. Corner fires have air entrainment restricted from 
+/// This module contains calculations for determining flame height of fires
+/// located in corners. Corner fires have air entrainment restricted from
 /// two sides, leading to different flame behavior compared to wall or free fires.
 fn equation_4_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(corner_fire_flame_height, m)?)?;
-    m.add_function(wrap_pyfunction!(corner_fire_flame_height_equation, m)?)?;
     Ok(())
 }
 
 #[pymodule]
 /// Chapter 4 - Fire Dynamics Tools.
 ///
-/// This chapter contains equations for fire dynamics calculations including 
-/// flame height correlations for different fire configurations. These equations 
+/// This chapter contains equations for fire dynamics calculations including
+/// flame height correlations for different fire configurations. These equations
 /// are fundamental for fire safety engineering analysis and design.
 pub fn chapter_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_4_1))?;
