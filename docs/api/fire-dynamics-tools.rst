@@ -122,3 +122,38 @@ Equation 2.13 - Hot Gas Density
    :members:
    :undoc-members:
    :show-inheritance:
+
+Chapter 4
+---------
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_4
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation Modules
+~~~~~~~~~~~~~~~~
+
+Equation 4.1 - Wall Fire Flame Height
+""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_4.equation_4_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 4.2 - Line Fire Flame Height
+""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_4.equation_4_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 4.3 - Corner Fire Flame Height
+""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_4.equation_4_3
+   :members:
+   :undoc-members:
+   :show-inheritance:

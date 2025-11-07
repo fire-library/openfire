@@ -1,5 +1,5 @@
 pub fn calculate_ventilation_factor(a_s: f64, a: f64, h: f64) -> f64 {
-    return a_s / (a * h.sqrt());
+    a_s / (a * h.sqrt())
 }
 
 #[cfg(test)]
