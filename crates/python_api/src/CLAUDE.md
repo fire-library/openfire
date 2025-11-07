@@ -125,7 +125,8 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 - **Python bindings**: `crates/python_api/src/`
 - **Rust source equations**: `crates/{crate_name}/src/`
-- **Documentation**: Generated from these docstrings
+- **Documentation source**: `crates/python_api/docs/`
+- **Generated documentation**: `crates/python_api/_build/`
 
 ## Documentation Style Guidelines
 
@@ -218,7 +219,7 @@ pub fn chapter_6_intro(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 ### Updating Sphinx Documentation
 
-1. **Navigate to docs/api/** directory
+1. **Navigate to crates/python_api/docs/api/** directory
 2. **Find or create** the `.rst` file for your module (e.g., `introduction-to-fire-dynamics.rst`)
 3. **Add automodule directives** following the hierarchy pattern:
 
@@ -277,8 +278,8 @@ See the following for reference implementations:
 - `crates/python_api/src/pd_7974/part_1/section_8.rs`
 
 And their corresponding documentation files:
-- `docs/api/br-187.rst`
-- `docs/api/introduction-to-fire-dynamics.rst`
-- `docs/api/pd-7974.rst`
+- `crates/python_api/docs/api/br-187.rst`
+- `crates/python_api/docs/api/introduction-to-fire-dynamics.rst`
+- `crates/python_api/docs/api/pd-7974.rst`
 
 These files demonstrate the complete docstring format with LaTeX equations, proper type annotations, variable definitions, and proper Sphinx integration.

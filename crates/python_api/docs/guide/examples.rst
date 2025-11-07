@@ -6,7 +6,7 @@ This section contains practical examples of using OpenFire for fire safety engin
 The examples are organized by topic to help you find relevant workflows for your specific needs.
 
 Available Example Categories
----------------------------
+----------------------------
 
 .. toctree::
    :maxdepth: 1

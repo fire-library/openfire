@@ -40,7 +40,7 @@ jobs:
 
       - name: Install documentation dependencies
         run: |
-          pip install -r docs/docs-requirements.txt
+          pip install -r crates/python_api/docs/docs-requirements.txt
 
       - name: Install ofire package for API docs
         run: |
@@ -54,7 +54,7 @@ jobs:
 
       - name: Build documentation with Sphinx
         run: |
-          sphinx-build -b html docs _build
+          sphinx-build -b html crates/python_api/docs crates/python_api/_build
 
       - name: Setup Pages
         if: github.ref == 'refs/heads/main'
@@ -64,7 +64,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_build
+          path: ./crates/python_api/_build
 
   deploy:
     if: github.ref == 'refs/heads/main'
