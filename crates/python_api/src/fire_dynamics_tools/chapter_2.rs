@@ -532,16 +532,15 @@ fn k_constant_smoke_layer_height_post_substitution(
 /// - 353.0 is derived from :math:`\frac{P \cdot M}{R}` at atmospheric conditions
 ///
 /// Args:
-///     t_g (list[float]): Hot gas temperatures (K)
+///     t_g (float): Hot gas temperature (K)
 ///
 /// Returns:
-///     list[float]: Hot gas densities (kg/m³)
+///     float: Hot gas density (kg/m³)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> t_g = [400.0, 500.0, 600.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_13.density_hot_gas_layer(t_g)
-fn density_hot_gas_layer(t_g: Vec<f64>) -> PyResult<Vec<f64>> {
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_13.density_hot_gas_layer(500.0)
+fn density_hot_gas_layer(t_g: f64) -> PyResult<f64> {
     Ok(rust_equation_2_13::density_hot_gas_layer(t_g))
 }
 
