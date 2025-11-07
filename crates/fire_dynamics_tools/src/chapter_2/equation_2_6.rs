@@ -12,7 +12,7 @@ pub fn hot_gas_temperature_increase(
     let k_2 = q / (m * c_p);
     let left = 2.0 * k_2 / k_1.powf(2.0);
     let parentheses = k_1 * t.powf(0.5) - 1.0 + (-k_1 * t.powf(0.5)).exp();
-    return left * parentheses;
+    left * parentheses
 }
 
 pub fn hot_gas_temperature_increase_equation(
