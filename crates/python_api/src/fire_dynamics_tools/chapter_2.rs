@@ -35,35 +35,33 @@ use ::openfire::fire_dynamics_tools::chapter_2::equation_2_13 as rust_equation_2
 /// - :math:`h_k` is the heat transfer coefficient (kW/m²K)
 ///
 /// Args:
-///     q (list[float]): Heat release rates (kW)
+///     q (float): Heat release rate (kW)
 ///     a_v (list[float]): Ventilation opening areas (m²)
 ///     h_v (list[float]): Ventilation opening heights (m)
 ///     a_t (float): Total interior surface area (m²)
 ///     h_k (float): Heat transfer coefficient (kW/m²K)
 ///
 /// Returns:
-///     list[float]: Hot gas temperature increases (K)
+///     float: Hot gas temperature increase (K)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [500.0, 1000.0, 1500.0]
+///     >>> q = 1000.0
 ///     >>> a_v = [2.5, 1.5]
 ///     >>> h_v = [2.0, 1.0]
 ///     >>> a_t = 75.0
 ///     >>> h_k = 0.035
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_1.hot_gas_temperature_increase_natural_ventilation_mqh(q, a_v, h_v, a_t, h_k)
-fn hot_gas_temperature_increase_natural_ventilation_mqh(
-    q: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_1.hot_gas_temperature_increase(q, a_v, h_v, a_t, h_k)
+fn hot_gas_temperature_increase(
+    q: f64,
     a_v: Vec<f64>,
     h_v: Vec<f64>,
     a_t: f64,
     h_k: f64,
-) -> PyResult<Vec<f64>> {
-    Ok(
-        rust_equation_2_1::hot_gas_temperature_increase_natural_ventilation_mqh(
-            q, a_v, h_v, a_t, h_k,
-        ),
-    )
+) -> PyResult<f64> {
+    Ok(rust_equation_2_1::hot_gas_temperature_increase(
+        q, a_v, h_v, a_t, h_k,
+    ))
 }
 
 #[pyfunction]
@@ -163,32 +161,27 @@ fn heat_transfer_coefficient_shorttimes_or_thickwalls(
 /// - :math:`H_c` is the compartment height (m)
 ///
 /// Args:
-///     k (list[float]): Entrainment coefficients (dimensionless)
-///     q (list[float]): Heat release rates (kW)
-///     t (list[float]): Time values (s)
+///     k (float): Entrainment coefficient (dimensionless)
+///     q (float): Heat release rate (kW)
+///     t (float): Time (s)
 ///     a_c (float): Compartment floor area (m²)
 ///     h_c (float): Compartment height (m)
 ///
 /// Returns:
-///     list[float]: Heights of smoke layer interface (m)
+///     float: Height of smoke layer interface (m)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> k = [0.15, 0.12, 0.1]
-///     >>> q = [500.0, 1000.0, 1500.0]
-///     >>> t = [60.0, 90.0, 120.0]
-///     >>> a_c = 250.0
-///     >>> h_c = 4.5
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_10.height_smoke_layer_interface_natural_ventilation_yamana_tanaka(k, q, t, a_c, h_c)
-fn height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
-    k: Vec<f64>,
-    q: Vec<f64>,
-    t: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_10.height_smoke_layer_interface_natural_ventilation(0.12, 1000.0, 90.0, 250.0, 4.5)
+fn height_smoke_layer_interface_natural_ventilation(
+    k: f64,
+    q: f64,
+    t: f64,
     a_c: f64,
     h_c: f64,
-) -> PyResult<Vec<f64>> {
+) -> PyResult<f64> {
     Ok(
-        rust_equation_2_10::height_smoke_layer_interface_natural_ventilation_yamana_tanaka(
+        rust_equation_2_10::height_smoke_layer_interface_natural_ventilation(
             k, q, t, a_c, h_c,
         ),
     )
@@ -262,10 +255,11 @@ fn thermal_penetration_time(rho: f64, c_p: f64, k: f64, delta: f64) -> PyResult<
 }
 
 #[pyfunction]
-/// Calculate hot gas temperature increase for closed compartment using Beyler correlation (Equation 2.6).
+/// Calculate hot gas temperature increase using the Beyler correlation for closed compartments (Equation 2.6).
 ///
-/// This function computes the temperature increase of hot gases in closed
-/// compartments using the Beyler correlation for transient heating conditions.
+/// This function calculates the temperature increase of hot gases in a closed
+/// compartment using Beyler's correlation, accounting for thermal properties
+/// of the enclosure and fire characteristics.
 ///
 /// .. math::
 ///
@@ -276,38 +270,37 @@ fn thermal_penetration_time(rho: f64, c_p: f64, k: f64, delta: f64) -> PyResult<
 /// - :math:`\Delta T_g` is the hot gas temperature increase (K)
 /// - :math:`Q` is the heat release rate (kW)
 /// - :math:`m` is the mass flow rate (kg/s)
-/// - :math:`c_p` is the specific heat capacity (kJ/kgK)
+/// - :math:`c_p` is the specific heat capacity of air (kJ/kgK)
 /// - :math:`k` is the thermal conductivity (kW/mK)
 /// - :math:`\rho` is the density (kg/m³)
-/// - :math:`c` is the specific heat capacity (kJ/kgK)
+/// - :math:`c` is the specific heat capacity of the internal lining (kJ/kgK)
 /// - :math:`t` is the time (s)
 ///
 /// Args:
 ///     k (float): Thermal conductivity (kW/mK)
 ///     rho (float): Density (kg/m³)
-///     c (float): Specific heat capacity (kJ/kgK)
+///     c (float): Specific heat capacity of internal lining (kJ/kgK)
 ///     t (float): Time (s)
 ///     m (float): Mass flow rate (kg/s)
-///     c_p (float): Specific heat capacity (kJ/kgK)
-///     q (list[float]): Heat release rates (kW)
+///     c_p (float): Specific heat capacity of air (kJ/kgK)
+///     q (float): Heat release rate (kW)
 ///
 /// Returns:
-///     list[float]: Hot gas temperature increases (K)
+///     float: Hot gas temperature increase (K)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [250.0, 500.0, 750.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_6.hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(0.002, 2400.0, 1.17, 60.0, 100.0, 1.0, q)
-fn hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_6.hot_gas_temperature_increase_beyler_closed_compartment(0.002, 2400.0, 1.17, 60.0, 100.0, 1.0, 500.0)
+fn hot_gas_temperature_increase_beyler_closed_compartment(
     k: f64,
     rho: f64,
     c: f64,
     t: f64,
     m: f64,
     c_p: f64,
-    q: Vec<f64>,
-) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_6::hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(k, rho, c, t, m, c_p, q))
+    q: f64,
+) -> PyResult<f64> {
+    Ok(rust_equation_2_6::hot_gas_temperature_increase(k, rho, c, t, m, c_p, q))
 }
 
 #[pyfunction]
@@ -331,7 +324,7 @@ fn hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(
 /// - :math:`A_t` is the total interior surface area (m²)
 ///
 /// Args:
-///     q (list[float]): Heat release rates (kW)
+///     q (float): Heat release rate (kW)
 ///     m (float): Mass flow rate (kg/s)
 ///     t_a (float): Ambient temperature (K)
 ///     h_k (float): Heat transfer coefficient (kW/m²K)
@@ -339,22 +332,21 @@ fn hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment(
 ///     c_p (float): Specific heat capacity (kJ/kgK)
 ///
 /// Returns:
-///     list[float]: Nondimensional hot gas temperature increases (dimensionless)
+///     float: Nondimensional hot gas temperature increase (dimensionless)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [150.0, 300.0, 450.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_7.nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(q, 2.5, 293.0, 0.035, 100.0, 1.0)
-fn nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
-    q: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_7.nondimensional_hot_gas_temperature_increase(300.0, 2.5, 293.0, 0.035, 100.0, 1.0)
+fn nondimensional_hot_gas_temperature_increase(
+    q: f64,
     m: f64,
     t_a: f64,
     h_k: f64,
     a_t: f64,
     c_p: f64,
-) -> PyResult<Vec<f64>> {
+) -> PyResult<f64> {
     Ok(
-        rust_equation_2_7::nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
+        rust_equation_2_7::nondimensional_hot_gas_temperature_increase(
             q, m, t_a, h_k, a_t, c_p,
         ),
     )
@@ -380,28 +372,27 @@ fn nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa(
 /// - :math:`A_t` is the total interior surface area (m²)
 ///
 /// Args:
-///     q (list[float]): Heat release rates (kW)
+///     q (float): Heat release rate (kW)
 ///     m (float): Mass flow rate (kg/s)
 ///     c_p (float): Specific heat capacity (kJ/kgK)
 ///     h_k (float): Heat transfer coefficient (kW/m²K)
 ///     a_t (float): Total interior surface area (m²)
 ///
 /// Returns:
-///     list[float]: Hot gas temperature increases (K)
+///     float: Hot gas temperature increase (K)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> q = [150.0, 300.0, 450.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_8.hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(q, 2.5, 1.0, 0.035, 100.0)
-fn hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(
-    q: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_8.hot_gas_temperature_increase_forced_ventilation(300.0, 2.5, 1.0, 0.035, 100.0)
+fn hot_gas_temperature_increase_forced_ventilation(
+    q: f64,
     m: f64,
     c_p: f64,
     h_k: f64,
     a_t: f64,
-) -> PyResult<Vec<f64>> {
+) -> PyResult<f64> {
     Ok(
-        rust_equation_2_8::hot_gas_temperature_increase_forced_ventilation_deal_and_beyler(
+        rust_equation_2_8::hot_gas_temperature_increase(
             q, m, c_p, h_k, a_t,
         ),
     )
@@ -471,27 +462,26 @@ fn convective_heat_transfer_coefficient(
 /// - :math:`T_a` is the ambient temperature (K)
 ///
 /// Args:
-///     rho_g (list[float]): Hot gas densities (kg/m³)
+///     rho_g (float): Hot gas density (kg/m³)
 ///     rho_a (float): Ambient air density (kg/m³)
 ///     g (float): Gravitational acceleration (m/s²)
 ///     c_p (float): Specific heat capacity (kJ/kgK)
 ///     t_a (float): Ambient temperature (K)
 ///
 /// Returns:
-///     list[float]: Entrainment coefficients (dimensionless)
+///     float: Entrainment coefficient (dimensionless)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> rho_g = [0.75, 0.5, 0.25]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_11.k_constant_smoke_layer_height_yamana_tanaka(rho_g, 1.2, 9.81, 1.0, 293.15)
-fn k_constant_smoke_layer_height_yamana_tanaka(
-    rho_g: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_11.k_constant_smoke_layer_height(0.5, 1.2, 9.81, 1.0, 293.15)
+fn k_constant_smoke_layer_height(
+    rho_g: f64,
     rho_a: f64,
     g: f64,
     c_p: f64,
     t_a: f64,
-) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_11::k_constant_smoke_layer_height_yamana_tanaka(rho_g, rho_a, g, c_p, t_a))
+) -> PyResult<f64> {
+    Ok(rust_equation_2_11::k_constant_smoke_layer_height(rho_g, rho_a, g, c_p, t_a))
 }
 
 #[pyfunction]
@@ -511,19 +501,18 @@ fn k_constant_smoke_layer_height_yamana_tanaka(
 /// - 0.076 is derived from substituting standard atmospheric values
 ///
 /// Args:
-///     rho_g (list[float]): Hot gas densities (kg/m³)
+///     rho_g (float): Hot gas density (kg/m³)
 ///
 /// Returns:
-///     list[float]: Entrainment coefficients (dimensionless)
+///     float: Entrainment coefficient (dimensionless)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> rho_g = [0.75, 0.5, 0.25]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_12.k_constant_smoke_layer_height_yamana_tanaka_post_substitution(rho_g)
-fn k_constant_smoke_layer_height_yamana_tanaka_post_substitution(
-    rho_g: Vec<f64>,
-) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_12::k_constant_smoke_layer_height_yamana_tanaka_post_substitution(rho_g))
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_12.k_constant_smoke_layer_height_post_substitution(0.5)
+fn k_constant_smoke_layer_height_post_substitution(
+    rho_g: f64,
+) -> PyResult<f64> {
+    Ok(rust_equation_2_12::k_constant_smoke_layer_height(rho_g))
 }
 
 #[pyfunction]
@@ -543,16 +532,15 @@ fn k_constant_smoke_layer_height_yamana_tanaka_post_substitution(
 /// - 353.0 is derived from :math:`\frac{P \cdot M}{R}` at atmospheric conditions
 ///
 /// Args:
-///     t_g (list[float]): Hot gas temperatures (K)
+///     t_g (float): Hot gas temperature (K)
 ///
 /// Returns:
-///     list[float]: Hot gas densities (kg/m³)
+///     float: Hot gas density (kg/m³)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> t_g = [400.0, 500.0, 600.0]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_13.density_hot_gas_layer(t_g)
-fn density_hot_gas_layer(t_g: Vec<f64>) -> PyResult<Vec<f64>> {
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_13.density_hot_gas_layer(500.0)
+fn density_hot_gas_layer(t_g: f64) -> PyResult<f64> {
     Ok(rust_equation_2_13::density_hot_gas_layer(t_g))
 }
 
@@ -562,7 +550,7 @@ fn density_hot_gas_layer(t_g: Vec<f64>) -> PyResult<Vec<f64>> {
 /// Natural ventilation calculations using the MQH correlation method.
 fn equation_2_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        hot_gas_temperature_increase_natural_ventilation_mqh,
+        hot_gas_temperature_increase,
         m
     )?)?;
     Ok(())
@@ -616,7 +604,7 @@ fn equation_2_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Hot gas temperature increase for closed compartments using Beyler correlation.
 fn equation_2_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        hot_gas_temperature_increase_natural_ventilation_beyler_closed_compartment,
+        hot_gas_temperature_increase_beyler_closed_compartment,
         m
     )?)?;
     Ok(())
@@ -628,7 +616,7 @@ fn equation_2_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Nondimensional hot gas temperature increase for forced ventilation.
 fn equation_2_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        nondimensional_hot_gas_temperature_increase_forced_ventilation_fpa,
+        nondimensional_hot_gas_temperature_increase,
         m
     )?)?;
     Ok(())
@@ -640,7 +628,7 @@ fn equation_2_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Hot gas temperature increase for forced ventilation using Deal and Beyler correlation.
 fn equation_2_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        hot_gas_temperature_increase_forced_ventilation_deal_and_beyler,
+        hot_gas_temperature_increase_forced_ventilation,
         m
     )?)?;
     Ok(())
@@ -661,7 +649,7 @@ fn equation_2_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Natural ventilation calculations using the Yamana-Tanaka correlation.
 fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        height_smoke_layer_interface_natural_ventilation_yamana_tanaka,
+        height_smoke_layer_interface_natural_ventilation,
         m
     )?)?;
     Ok(())
@@ -673,7 +661,7 @@ fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Calculate entrainment coefficient for smoke layer height.
 fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        k_constant_smoke_layer_height_yamana_tanaka,
+        k_constant_smoke_layer_height,
         m
     )?)?;
     Ok(())
@@ -685,7 +673,7 @@ fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Calculate entrainment coefficient using simplified correlation.
 fn equation_2_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        k_constant_smoke_layer_height_yamana_tanaka_post_substitution,
+        k_constant_smoke_layer_height_post_substitution,
         m
     )?)?;
     Ok(())
