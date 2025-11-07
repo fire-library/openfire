@@ -501,19 +501,18 @@ fn k_constant_smoke_layer_height(
 /// - 0.076 is derived from substituting standard atmospheric values
 ///
 /// Args:
-///     rho_g (list[float]): Hot gas densities (kg/m³)
+///     rho_g (float): Hot gas density (kg/m³)
 ///
 /// Returns:
-///     list[float]: Entrainment coefficients (dimensionless)
+///     float: Entrainment coefficient (dimensionless)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> rho_g = [0.75, 0.5, 0.25]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_12.k_constant_smoke_layer_height_yamana_tanaka_post_substitution(rho_g)
-fn k_constant_smoke_layer_height_yamana_tanaka_post_substitution(
-    rho_g: Vec<f64>,
-) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_12::k_constant_smoke_layer_height_yamana_tanaka_post_substitution(rho_g))
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_12.k_constant_smoke_layer_height_post_substitution(0.5)
+fn k_constant_smoke_layer_height_post_substitution(
+    rho_g: f64,
+) -> PyResult<f64> {
+    Ok(rust_equation_2_12::k_constant_smoke_layer_height(rho_g))
 }
 
 #[pyfunction]
@@ -675,7 +674,7 @@ fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Calculate entrainment coefficient using simplified correlation.
 fn equation_2_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        k_constant_smoke_layer_height_yamana_tanaka_post_substitution,
+        k_constant_smoke_layer_height_post_substitution,
         m
     )?)?;
     Ok(())
