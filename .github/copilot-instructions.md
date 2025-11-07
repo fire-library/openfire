@@ -23,7 +23,7 @@ Always set up a Python virtual environment before docs or Python bindings work.
 /usr/bin/python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install -r docs/docs-requirements.txt
+pip install -r crates/python_api/docs/docs-requirements.txt
 pip install maturin
 ```
 
@@ -76,13 +76,13 @@ Notes:
 
 ## Documentation (Sphinx)
 
-Docs live under `docs/`. API docs import the Python module built via `maturin develop`.
+Docs live under `crates/python_api/docs/`. API docs import the Python module built via `maturin develop`.
 
 Steps to build locally:
 
 ```bash
 source .venv/bin/activate
-cd crates/python_api && maturin develop && cd -
+cd crates/python_api && maturin develop
 sphinx-build -b html docs _build
 ```
 
@@ -112,7 +112,7 @@ To replicate CI locally:
   - `src/lib.rs` – re-exports the domain crates: `pub use br_187;`, `bs9999;`, `cibse_guide_e;`, `fire_dynamics_tools;`, `introduction_to_fire_dynamics;`, `pd_7974;`, `sfpe_handbook;`, `tr17;`.
 - Domain crates (under `crates/`): `br_187/`, `bs9999/`, `cibse_guide_e/`, `fire_dynamics_tools/`, `introduction_to_fire_dynamics/`, `pd_7974/`, `sfpe_handbook/`, `tr17/` — each is a Rust library crate with its own `Cargo.toml` and `src/` containing the domain equations and tests.
 - Python binding: `crates/python_api/` – `pyproject.toml`, `Cargo.toml` (cdylib), and Rust module exposing Python APIs.
-- Docs: `docs/` – Sphinx config (`conf.py`), `index.rst`, `guide/`, `api/` . Built site goes to `_build/`.
+- Docs: `crates/python_api/docs/` – Sphinx config (`conf.py`), `index.rst`, `guide/`, `api/` . Built site goes to `crates/python_api/_build/`.
 - PDFs: `Documents/` – reference documents used to implement formulas (not used by builds/tests).
 
 Hidden gotchas and dependencies:
@@ -125,7 +125,7 @@ Hidden gotchas and dependencies:
 - `Cargo.toml`, `Cargo.lock` – workspace and dependency locks.
 - `src/lib.rs` – re-export hub.
 - `crates/` – all Rust crates including `python_api/`.
-- `docs/`, `_build/` – Sphinx sources and generated site.
+- `crates/python_api/docs/`, `crates/python_api/_build/` – Sphinx sources and generated site.
 - `.github/workflows/` – `test.yaml`, `docs.yaml`, `python-release.yaml`.
 - `README.md` – brief overview of workspace.
 
