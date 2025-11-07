@@ -3,7 +3,7 @@ pub fn k_constant_smoke_layer_height(rho_g: f64, rho_a: f64, g: f64, c_p: f64, t
     let right_bottom = c_p * t_a;
     let right_side = (right_top / right_bottom).powf(1.0 / 3.0);
 
-    return (0.21 / rho_g) * right_side;
+    (0.21 / rho_g) * right_side
 }
 
 pub fn k_constant_smoke_layer_height_equation(
