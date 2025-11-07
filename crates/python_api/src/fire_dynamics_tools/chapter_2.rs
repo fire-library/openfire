@@ -462,27 +462,26 @@ fn convective_heat_transfer_coefficient(
 /// - :math:`T_a` is the ambient temperature (K)
 ///
 /// Args:
-///     rho_g (list[float]): Hot gas densities (kg/m³)
+///     rho_g (float): Hot gas density (kg/m³)
 ///     rho_a (float): Ambient air density (kg/m³)
 ///     g (float): Gravitational acceleration (m/s²)
 ///     c_p (float): Specific heat capacity (kJ/kgK)
 ///     t_a (float): Ambient temperature (K)
 ///
 /// Returns:
-///     list[float]: Entrainment coefficients (dimensionless)
+///     float: Entrainment coefficient (dimensionless)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> rho_g = [0.75, 0.5, 0.25]
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_11.k_constant_smoke_layer_height_yamana_tanaka(rho_g, 1.2, 9.81, 1.0, 293.15)
-fn k_constant_smoke_layer_height_yamana_tanaka(
-    rho_g: Vec<f64>,
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_11.k_constant_smoke_layer_height(0.5, 1.2, 9.81, 1.0, 293.15)
+fn k_constant_smoke_layer_height(
+    rho_g: f64,
     rho_a: f64,
     g: f64,
     c_p: f64,
     t_a: f64,
-) -> PyResult<Vec<f64>> {
-    Ok(rust_equation_2_11::k_constant_smoke_layer_height_yamana_tanaka(rho_g, rho_a, g, c_p, t_a))
+) -> PyResult<f64> {
+    Ok(rust_equation_2_11::k_constant_smoke_layer_height(rho_g, rho_a, g, c_p, t_a))
 }
 
 #[pyfunction]
@@ -664,7 +663,7 @@ fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Calculate entrainment coefficient for smoke layer height.
 fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
-        k_constant_smoke_layer_height_yamana_tanaka,
+        k_constant_smoke_layer_height,
         m
     )?)?;
     Ok(())
