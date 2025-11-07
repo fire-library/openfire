@@ -1,5 +1,5 @@
 pub fn density_hot_gas_layer(t_g: f64) -> f64 {
-    return 353.0 / t_g;
+    353.0 / t_g
 }
 
 pub fn density_hot_gas_layer_equation(rho_g: String, t_g: String) -> String {
