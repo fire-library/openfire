@@ -51,7 +51,7 @@ use ::openfire::fire_dynamics_tools::chapter_2::equation_2_13 as rust_equation_2
 ///     >>> h_v = [2.0, 1.0]
 ///     >>> a_t = 75.0
 ///     >>> h_k = 0.035
-///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_1.hot_gas_temperature_increase_natural_ventilation_mqh(q, a_v, h_v, a_t, h_k)
+///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_1.hot_gas_temperature_increase(q, a_v, h_v, a_t, h_k)
 fn hot_gas_temperature_increase(
     q: f64,
     a_v: Vec<f64>,
