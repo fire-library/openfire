@@ -1,5 +1,5 @@
 pub fn k_constant_smoke_layer_height(rho_g: f64) -> f64 {
-    return 0.076 / rho_g;
+    0.076 / rho_g
 }
 
 pub fn k_constant_smoke_layer_height_equation(k: String, rho_g: String) -> String {
