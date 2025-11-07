@@ -6,7 +6,7 @@ pub fn nondimensional_hot_gas_temperature_increase(
     a_t: f64,
     c_p: f64,
 ) -> f64 {
-    return 0.63 * ((q) / (m * c_p * t_a)).powf(0.72) * ((h_k * a_t) / (m * c_p)).powf(-0.36);
+    0.63 * ((q) / (m * c_p * t_a)).powf(0.72) * ((h_k * a_t) / (m * c_p)).powf(-0.36)
 }
 
 pub fn nondimensional_hot_gas_temperature_increase_equation(
