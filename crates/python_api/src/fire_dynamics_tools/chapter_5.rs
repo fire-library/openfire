@@ -4,47 +4,45 @@ use pyo3::wrap_pymodule;
 use ::openfire::fire_dynamics_tools::chapter_5::equation_5_1 as rust_equation_5_1;
 
 #[pyfunction]
-/// Calculate the result of equation 5-1 (Equation 5.1).
+/// Calculate thermal radiation from a point source (Equation 5.1).
 ///
-/// This equation calculates a fraction-based result using four input parameters.
-/// The equation represents a proportional relationship between the product of
-/// the first two parameters and the product of the last two parameters.
+/// This equation calculates the thermal radiation incident flux from a point
+/// source at a given distance, accounting for the radiative fraction of the
+/// total heat release rate.
 ///
 /// .. math::
 ///
-///    R = \frac{a \cdot b}{c \cdot d}
+///    \dot{q}^{"} = \frac{\chi_r \cdot \dot{Q}}{4 \cdot \pi \cdot r^2}
 ///
 /// where:
 ///
-/// - :math:`R` is the calculated result (dimensionless)
-/// - :math:`a` is the first parameter (dimensionless)
-/// - :math:`b` is the second parameter (dimensionless)
-/// - :math:`c` is the third parameter (dimensionless)
-/// - :math:`d` is the fourth parameter (dimensionless)
+/// - :math:`\dot{q}^{""}` is the radiant heat flux (kW/m²)
+/// - :math:`\dot{Q}` is the heat release rate of the fire (kW)
+/// - :math:`R` is the radial distance from the center of the flame to the edge of the target (m)
+/// - :math:`\chi_r` is the fraction of total energy radiated (dimensionless)
 ///
 /// Args:
-///     a (float): First parameter (dimensionless)
-///     b (float): Second parameter (dimensionless)
-///     c (float): Third parameter (dimensionless)
-///     d (float): Fourth parameter (dimensionless)
+///     q (float): Heat release rate (kW)
+///     r (float): Radial distance (m)
+///     x_r (float): Radiative fraction (dimensionless)
 ///
 /// Returns:
-///     float: The calculated result (dimensionless)
+///     float: Radiant heat flux (kW/m²)
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.fire_dynamics_tools.chapter_5.equation_5_1.calculate_equation_5_1(10.0, 5.0, 2.0, 3.0)
-fn calculate_equation_5_1(a: f64, b: f64, c: f64, d: f64) -> PyResult<f64> {
-    Ok(rust_equation_5_1::calculate_equation_5_1(a, b, c, d))
+///     >>> result = ofire.fire_dynamics_tools.chapter_5.equation_5_1.thermal_radiation_point_source(750.0, 2.5, 0.3)
+fn thermal_radiation_point_source(q: f64, r: f64, x_r: f64) -> PyResult<f64> {
+    Ok(rust_equation_5_1::thermal_radiation_point_source(q, r, x_r))
 }
 
 #[pymodule]
-/// Equation 5-1 calculations.
+/// Equation 5-1 - Thermal radiation from a point source.
 ///
-/// This module contains calculations for equation 5-1, which computes
-/// a fraction-based result from four input parameters.
+/// This module contains calculations for thermal radiation incident flux
+/// from a point source fire.
 fn equation_5_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_equation_5_1, m)?)?;
+    m.add_function(wrap_pyfunction!(thermal_radiation_point_source, m)?)?;
     Ok(())
 }
 

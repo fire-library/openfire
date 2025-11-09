@@ -180,11 +180,7 @@ fn height_smoke_layer_interface_natural_ventilation(
     a_c: f64,
     h_c: f64,
 ) -> PyResult<f64> {
-    Ok(
-        rust_equation_2_10::height_smoke_layer_interface_natural_ventilation(
-            k, q, t, a_c, h_c,
-        ),
-    )
+    Ok(rust_equation_2_10::height_smoke_layer_interface_natural_ventilation(k, q, t, a_c, h_c))
 }
 
 #[pyfunction]
@@ -300,7 +296,9 @@ fn hot_gas_temperature_increase_beyler_closed_compartment(
     c_p: f64,
     q: f64,
 ) -> PyResult<f64> {
-    Ok(rust_equation_2_6::hot_gas_temperature_increase(k, rho, c, t, m, c_p, q))
+    Ok(rust_equation_2_6::hot_gas_temperature_increase(
+        k, rho, c, t, m, c_p, q,
+    ))
 }
 
 #[pyfunction]
@@ -345,11 +343,7 @@ fn nondimensional_hot_gas_temperature_increase(
     a_t: f64,
     c_p: f64,
 ) -> PyResult<f64> {
-    Ok(
-        rust_equation_2_7::nondimensional_hot_gas_temperature_increase(
-            q, m, t_a, h_k, a_t, c_p,
-        ),
-    )
+    Ok(rust_equation_2_7::nondimensional_hot_gas_temperature_increase(q, m, t_a, h_k, a_t, c_p))
 }
 
 #[pyfunction]
@@ -391,11 +385,9 @@ fn hot_gas_temperature_increase_forced_ventilation(
     h_k: f64,
     a_t: f64,
 ) -> PyResult<f64> {
-    Ok(
-        rust_equation_2_8::hot_gas_temperature_increase(
-            q, m, c_p, h_k, a_t,
-        ),
-    )
+    Ok(rust_equation_2_8::hot_gas_temperature_increase(
+        q, m, c_p, h_k, a_t,
+    ))
 }
 
 #[pyfunction]
@@ -481,7 +473,9 @@ fn k_constant_smoke_layer_height(
     c_p: f64,
     t_a: f64,
 ) -> PyResult<f64> {
-    Ok(rust_equation_2_11::k_constant_smoke_layer_height(rho_g, rho_a, g, c_p, t_a))
+    Ok(rust_equation_2_11::k_constant_smoke_layer_height(
+        rho_g, rho_a, g, c_p, t_a,
+    ))
 }
 
 #[pyfunction]
@@ -509,9 +503,7 @@ fn k_constant_smoke_layer_height(
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_12.k_constant_smoke_layer_height_post_substitution(0.5)
-fn k_constant_smoke_layer_height_post_substitution(
-    rho_g: f64,
-) -> PyResult<f64> {
+fn k_constant_smoke_layer_height_post_substitution(rho_g: f64) -> PyResult<f64> {
     Ok(rust_equation_2_12::k_constant_smoke_layer_height(rho_g))
 }
 
@@ -549,10 +541,7 @@ fn density_hot_gas_layer(t_g: f64) -> PyResult<f64> {
 ///
 /// Natural ventilation calculations using the MQH correlation method.
 fn equation_2_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(
-        hot_gas_temperature_increase,
-        m
-    )?)?;
+    m.add_function(wrap_pyfunction!(hot_gas_temperature_increase, m)?)?;
     Ok(())
 }
 
@@ -660,10 +649,7 @@ fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Calculate entrainment coefficient for smoke layer height.
 fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(
-        k_constant_smoke_layer_height,
-        m
-    )?)?;
+    m.add_function(wrap_pyfunction!(k_constant_smoke_layer_height, m)?)?;
     Ok(())
 }
 
