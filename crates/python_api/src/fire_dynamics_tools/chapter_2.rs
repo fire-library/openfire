@@ -537,8 +537,6 @@ fn density_hot_gas_layer(t_g: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Hot gas temperature increase calculations (Equation 2.1).
-///
 /// Natural ventilation calculations using the MQH correlation method.
 fn equation_2_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(hot_gas_temperature_increase, m)?)?;
@@ -546,8 +544,6 @@ fn equation_2_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Compartment interior surface area calculations (Equation 2.2).
-///
 /// Calculate total interior surface area for compartments.
 fn equation_2_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(compartment_interior_surface_area, m)?)?;
@@ -555,8 +551,6 @@ fn equation_2_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Heat transfer coefficient calculations for long times (Equation 2.3).
-///
 /// Calculate heat transfer coefficients for long times or thin walls.
 fn equation_2_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
@@ -567,8 +561,6 @@ fn equation_2_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Thermal penetration time calculations (Equation 2.4).
-///
 /// Calculate thermal penetration time for materials.
 fn equation_2_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(thermal_penetration_time, m)?)?;
@@ -576,8 +568,6 @@ fn equation_2_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Heat transfer coefficient calculations for short times (Equation 2.5).
-///
 /// Calculate heat transfer coefficients for short times or thick walls.
 fn equation_2_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
@@ -588,8 +578,6 @@ fn equation_2_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Closed compartment temperature calculations (Equation 2.6).
-///
 /// Hot gas temperature increase for closed compartments using Beyler correlation.
 fn equation_2_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
@@ -600,8 +588,6 @@ fn equation_2_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Forced ventilation FPA correlation calculations (Equation 2.7).
-///
 /// Nondimensional hot gas temperature increase for forced ventilation.
 fn equation_2_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
@@ -612,8 +598,6 @@ fn equation_2_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Forced ventilation Deal-Beyler calculations (Equation 2.8).
-///
 /// Hot gas temperature increase for forced ventilation using Deal and Beyler correlation.
 fn equation_2_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
@@ -624,8 +608,6 @@ fn equation_2_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Convective heat transfer coefficient calculations (Equation 2.9).
-///
 /// Calculate convective heat transfer coefficients.
 fn equation_2_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(convective_heat_transfer_coefficient, m)?)?;
@@ -633,8 +615,6 @@ fn equation_2_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Smoke layer interface height calculations (Equation 2.10).
-///
 /// Natural ventilation calculations using the Yamana-Tanaka correlation.
 fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
@@ -645,8 +625,6 @@ fn equation_2_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Yamana-Tanaka k constant calculations (Equation 2.11).
-///
 /// Calculate entrainment coefficient for smoke layer height.
 fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(k_constant_smoke_layer_height, m)?)?;
@@ -654,8 +632,6 @@ fn equation_2_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Simplified Yamana-Tanaka k constant calculations (Equation 2.12).
-///
 /// Calculate entrainment coefficient using simplified correlation.
 fn equation_2_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(
@@ -666,8 +642,6 @@ fn equation_2_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Hot gas density calculations (Equation 2.13).
-///
 /// Calculate density of hot gas layer based on temperature.
 fn equation_2_13(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(density_hot_gas_layer, m)?)?;

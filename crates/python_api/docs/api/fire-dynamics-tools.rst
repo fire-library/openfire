@@ -157,3 +157,22 @@ Equation 4.3 - Corner Fire Flame Height
    :members:
    :undoc-members:
    :show-inheritance:
+
+Chapter 5
+---------
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_5
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation Modules
+~~~~~~~~~~~~~~~~
+
+Equation 5.1 - Thermal Radiation from a Point Source
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_5.equation_5_1
+   :members:
+   :undoc-members:
+   :show-inheritance:

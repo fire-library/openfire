@@ -37,8 +37,6 @@ fn thermal_radiation_point_source(q: f64, r: f64, x_r: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 5-1 - Thermal radiation from a point source.
-///
 /// This module contains calculations for thermal radiation incident flux
 /// from a point source fire.
 fn equation_5_1(m: &Bound<'_, PyModule>) -> PyResult<()> {

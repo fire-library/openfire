@@ -36,8 +36,6 @@ fn wall_fire_flame_height(q: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 4-1 - Wall Fire Flame Height.
-///
 /// This module contains calculations for determining flame height of fires
 /// adjacent to walls. Wall fires exhibit different characteristics compared
 /// to free-burning fires due to the restriction of air entrainment from one side.
@@ -77,8 +75,6 @@ fn line_fire_flame_height(q: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 4-2 - Line Fire Flame Height.
-///
 /// This module contains calculations for determining flame height of line fires.
 /// Line fires occur when fuel is arranged in a linear pattern, creating different
 /// flame dynamics compared to point source or area fires.
@@ -118,8 +114,6 @@ fn corner_fire_flame_height(q: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 4-3 - Corner Fire Flame Height.
-///
 /// This module contains calculations for determining flame height of fires
 /// located in corners. Corner fires have air entrainment restricted from
 /// two sides, leading to different flame behavior compared to wall or free fires.
