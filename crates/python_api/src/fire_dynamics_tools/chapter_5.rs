@@ -16,7 +16,7 @@ use ::openfire::fire_dynamics_tools::chapter_5::equation_5_1 as rust_equation_5_
 ///
 /// where:
 ///
-/// - :math:`\dot{q}^{""}` is the radiant heat flux (kW/m²)
+/// - :math:`\dot{q}''` is the radiant heat flux (kW/m²)
 /// - :math:`\dot{Q}` is the heat release rate of the fire (kW)
 /// - :math:`R` is the radial distance from the center of the flame to the edge of the target (m)
 /// - :math:`\chi_r` is the fraction of total energy radiated (dimensionless)
