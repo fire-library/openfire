@@ -4,8 +4,6 @@ use pyo3::wrap_pymodule;
 use ::openfire::fire_dynamics_tools::chapter_5::equation_5_1 as rust_equation_5_1;
 
 #[pyfunction]
-/// Calculate thermal radiation from a point source (Equation 5.1).
-///
 /// This equation calculates the thermal radiation incident flux from a point
 /// source at a given distance, accounting for the radiative fraction of the
 /// total heat release rate.
