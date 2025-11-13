@@ -15,6 +15,22 @@ classifiers = [
     "Programming Language :: Rust",
     "Operating System :: OS Independent",
 ]
+keywords = [
+    "fire",
+    "fire safety",
+    "fire engineering",
+    "BR 187",
+    "BS 9999",
+    "CIBSE Guide E",
+    "PD 7974",
+    "SFPE Handbook",
+    "Introduction to Fire Dynamics",
+]
 
 [project.urls]
-Homepage = "https://github.com/fire-library/openfire"
+Homepage = "https://www.openfiresoftware.com/"
+Documentation = "https://fire-library.github.io/openfire/"
+Repository = "https://github.com/fire-library/openfire"
+
+[tool.maturin]
+sdist-include = ["LICENSE", "README.md"]
