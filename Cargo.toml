@@ -16,9 +16,6 @@ uuid = { version = "1.8.0", features = ["v4"] }
 thiserror = "1.0.64"
 sha2 = "0.10.8"
 hex-literal = "1.0.0"
-
-[dev-dependencies]
-tempfile = "3.8"
 br_187 = { path = "./crates/br_187" }
 bs9999 = { path = "./crates/bs9999" }
 cibse_guide_e = { path = "./crates/cibse_guide_e" }
@@ -27,6 +24,9 @@ introduction_to_fire_dynamics = { path = "./crates/introduction_to_fire_dynamics
 pd_7974 = { path = "./crates/pd_7974" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
 tr17 = { path = "./crates/tr17" }
+
+[dev-dependencies]
+tempfile = "3.8"
 
 
 [workspace]
