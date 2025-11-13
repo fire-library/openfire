@@ -1,0 +1,59 @@
+# Equation Relationship Tracking
+# 
+# This file tracks relationships between equations across different documents in the OpenFire library.
+# It helps identify which equations are identical or similar across different fire engineering documents.
+#
+# Structure:
+# - identical_equations: List of lists where each inner list contains equations that are exactly the same
+# - similar_equations: List of lists where each inner list contains equations that are similar but with minor variations
+#
+# Equation Format: "crate_name/chapter_name/equation_file_name" (without .rs extension)
+# Example: "br_187/chapter_1/equation_1" or "cibse_guide_e/chapter_6/equation_6_7"
+
+[metadata]
+version = "1.0"
+description = "Tracks relationships between equations across fire engineering documents"
+created_date = "2025-11-13"
+last_updated = "2025-11-13"
+
+# Identical Equations
+# Each list represents a group of equations that are mathematically identical
+# across different documents and chapters
+[[identical_equations]]
+description = "Example: Heat release rate calculations"
+equations = [
+    # Add equations here as you identify identical ones
+    # Example format:
+    # "br_187/chapter_1/equation_1",
+    # "cibse_guide_e/chapter_6/equation_6_7",
+]
+
+# Similar Equations  
+# Each list represents a group of equations that are similar but have minor variations
+# (e.g., different constants, slightly different formulations, or additional terms)
+[[similar_equations]]
+description = "Example: Thermal radiation calculations with different view factors"
+variations_note = "Different view factor calculations or constants"
+equations = [
+    # Add equations here as you identify similar ones
+    # Example format:
+    # "fire_dynamics_tools/chapter_5/equation_5_1",
+    # "pd_7974/part_1/section_8/equation_8_3",
+]
+
+# Template for adding new identical equation groups:
+# [[identical_equations]]
+# description = "Brief description of what these equations calculate"
+# equations = [
+#     "document1/chapter/equation",
+#     "document2/chapter/equation",
+# ]
+
+# Template for adding new similar equation groups:
+# [[similar_equations]]
+# description = "Brief description of what these equations calculate"
+# variations_note = "Description of how they differ"
+# equations = [
+#     "document1/chapter/equation",
+#     "document2/chapter/equation", 
+# ]

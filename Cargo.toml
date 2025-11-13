@@ -10,11 +10,15 @@ name = "openfire"
 lazy_static = "1.5.0"
 serde = { version = "1.0", features = ["derive", "rc"] }
 serde_json = "1.0.117"
+toml = "0.8"
 specta = { version = "2.0.0-rc.20", features = ["derive"] }
 uuid = { version = "1.8.0", features = ["v4"] }
 thiserror = "1.0.64"
 sha2 = "0.10.8"
 hex-literal = "1.0.0"
+
+[dev-dependencies]
+tempfile = "3.8"
 br_187 = { path = "./crates/br_187" }
 bs9999 = { path = "./crates/bs9999" }
 cibse_guide_e = { path = "./crates/cibse_guide_e" }
