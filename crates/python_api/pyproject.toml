@@ -31,6 +31,3 @@ keywords = [
 Homepage = "https://www.openfiresoftware.com/"
 Documentation = "https://fire-library.github.io/openfire/"
 Repository = "https://github.com/fire-library/openfire"
-
-[tool.maturin]
-sdist-include = ["README.md"]
