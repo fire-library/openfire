@@ -33,4 +33,4 @@ Documentation = "https://fire-library.github.io/openfire/"
 Repository = "https://github.com/fire-library/openfire"
 
 [tool.maturin]
-sdist-include = ["LICENSE", "README.md"]
+sdist-include = ["README.md"]

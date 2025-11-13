@@ -2,7 +2,7 @@
 name = "python_api"
 version = "0.1.0"
 edition = "2024"
-license-file = "./LICENSE"
+license-file = "LICENSE"
 
 [lib]
 name = "ofire"
@@ -15,3 +15,4 @@ openfire = { path = "../.." }
 [package.metadata.maturin]
 name = "ofire"
 bindings = "pyo3"
+exclude = ["../../README.md", "../../LICENSE"]
