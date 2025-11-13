@@ -11,7 +11,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn  test_line_fire_flame_height() {
+    fn test_line_fire_flame_height() {
         let q = 700.0;
         let expected = 1.340234977728;
 
