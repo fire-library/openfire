@@ -2,6 +2,7 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 use ::openfire::fire_dynamics_tools::chapter_9::equation_9_2 as rust_equation_9_2;
+use ::openfire::fire_dynamics_tools::chapter_9::equation_9_3 as rust_equation_9_3;
 
 #[pyfunction]
 /// Maximum centerline temperature rise in a plume above a fire source (Equation 9-2).
@@ -53,6 +54,36 @@ fn maximum_centerline_temperature_plume(
     ))
 }
 
+#[pyfunction]
+/// Virtual origin height normalized by fire diameter (Equation 9-3).
+///
+/// This equation calculates the ratio of virtual origin height to fire diameter
+/// for use in fire plume calculations.
+///
+/// .. math::
+///
+///    \frac{z_0}{D} = -1.02 + 0.083 \frac{\dot{Q}^{2/5}}{D}
+///
+/// where:
+///
+/// - :math:`z_0` is the virtual origin height (m)
+/// - :math:`D` is the fire diameter (m)
+/// - :math:`\dot{Q}` is the total heat release rate (kW)
+///
+/// Args:
+///     d (float): Fire diameter (m)
+///     q (float): Total heat release rate (kW)
+///
+/// Returns:
+///     float: Virtual origin height to diameter ratio (dimensionless)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.fire_dynamics_tools.chapter_9.equation_9_3.virtual_origin_over_diameter(2.2, 750.0)
+fn virtual_origin_over_diameter(d: f64, q: f64) -> PyResult<f64> {
+    Ok(rust_equation_9_3::virtual_origin_over_diameter(d, q))
+}
+
 #[pymodule]
 /// Equation 9-2 - Maximum centerline temperature rise in fire plumes.
 ///
@@ -64,10 +95,21 @@ fn equation_9_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
+/// Equation 9-3 - Virtual origin height to diameter ratio.
+///
+/// This module contains calculations for the virtual origin height to diameter
+/// ratio used in fire plume calculations.
+fn equation_9_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(virtual_origin_over_diameter, m)?)?;
+    Ok(())
+}
+
+#[pymodule]
 /// Chapter 9 - Fire plume temperature calculations.
 ///
 /// This module contains fire plume temperature calculations from Chapter 9.
 pub fn chapter_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_9_2))?;
+    m.add_wrapped(wrap_pymodule!(equation_9_3))?;
     Ok(())
 }
