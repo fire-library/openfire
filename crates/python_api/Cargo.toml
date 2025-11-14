@@ -19,5 +19,4 @@ openfire = { path = "../.." }
 [package.metadata.maturin]
 name = "ofire"
 bindings = "pyo3"
-exclude = ["../../README.md", "../../LICENSE"]
-readme = "README.md"
+exclude = ["../../README.md", "../../LICENSE", "README.md"]
