@@ -3,6 +3,10 @@ name = "python_api"
 version = "0.1.0"
 edition = "2024"
 license-file = "LICENSE"
+description = "Python bindings for the OpenFire fire safety engineering library"
+homepage = "https://github.com/fire-library/openfire"
+repository = "https://github.com/fire-library/openfire"
+documentation = "https://fire-library.github.io/openfire/"
 
 [lib]
 name = "ofire"
@@ -16,3 +20,4 @@ openfire = { path = "../.." }
 name = "ofire"
 bindings = "pyo3"
 exclude = ["../../README.md", "../../LICENSE"]
+readme = "README.md"
