@@ -51,22 +51,11 @@ flame_height = ofire.cibse_guide_e.chapter_6.equation_6_55.mean_flame_height(100
 print(f"Mean flame height: {flame_height:.2f} m")
 ```
 
-## 📚 Complete Documentation
+## 📚 Documentation
 
-```
-╔══════════════════════════════════════════════════════════════╗
-║                                                              ║
-║  🔥 FULL API DOCUMENTATION & EXAMPLES                       ║
-║                                                              ║
-║  📖 https://fire-library.github.io/openfire/                ║
-║                                                              ║
-║  • Complete function reference                               ║
-║  • Mathematical formulations                                 ║
-║  • Detailed examples                                         ║
-║  • All supported standards & modules                         ║
-║                                                              ║
-╚══════════════════════════════════════════════════════════════╝
-```
+### [**📖 Complete API Documentation & Examples →**](https://fire-library.github.io/openfire/)
+
+Find the complete function reference, mathematical formulations, detailed examples, and all supported fire engineering standards and modules in the full documentation.
 
 ## Links
 
