@@ -1,7 +1,6 @@
 # OpenFire
 
 [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://openfire.readthedocs.io/)
-[![Crates.io](https://img.shields.io/crates/v/openfire.svg)](https://crates.io/crates/openfire)
 [![PyPI](https://img.shields.io/pypi/v/ofire.svg)](https://pypi.org/project/ofire/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
