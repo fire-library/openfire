@@ -10,7 +10,6 @@ name = "openfire"
 lazy_static = "1.5.0"
 serde = { version = "1.0", features = ["derive", "rc"] }
 serde_json = "1.0.117"
-toml = "0.8"
 specta = { version = "2.0.0-rc.20", features = ["derive"] }
 uuid = { version = "1.8.0", features = ["v4"] }
 thiserror = "1.0.64"
@@ -24,10 +23,6 @@ introduction_to_fire_dynamics = { path = "./crates/introduction_to_fire_dynamics
 pd_7974 = { path = "./crates/pd_7974" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
 tr17 = { path = "./crates/tr17" }
-
-[dev-dependencies]
-tempfile = "3.8"
-
 
 [workspace]
 members = ["crates/*"]
