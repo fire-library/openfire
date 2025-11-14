@@ -19,4 +19,4 @@ openfire = { path = "../.." }
 [package.metadata.maturin]
 name = "ofire"
 bindings = "pyo3"
-include = ["src/**", "Cargo.toml", "README.md", "LICENSE"]
+include = ["src/**", "Cargo.toml", "PYTHON_README.md", "LICENSE"]
