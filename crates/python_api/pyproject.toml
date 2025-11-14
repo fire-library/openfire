@@ -8,7 +8,7 @@ version = "0.1.2"
 description = "A comprehensive Python package for fire safety engineering calculations and tools, providing implementations for industry standards like BR 187, BS 9999, CIBSE Guide E, PD 7974, SFPE Handbook, and more."
 readme = "PYTHON_README.md"
 requires-python = ">=3.8"
-license = { file = "LICENSE" }
+license = { file = "PYTHON_LICENSE" }
 authors = [{ name = "EmberonTech", email = "jamie@emberontech.com" }]
 classifiers = [
     "Programming Language :: Python :: 3",
