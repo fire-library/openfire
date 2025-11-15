@@ -195,3 +195,19 @@ Equation 9.2 - Maximum Centerline Temperature Rise in Fire Plumes
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 9.3 - Virtual Origin Height to Diameter Ratio
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_9.equation_9_3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 9.4 - Effective Diameter of a Fire Source
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_9.equation_9_4
+   :members:
+   :undoc-members:
+   :show-inheritance:

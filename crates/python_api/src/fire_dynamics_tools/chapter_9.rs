@@ -3,6 +3,7 @@ use pyo3::wrap_pymodule;
 
 use ::openfire::fire_dynamics_tools::chapter_9::equation_9_2 as rust_equation_9_2;
 use ::openfire::fire_dynamics_tools::chapter_9::equation_9_3 as rust_equation_9_3;
+use ::openfire::fire_dynamics_tools::chapter_9::equation_9_4 as rust_equation_9_4;
 
 #[pyfunction]
 /// Maximum centerline temperature rise in a plume above a fire source (Equation 9-2).
@@ -84,6 +85,34 @@ fn virtual_origin_over_diameter(d: f64, q: f64) -> PyResult<f64> {
     Ok(rust_equation_9_3::virtual_origin_over_diameter(d, q))
 }
 
+#[pyfunction]
+/// Effective diameter of a fire source from its area (Equation 9-4).
+///
+/// This equation calculates the effective diameter of a fire source based on
+/// its area, assuming an equivalent circular fire source.
+///
+/// .. math::
+///
+///    D = \left(\frac{4 \cdot A_f}{\pi}\right)^{1/2}
+///
+/// where:
+///
+/// - :math:`D` is the effective diameter (m)
+/// - :math:`A_f` is the fire area (m²)
+///
+/// Args:
+///     a_f (float): Fire area (m²)
+///
+/// Returns:
+///     float: Effective diameter (m)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.fire_dynamics_tools.chapter_9.equation_9_4.effective_diameter(4.0)
+fn effective_diameter(a_f: f64) -> PyResult<f64> {
+    Ok(rust_equation_9_4::effective_diameter(a_f))
+}
+
 #[pymodule]
 /// Equation 9-2 - Maximum centerline temperature rise in fire plumes.
 ///
@@ -105,11 +134,22 @@ fn equation_9_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
+/// Equation 9-4 - Effective diameter of a fire source.
+///
+/// This module contains calculations for the effective diameter of a fire source
+/// based on its area, assuming an equivalent circular fire source.
+fn equation_9_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(effective_diameter, m)?)?;
+    Ok(())
+}
+
+#[pymodule]
 /// Chapter 9 - Fire plume temperature calculations.
 ///
 /// This module contains fire plume temperature calculations from Chapter 9.
 pub fn chapter_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_9_2))?;
     m.add_wrapped(wrap_pymodule!(equation_9_3))?;
+    m.add_wrapped(wrap_pymodule!(equation_9_4))?;
     Ok(())
 }
