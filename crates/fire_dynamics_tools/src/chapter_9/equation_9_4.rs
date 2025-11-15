@@ -1,19 +1,9 @@
-pub fn virtual_origin_over_diameter(
-    d: f64,
-    q: f64,
-) -> f64 {
-    -1.02 + 0.083 * q.powf(2.0 / 5.0) / d
+pub fn effective_diameter(a_f: f64) -> f64 {
+    (4.0 * a_f / std::f64::consts::PI).powf(0.5)
 }
 
-pub fn virtual_origin_over_diameter_equation(
-    z_o_over_d: String,
-    d: String,
-    q: String,
-) -> String {
-    format!(
-        "{} = -1.02 + 0.083 \\frac{{ {}^{{2/5}} }}{{ {} }}",
-        z_o_over_d, q, d
-    )
+pub fn effective_diameter_equation(d: String, a_f: String) -> String {
+    format!("{} = (\\frac{{4 \\cdot {}}}{{\\pi}})^{{1/2}}", d, a_f)
 }
 
 #[cfg(test)]
@@ -21,12 +11,11 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_virtual_origin_over_diameter() {
-        let d = 2.2;
-        let q = 750.0;
-        let expected = -0.4870580374;
+    fn test_effective_diameter() {
+        let a_f = 4.0;
+        let expected = 2.256758334;
 
-        let result = virtual_origin_over_diameter(d, q);
+        let result = effective_diameter(a_f);
 
         assert!(
             (result - expected).abs() < 1e-4,
