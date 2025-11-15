@@ -1,28 +1,26 @@
-use std::f64::consts::PI;
-
-pub fn time_to_ignition_thermally_thick(
-    k: f64,
+pub fn time_to_ignition_thermally_thin(
     rho: f64,
     c: f64,
+    tau: f64,
     temp_ig: f64,
     temp_o: f64,
     q_r: f64,
 ) -> f64 {
-    (PI / 4.0) * (k * rho * c) * (temp_ig - temp_o).powf(2.0) / (q_r).powf(2.0)
+    rho * c * tau * (temp_ig - temp_o) / q_r
 }
 
-pub fn time_to_ignition_thermallythick_equation(
+pub fn time_to_ignition_thermally_thin_equation(
     t_ig: String,
-    k: String,
     rho: String,
     c: String,
+    tau: String,
     temp_ig: String,
     temp_o: String,
     q_r: String,
 ) -> String {
     format!(
-        "{} = \\dfrac{{\\pi}}{{4}} \\cdot {} \\cdot {} \\cdot {} \\cdot \\left( {} - {} \\right)^{{2}} \\cdot \\dfrac{{1}}{{{} ^{{2}}}}",
-        t_ig, k, rho, c, temp_ig, temp_o, q_r
+        "{} = {} \\cdot {} \\cdot {} \\cdot {} \\cdot \\left( {} - {} \\right) \\cdot \\dfrac{{1}}{{{}}}",
+        t_ig, rho, c, tau, temp_ig, temp_o, q_r
     )
 }
 

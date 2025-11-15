@@ -11,7 +11,7 @@ pub fn time_to_ignition_thermally_thick(
     (PI / 4.0) * (k * rho * c) * (temp_ig - temp_o).powf(2.0) / (q_r).powf(2.0)
 }
 
-pub fn time_to_ignition_thermallythick_equation(
+pub fn time_to_ignition_thermally_thick_equation(
     t_ig: String,
     k: String,
     rho: String,
