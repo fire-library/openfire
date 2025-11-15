@@ -176,3 +176,38 @@ Equation 5.1 - Thermal Radiation from a Point Source
    :members:
    :undoc-members:
    :show-inheritance:
+
+Chapter 9
+---------
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_9
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation Modules
+~~~~~~~~~~~~~~~~
+
+Equation 9.2 - Maximum Centerline Temperature Rise in Fire Plumes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_9.equation_9_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 9.3 - Virtual Origin Height to Diameter Ratio
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_9.equation_9_3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 9.4 - Effective Diameter of a Fire Source
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_9.equation_9_4
+   :members:
+   :undoc-members:
+   :show-inheritance:
