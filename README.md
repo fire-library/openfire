@@ -130,6 +130,28 @@ maturin develop
 python -m pytest
 ```
 
+### Generating Python Documentation
+
+To generate the Python API documentation:
+
+```bash
+# Create a Python virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install documentation dependencies
+pip install -r crates/python_api/docs/docs-requirements.txt
+
+# Install maturin and build the Python package
+pip install maturin
+maturin develop --manifest-path crates/python_api/Cargo.toml
+
+# Generate the documentation
+sphinx-build -b html ./crates/python_api/docs _build
+```
+
+The generated documentation will be available in the `_build` directory. Open `_build/index.html` in your browser to view the documentation.
+
 ## Contributing
 
 We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for details on:
