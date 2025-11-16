@@ -117,17 +117,23 @@ cargo test
 cargo build --release
 ```
 
-### Python Development
+### Using the Library from Source
+
+To use the library from source in Python:
 
 ```bash
-# Install development dependencies
+# Create a Python virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install maturin
 pip install maturin
 
-# Build Python package
-maturin develop
+# Build and install the Python package from source
+maturin develop --manifest-path crates/python_api/Cargo.toml
 
-# Run Python tests
-python -m pytest
+# Now you can import and use the library in Python
+python -c "import ofire; print('OpenFire loaded successfully')"
 ```
 
 ### Generating Python Documentation
