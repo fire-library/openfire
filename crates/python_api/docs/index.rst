@@ -23,7 +23,12 @@ Quick Start
 
    import ofire
 
-   # Example usage here
+   # Calculate heat release rate of a fuel controlled fire (PD 7974 Part 1)
+   a_t = 20.0  # Total internal surface area (m²)
+   a_v = 4.0    # Area of ventilation opening (m²)  
+   h_v = 2.1    # Height of ventilation opening (m)
+   q_fo = ofire.pd_7974.part_1.section_8.equation_28.q_fo(a_t, a_v, h_v)
+   print(f"Heat release rate of fuel controlled fire: {q_fo:.0f} kW")
 
 Project Structure
 -----------------
