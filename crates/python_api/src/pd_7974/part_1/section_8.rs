@@ -110,8 +110,8 @@ fn equation_29(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// where:
 ///
 /// - :math:`Q_{max,vc}` is the maximum heat release rate for ventilation-controlled fire (kW)
-/// - :math:`A_v` is the area of ventilation openings (m²)
-/// - :math:`H_v` is the height of ventilation openings (m)
+/// - :math:`A_v` is the equivalent area of ventilation openings (m²)
+/// - :math:`H_v` is the equivalent height of ventilation openings (m)
 ///
 /// Args:
 ///     a_v (float): Area of ventilation openings (m²)
@@ -139,18 +139,18 @@ fn equation_33(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 4 module functions
 #[pyfunction]
-/// Calculate maximum heat release rate for fuel-controlled fire (Equation 4).
+/// Calculate Heat Release Rate from Heat Release Rate per Unit Area (Equation 4).
 ///
 /// This equation calculates the maximum heat release rate when a fire is controlled
 /// by the available fuel rather than ventilation.
 ///
 /// .. math::
 ///
-///    Q_{max,fc} = A_f \cdot HRRPUA
+///    Q = A_f \cdot HRRPUA
 ///
 /// where:
 ///
-/// - :math:`Q_{max,fc}` is the maximum heat release rate for fuel-controlled fire (kW)
+/// - :math:`Q` is the maximum heat release rate for fuel-controlled fire (kW)
 /// - :math:`A_f` is the floor area of fire (m²)
 /// - :math:`HRRPUA` is the heat release rate per unit area (kW/m²)
 ///
