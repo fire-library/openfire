@@ -12,8 +12,8 @@ mod tests {
 
     #[test]
     fn test_effective_diameter() {
-        let a_f = 4.0;
-        let expected = 2.256758334;
+        let a_f = 3.205;
+        let expected = 2.02;
 
         let result = effective_diameter(a_f);
 
