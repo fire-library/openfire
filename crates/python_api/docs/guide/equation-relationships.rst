@@ -51,16 +51,8 @@ Heat Release Rate at Flashover
 These equations calculate heat release rate at flashover but use different formulations and constants:
 
 - :func:`ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover` - CIBSE Guide E, Chapter 6, Equation 6.7
-- :func:`ofire.pd_7974.part_1.section_8.equation_28.function_name` - PD 7974, Part 1, Section 8, Equation 28
-- :func:`ofire.pd_7974.part_1.section_8.equation_29.function_name` - PD 7974, Part 1, Section 8, Equation 29
-
-**Key Differences**: The CIBSE Guide E version uses different constants and may include additional factors compared to the PD 7974 formulations. PD 7974 provides two variations (equations 28 and 29) for different scenarios or assumptions.
-
-**When to Use Each**:
-
-- Use CIBSE Guide E version for UK-specific applications and when following CIBSE methodologies
-- Use PD 7974 equations for European applications and when following Eurocode methodologies
-- Consult the specific requirements of your local fire safety codes to determine the appropriate equation
+- :func:`ofire.pd_7974.part_1.section_8.equation_28.q_fo` - PD 7974, Part 1, Section 8, Equation 28 (Thomas' method)
+- :func:`ofire.pd_7974.part_1.section_8.equation_29.q_fo` - PD 7974, Part 1, Section 8, Equation 29 (McCaffrey's method)
 
 Adding New Equation Relationships
 ---------------------------------
