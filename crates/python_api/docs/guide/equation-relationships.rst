@@ -1,14 +1,19 @@
 Equation Relationships
 ======================
 
-This page tracks relationships between equations across different fire engineering documents in the OpenFire library. It helps identify which equations are identical or similar across different documents, enabling better understanding of the connections between various fire engineering standards and references.
+This page tracks relationships between equations across different fire engineering
+documents in the OpenFire library. It helps identify which equations are identical
+or similar across different documents, enabling better understanding of the connections
+between various fire engineering standards and references.
 
 Understanding Equation Relationships
 ------------------------------------
 
-**Identical Equations**: Equations that are mathematically identical across different documents. These represent the same fundamental relationships that appear in multiple standards or references.
+**Identical Equations**: Equations that are mathematically identical across different documents.
+These represent the same fundamental relationships that appear in multiple standards or references.
 
-**Similar Equations**: Equations that are similar but have minor variations such as different constants, additional terms, or slightly different formulations for similar physical phenomena.
+**Similar Equations**: Equations that are similar but have variations such as different constants,
+additional terms, or different formulations for similar physical phenomena.
 
 This information is valuable for:
 
@@ -26,65 +31,36 @@ Identical Equations
 
 .. _identical-equations:
 
-Heat Release Rate Calculations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*Group 1: Basic Heat Release Rate Formula*
-
-These equations calculate heat release rate using area and heat release rate per unit area:
-
-- :func:`ofire.br_187.chapter_1.equation_1.example_function` - BR 187, Chapter 1, Equation 1
-- :func:`ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover` - CIBSE Guide E, Chapter 6, Equation 6.7
-
-**Note**: *Add actual equation function names and links as you identify identical equations.*
-
-Thermal Radiation Calculations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*Group 2: Point Source Radiation*
-
-These equations calculate thermal radiation from point sources:
-
-- *Equations will be added here as identical relationships are identified*
+*Groups will be created here as identical equations are identified across documents.*
 
 Similar Equations
 -----------------
 
 .. note::
    
-   Equations in each group are similar but have variations. Pay attention to the differences described for each group.
+   Equations in each group are either similar in form or calculate the same parameter.
+   Pay attention to the differences described for each group.
 
 .. _similar-equations:
 
-Thermal Radiation with View Factor Variations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Heat Release Rate at Flashover
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*Group 1: Point Source Radiation with Different View Factor Calculations*
+*Group 1: Heat Release Rate Calculations for Flashover Conditions*
 
-These equations calculate thermal radiation from point sources but use different view factor formulations or geometric constants:
+These equations calculate heat release rate at flashover but use different formulations and constants:
 
-- :func:`ofire.fire_dynamics_tools.chapter_5.equation_name.function_name` - Fire Dynamics Tools, Chapter 5
-- :func:`ofire.pd_7974.part_1.section_8.equation_name.function_name` - PD 7974, Part 1, Section 8
+- :func:`ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover` - CIBSE Guide E, Chapter 6, Equation 6.7
+- :func:`ofire.pd_7974.part_1.section_8.equation_28.function_name` - PD 7974, Part 1, Section 8, Equation 28
+- :func:`ofire.pd_7974.part_1.section_8.equation_29.function_name` - PD 7974, Part 1, Section 8, Equation 29
 
-**Key Differences**: Different geometric factors and view factor calculation methods. The Fire Dynamics Tools version uses simplified geometric assumptions while PD 7974 includes more detailed geometric considerations.
+**Key Differences**: The CIBSE Guide E version uses different constants and may include additional factors compared to the PD 7974 formulations. PD 7974 provides two variations (equations 28 and 29) for different scenarios or assumptions.
 
 **When to Use Each**:
 
-- Use Fire Dynamics Tools version for initial estimates and simplified analyses
-- Use PD 7974 version for detailed design calculations requiring higher accuracy
-
-*Note: Function names and specific differences will be updated as equations are identified.*
-
-Ventilation and Airflow Calculations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*Group 2: Mass Flow Through Openings*
-
-These equations calculate mass flow rates through openings but with different assumptions about flow coefficients:
-
-- *Equations will be added here as similar relationships are identified*
-
-**Key Differences**: Different flow coefficients and boundary condition assumptions.
+- Use CIBSE Guide E version for UK-specific applications and when following CIBSE methodologies
+- Use PD 7974 equations for European applications and when following Eurocode methodologies
+- Consult the specific requirements of your local fire safety codes to determine the appropriate equation
 
 Adding New Equation Relationships
 ---------------------------------
