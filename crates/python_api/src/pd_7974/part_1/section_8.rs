@@ -13,7 +13,7 @@ use ::openfire::pd_7974::part_1::section_8::{
 #[pyfunction]
 /// Calculate heat release rate at flashover following Thomas' method (Equation 28).
 ///
-/// This equation calculates the heat release at flashover
+/// This equation calculates the heat release rate at flashover
 ///
 /// .. math::
 ///
