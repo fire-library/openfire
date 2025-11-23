@@ -1,4 +1,4 @@
-pub fn maximum_centerline_temperature_plume(
+pub fn maximum_centerline_temperature_rise_plume(
     t_a: f64,
     q_c: f64,
     g: f64,
@@ -13,7 +13,7 @@ pub fn maximum_centerline_temperature_plume(
     top / bottom
 }
 
-pub fn maximum_centerline_temperature_plume_equation(
+pub fn maximum_centerline_temperature_rise_plume_equation(
     delta_t_p: String,
     t_a: String,
     q_c: String,
@@ -34,7 +34,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_maximum_centerline_temperature_plume() {
+    fn test_maximum_centerline_temperature_rise_plume() {
         let t_a = 288.0;
         let q_c = 700.0;
         let g = 9.8;
@@ -44,7 +44,7 @@ mod tests {
         let z_o = -0.25;
         let expected = 507.4623919;
 
-        let result = maximum_centerline_temperature_plume(t_a, q_c, g, c_p, rho_a, z, z_o);
+        let result = maximum_centerline_temperature_rise_plume(t_a, q_c, g, c_p, rho_a, z, z_o);
 
         assert!(
             (result - expected).abs() < 1e-4,

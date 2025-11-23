@@ -41,7 +41,7 @@ use ::openfire::fire_dynamics_tools::chapter_9::equation_9_4 as rust_equation_9_
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_9.equation_9_2.maximum_centerline_temperature_plume(288.0, 700.0, 9.8, 1.0, 1.2, 2.0, -0.25)
-fn maximum_centerline_temperature_plume(
+fn maximum_centerline_temperature_rise_plume(
     t_a: f64,
     q_c: f64,
     g: f64,
@@ -50,7 +50,7 @@ fn maximum_centerline_temperature_plume(
     z: f64,
     z_o: f64,
 ) -> PyResult<f64> {
-    Ok(rust_equation_9_2::maximum_centerline_temperature_plume(
+    Ok(rust_equation_9_2::maximum_centerline_temperature_rise_plume(
         t_a, q_c, g, c_p, rho_a, z, z_o,
     ))
 }
@@ -119,7 +119,7 @@ fn effective_diameter(a_f: f64) -> PyResult<f64> {
 /// This module contains calculations for the maximum temperature rise along
 /// the centerline of a fire plume at a given height above the fire source.
 fn equation_9_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(maximum_centerline_temperature_plume, m)?)?;
+    m.add_function(wrap_pyfunction!(maximum_centerline_temperature_rise_plume, m)?)?;
     Ok(())
 }
 
