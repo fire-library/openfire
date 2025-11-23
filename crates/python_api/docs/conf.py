@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'OpenFire'
 copyright = '2024, EmberonTech'
 author = 'EmberonTech'
-release = '0.1.0'
+release = '0.1.5'
 
 # Extensions
 extensions = [
