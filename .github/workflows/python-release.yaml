@@ -90,3 +90,65 @@ jobs:
           args: --skip-existing dist/*
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+
+  deploy_docs:
+    needs: upload_pypi
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+      actions: read
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Create virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
+          echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
+
+      - name: Install documentation dependencies
+        run: |
+          pip install -r crates/python_api/docs/docs-requirements.txt
+
+      - name: Install ofire package for API docs
+        run: |
+          cd crates/python_api
+          pip install maturin
+          maturin develop
+
+      - name: Verify ofire installation
+        run: |
+          python -c "import ofire; print('ofire modules:', dir(ofire))"
+
+      - name: Build documentation with Sphinx
+        run: |
+          sphinx-build -b html crates/python_api/docs crates/python_api/_build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./crates/python_api/_build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

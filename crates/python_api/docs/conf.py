@@ -2,15 +2,20 @@
 
 import sys
 import os
+import tomllib
 
 # Add the python_api crate directory to Python path so sphinx can import ofire
 sys.path.insert(0, os.path.abspath('..'))
+
+# Read version from Cargo.toml
+with open(os.path.join(os.path.dirname(__file__), '..', 'Cargo.toml'), 'rb') as f:
+    cargo_toml = tomllib.load(f)
+    release = cargo_toml['package']['version']
 
 # Project information
 project = 'OpenFire'
 copyright = '2024, EmberonTech'
 author = 'EmberonTech'
-release = '0.1.5'
 
 # Extensions
 extensions = [
