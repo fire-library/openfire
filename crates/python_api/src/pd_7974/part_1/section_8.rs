@@ -114,8 +114,8 @@ fn equation_29(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// - :math:`H_v` is the equivalent height of ventilation openings (m)
 ///
 /// Args:
-///     a_v (float): Area of ventilation openings (m²)
-///     h_v (float): Height of ventilation openings (m)
+///     a_v (float): Equivalent area of ventilation openings (m²)
+///     h_v (float): Equivalent height of ventilation openings (m)
 ///
 /// Returns:
 ///     float: Maximum heat release rate (kW)
