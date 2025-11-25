@@ -63,5 +63,5 @@ Cross-References and Navigation
 -------------------------------
 
 - For detailed information about specific equations, see the :doc:`../api/index`
-- For practical examples, see the :doc:`examples`
-- For getting started with the library, see the :doc:`getting-started`
+- For practical examples, see the :doc:`guide/examples`
+- For getting started with the library, see the :doc:`guide/getting-started`

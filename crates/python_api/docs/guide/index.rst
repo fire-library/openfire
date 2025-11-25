@@ -8,4 +8,3 @@ This guide will help you get started with OpenFire for fire safety engineering c
 
    getting-started
    examples
-   equation-relationships
