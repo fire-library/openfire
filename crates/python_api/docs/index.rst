@@ -43,7 +43,6 @@ Project Structure
 
    installation
    guide/index
-   guide/equation-relationships
    api/index
 
 Contributing
