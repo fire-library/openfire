@@ -272,7 +272,7 @@ dependencies = [
 
 [[package]]
 name = "python_api"
-version = "0.1.0"
+version = "0.1.5"
 dependencies = [
  "openfire",
  "pyo3",
