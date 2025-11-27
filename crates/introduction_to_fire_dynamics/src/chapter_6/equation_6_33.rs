@@ -19,7 +19,7 @@ pub fn time_to_ignition_thermally_thin_equation(
     q_r: String,
 ) -> String {
     format!(
-        "{} = {} \\cdot {} \\cdot {} \\cdot {} \\cdot \\left( {} - {} \\right) \\cdot \\dfrac{{1}}{{{}}}",
+        "{} = {} \\cdot {} \\cdot {} \\cdot \\left( {} - {} \\right) \\cdot \\dfrac{{1}}{{{}}}",
         t_ig, rho, c, tau, temp_ig, temp_o, q_r
     )
 }
@@ -29,8 +29,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_time_to_ignition_thermally_thick() {
-        let result = time_to_ignition_thermally_thick(0.19, 1190.0, 1420.0, 300.0, 25.0, 20000.0);
-        assert_eq!(result, 47.67428456490953);
+    fn test_time_to_ignition_thermally_thin() {
+        let result = time_to_ignition_thermally_thin(1190.0, 1420.0, 0.001, 573.0, 298.0, 20000.0);
+        assert_eq!(result, 23.23475);
     }
 }
