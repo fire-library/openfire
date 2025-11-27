@@ -22,8 +22,8 @@ use ::openfire::introduction_to_fire_dynamics::chapter_6::equation_6_33 as rust_
 /// - :math:`k` is the thermal conductivity (W/m·K)
 /// - :math:`\rho` is the density (kg/m³)
 /// - :math:`c` is the specific heat capacity (J/kg·K)
-/// - :math:`T_{ig}` is the ignition temperature (°C)
-/// - :math:`T_0` is the initial temperature (°C)
+/// - :math:`T_{ig}` is the ignition temperature (K)
+/// - :math:`T_0` is the initial temperature (K)
 /// - :math:`q_r` is the radiative heat flux (W/m²)
 ///
 /// Args:

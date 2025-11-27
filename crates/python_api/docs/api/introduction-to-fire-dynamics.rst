@@ -27,6 +27,14 @@ Equation 6.32 - Time to Ignition for Thermally Thick Materials
    :undoc-members:
    :show-inheritance:
 
+Equation 6.33 - Time to Ignition for Thermally Thin Materials
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.introduction_to_fire_dynamics.chapter_6_intro.equation_6_33
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Chapter 10 - Compartment Fire Dynamics
 ---------------------------------------
 
