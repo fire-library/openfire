@@ -3,10 +3,10 @@ pub fn time_to_ignition(
     c: f64,
     tau: f64,
     temp_ig: f64,
-    temp_o: f64,
+    temp_0: f64,
     q_r: f64,
 ) -> f64 {
-    rho * c * tau * (temp_ig - temp_o) / q_r
+    rho * c * tau * (temp_ig - temp_0) / q_r
 }
 
 pub fn time_to_ignition_equation(
