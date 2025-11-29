@@ -44,7 +44,7 @@ fn time_to_ignition_thermally_thick(
     temp_o: f64,
     q_r: f64,
 ) -> PyResult<f64> {
-    Ok(rust_equation_6_32::time_to_ignition_thermally_thick(
+    Ok(rust_equation_6_32::time_to_ignition(
         k, rho, c, temp_ig, temp_o, q_r,
     ))
 }
@@ -84,7 +84,7 @@ fn equation_6_32(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     c (float): Specific heat capacity (J/kg·K)
 ///     tau (float): Thickness (m)
 ///     temp_ig (float): Ignition temperature (K)
-///     temp_o (float): Initial temperature (K)
+///     temp_0 (float): Initial temperature (K)
 ///     q_r (float): Radiative heat flux (W/m²)
 ///
 /// Returns:
@@ -92,18 +92,18 @@ fn equation_6_32(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.introduction_to_fire_dynamics.chapter_6_intro.equation_6_33.time_to_ignition_thermally_thin(1190.0, 1420.0, 0.001, 573.0, 298.0, 20000.0)
+///     >>> result = ofire.introduction_to_fire_dynamics.chapter_6_intro.equation_6_33.time_to_ignition(1190.0, 1420.0, 0.001, 573.0, 298.0, 20000.0)
 ///     >>> print(f"{result:.5f} s")
-fn time_to_ignition_thermally_thin(
+fn time_to_ignition(
     rho: f64,
     c: f64,
     tau: f64,
     temp_ig: f64,
-    temp_o: f64,
+    temp_0: f64,
     q_r: f64,
 ) -> PyResult<f64> {
-    Ok(rust_equation_6_33::time_to_ignition_thermally_thin(
-        rho, c, tau, temp_ig, temp_o, q_r,
+    Ok(rust_equation_6_33::time_to_ignition(
+        rho, c, tau, temp_ig, temp_0, q_r,
     ))
 }
 
@@ -112,7 +112,7 @@ fn time_to_ignition_thermally_thin(
 ///
 /// Provides calculation for ignition time of thin materials under constant radiative heat flux.
 fn equation_6_33(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(time_to_ignition_thermally_thin, m)?)?;
+    m.add_function(wrap_pyfunction!(time_to_ignition, m)?)?;
     Ok(())
 }
 
