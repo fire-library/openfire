@@ -1,6 +1,6 @@
 [package]
 name = "python_api"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2024"
 license-file = "PYTHON_LICENSE"
 description = "Python bindings for the OpenFire fire safety engineering library"
