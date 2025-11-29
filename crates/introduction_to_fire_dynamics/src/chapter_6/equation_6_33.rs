@@ -1,4 +1,4 @@
-pub fn time_to_ignition_thermally_thin(
+pub fn time_to_ignition(
     rho: f64,
     c: f64,
     tau: f64,
@@ -9,7 +9,7 @@ pub fn time_to_ignition_thermally_thin(
     rho * c * tau * (temp_ig - temp_o) / q_r
 }
 
-pub fn time_to_ignition_thermally_thin_equation(
+pub fn time_to_ignition_equation(
     t_ig: String,
     rho: String,
     c: String,
@@ -29,8 +29,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_time_to_ignition_thermally_thin() {
-        let result = time_to_ignition_thermally_thin(1190.0, 1420.0, 0.001, 573.0, 298.0, 20000.0);
+    fn test_time_to_ignition() {
+        let result = time_to_ignition(1190.0, 1420.0, 0.001, 573.0, 298.0, 20000.0);
         assert_eq!(result, 23.23475);
     }
 }
