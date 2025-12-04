@@ -1,12 +1,12 @@
 [package]
 name = "python_api"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2024"
 license-file = "PYTHON_LICENSE"
 description = "Python bindings for the OpenFire fire safety engineering library"
-homepage = "https://github.com/fire-library/openfire"
-repository = "https://github.com/fire-library/openfire"
-documentation = "https://fire-library.github.io/openfire/"
+homepage = "https://github.com/emberon-tech/openfire"
+repository = "https://github.com/emberon-tech/openfire"
+documentation = "https://emberon-tech.github.io/openfire/"
 
 [lib]
 name = "ofire"
