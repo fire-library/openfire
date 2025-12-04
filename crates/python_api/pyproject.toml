@@ -29,5 +29,5 @@ keywords = [
 
 [project.urls]
 Homepage = "https://www.openfiresoftware.com/"
-Documentation = "https://fire-library.github.io/openfire/"
-Repository = "https://github.com/fire-library/openfire"
+Documentation = "https://emberon-tech.github.io/openfire/"
+Repository = "https://github.com/emberon-tech/openfire"
