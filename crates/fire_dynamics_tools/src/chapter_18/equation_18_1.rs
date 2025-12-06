@@ -1,31 +1,20 @@
-pub fn maximum_centerline_temperature_rise_plume(
-    t_a: f64,
-    q_c: f64,
-    g: f64,
-    c_p: f64,
-    rho_a: f64,
-    z: f64,
-    z_o: f64,
+pub fn visibility(
+    k: f64,
+    alpha_m: f64,
+    m_p: f64,
 ) -> f64 {
-    let top =
-        9.1 * (t_a / (g * c_p.powf(2.0) * rho_a.powf(2.0))).powf(1.0 / 3.0) * (q_c).powf(2.0 / 3.0);
-    let bottom = (z - z_o).powf(5.0 / 3.0);
-    top / bottom
+    k / (alpha_m * m_p)
 }
 
-pub fn maximum_centerline_temperature_rise_plume_equation(
-    delta_t_p: String,
-    t_a: String,
-    q_c: String,
-    g: String,
-    c_p: String,
-    rho_a: String,
-    z: String,
-    z_o: String,
+pub fn visibility_equation(
+    s: String,
+    k: String,
+    alpha_m: String,
+    m_p: String,
 ) -> String {
     format!(
-        "{} = 9.1 \\frac{{ {} }}{{ {} \\cdot {}^2 \\cdot {}^2 }} \\frac{{ {}^{{2/3}} }}{{ ({} - {})^{{5/3}} }}",
-        delta_t_p, t_a, g, c_p, rho_a, q_c, z, z_o
+        "{} = \\frac{{ {} }}{{ {} \\cdot {} }}",
+        s, k, alpha_m, m_p
     )
 }
 
@@ -34,17 +23,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_maximum_centerline_temperature_rise_plume() {
-        let t_a = 288.0;
-        let q_c = 700.0;
-        let g = 9.8;
-        let c_p = 1.0;
-        let rho_a = 1.2;
-        let z = 2.0;
-        let z_o = -0.25;
-        let expected = 507.4623919;
+    fn test_visibility() {
+        let k = 8.0;
+        let alpha_m = 37000.0;
+        let m_p = 0.000006;
+        let expected = 36.03603604;
 
-        let result = maximum_centerline_temperature_rise_plume(t_a, q_c, g, c_p, rho_a, z, z_o);
+        let result = visibility(k, alpha_m, m_p);
 
         assert!(
             (result - expected).abs() < 1e-4,
