@@ -306,27 +306,28 @@ fn equation_10_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_11 module functions
 #[pyfunction]
-/// Calculates the limiting velocity based on heat release rate (Equation 10.11).
+/// Calculates the limiting average air velocity for opposed air flow - large spaces (Equation 10.11).
 ///
-/// This equation determines the limiting velocity for smoke control
-/// based on heat release rate and height above fire source.
+/// This equation determines the limiting average air velocity for opposed air flow systems
+/// designed to prevent smoke spread from a large space (e.g. atrium) to an adjoining small space
+/// below the smoke layer interface.
 ///
 /// .. math::
 ///
-///    v_e = 0.057 \cdot \left(\frac{q}{z}\right)^{1/3}
+///    v_e = 0.057 \cdot \left(\frac{Qj}{z}\right)^{1/3}
 ///
 /// where:
 ///
-/// - :math:`v_e` is the limiting velocity (m/s)
-/// - :math:`q` is the heat release rate (kW)
-/// - :math:`z` is the height above fire source (m)
+/// - :math:`v_e` is the limiting average air velocity (m/s)
+/// - :math:`Q` is the heat release rate of the fire (kW)
+/// - :math:`z` is the height above base of the fire to the bottom of the opening (m)
 ///
 /// Args:
-///     q (float): Heat release rate (kW)
-///     z (float): Height above fire source (m)
+///     q (float): Heat release rate of the fire(kW)
+///     z (float): Height above base of the fire to the bottom of the opening (m)
 ///
 /// Returns:
-///     float: Limiting velocity (m/s)
+///     float: Limiting average air velocity (m/s)
 ///
 /// Example:
 ///     >>> import ofire
@@ -337,7 +338,7 @@ fn limiting_velocity_10_11(q: f64, z: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.11 - Limiting Velocity Based on Heat Release Rate.
+/// Equation 10.11 - Limiting Average Air Velocity to Prevent Smoke Spread from Large Spaces.
 ///
 /// Calculates the limiting velocity based on heat release rate and height above fire source.
 fn equation_10_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
