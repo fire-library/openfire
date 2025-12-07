@@ -179,27 +179,27 @@ fn equation_10_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_7 module functions
 #[pyfunction]
-/// Calculates the optical density for visibility (Equation 10.7).
+/// visibility (furthest distance at which an object can be perceived) (Equation 10.7).
 ///
-/// This equation determines the optical density based on
-/// the visibility distance and smoke extinction coefficient.
+/// This equation determines the furthest distance at which an object can be perceived
+/// based on the optical density per unit length and a visibility coefficient.
 ///
 /// .. math::
 ///
-///    OD = \frac{k}{2.303 \cdot d}
+///    S = \frac{D}{2.303 \cdot D}
 ///
 /// where:
 ///
-/// - :math:`OD` is the optical density (dimensionless)
-/// - :math:`k` is the smoke extinction coefficient (m⁻¹)
-/// - :math:`d` is the visibility distance (m)
+/// - :math:`S` is the furthest distance at which an object can be perceived (m)
+/// - :math:`K` is the visibility coefficient (-)
+/// - :math:`D` is the optical density per unit length (m^{-1})
 ///
 /// Args:
-///     k (float): Smoke extinction coefficient (m⁻¹)
-///     d (float): Visibility distance (m)
+///     K (float): Visibility coefficient (-)
+///     D (float): Optical density per unit length (m^{-1})
 ///
 /// Returns:
-///     float: Optical density (dimensionless)
+///     float: Furthest distance at which an object can be perceived (m)
 ///
 /// Example:
 ///     >>> import ofire
@@ -209,7 +209,7 @@ fn visibility(k: f64, d: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.7 - Optical Density for Visibility.
+/// Equation 10.7 - Visibility.
 ///
 /// Calculates the optical density based on visibility distance and extinction coefficient.
 fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
