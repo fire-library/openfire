@@ -59,10 +59,10 @@ fn equation_10_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_2 module functions
 #[pyfunction]
-/// Calculates the minimum separation distance (Equation 10.2).
+/// Calculates the minimum separation distance between vents (Equation 10.2).
 ///
 /// This equation determines the minimum separation distance
-/// based on the escape velocity.
+/// between exhaust vents based on the escape velocity.
 ///
 /// .. math::
 ///
@@ -87,7 +87,7 @@ fn min_separation_dist(v_e: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.2 - Minimum Separation Distance.
+/// Equation 10.2 - Minimum Separation Distance Between Vents.
 ///
 /// Calculates the minimum separation distance based on escape velocity.
 fn equation_10_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
