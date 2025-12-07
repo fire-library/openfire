@@ -54,6 +54,16 @@ These equations calculate heat release rate at flashover but use different formu
 - :func:`ofire.pd_7974.part_1.section_8.equation_28.q_fo` - PD 7974, Part 1, Section 8, Equation 28 (Thomas' method)
 - :func:`ofire.pd_7974.part_1.section_8.equation_29.q_fo` - PD 7974, Part 1, Section 8, Equation 29 (McCaffrey's method)
 
+Visibility
+~~~~~~~~~~
+
+*Group 2: Visibility Calculations Through Smoke*
+
+These equations calculate visibility distance through smoke but use different formulations:
+
+- :func:`ofire.cibse_guide_e.chapter_10.equation_10_7.visibility` - CIBSE Guide E, Chapter 10, Equation 10.7 (uses extinction coefficient and optical density: k/(2.303×d))
+- :func:`ofire.fire_dynamics_tools.chapter_18.equation_18_1.visibility` - Fire Dynamics Tools, Chapter 18, Equation 18.1 (uses extinction coefficient, mass extinction coefficient, and particulate concentration: k/(αₘ×mₚ))
+
 Contributing to Equation Relationships
 ---------------------------------------
 
