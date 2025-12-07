@@ -97,11 +97,43 @@ fn equation_10_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_3 module functions
 #[pyfunction]
+/// Calculates the volumetric flow rate (Equation 10.3).
+///
+/// This equation determines the volumetric flow rate of smoke
+/// based on mass flow rate, temperature, and density parameters.
+///
+/// .. math::
+///
+///    V = \frac{m \cdot T_s}{\rho_0 \cdot T_0}
+///
+/// where:
+///
+/// - :math:`V` is the volumetric flow rate (m³/s)
+/// - :math:`m` is the mass flow rate (kg/s)
+/// - :math:`T_s` is the smoke temperature (K)
+/// - :math:`\rho_0` is the ambient air density (kg/m³)
+/// - :math:`T_0` is the ambient temperature (K)
+///
+/// Args:
+///     m (float): Mass flow rate (kg/s)
+///     t_s (float): Smoke temperature (K)
+///     rho_0 (float): Ambient air density (kg/m³)
+///     t_0 (float): Ambient temperature (K)
+///
+/// Returns:
+///     float: Volumetric flow rate (m³/s)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_3.volumetric_flow_rate(2.0, 473.0, 1.2, 293.0)
 fn volumetric_flow_rate(m: f64, t_s: f64, rho_0: f64, t_0: f64) -> PyResult<f64> {
     Ok(rust_equation_10_3::volumetric_flow_rate(m, t_s, rho_0, t_0))
 }
 
 #[pymodule]
+/// Equation 10.3 - Volumetric Flow Rate.
+///
+/// Calculates the volumetric flow rate based on mass flow rate and temperature parameters.
 fn equation_10_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(volumetric_flow_rate, m)?)?;
     Ok(())
@@ -109,11 +141,37 @@ fn equation_10_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_4 module functions
 #[pyfunction]
+/// Calculates the time to burning skin (Equation 10.4).
+///
+/// This equation determines the time required for skin to reach
+/// a burning condition based on incident heat flux.
+///
+/// .. math::
+///
+///    t = 1.33 \cdot q^{-1.35}
+///
+/// where:
+///
+/// - :math:`t` is the time to burning skin (s)
+/// - :math:`q` is the incident heat flux (kW/m²)
+///
+/// Args:
+///     q (float): Incident heat flux (kW/m²)
+///
+/// Returns:
+///     float: Time to burning skin (s)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_4.time_burning_skin(2.5)
 fn time_burning_skin(q: f64) -> PyResult<f64> {
     Ok(rust_equation_10_4::time_burning_skin(q))
 }
 
 #[pymodule]
+/// Equation 10.4 - Time to Burning Skin.
+///
+/// Calculates the time required for skin to reach a burning condition based on heat flux.
 fn equation_10_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(time_burning_skin, m)?)?;
     Ok(())
@@ -121,11 +179,39 @@ fn equation_10_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_7 module functions
 #[pyfunction]
+/// Calculates the optical density for visibility (Equation 10.7).
+///
+/// This equation determines the optical density based on
+/// the visibility distance and smoke extinction coefficient.
+///
+/// .. math::
+///
+///    OD = \frac{k}{2.303 \cdot d}
+///
+/// where:
+///
+/// - :math:`OD` is the optical density (dimensionless)
+/// - :math:`k` is the smoke extinction coefficient (m⁻¹)
+/// - :math:`d` is the visibility distance (m)
+///
+/// Args:
+///     k (float): Smoke extinction coefficient (m⁻¹)
+///     d (float): Visibility distance (m)
+///
+/// Returns:
+///     float: Optical density (dimensionless)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_7.visibility(8.0, 0.5)
 fn visibility(k: f64, d: f64) -> PyResult<f64> {
     Ok(rust_equation_10_7::visibility(k, d))
 }
 
 #[pymodule]
+/// Equation 10.7 - Optical Density for Visibility.
+///
+/// Calculates the optical density based on visibility distance and extinction coefficient.
 fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(visibility, m)?)?;
     Ok(())
@@ -133,11 +219,41 @@ fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_8 module functions
 #[pyfunction]
+/// Calculates the fractional effective dose (Equation 10.8).
+///
+/// This equation determines the fractional effective dose for toxicity
+/// assessment based on mass fraction, exposure time, and lethal concentration.
+///
+/// .. math::
+///
+///    FED = \frac{m_f \cdot t}{LC_{50}}
+///
+/// where:
+///
+/// - :math:`FED` is the fractional effective dose (dimensionless)
+/// - :math:`m_f` is the mass fraction of toxic species (kg/kg)
+/// - :math:`t` is the exposure time (s)
+/// - :math:`LC_{50}` is the lethal concentration for 50% mortality (kg·s/m³)
+///
+/// Args:
+///     m_f (float): Mass fraction of toxic species (kg/kg)
+///     t (float): Exposure time (s)
+///     lc_50 (float): Lethal concentration for 50% mortality (kg·s/m³)
+///
+/// Returns:
+///     float: Fractional effective dose (dimensionless)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_8.fractional_effective_dose(2.0, 120.0, 1000.0)
 fn fractional_effective_dose(m_f: f64, t: f64, lc_50: f64) -> PyResult<f64> {
     Ok(rust_equation_10_8::fractional_effective_dose(m_f, t, lc_50))
 }
 
 #[pymodule]
+/// Equation 10.8 - Fractional Effective Dose.
+///
+/// Calculates the fractional effective dose for toxicity assessment.
 fn equation_10_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(fractional_effective_dose, m)?)?;
     Ok(())
@@ -145,12 +261,44 @@ fn equation_10_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_10 module functions
 #[pyfunction]
+/// Calculates the limiting velocity for natural ventilation (Equation 10.10).
+///
+/// This equation determines the limiting velocity for natural ventilation
+/// based on buoyancy forces and temperature difference.
+///
+/// .. math::
+///
+///    v_e = 0.64 \cdot \left(g \cdot h \cdot \frac{T_f - T_0}{T_f}\right)^{0.5}
+///
+/// where:
+///
+/// - :math:`v_e` is the limiting velocity (m/s)
+/// - :math:`g` is the acceleration due to gravity (m/s²)
+/// - :math:`h` is the height (m)
+/// - :math:`T_f` is the fire temperature (K)
+/// - :math:`T_0` is the ambient temperature (K)
+///
+/// Args:
+///     g (float): Acceleration due to gravity (m/s²)
+///     h (float): Height (m)
+///     t_f (float): Fire temperature (K)
+///     t_0 (float): Ambient temperature (K)
+///
+/// Returns:
+///     float: Limiting velocity (m/s)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_10.limiting_velocity(9.8, 2.2, 973.0, 293.0)
 #[pyo3(name = "limiting_velocity")]
 fn limiting_velocity_10_10(g: f64, h: f64, t_f: f64, t_0: f64) -> PyResult<f64> {
     Ok(rust_equation_10_10::limiting_velocity(g, h, t_f, t_0))
 }
 
 #[pymodule]
+/// Equation 10.10 - Limiting Velocity for Natural Ventilation.
+///
+/// Calculates the limiting velocity based on buoyancy forces and temperature difference.
 fn equation_10_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(limiting_velocity_10_10, m)?)?;
     Ok(())
@@ -158,12 +306,40 @@ fn equation_10_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_11 module functions
 #[pyfunction]
+/// Calculates the limiting velocity based on heat release rate (Equation 10.11).
+///
+/// This equation determines the limiting velocity for smoke control
+/// based on heat release rate and height above fire source.
+///
+/// .. math::
+///
+///    v_e = 0.057 \cdot \left(\frac{q}{z}\right)^{1/3}
+///
+/// where:
+///
+/// - :math:`v_e` is the limiting velocity (m/s)
+/// - :math:`q` is the heat release rate (kW)
+/// - :math:`z` is the height above fire source (m)
+///
+/// Args:
+///     q (float): Heat release rate (kW)
+///     z (float): Height above fire source (m)
+///
+/// Returns:
+///     float: Limiting velocity (m/s)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_11.limiting_velocity(1000.0, 1.5)
 #[pyo3(name = "limiting_velocity")]
 fn limiting_velocity_10_11(q: f64, z: f64) -> PyResult<f64> {
     Ok(rust_equation_10_11::limiting_velocity(q, z))
 }
 
 #[pymodule]
+/// Equation 10.11 - Limiting Velocity Based on Heat Release Rate.
+///
+/// Calculates the limiting velocity based on heat release rate and height above fire source.
 fn equation_10_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(limiting_velocity_10_11, m)?)?;
     Ok(())
@@ -171,6 +347,41 @@ fn equation_10_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_12 module functions
 #[pyfunction]
+/// Calculates the limiting velocity with thermal properties (Equation 10.12).
+///
+/// This equation determines the limiting velocity for smoke control
+/// incorporating thermal properties of air and environmental conditions.
+///
+/// .. math::
+///
+///    v_e = k \cdot \left(\frac{g \cdot q}{\omega \cdot \rho \cdot c \cdot T}\right)^{1/3}
+///
+/// where:
+///
+/// - :math:`v_e` is the limiting velocity (m/s)
+/// - :math:`k` is a dimensionless coefficient (dimensionless)
+/// - :math:`g` is the acceleration due to gravity (m/s²)
+/// - :math:`q` is the heat release rate (kW)
+/// - :math:`\omega` is the width parameter (m)
+/// - :math:`\rho` is the air density (kg/m³)
+/// - :math:`c` is the specific heat capacity (kJ/kg·K)
+/// - :math:`T` is the temperature (K)
+///
+/// Args:
+///     k (float): Dimensionless coefficient (dimensionless)
+///     g (float): Acceleration due to gravity (m/s²)
+///     q (float): Heat release rate (kW)
+///     omega (float): Width parameter (m)
+///     rho (float): Air density (kg/m³)
+///     c (float): Specific heat capacity (kJ/kg·K)
+///     t (float): Temperature (K)
+///
+/// Returns:
+///     float: Limiting velocity (m/s)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_12.limiting_velocity(1.0, 9.8, 1000.0, 2.5, 1.2, 1.0, 773.0)
 #[pyo3(name = "limiting_velocity")]
 fn limiting_velocity_10_12(
     k: f64,
@@ -187,6 +398,9 @@ fn limiting_velocity_10_12(
 }
 
 #[pymodule]
+/// Equation 10.12 - Limiting Velocity with Thermal Properties.
+///
+/// Calculates the limiting velocity incorporating thermal properties and environmental conditions.
 fn equation_10_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(limiting_velocity_10_12, m)?)?;
     Ok(())
