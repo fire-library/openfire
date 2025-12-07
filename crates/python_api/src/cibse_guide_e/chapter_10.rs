@@ -109,16 +109,16 @@ fn equation_10_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// where:
 ///
 /// - :math:`V` is the volumetric flow rate (m³/s)
-/// - :math:`m` is the mass flow rate (kg/s)
-/// - :math:`T_s` is the smoke temperature (K)
-/// - :math:`\rho_0` is the ambient air density (kg/m³)
-/// - :math:`T_0` is the ambient temperature (K)
+/// - :math:`m` is the mass flow rate of smoke exhaust (kg/s)
+/// - :math:`T_s` is the absolute temperature of the smoke (K)
+/// - :math:`\rho_0` is the density of air at ambient temperature (kg/m³)
+/// - :math:`T_0` is the absolute ambient temperature (K)
 ///
 /// Args:
-///     m (float): Mass flow rate (kg/s)
-///     t_s (float): Smoke temperature (K)
-///     rho_0 (float): Ambient air density (kg/m³)
-///     t_0 (float): Ambient temperature (K)
+///     m (float): Mass flow rate of smoke exhaust (kg/s)
+///     t_s (float): Absolute temperature of the smoke (K)
+///     rho_0 (float): Density of air at ambient temperature (kg/m³)
+///     t_0 (float): Absolute ambient temperature (K)
 ///
 /// Returns:
 ///     float: Volumetric flow rate (m³/s)
@@ -141,25 +141,25 @@ fn equation_10_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_4 module functions
 #[pyfunction]
-/// Calculates the time to burning skin (Equation 10.4).
+/// Calculates the time to burning of skin due to radiant heat (Equation 10.4).
 ///
-/// This equation determines the time required for skin to reach
-/// a burning condition based on incident heat flux.
+/// This equation determines the time time to burning of skin
+/// due to radiant heat.
 ///
 /// .. math::
 ///
-///    t = 1.33 \cdot q^{-1.35}
+///    t_{irad} = 1.33 \cdot q^{-1.35}
 ///
 /// where:
 ///
-/// - :math:`t` is the time to burning skin (s)
-/// - :math:`q` is the incident heat flux (kW/m²)
+/// - :math:`t` is the time to burning of skin (min)
+/// - :math:`q` is the radiant heat flux (kW/m²)
 ///
 /// Args:
-///     q (float): Incident heat flux (kW/m²)
+///     q (float): Radiant heat flux (kW/m²)
 ///
 /// Returns:
-///     float: Time to burning skin (s)
+///     float: Time to burning of skin (min)
 ///
 /// Example:
 ///     >>> import ofire
