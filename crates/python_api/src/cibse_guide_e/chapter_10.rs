@@ -348,37 +348,37 @@ fn equation_10_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_12 module functions
 #[pyfunction]
-/// Calculates the limiting velocity with thermal properties (Equation 10.12).
+/// Calculates the limiting average inlet air velocity to prevent further smoke spread into corridor (Equation 10.12).
 ///
-/// This equation determines the limiting velocity for smoke control
-/// incorporating thermal properties of air and environmental conditions.
+/// This equation determines the limiting average inlet air velocity for opposing airflow smoke control systems
+/// to prevent further smoke spread into a corridor.
 ///
 /// .. math::
 ///
-///    v_e = k \cdot \left(\frac{g \cdot q}{\omega \cdot \rho \cdot c \cdot T}\right)^{1/3}
+///    v_k = k \cdot \left(\frac{g \cdot Q}{\omega \cdot \rho \cdot c \cdot T}\right)^{1/3}
 ///
 /// where:
 ///
-/// - :math:`v_e` is the limiting velocity (m/s)
-/// - :math:`k` is a dimensionless coefficient (dimensionless)
+/// - :math:`v_k` is the limiting average inlet air velocity  to prevent smoke flowing upstream (m/s)
+/// - :math:`k` is a dimensionless coefficient (K=1, constant)
 /// - :math:`g` is the acceleration due to gravity (m/s²)
-/// - :math:`q` is the heat release rate (kW)
-/// - :math:`\omega` is the width parameter (m)
-/// - :math:`\rho` is the air density (kg/m³)
-/// - :math:`c` is the specific heat capacity (kJ/kg·K)
-/// - :math:`T` is the temperature (K)
+/// - :math:`Q` is the heat release rate of the fire (kW)
+/// - :math:`\omega` is the corridor width (m)
+/// - :math:`\rho` is the density of upstream air (kg/m³)
+/// - :math:`c` is the specific heat of downstream gases (kJ/kg·K)
+/// - :math:`T` is the temperature of downstream mixture of air and smoke (K)
 ///
 /// Args:
-///     k (float): Dimensionless coefficient (dimensionless)
+///     k (float): Dimensionless coefficient (K=1, constant)
 ///     g (float): Acceleration due to gravity (m/s²)
 ///     q (float): Heat release rate (kW)
-///     omega (float): Width parameter (m)
-///     rho (float): Air density (kg/m³)
-///     c (float): Specific heat capacity (kJ/kg·K)
-///     t (float): Temperature (K)
+///     omega (float): Corridor width (m)
+///     rho (float): Density of upstream air (kg/m³)
+///     c (float): Specific heat of downstream gases (kJ/kg·K)
+///     t (float): Temperature of downstream mixture of air and smoke (K)
 ///
 /// Returns:
-///     float: Limiting velocity (m/s)
+///     float: Limiting average inlet air velocity (m/s)
 ///
 /// Example:
 ///     >>> import ofire
@@ -399,7 +399,7 @@ fn limiting_velocity_10_12(
 }
 
 #[pymodule]
-/// Equation 10.12 - Limiting Velocity with Thermal Properties.
+/// Equation 10.12 - Limiting Average Inlet Air Velocity to Prevent Smoke Spread Upstream.
 ///
 /// Calculates the limiting velocity incorporating thermal properties and environmental conditions.
 fn equation_10_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
