@@ -222,7 +222,7 @@ fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Calculates the fractional effective dose (Equation 10.8).
 ///
 /// This equation determines the fractional effective dose for toxicity
-/// assessment based on mass fraction, exposure time, and lethal concentration.
+/// assessment based on mass concentration, exposure time, and lethal exposure dose.
 ///
 /// .. math::
 ///
@@ -231,14 +231,14 @@ fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// where:
 ///
 /// - :math:`FED` is the fractional effective dose (dimensionless)
-/// - :math:`m_f` is the mass fraction of toxic species (kg/kg)
-/// - :math:`t` is the exposure time (s)
-/// - :math:`LC_{50}` is the lethal concentration for 50% mortality (kg·s/m³)
+/// - :math:`m_f` is the mass concentration of fuel burned (g/m^{3})
+/// - :math:`t` is the exposure time (min)
+/// - :math:`LC_{50}` is the lethal exposure dose from the test subject for 50% mortality (g/m³·min)
 ///
 /// Args:
-///     m_f (float): Mass fraction of toxic species (kg/kg)
-///     t (float): Exposure time (s)
-///     lc_50 (float): Lethal concentration for 50% mortality (kg·s/m³)
+///     m_f (float): Mass concentration of fuel burned (g/m^{3})
+///     t (float): Exposure time (min)
+///     lc_50 (float): Lethal exposure dose for 50% mortality (g/m³·min)
 ///
 /// Returns:
 ///     float: Fractional effective dose (dimensionless)
