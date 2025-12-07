@@ -179,7 +179,7 @@ fn equation_10_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_7 module functions
 #[pyfunction]
-/// visibility (furthest distance at which an object can be perceived) (Equation 10.7).
+/// Calculates the visibility (furthest distance at which an object can be perceived) (Equation 10.7).
 ///
 /// This equation determines the furthest distance at which an object can be perceived
 /// based on the optical density per unit length and a visibility coefficient.

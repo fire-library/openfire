@@ -137,8 +137,8 @@ Equation 10.1 - Maximum Volumetric Flow Rate
    :undoc-members:
    :show-inheritance:
 
-Equation 10.2 - Minimum Separation Distance
-""""""""""""""""""""""""""""""""""""""""""""
+Equation 10.2 - Minimum Separation Distance Between Vents
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.cibse_guide_e.chapter_10.equation_10_2
    :members:
@@ -177,24 +177,24 @@ Equation 10.8 - Fractional Effective Dose
    :undoc-members:
    :show-inheritance:
 
-Equation 10.10 - Limiting Velocity (Buoyancy)
-""""""""""""""""""""""""""""""""""""""""""""""
+Equation 10.10 - Limiting Average Air Velocity for Opposed Air Flow Ventilation
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.cibse_guide_e.chapter_10.equation_10_10
    :members:
    :undoc-members:
    :show-inheritance:
 
-Equation 10.11 - Limiting Velocity (Fire Source)
-"""""""""""""""""""""""""""""""""""""""""""""""""
+Equation 10.11 - Limiting Average Air Velocity to Prevent Smoke Spread from Large Spaces
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.cibse_guide_e.chapter_10.equation_10_11
    :members:
    :undoc-members:
    :show-inheritance:
 
-Equation 10.12 - Limiting Velocity (Complex)
-"""""""""""""""""""""""""""""""""""""""""""""
+Equation 10.12 - Limiting Average Inlet Air Velocity to Prevent Smoke Spread Upstream
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.cibse_guide_e.chapter_10.equation_10_12
    :members:
