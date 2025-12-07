@@ -238,3 +238,11 @@ Equation 18.2 - Mass Concentration of Particulates
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 18.3 - Mass of Particulates Produced
+""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_18.equation_18_3
+   :members:
+   :undoc-members:
+   :show-inheritance:

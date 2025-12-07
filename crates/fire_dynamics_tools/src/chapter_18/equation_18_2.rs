@@ -1,19 +1,9 @@
-pub fn concentration_particulates(
-    m_p: f64,
-    v: f64,
-) -> f64 {
+pub fn concentration_particulates(m_p: f64, v: f64) -> f64 {
     m_p / v
 }
 
-pub fn concentration_particulates_equation(
-    m_p: String,
-    m_p_big: String, 
-    v: String,
-) -> String {
-    format!(
-        "{} = \\frac{{ {} }}{{ {} }}",
-        m_p, m_p_big, v
-    )
+pub fn concentration_particulates_equation(m_p: String, m_p_big: String, v: String) -> String {
+    format!("{} = \\frac{{ {} }}{{ {} }}", m_p, m_p_big, v)
 }
 
 #[cfg(test)]

@@ -50,9 +50,11 @@ fn maximum_centerline_temperature_rise_plume(
     z: f64,
     z_o: f64,
 ) -> PyResult<f64> {
-    Ok(rust_equation_9_2::maximum_centerline_temperature_rise_plume(
-        t_a, q_c, g, c_p, rho_a, z, z_o,
-    ))
+    Ok(
+        rust_equation_9_2::maximum_centerline_temperature_rise_plume(
+            t_a, q_c, g, c_p, rho_a, z, z_o,
+        ),
+    )
 }
 
 #[pyfunction]
@@ -119,7 +121,10 @@ fn effective_diameter(a_f: f64) -> PyResult<f64> {
 /// This module contains calculations for the maximum temperature rise along
 /// the centerline of a fire plume at a given height above the fire source.
 fn equation_9_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(maximum_centerline_temperature_rise_plume, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        maximum_centerline_temperature_rise_plume,
+        m
+    )?)?;
     Ok(())
 }
 

@@ -1,8 +1,8 @@
+pub mod chapter_18;
 pub mod chapter_2;
 pub mod chapter_4;
 pub mod chapter_5;
 pub mod chapter_9;
-pub mod chapter_18;
 
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;

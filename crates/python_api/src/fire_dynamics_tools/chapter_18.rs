@@ -3,6 +3,7 @@ use pyo3::wrap_pymodule;
 
 use ::openfire::fire_dynamics_tools::chapter_18::equation_18_1 as rust_equation_18_1;
 use ::openfire::fire_dynamics_tools::chapter_18::equation_18_2 as rust_equation_18_2;
+use ::openfire::fire_dynamics_tools::chapter_18::equation_18_3 as rust_equation_18_3;
 
 #[pyfunction]
 /// Visibility through smoke (Equation 18-1).
@@ -66,6 +67,36 @@ fn concentration_particulates(m_p: f64, v: f64) -> PyResult<f64> {
     Ok(rust_equation_18_2::concentration_particulates(m_p, v))
 }
 
+#[pyfunction]
+/// Mass of particulates produced (Equation 18-3).
+///
+/// This equation calculates the total mass of particulates produced based on
+/// the fuel mass burned and particulate yield.
+///
+/// .. math::
+///
+///    M_p = y_p \cdot M_f
+///
+/// where:
+///
+/// - :math:`M_p` is the total mass of particulates produced (lb)
+/// - :math:`y_p` is the particulate yield (dimensionless)
+/// - :math:`M_f` is the mass of fuel burned (lb)
+///
+/// Args:
+///     M_f (float): Mass of fuel burned (lb)
+///     y_p (float): Particulate yield (dimensionless)
+///
+/// Returns:
+///     float: Total mass of particulates produced (kg)
+///
+/// Example:
+///     >>> import ofire
+///     >>> result = ofire.fire_dynamics_tools.chapter_18.equation_18_3.mass_particulates_produced(2.0, 0.015)
+fn mass_particulates_produced(m_f: f64, y_p: f64) -> PyResult<f64> {
+    Ok(rust_equation_18_3::mass_particulates_produced(m_f, y_p))
+}
+
 #[pymodule]
 /// Equation 18-1 - Visibility through smoke.
 ///
@@ -87,11 +118,22 @@ fn equation_18_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
+/// Equation 18-3 - Mass of particulates produced.
+///
+/// This module contains calculations for the total mass of particulates
+/// produced based on fuel mass and particulate yield.
+fn equation_18_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(mass_particulates_produced, m)?)?;
+    Ok(())
+}
+
+#[pymodule]
 /// Chapter 18 - Visibility calculations.
 ///
 /// This module contains visibility calculations through smoke from Chapter 18.
 pub fn chapter_18(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_18_1))?;
     m.add_wrapped(wrap_pymodule!(equation_18_2))?;
+    m.add_wrapped(wrap_pymodule!(equation_18_3))?;
     Ok(())
 }
