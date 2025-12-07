@@ -261,31 +261,31 @@ fn equation_10_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_10 module functions
 #[pyfunction]
-/// Calculates the limiting velocity for natural ventilation (Equation 10.10).
+/// Calculates the limiting average air velocity for opposed air flow ventilation (Equation 10.10).
 ///
-/// This equation determines the limiting velocity for natural ventilation
-/// based on buoyancy forces and temperature difference.
+/// This equation determines the limiting average velocity for opposed air flow ventilation
+/// towards the fire compartment, sufficient to prevent the outflow of smoke
 ///
 /// .. math::
 ///
-///    v_e = 0.64 \cdot \left(g \cdot h \cdot \frac{T_f - T_0}{T_f}\right)^{0.5}
+///    v_e = 0.64 \cdot \left(g \cdot H \cdot \frac{T_f - T_0}{T_f}\right)^{0.5}
 ///
 /// where:
 ///
-/// - :math:`v_e` is the limiting velocity (m/s)
+/// - :math:`v_e` is the limiting average air velocity (m/s)
 /// - :math:`g` is the acceleration due to gravity (m/s²)
-/// - :math:`h` is the height (m)
-/// - :math:`T_f` is the fire temperature (K)
-/// - :math:`T_0` is the ambient temperature (K)
+/// - :math:`h` is the height of the opening as measured from the bottom of the opening (m)
+/// - :math:`T_f` is the temperature of the heated smoke (K)
+/// - :math:`T_0` is the temperature of the ambient air (K)
 ///
 /// Args:
 ///     g (float): Acceleration due to gravity (m/s²)
-///     h (float): Height (m)
-///     t_f (float): Fire temperature (K)
-///     t_0 (float): Ambient temperature (K)
+///     h (float): Height of the opening as measured from the bottom of the opening (m)
+///     t_f (float): Temperature of the heated smoke (K)
+///     t_0 (float): Temperature of the ambient air (K)
 ///
 /// Returns:
-///     float: Limiting velocity (m/s)
+///     float: Limiting average air velocity (m/s)
 ///
 /// Example:
 ///     >>> import ofire
@@ -296,9 +296,9 @@ fn limiting_velocity_10_10(g: f64, h: f64, t_f: f64, t_0: f64) -> PyResult<f64> 
 }
 
 #[pymodule]
-/// Equation 10.10 - Limiting Velocity for Natural Ventilation.
+/// Equation 10.10 - Limiting Average Air Velocity for Opposed Air Flow Ventilation.
 ///
-/// Calculates the limiting velocity based on buoyancy forces and temperature difference.
+/// Calculates the limiting average air velocity based on buoyancy forces and temperature difference.
 fn equation_10_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(limiting_velocity_10_10, m)?)?;
     Ok(())
