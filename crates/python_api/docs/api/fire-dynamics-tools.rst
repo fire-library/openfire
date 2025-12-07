@@ -230,3 +230,11 @@ Equation 18.1 - Visibility Through Smoke
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 18.2 - Mass Concentration of Particulates
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_18.equation_18_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
