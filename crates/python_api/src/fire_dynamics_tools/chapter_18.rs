@@ -17,7 +17,7 @@ use ::openfire::fire_dynamics_tools::chapter_18::equation_18_3 as rust_equation_
 ///
 /// where:
 ///
-/// - :math:`S` is the visibility (ft)
+/// - :math:`S` is the visibility (m)
 /// - :math:`K` is proportionality constant (dimensionless)
 /// - :math:`\alpha_m` is the specific extinction coefficient (ft²/lb)
 /// - :math:`m_p` is the mass concentration of particulates (lb/ft³)
