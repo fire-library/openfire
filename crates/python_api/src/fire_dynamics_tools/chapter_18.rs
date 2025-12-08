@@ -84,7 +84,7 @@ fn concentration_particulates(m_p: f64, v: f64) -> PyResult<f64> {
 /// - :math:`M_f` is the mass of fuel burned (kg)
 ///
 /// Args:
-///     M_f (float): Mass of fuel burned (lb)
+///     M_f (float): Mass of fuel burned (kg)
 ///     y_p (float): Particulate yield (dimensionless)
 ///
 /// Returns:
