@@ -211,3 +211,38 @@ Equation 9.4 - Effective Diameter of a Fire Source
    :members:
    :undoc-members:
    :show-inheritance:
+
+Chapter 18
+----------
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_18
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation Modules
+~~~~~~~~~~~~~~~~
+
+Equation 18.1 - Visibility Through Smoke
+"""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_18.equation_18_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 18.2 - Mass Concentration of Particulates
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_18.equation_18_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 18.3 - Mass of Particulates Produced
+""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.fire_dynamics_tools.chapter_18.equation_18_3
+   :members:
+   :undoc-members:
+   :show-inheritance:

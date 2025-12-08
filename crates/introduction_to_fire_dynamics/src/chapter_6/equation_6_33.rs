@@ -1,11 +1,4 @@
-pub fn time_to_ignition(
-    rho: f64,
-    c: f64,
-    tau: f64,
-    temp_ig: f64,
-    temp_0: f64,
-    q_r: f64,
-) -> f64 {
+pub fn time_to_ignition(rho: f64, c: f64, tau: f64, temp_ig: f64, temp_0: f64, q_r: f64) -> f64 {
     rho * c * tau * (temp_ig - temp_0) / q_r
 }
 
