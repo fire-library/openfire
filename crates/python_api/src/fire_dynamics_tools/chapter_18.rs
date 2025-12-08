@@ -58,7 +58,7 @@ fn visibility(k: f64, alpha_m: f64, m_p: f64) -> PyResult<f64> {
 ///     v (float): Volume (m³)
 ///
 /// Returns:
-///     float: Mass concentration of particulates (lb/ft³)
+///     float: Mass concentration of particulates (kg/m³)
 ///
 /// Example:
 ///     >>> import ofire
