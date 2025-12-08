@@ -24,7 +24,7 @@ use ::openfire::fire_dynamics_tools::chapter_18::equation_18_3 as rust_equation_
 ///
 /// Args:
 ///     k (float): Proportionality constant (dimensionless)
-///     alpha_m (float): Specific extinction coefficient (ft²/lb)
+///     alpha_m (float): Specific extinction coefficient (m²/kg)
 ///     m_p (float): Mass concentration of particulates (lb/ft³)
 ///
 /// Returns:
