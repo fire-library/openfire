@@ -37,6 +37,12 @@ use ::openfire::sfpe_handbook::chapter_14::alpert::heat_release as rust_heat_rel
 /// Returns:
 ///     float: Heat release rate (kW)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> # Calculate heat release rate for ceiling jet at 500K, 5m high, 2m from center

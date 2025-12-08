@@ -30,6 +30,12 @@ use ::openfire::br_187::chapter_1::equation_1 as rust_equation_1;
 /// Returns:
 ///     float: Ventilation factor (m⁻¹/²)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> factor = ofire.br_187.chapter_1.equation_1.calculate_ventilation_factor(100.0, 20.0, 2.5)

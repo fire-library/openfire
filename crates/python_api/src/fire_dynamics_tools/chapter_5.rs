@@ -27,6 +27,12 @@ use ::openfire::fire_dynamics_tools::chapter_5::equation_5_1 as rust_equation_5_
 /// Returns:
 ///     float: Radiant heat flux (kW/m²)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_5.equation_5_1.thermal_radiation_point_source(750.0, 2.5, 0.3)

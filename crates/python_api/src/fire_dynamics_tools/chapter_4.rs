@@ -27,6 +27,12 @@ use ::openfire::fire_dynamics_tools::chapter_4::equation_4_3 as rust_equation_4_
 /// Returns:
 ///     float: Wall fire flame height (m)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_4.equation_4_1.wall_fire_flame_height(700.0)
@@ -66,6 +72,12 @@ fn equation_4_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Line fire flame height (m)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_4.equation_4_2.line_fire_flame_height(700.0)
@@ -104,6 +116,12 @@ fn equation_4_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Corner fire flame height (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

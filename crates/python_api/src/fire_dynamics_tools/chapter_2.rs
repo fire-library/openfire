@@ -44,6 +44,12 @@ use ::openfire::fire_dynamics_tools::chapter_2::equation_2_13 as rust_equation_2
 /// Returns:
 ///     float: Hot gas temperature increase (K)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> q = 1000.0
@@ -92,6 +98,12 @@ fn hot_gas_temperature_increase(
 /// Returns:
 ///     float: Total interior surface area (m²)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_2.compartment_interior_surface_area(7.5, 4.0, 2.75, 4.5)
@@ -128,6 +140,12 @@ fn compartment_interior_surface_area(w_c: f64, l_c: f64, h_c: f64, a_v: f64) -> 
 ///
 /// Returns:
 ///     float: Heat transfer coefficient (kW/m²K)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -170,6 +188,12 @@ fn heat_transfer_coefficient_shorttimes_or_thickwalls(
 /// Returns:
 ///     float: Height of smoke layer interface (m)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_10.height_smoke_layer_interface_natural_ventilation(0.12, 1000.0, 90.0, 250.0, 4.5)
@@ -207,6 +231,12 @@ fn height_smoke_layer_interface_natural_ventilation(
 /// Returns:
 ///     float: Heat transfer coefficient (kW/m²K)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_3.heat_transfer_coefficient_longtimes_or_thinwalls(0.002, 0.25)
@@ -240,6 +270,12 @@ fn heat_transfer_coefficient_longtimes_or_thinwalls(k: f64, delta: f64) -> PyRes
 ///
 /// Returns:
 ///     float: Thermal penetration time (s)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -283,6 +319,12 @@ fn thermal_penetration_time(rho: f64, c_p: f64, k: f64, delta: f64) -> PyResult<
 ///
 /// Returns:
 ///     float: Hot gas temperature increase (K)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -332,6 +374,12 @@ fn hot_gas_temperature_increase_beyler_closed_compartment(
 /// Returns:
 ///     float: Nondimensional hot gas temperature increase (dimensionless)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_7.nondimensional_hot_gas_temperature_increase(300.0, 2.5, 293.0, 0.035, 100.0, 1.0)
@@ -374,6 +422,12 @@ fn nondimensional_hot_gas_temperature_increase(
 ///
 /// Returns:
 ///     float: Hot gas temperature increase (K)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -419,6 +473,12 @@ fn hot_gas_temperature_increase_forced_ventilation(
 /// Returns:
 ///     float: Convective heat transfer coefficient (kW/m²K)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_9.convective_heat_transfer_coefficient(0.002, 2400.0, 1.17, 180.0, 0.2)
@@ -463,6 +523,12 @@ fn convective_heat_transfer_coefficient(
 /// Returns:
 ///     float: Entrainment coefficient (dimensionless)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_11.k_constant_smoke_layer_height(0.5, 1.2, 9.81, 1.0, 293.15)
@@ -500,6 +566,12 @@ fn k_constant_smoke_layer_height(
 /// Returns:
 ///     float: Entrainment coefficient (dimensionless)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_2.equation_2_12.k_constant_smoke_layer_height_post_substitution(0.5)
@@ -528,6 +600,12 @@ fn k_constant_smoke_layer_height_post_substitution(rho_g: f64) -> PyResult<f64> 
 ///
 /// Returns:
 ///     float: Hot gas density (kg/m³)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

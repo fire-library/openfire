@@ -38,6 +38,12 @@ use ::openfire::cibse_guide_e::chapter_10::{
 /// Returns:
 ///     float: Maximum volumetric flow rate (m³/s)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_1.max_volumetric_flow_rate(0.5, 1.5, 300.0, 290.0)
@@ -78,6 +84,12 @@ fn equation_10_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Minimum separation distance (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -123,6 +135,12 @@ fn equation_10_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Volumetric flow rate (m³/s)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_3.volumetric_flow_rate(2.0, 473.0, 1.2, 293.0)
@@ -160,6 +178,12 @@ fn equation_10_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Time to burning of skin (min)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -200,6 +224,12 @@ fn equation_10_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Furthest distance at which an object can be perceived (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -242,6 +272,12 @@ fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Fractional effective dose (dimensionless)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -287,6 +323,12 @@ fn equation_10_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Limiting average air velocity (m/s)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.cibse_guide_e.chapter_10.equation_10_10.limiting_velocity(9.8, 2.2, 973.0, 293.0)
@@ -328,6 +370,12 @@ fn equation_10_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Limiting average air velocity (m/s)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -379,6 +427,12 @@ fn equation_10_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Limiting average inlet air velocity (m/s)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

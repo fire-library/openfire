@@ -32,6 +32,12 @@ use ::openfire::br_187::appendix_a::{
 ///
 /// Returns:
 ///     float: Radiation intensity (kW/m²)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn radiation_intensity(sigma: f64, emissivity: f64, temperature: f64) -> PyResult<f64> {
     Ok(rust_equation_a1::radiation_intensity(
         sigma,
@@ -74,6 +80,12 @@ fn equation_a1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Radiation intensity at receiver (W/m²)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> received = ofire.br_187.appendix_a.equation_a2.radiation_intensity_at_receiver(0.15, 50000.0)
@@ -112,6 +124,12 @@ fn equation_a2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Dimensionless width parameter
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn x_a3(w: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a3::x(w, s))
 }
@@ -136,6 +154,12 @@ fn x_a3(w: f64, s: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: Dimensionless height parameter
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn y_a3(h: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a3::y(h, s))
 }
@@ -166,6 +190,12 @@ fn y_a3(h: f64, s: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: View factor (dimensionless)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn phi_a3(x: f64, y: f64, additive: bool) -> PyResult<f64> {
     Ok(rust_equation_a3::phi(x, y, additive))
 }
@@ -203,6 +233,12 @@ fn equation_a3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Dimensionless width parameter
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn x_a4(w: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a4::x(w, s))
 }
@@ -227,6 +263,12 @@ fn x_a4(w: f64, s: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: Dimensionless height parameter
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn y_a4(h: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a4::y(h, s))
 }
@@ -255,6 +297,12 @@ fn y_a4(h: f64, s: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: View factor (dimensionless)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn phi_a4(x: f64, y: f64, additive: bool) -> PyResult<f64> {
     Ok(rust_equation_a4::phi(x, y, additive))
 }
@@ -292,6 +340,12 @@ fn equation_a4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Dimensionless width parameter
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn x_a5(w: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a5::x(w, s))
 }
@@ -316,6 +370,12 @@ fn x_a5(w: f64, s: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: Dimensionless height parameter
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn y_a5(h: f64, s: f64) -> PyResult<f64> {
     Ok(rust_equation_a5::y(h, s))
 }
@@ -344,6 +404,12 @@ fn y_a5(h: f64, s: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: View factor (dimensionless)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn phi_a5(x: f64, y: f64, additive: bool) -> PyResult<f64> {
     Ok(rust_equation_a5::phi(x, y, additive))
 }

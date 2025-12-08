@@ -39,6 +39,12 @@ use ::openfire::tr17::section_2::equation_1 as rust_equation_1;
 /// Returns:
 ///     float: Non-dimensional heat release rate (dimensionless)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> # Calculate non-dimensional heat release rate for a 1000 kW fire
