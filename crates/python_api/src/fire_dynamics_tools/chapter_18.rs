@@ -28,7 +28,7 @@ use ::openfire::fire_dynamics_tools::chapter_18::equation_18_3 as rust_equation_
 ///     m_p (float): Mass concentration of particulates (kg/m³)
 ///
 /// Returns:
-///     float: Visibility (ft)
+///     float: Visibility (m)
 ///
 /// Example:
 ///     >>> import ofire
