@@ -50,7 +50,7 @@ fn visibility(k: f64, alpha_m: f64, m_p: f64) -> PyResult<f64> {
 /// where:
 ///
 /// - :math:`m_p` is the mass concentration of particulates (kg/m³)
-/// - :math:`M_p` is the total mass of particulates produced (lb)
+/// - :math:`M_p` is the total mass of particulates produced (kg)
 /// - :math:`V` is the volume (ft³)
 ///
 /// Args:
