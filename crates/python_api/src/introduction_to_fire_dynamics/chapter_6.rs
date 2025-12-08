@@ -36,6 +36,12 @@ use ::openfire::introduction_to_fire_dynamics::chapter_6::equation_6_33 as rust_
 ///
 /// Returns:
 ///     float: Time to ignition (s)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn time_to_ignition_thermally_thick(
     k: f64,
     rho: f64,
@@ -89,6 +95,12 @@ fn equation_6_32(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Time to ignition (s)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

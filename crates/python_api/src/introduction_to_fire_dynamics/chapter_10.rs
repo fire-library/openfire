@@ -33,6 +33,12 @@ use ::openfire::introduction_to_fire_dynamics::chapter_10::equation_10_18 as rus
 ///
 /// Returns:
 ///     float: Ventilation parameter (dimensionless)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn calculate(rho: f64, g: f64, a_w: f64, h: f64, a_f: f64) -> PyResult<f64> {
     Ok(rust_equation_10_18::calculate(rho, g, a_w, h, a_f))
 }
@@ -62,6 +68,12 @@ fn calculate(rho: f64, g: f64, a_w: f64, h: f64, a_f: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     str: Burning regime classification
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 fn heating_regime(number: f64) -> PyResult<String> {
     let regime = rust_equation_10_18::heating_regime(number);
     Ok(regime.to_string())

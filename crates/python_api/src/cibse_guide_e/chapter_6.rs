@@ -33,6 +33,12 @@ use ::openfire::cibse_guide_e::chapter_6::{
 /// Returns:
 ///     float: Heat release rate at flashover (kW)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover(2.0, 2.1)
@@ -71,6 +77,12 @@ fn equation_6_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Mean flame height (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -114,6 +126,12 @@ fn equation_6_55(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Height of flame above opening (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -162,6 +180,12 @@ fn equation_6_57(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Ventilation-controlled burning rate (kg/s)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

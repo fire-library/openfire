@@ -34,6 +34,12 @@ use ::openfire::pd_7974::part_1::section_8::{
 /// Returns:
 ///     float: Heat release rate (kW)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.pd_7974.part_1.section_8.equation_28.q_fo(100.0, 10.0, 2.5)
@@ -78,6 +84,12 @@ fn equation_28(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Heat release rate (kW)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.pd_7974.part_1.section_8.equation_29.q_fo(18.0, 100.0, 10.0, 2.5)
@@ -120,6 +132,12 @@ fn equation_29(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Maximum heat release rate (kW)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.pd_7974.part_1.section_8.equation_33.q_max_vc(10.0, 2.5)
@@ -161,6 +179,12 @@ fn equation_33(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Maximum heat release rate (kW)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.pd_7974.part_1.section_8.equation_4.q_max_fc(50.0, 250.0)
@@ -199,6 +223,12 @@ fn equation_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Maximum gas temperature (°C)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -243,6 +273,12 @@ fn equation_41(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Opening factor (m^0.5)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.pd_7974.part_1.section_8.equation_42.omega(100.0, 10.0, 2.5)
@@ -283,6 +319,12 @@ fn equation_42(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Gas temperature (°C)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -326,6 +368,12 @@ fn equation_43(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Fuel load density parameter (dimensionless)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

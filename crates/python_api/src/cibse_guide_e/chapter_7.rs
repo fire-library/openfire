@@ -32,6 +32,12 @@ use ::openfire::cibse_guide_e::chapter_7::{
 /// Returns:
 ///     int: Stair capacity (persons)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.cibse_guide_e.chapter_7.equation_7_2.stair_capacity(1.2, 6)
@@ -75,6 +81,12 @@ fn equation_7_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Returns:
 ///     float: Required width of stair (m)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.cibse_guide_e.chapter_7.equation_7_3.required_width_stair(550, 6)
@@ -115,6 +127,12 @@ fn equation_7_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Maximum flow rate (persons/s)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -157,6 +175,12 @@ fn equation_7_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     int: Maximum people in stair (persons)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -201,6 +225,12 @@ fn equation_7_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     int: Exit capacity (persons)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -247,6 +277,12 @@ fn equation_7_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     int: Acceptance capacity (persons)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

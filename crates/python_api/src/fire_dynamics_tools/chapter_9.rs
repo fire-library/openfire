@@ -38,6 +38,12 @@ use ::openfire::fire_dynamics_tools::chapter_9::equation_9_4 as rust_equation_9_
 /// Returns:
 ///     float: Maximum centerline temperature rise (K)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_9.equation_9_2.maximum_centerline_temperature_plume(288.0, 700.0, 9.8, 1.0, 1.2, 2.0, -0.25)
@@ -78,6 +84,12 @@ fn maximum_centerline_temperature_rise_plume(
 /// Returns:
 ///     float: Virtual origin height to diameter ratio (dimensionless)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_9.equation_9_3.virtual_origin_over_diameter(2.2, 750.0)
@@ -105,6 +117,12 @@ fn virtual_origin_over_diameter(d: f64, q: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: Effective diameter (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

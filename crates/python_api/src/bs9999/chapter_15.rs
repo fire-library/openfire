@@ -40,6 +40,12 @@ use ::openfire::bs9999::chapter_15::{
 /// Returns:
 ///     float: Required exit width (m)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> width = ofire.bs9999.chapter_15.figure_6a.calculate_exit_width(1000.0, 2.0, 5, 0.5, 40.0)
@@ -91,6 +97,12 @@ fn figure_6a(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Required exit width (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -148,6 +160,12 @@ fn figure_6b(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Returns:
 ///     float: Required exit width (m)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
