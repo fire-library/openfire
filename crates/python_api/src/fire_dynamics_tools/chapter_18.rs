@@ -54,7 +54,7 @@ fn visibility(k: f64, alpha_m: f64, m_p: f64) -> PyResult<f64> {
 /// - :math:`V` is the volume (m³)
 ///
 /// Args:
-///     m_p (float): Total mass of particulates produced (lb)
+///     m_p (float): Total mass of particulates produced (kg)
 ///     v (float): Volume (ft³)
 ///
 /// Returns:
