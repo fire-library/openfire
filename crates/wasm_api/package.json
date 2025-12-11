@@ -1,0 +1,41 @@
+{
+  "name": "openfire-wasm",
+  "version": "0.1.0",
+  "description": "WebAssembly JavaScript bindings for the OpenFire fire safety engineering library",
+  "main": "pkg/openfire_wasm.js",
+  "types": "pkg/openfire_wasm.d.ts",
+  "files": [
+    "pkg/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "wasm-pack build --target web --out-dir pkg",
+    "build-node": "wasm-pack build --target nodejs --out-dir pkg-node",
+    "build-bundler": "wasm-pack build --target bundler --out-dir pkg-bundler",
+    "dev": "wasm-pack build --dev --target web --out-dir pkg",
+    "test": "wasm-pack test --headless --firefox",
+    "docs": "typedoc"
+  },
+  "devDependencies": {
+    "typedoc": "^0.27.3",
+    "@typhonjs-typedoc/typedoc-theme-dmt": "^0.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fire-library/openfire.git"
+  },
+  "keywords": [
+    "wasm",
+    "webassembly",
+    "fire-safety",
+    "engineering",
+    "javascript",
+    "typescript"
+  ],
+  "author": "OpenFire Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fire-library/openfire/issues"
+  },
+  "homepage": "https://github.com/fire-library/openfire#readme"
+}

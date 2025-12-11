@@ -1,0 +1,34 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./pkg/wasm_api.d.ts"],
+  "out": "./docs",
+  "name": "OpenFire WASM API",
+  "readme": "./README.md",
+  "projectDocuments": [
+    "./docs-src/installation.md",
+    "./docs-src/user-guide/*.md",
+    "./docs-src/api/*.md"
+  ],
+  "skipErrorChecking": true,
+  "sort": ["source-order"],
+  "kindSortOrder": [
+    "Document",
+    "Module",
+    "Namespace", 
+    "Class",
+    "Function",
+    "Interface",
+    "TypeAlias"
+  ],
+  "navigationLinks": {
+    "GitHub": "https://github.com/fire-library/openfire",
+    "Python API": "https://fire-library.github.io/openfire/"
+  },
+  "includeVersion": true,
+  "treatWarningsAsErrors": false,
+  "validation": {
+    "notExported": false,
+    "invalidLink": false,
+    "notDocumented": false
+  }
+}

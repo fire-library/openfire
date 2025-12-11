@@ -1,0 +1,35 @@
+[package]
+name = "wasm_api"
+version = "0.1.0"
+edition = "2024"
+description = "WebAssembly JavaScript bindings for the OpenFire fire safety engineering library"
+homepage = "https://github.com/fire-library/openfire"
+repository = "https://github.com/fire-library/openfire"
+documentation = "https://fire-library.github.io/openfire/"
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = ["console_error_panic_hook", "wee_alloc"]
+console_error_panic_hook = []
+wee_alloc = []
+
+[dependencies]
+wasm-bindgen = "0.2.87"
+js-sys = "0.3.64"
+wee_alloc = "0.4.5"
+console_error_panic_hook = "0.1.7"
+
+# Just fire_dynamics_tools for POC
+fire_dynamics_tools = { path = "../fire_dynamics_tools" }
+
+# Optional dependencies for enhanced debugging
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+]
+
+[package.metadata.wasm-pack.profile.release]
+wee-alloc = true
