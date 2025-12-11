@@ -3,7 +3,7 @@ name: Build and Release WASM Package
 on:
   push:
     branches:
-      - release
+      - create-wasm-api
   workflow_dispatch:
 
 jobs:
