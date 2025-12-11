@@ -32,7 +32,7 @@ impl AppendixA {
      * @returns {EquationA1} EquationA1 namespace with radiation intensity calculations
      */
     #[wasm_bindgen(getter)]
-    pub fn equation_a1() -> EquationA1 {
+    pub fn equation_a1(&self) -> EquationA1 {
         EquationA1
     }
     
@@ -45,7 +45,7 @@ impl AppendixA {
      * @returns {EquationA2} EquationA2 namespace with receiver intensity calculations
      */
     #[wasm_bindgen(getter)]
-    pub fn equation_a2() -> EquationA2 {
+    pub fn equation_a2(&self) -> EquationA2 {
         EquationA2
     }
     
@@ -58,7 +58,7 @@ impl AppendixA {
      * @returns {EquationA3} EquationA3 namespace with configuration factor calculations
      */
     #[wasm_bindgen(getter)]
-    pub fn equation_a3() -> EquationA3 {
+    pub fn equation_a3(&self) -> EquationA3 {
         EquationA3
     }
     
@@ -71,7 +71,7 @@ impl AppendixA {
      * @returns {EquationA4} EquationA4 namespace with configuration factor calculations
      */
     #[wasm_bindgen(getter)]
-    pub fn equation_a4() -> EquationA4 {
+    pub fn equation_a4(&self) -> EquationA4 {
         EquationA4
     }
     
@@ -84,7 +84,7 @@ impl AppendixA {
      * @returns {EquationA5} EquationA5 namespace with configuration factor calculations
      */
     #[wasm_bindgen(getter)]
-    pub fn equation_a5() -> EquationA5 {
+    pub fn equation_a5(&self) -> EquationA5 {
         EquationA5
     }
 }

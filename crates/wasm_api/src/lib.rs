@@ -286,7 +286,7 @@ impl BR187 {
      * @returns {AppendixA} AppendixA namespace with thermal radiation calculations
      */
     #[wasm_bindgen(getter)]
-    pub fn appendix_a() -> br_187::AppendixA {
+    pub fn appendix_a(&self) -> br_187::AppendixA {
         br_187::AppendixA
     }
 }
