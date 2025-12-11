@@ -1,0 +1,1 @@
+"""OpenFire CLI and Python API package."""
