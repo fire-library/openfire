@@ -1,9 +1,9 @@
 {
-  "name": "openfire-wasm",
+  "name": "ofire",
   "version": "0.1.0",
   "description": "WebAssembly JavaScript bindings for the OpenFire fire safety engineering library",
-  "main": "pkg/openfire_wasm.js",
-  "types": "pkg/openfire_wasm.d.ts",
+  "main": "pkg/ofire.js",
+  "types": "pkg/ofire.d.ts",
   "files": [
     "pkg/",
     "README.md"

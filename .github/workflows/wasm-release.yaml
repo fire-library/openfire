@@ -1,0 +1,64 @@
+name: Build and Release WASM Package
+
+on:
+  push:
+    branches:
+      - release
+  workflow_dispatch:
+
+jobs:
+  build_and_publish_wasm:
+    name: Build and publish WASM package to npm
+    runs-on: ubuntu-latest
+    environment: npm
+    
+    defaults:
+      run:
+        working-directory: ./crates/wasm_api
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Build WASM package
+        run: |
+          wasm-pack build --target web --out-dir pkg --release
+          # Copy additional files to pkg directory for npm publishing
+          cp README.md pkg/
+          # Ensure package.json in pkg has correct configuration
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('pkg/package.json', 'utf8'));
+            const rootPkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            
+            // Merge configurations from root package.json
+            pkg.description = rootPkg.description;
+            pkg.repository = rootPkg.repository;
+            pkg.keywords = rootPkg.keywords;
+            pkg.author = rootPkg.author;
+            pkg.license = rootPkg.license;
+            pkg.bugs = rootPkg.bugs;
+            pkg.homepage = rootPkg.homepage;
+            
+            fs.writeFileSync('pkg/package.json', JSON.stringify(pkg, null, 2));
+          "
+
+      - name: Publish to npm
+        run: |
+          cd pkg
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
