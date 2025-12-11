@@ -11,6 +11,9 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 // Fire safety engineering modules - starting with just fire_dynamics_tools for POC
 pub mod fire_dynamics_tools;
 
+// BR 187 - External Fire Spread module
+pub mod br_187;
+
 /**
  * @namespace Utility_Functions
  * @description 
@@ -76,8 +79,8 @@ pub fn calculate_fire_spread_risk(separation_distance: f64, building_height: f64
  * 
  * Available modules:
  * - Fire Dynamics Tools - General fire dynamics calculations
+ * - BR 187 - External Fire Spread
  * - PD 7974 - Fire Safety Engineering Principles (coming soon)
- * - BR 187 - External Fire Spread (coming soon)
  * - BS 9999 - Fire Safety in Buildings (coming soon)
  * - CIBSE Guide E - Fire Safety Engineering (coming soon)
  */
@@ -107,6 +110,30 @@ pub fn get_fire_dynamics_tools() -> FireDynamicsTools {
 }
 
 /**
+ * Get the BR 187 namespace
+ * 
+ * Returns an instance that provides access to organized BR 187 External Fire Spread calculations
+ * by document appendix and equation.
+ * 
+ * @memberof API_Reference
+ * @returns {BR187} BR187 instance with appendix-organized functions
+ * 
+ * @example
+ * ```javascript
+ * import init, { get_br_187 } from './pkg/wasm_api.js';
+ * 
+ * await init();
+ * const br187 = get_br_187();
+ * const intensity = br187.appendix_a.equation_a1.radiation_intensity(5.67e-11, 0.9, 1273.15);
+ * console.log(`Radiation intensity: ${intensity} kW/m²`);
+ * ```
+ */
+#[wasm_bindgen]
+pub fn get_br_187() -> BR187 {
+    BR187
+}
+
+/**
  * Fire Dynamics Tools
  * 
  * Contains functions from various chapters of fire dynamics engineering documents.
@@ -117,6 +144,18 @@ pub fn get_fire_dynamics_tools() -> FireDynamicsTools {
  */
 #[wasm_bindgen]
 pub struct FireDynamicsTools;
+
+/**
+ * BR 187 - External Fire Spread
+ * 
+ * Contains functions from BR 187 External Fire Spread document.
+ * Organized by appendix and equation for easy navigation and reference.
+ * 
+ * @memberof API_Reference
+ * @namespace BR187
+ */
+#[wasm_bindgen]
+pub struct BR187;
 
 #[wasm_bindgen]
 impl FireDynamicsTools {
@@ -235,6 +274,20 @@ impl Chapter5 {
     pub fn thermal_penetration_time(&self, thermal_diffusivity: f64, thickness: f64) -> f64 {
         // Note: Using placeholder calculation
         (thickness * thickness) / thermal_diffusivity
+    }
+}
+
+#[wasm_bindgen]
+impl BR187 {
+    /**
+     * Appendix A - Thermal Radiation Calculations
+     * 
+     * @memberof API_Reference.BR187
+     * @returns {AppendixA} AppendixA namespace with thermal radiation calculations
+     */
+    #[wasm_bindgen(getter)]
+    pub fn appendix_a() -> br_187::AppendixA {
+        br_187::AppendixA
     }
 }
 

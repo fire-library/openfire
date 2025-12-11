@@ -24,6 +24,9 @@ console_error_panic_hook = "0.1.7"
 # Just fire_dynamics_tools for POC
 fire_dynamics_tools = { path = "../fire_dynamics_tools" }
 
+# BR 187 - External Fire Spread
+br_187 = { path = "../br_187" }
+
 # Optional dependencies for enhanced debugging
 [dependencies.web-sys]
 version = "0.3"

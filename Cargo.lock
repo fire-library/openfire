@@ -544,6 +544,7 @@ dependencies = [
 name = "wasm_api"
 version = "0.1.0"
 dependencies = [
+ "br_187",
  "console_error_panic_hook",
  "fire_dynamics_tools",
  "js-sys",
