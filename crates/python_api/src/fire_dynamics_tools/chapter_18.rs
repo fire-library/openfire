@@ -30,6 +30,12 @@ use ::openfire::fire_dynamics_tools::chapter_18::equation_18_3 as rust_equation_
 /// Returns:
 ///     float: Visibility (m)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_18.equation_18_1.visibility(8.0, 37000.0, 0.000006)
@@ -60,6 +66,12 @@ fn visibility(k: f64, alpha_m: f64, m_p: f64) -> PyResult<f64> {
 /// Returns:
 ///     float: Mass concentration of particulates (kg/m³)
 ///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.fire_dynamics_tools.chapter_18.equation_18_2.concentration_particulates(0.059, 90000.0)
@@ -89,6 +101,12 @@ fn concentration_particulates(m_p: f64, v: f64) -> PyResult<f64> {
 ///
 /// Returns:
 ///     float: Total mass of particulates produced (kg)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
