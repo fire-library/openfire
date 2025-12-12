@@ -141,7 +141,8 @@ fn equation_4_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Chapter 4 - Fire Dynamics Tools.
+/// Chapter 4 - Estimating wall fire flame height, line fire flame height against the wall,
+/// and corner fire flame height.
 ///
 /// This chapter contains equations for fire dynamics calculations including
 /// flame height correlations for different fire configurations. These equations

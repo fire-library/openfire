@@ -8,8 +8,8 @@ General fire dynamics tools and calculations.
    :undoc-members:
    :show-inheritance:
 
-Chapter 2
----------
+Chapter 2 
+----------------------------------------------------------------------------------------------------------------------------
 
 .. automodule:: ofire.fire_dynamics_tools.chapter_2
    :members:

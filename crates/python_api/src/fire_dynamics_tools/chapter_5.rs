@@ -49,7 +49,7 @@ fn equation_5_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Chapter 5 - Fire dynamics calculations.
+/// Chapter 5 - Estimating Radiant Heat Flux fom Fire to a Target Fuel.
 ///
 /// This module contains fire dynamics calculations from Chapter 5.
 pub fn chapter_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
