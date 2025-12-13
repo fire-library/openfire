@@ -27,6 +27,9 @@ keywords = [
     "Introduction to Fire Dynamics",
 ]
 
+[project.scripts]
+ofire = "ofire.cli:main"
+
 [project.urls]
 Homepage = "https://www.openfiresoftware.com/"
 Documentation = "https://emberon-tech.github.io/openfire/"
