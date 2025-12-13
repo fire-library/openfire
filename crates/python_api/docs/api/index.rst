@@ -10,6 +10,7 @@ This section provides comprehensive API documentation for all OpenFire modules, 
    br-187
    bs-9999
    cibse-guide-e
+   eurocode-1-1-2
    fire-dynamics-tools
    introduction-to-fire-dynamics
    sfpe-handbook

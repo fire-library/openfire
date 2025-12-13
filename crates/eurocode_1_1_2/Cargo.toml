@@ -1,0 +1,4 @@
+[package]
+name = "eurocode_1_1_2"
+version = "0.1.0"
+edition = "2024"

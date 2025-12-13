@@ -23,6 +23,7 @@ introduction_to_fire_dynamics = { path = "./crates/introduction_to_fire_dynamics
 pd_7974 = { path = "./crates/pd_7974" }
 sfpe_handbook = { path = "./crates/sfpe_handbook" }
 tr17 = { path = "./crates/tr17" }
+eurocode_1_1_2 = { path = "./crates/eurocode_1_1_2" }
 
 [workspace]
 members = ["crates/*"]

@@ -77,6 +77,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "eurocode_1_1_2"
+version = "0.1.0"
+
+[[package]]
 name = "fire_dynamics_tools"
 version = "0.1.0"
 
@@ -173,6 +177,7 @@ dependencies = [
  "br_187",
  "bs9999",
  "cibse_guide_e",
+ "eurocode_1_1_2",
  "fire_dynamics_tools",
  "hex-literal",
  "introduction_to_fire_dynamics",
