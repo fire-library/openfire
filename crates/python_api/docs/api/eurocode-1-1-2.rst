@@ -29,7 +29,7 @@ Section 3 - Thermal actions for temperature analysis
 Equation Modules
 ~~~~~~~~~~~~~~~~
 
-Equation 3.1 - Net Heat Flux per Unit Area
+Equation 3.1 - Net Heat Flux 
 """""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_1

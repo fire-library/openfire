@@ -1,10 +1,17 @@
-pub fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    // Placeholder implementation for Equation 3.2
-    param_1 * param_2
+pub fn net_convective_heat_flux_surface(alpha_c: f64, delta_g: f64, delta_m: f64) -> f64 {
+    alpha_c * (delta_g - delta_m)
 }
 
-pub fn equation(param_1: String, param_2: String) -> String {
-    format!("result = {} \\cdot {}", param_1, param_2)
+pub fn net_convective_heat_flux_surface_equation(
+    h_net_c: String,
+    alpha_c: String,
+    delta_g: String,
+    delta_m: String,
+) -> String {
+    format!(
+        "{} = {} \\cdot ({} - {})",
+        h_net_c, alpha_c, delta_g, delta_m
+    )
 }
 
 #[cfg(test)]
@@ -12,20 +19,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_calculate_zero() {
-        let result = calculate_placeholder(0.0, 5.0);
-        assert_eq!(result, 0.0);
-    }
-
-    #[test]
-    fn test_calculate_positive() {
-        let result = calculate_placeholder(2.0, 3.0);
-        assert_eq!(result, 6.0);
-    }
-
-    #[test]
-    fn test_equation_string() {
-        let result = equation("a".to_string(), "b".to_string());
-        assert_eq!(result, "result = a \\cdot b");
+    fn test_net_convective_heat_flux_surface() {
+        let result = net_convective_heat_flux_surface(50.0, 650.0, 150.0);
+        assert_eq!(result, 25000.0);
     }
 }
