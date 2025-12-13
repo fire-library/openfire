@@ -6,3 +6,5 @@
 //! structures exposed to fire and their application for structural analysis. It covers 
 //! the temperature-time curves for standard fire exposure and natural fires, as well 
 //! as thermal material properties and temperature distributions in structural members.
+
+pub mod section_3;
