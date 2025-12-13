@@ -26,7 +26,7 @@ Development Installation
 
 .. code-block:: bash
 
-   git clone https://github.com/fire-library/openfire.git
+   git clone https://github.com/emberon-tech/openfire.git
    cd openfire
 
 2. Create a virtual environment and install maturin:
