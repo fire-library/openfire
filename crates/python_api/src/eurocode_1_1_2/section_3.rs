@@ -14,56 +14,35 @@ use ::openfire::eurocode_1_1_2::section_3::{
 
 // Equation 3.1 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.1 (Equation 3.1).
+/// Net heat flux per unit area of the surface (Equation 3.1).
 ///
-/// This is a placeholder implementation for demonstration purposes.
-///
-/// .. math::
-///
-///    result = param\_1 + param\_2
-///
-/// where:
-///
-/// - :math:`result` is the calculated result (units)
-/// - :math:`param\_1` is the first parameter (units)
-/// - :math:`param\_2` is the second parameter (units)
+/// This equation determines the total net heat flux to a surface by combining
+/// convective and radiative components.
 ///
 /// Args:
-///     param_1 (float): First parameter (units)
-///     param_2 (float): Second parameter (units)
+///     h_net_c (float): Net convective heat flux per unit area (W/m²)
+///     h_net_r (float): Net radiative heat flux per unit area (W/m²)
 ///
 /// Returns:
-///     float: Calculated result (units)
+///     float: Net heat flux per unit area (W/m²)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_1.calculate_placeholder(1.0, 2.0)
-fn equation_3_1_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    rust_equation_3_1::calculate_placeholder(param_1, param_2)
-}
-
-#[pyfunction]
-/// LaTeX equation representation for Equation 3.1.
-///
-/// Args:
-///     param_1 (str): Symbol for first parameter
-///     param_2 (str): Symbol for second parameter
-///
-/// Returns:
-///     str: LaTeX equation string
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.eurocode_1_1_2.section_3.equation_3_1.equation("x", "y")
-fn equation_3_1_equation(param_1: String, param_2: String) -> String {
-    rust_equation_3_1::equation(param_1, param_2)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_1.equation_3_1_net_heat_flux_surface(15000.0, 25000.0)
+fn net_heat_flux_surface(h_net_c: f64, h_net_r: f64) -> f64 {
+    rust_equation_3_1::net_heat_flux_surface(h_net_c, h_net_r)
 }
 
 #[pymodule]
-/// Equation 3.1 - Placeholder calculation.
+/// Equation 3.1 - Net heat flux per unit area of the surface.
 pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(equation_3_1_calculate_placeholder, m)?)?;
-    m.add_function(wrap_pyfunction!(equation_3_1_equation, m)?)?;
+    m.add_function(wrap_pyfunction!(net_heat_flux_surface, m)?)?;
     Ok(())
 }
 
@@ -73,22 +52,18 @@ pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
-/// .. math::
-///
-///    result = param\_1 \\cdot param\_2
-///
-/// where:
-///
-/// - :math:`result` is the calculated result (units)
-/// - :math:`param\_1` is the first parameter (units)
-/// - :math:`param\_2` is the second parameter (units)
-///
 /// Args:
 ///     param_1 (float): First parameter (units)
 ///     param_2 (float): Second parameter (units)
 ///
 /// Returns:
 ///     float: Calculated result (units)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -128,22 +103,19 @@ pub fn equation_3_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
-/// .. math::
-///
-///    result = \\frac{param\_1}{param\_2}
-///
-/// where:
-///
-/// - :math:`result` is the calculated result (units)
-/// - :math:`param\_1` is the first parameter (units)
-/// - :math:`param\_2` is the second parameter (units)
-///
+
 /// Args:
 ///     param_1 (float): First parameter (units)
 ///     param_2 (float): Second parameter (units)
 ///
 /// Returns:
 ///     float: Calculated result (units)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -183,22 +155,18 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
-/// .. math::
-///
-///    result = param\_1^{param\_2}
-///
-/// where:
-///
-/// - :math:`result` is the calculated result (units)
-/// - :math:`param\_1` is the first parameter (units)
-/// - :math:`param\_2` is the second parameter (units)
-///
 /// Args:
 ///     param_1 (float): First parameter (units)
 ///     param_2 (float): Second parameter (units)
 ///
 /// Returns:
 ///     float: Calculated result (units)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -238,22 +206,19 @@ pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
-/// .. math::
-///
-///    result = \\sqrt{param\_1 \\cdot param\_2}
-///
-/// where:
-///
-/// - :math:`result` is the calculated result (units)
-/// - :math:`param\_1` is the first parameter (units)
-/// - :math:`param\_2` is the second parameter (units)
-///
+
 /// Args:
 ///     param_1 (float): First parameter (units)
 ///     param_2 (float): Second parameter (units)
 ///
 /// Returns:
 ///     float: Calculated result (units)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -293,22 +258,19 @@ pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
-/// .. math::
-///
-///    result = \\ln{param\_1} + param\_2
-///
-/// where:
-///
-/// - :math:`result` is the calculated result (units)
-/// - :math:`param\_1` is the first parameter (units)
-/// - :math:`param\_2` is the second parameter (units)
-///
+
 /// Args:
 ///     param_1 (float): First parameter (units)
 ///     param_2 (float): Second parameter (units)
 ///
 /// Returns:
 ///     float: Calculated result (units)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
@@ -349,22 +311,19 @@ pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
-/// .. math::
-///
-///    result = \\sin{param\_1} \\cdot \\cos{param\_2}
-///
-/// where:
-///
-/// - :math:`result` is the calculated result (units)
-/// - :math:`param\_1` is the first parameter (units)
-/// - :math:`param\_2` is the second parameter (units)
-///
+
 /// Args:
 ///     param_1 (float): First parameter (units)
 ///     param_2 (float): Second parameter (units)
 ///
 /// Returns:
 ///     float: Calculated result (units)
+///
+/// Assumptions:
+///     To be completed
+///
+/// Limitations:
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire

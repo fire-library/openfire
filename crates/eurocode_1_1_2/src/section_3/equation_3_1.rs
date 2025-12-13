@@ -1,13 +1,9 @@
-pub fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    // Placeholder implementation for Equation 3.1
-    param_1 + param_2
+pub fn net_heat_flux_surface(h_net_c: f64, h_net_r: f64) -> f64 {
+    h_net_c + h_net_r
 }
 
-pub fn equation(param_1: String, param_2: String) -> String {
-    format!(
-        "result = {} + {}",
-        param_1, param_2
-    )
+pub fn equation(h_net: String, h_net_c: String, h_net_r: String) -> String {
+    format!("{} = {} + {}", h_net, h_net_c, h_net_r)
 }
 
 #[cfg(test)]
@@ -15,20 +11,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_calculate_zero() {
-        let result = calculate_placeholder(0.0, 0.0);
-        assert_eq!(result, 0.0);
-    }
-
-    #[test]
-    fn test_calculate_positive() {
-        let result = calculate_placeholder(1.0, 2.0);
-        assert_eq!(result, 3.0);
-    }
-
-    #[test]
-    fn test_equation_string() {
-        let result = equation("x".to_string(), "y".to_string());
-        assert_eq!(result, "result = x + y");
+    fn test_net_heat_flux_surface() {
+        let result = net_heat_flux_surface(15000.0, 25000.0);
+        assert_eq!(result, 40000.0);
     }
 }

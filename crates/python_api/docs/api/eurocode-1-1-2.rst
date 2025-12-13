@@ -17,3 +17,70 @@ This Eurocode is fundamental for structural fire engineering design across Europ
    :members:
    :undoc-members:
    :show-inheritance:
+
+Section 3 - Thermal actions for temperature analysis
+------------------------------------------
+
+.. automodule:: ofire.eurocode_1_1_2.section_3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation Modules
+~~~~~~~~~~~~~~~~
+
+Equation 3.1 - Net Heat Flux per Unit Area
+"""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 3.2 - Net convective heat flux
+"""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 3.3 - Net radiative heat flux
+""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 3.4 - Standard temperature-time curve
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_4
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 3.5 - External fire curve
+""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_5
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 3.6 - Hydrocarbon temperature-time curve
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_6
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 3.7 - Coefficient of heat transfer by convection
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_7
+   :members:
+   :undoc-members:
+   :show-inheritance:

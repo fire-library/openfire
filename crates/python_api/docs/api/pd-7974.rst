@@ -28,7 +28,7 @@ Equation Modules
 ^^^^^^^^^^^^^^^^
 
 Equation 28 - Heat Release Rate at Flashover (Thomas)
-"""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.pd_7974.part_1.section_8.equation_28
    :members:
@@ -36,7 +36,7 @@ Equation 28 - Heat Release Rate at Flashover (Thomas)
    :show-inheritance:
 
 Equation 29 - Heat Release Rate at Flashover (McCaffrey)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.pd_7974.part_1.section_8.equation_29
    :members:

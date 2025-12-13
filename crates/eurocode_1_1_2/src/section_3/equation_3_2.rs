@@ -4,10 +4,7 @@ pub fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
 }
 
 pub fn equation(param_1: String, param_2: String) -> String {
-    format!(
-        "result = {} \\cdot {}",
-        param_1, param_2
-    )
+    format!("result = {} \\cdot {}", param_1, param_2)
 }
 
 #[cfg(test)]
