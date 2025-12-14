@@ -3,10 +3,8 @@ use pyo3::wrap_pymodule;
 
 // Import CIBSE Guide E chapter 6 appendix functions
 use openfire::cibse_guide_e::chapter_6::appendix::{
-    a_simple_case as rust_a_simple_case,
-    b_more_than_one_window as rust_b_more_than_one_window,
-    c_windows_in_more_than_one_wall as rust_c_windows_in_more_than_one_wall,
-    common as rust_common,
+    a_simple_case as rust_a_simple_case, b_more_than_one_window as rust_b_more_than_one_window,
+    c_windows_in_more_than_one_wall as rust_c_windows_in_more_than_one_wall, common as rust_common,
     d_compartment_with_core as rust_d_compartment_with_core,
 };
 

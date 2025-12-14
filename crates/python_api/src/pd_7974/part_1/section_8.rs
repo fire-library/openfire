@@ -3,14 +3,10 @@ use pyo3::wrap_pymodule;
 
 // Import all pd_7974 functions
 use openfire::pd_7974::part_1::section_8::{
-    equation_4 as rust_equation_4,
-    equation_28 as rust_equation_28,
-    equation_29 as rust_equation_29,
-    equation_33 as rust_equation_33,
-    equation_41 as rust_equation_41,
-    equation_42 as rust_equation_42,
-    equation_43 as rust_equation_43,
-    equation_44 as rust_equation_44,
+    equation_4 as rust_equation_4, equation_28 as rust_equation_28,
+    equation_29 as rust_equation_29, equation_33 as rust_equation_33,
+    equation_41 as rust_equation_41, equation_42 as rust_equation_42,
+    equation_43 as rust_equation_43, equation_44 as rust_equation_44,
 };
 
 // Equation 28 module functions

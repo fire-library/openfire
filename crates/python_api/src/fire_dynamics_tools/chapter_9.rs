@@ -2,8 +2,7 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 use openfire::fire_dynamics_tools::chapter_9::{
-    equation_9_2 as rust_equation_9_2,
-    equation_9_3 as rust_equation_9_3,
+    equation_9_2 as rust_equation_9_2, equation_9_3 as rust_equation_9_3,
     equation_9_4 as rust_equation_9_4,
 };
 

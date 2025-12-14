@@ -3,9 +3,7 @@ use pyo3::wrap_pymodule;
 
 // Import BS9999 chapter 15 functions
 use openfire::bs9999::chapter_15::{
-    figure_6a as rust_figure_6a,
-    figure_6b as rust_figure_6b,
-    figure_6c as rust_figure_6c,
+    figure_6a as rust_figure_6a, figure_6b as rust_figure_6b, figure_6c as rust_figure_6c,
 };
 
 // Figure 6a module functions

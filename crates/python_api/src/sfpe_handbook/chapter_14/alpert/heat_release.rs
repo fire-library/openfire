@@ -2,7 +2,7 @@ use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
 // Import sfpe_handbook chapter 14 alpert heat_release functions
-use openfire::sfpe_handbook::chapter_14::alpert::{heat_release as rust_heat_release};
+use openfire::sfpe_handbook::chapter_14::alpert::heat_release as rust_heat_release;
 
 #[pyfunction]
 /// Calculate heat release rate from temperature and position using Alpert correlations.

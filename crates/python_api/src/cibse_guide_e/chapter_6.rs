@@ -5,10 +5,8 @@ use pyo3::wrap_pymodule;
 
 // Import CIBSE Guide E chapter 6 functions
 use openfire::cibse_guide_e::chapter_6::{
-    equation_6_7 as rust_equation_6_7,
-    equation_6_55 as rust_equation_6_55,
-    equation_6_57 as rust_equation_6_57,
-    equation_6_58 as rust_equation_6_58,
+    equation_6_7 as rust_equation_6_7, equation_6_55 as rust_equation_6_55,
+    equation_6_57 as rust_equation_6_57, equation_6_58 as rust_equation_6_58,
 };
 
 // Equation 6_7 module functions
