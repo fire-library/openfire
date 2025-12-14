@@ -1,10 +1,30 @@
-pub fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    // Placeholder implementation for Equation 3.3
-    param_1 / param_2
+pub fn net_radiative_heat_flux_surface(
+    phi: f64,
+    epsilon_m: f64,
+    epsilon_f: f64,
+    sigma: f64,
+    delta_r: f64,
+    delta_m: f64,
+) -> f64 {
+    phi * epsilon_m
+        * epsilon_f
+        * sigma
+        * ((delta_r + 273.0).powf(4.0) - (delta_m + 273.0).powf(4.0))
 }
 
-pub fn equation(param_1: String, param_2: String) -> String {
-    format!("result = \\frac{{{}}}{{{}}}", param_1, param_2)
+pub fn net_radiative_heat_flux_surface_equation(
+    h_net_r: String,
+    phi: String,
+    epsilon_m: String,
+    epsilon_f: String,
+    sigma: String,
+    delta_r: String,
+    delta_m: String,
+) -> String {
+    format!(
+        "{} = {} \\cdot {} \\cdot {} \\cdot {} \\cdot \\left( ({} + 273)^4 - ({} + 273)^4 \\right)",
+        h_net_r, phi, epsilon_m, epsilon_f, sigma, delta_r, delta_m
+    )
 }
 
 #[cfg(test)]
@@ -12,20 +32,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_calculate_zero() {
-        let result = calculate_placeholder(0.0, 1.0);
-        assert_eq!(result, 0.0);
-    }
-
-    #[test]
-    fn test_calculate_positive() {
-        let result = calculate_placeholder(6.0, 2.0);
-        assert_eq!(result, 3.0);
-    }
-
-    #[test]
-    fn test_equation_string() {
-        let result = equation("x".to_string(), "y".to_string());
-        assert_eq!(result, "result = \\frac{x}{y}");
+    fn test_net_radiative_heat_flux_surface() {
+        let result = net_radiative_heat_flux_surface(0.8, 0.8, 0.9, 5.67e-8, 650.0, 150.0);
+        let expected = 22657.889;
+        assert!((result - expected).abs() < 0.01);
     }
 }
