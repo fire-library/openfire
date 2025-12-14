@@ -1,7 +1,7 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
-use ::openfire::fire_dynamics_tools::chapter_5::equation_5_1 as rust_equation_5_1;
+use openfire::fire_dynamics_tools::chapter_5::{equation_5_1 as rust_equation_5_1};
 
 #[pyfunction]
 /// This equation calculates the thermal radiation incident flux from a point
@@ -49,7 +49,7 @@ fn equation_5_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Chapter 5 - Fire dynamics calculations.
+/// Chapter 5 - Estimating Radiant Heat Flux fom Fire to a Target Fuel.
 ///
 /// This module contains fire dynamics calculations from Chapter 5.
 pub fn chapter_5(m: &Bound<'_, PyModule>) -> PyResult<()> {

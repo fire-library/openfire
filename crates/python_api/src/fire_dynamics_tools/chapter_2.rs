@@ -1,25 +1,27 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_1 as rust_equation_2_1;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_2 as rust_equation_2_2;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_3 as rust_equation_2_3;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_4 as rust_equation_2_4;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_5 as rust_equation_2_5;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_6 as rust_equation_2_6;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_7 as rust_equation_2_7;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_8 as rust_equation_2_8;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_9 as rust_equation_2_9;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_10 as rust_equation_2_10;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_11 as rust_equation_2_11;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_12 as rust_equation_2_12;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_13 as rust_equation_2_13;
+use openfire::fire_dynamics_tools::chapter_2::{
+    equation_2_1 as rust_equation_2_1,
+    equation_2_2 as rust_equation_2_2,
+    equation_2_3 as rust_equation_2_3,
+    equation_2_4 as rust_equation_2_4,
+    equation_2_5 as rust_equation_2_5,
+    equation_2_6 as rust_equation_2_6,
+    equation_2_7 as rust_equation_2_7,
+    equation_2_8 as rust_equation_2_8,
+    equation_2_9 as rust_equation_2_9,
+    equation_2_10 as rust_equation_2_10,
+    equation_2_11 as rust_equation_2_11,
+    equation_2_12 as rust_equation_2_12,
+    equation_2_13 as rust_equation_2_13,
+};
 
 #[pyfunction]
 /// Calculate hot gas temperature increase for natural ventilation using the MQH method (Equation 2.1).
 ///
 /// This function computes the temperature increase of hot gases in naturally ventilated
-/// enclosures based on the MQH (Mass, Quality, Heat) correlation method.
+/// enclosures based on the MQH (McCaffrey, Quintiere and, Harkleroad) correlation method.
 ///
 /// .. math::
 ///
@@ -347,7 +349,7 @@ fn hot_gas_temperature_increase_beyler_closed_compartment(
 /// Calculate nondimensional hot gas temperature increase for forced ventilation using FPA correlation (Equation 2.7).
 ///
 /// This function computes the nondimensional temperature increase of hot gases
-/// in forced ventilation systems using the Factory Mutual Research Corporation (FPA) correlation.
+/// in forced ventilation systems using the FPA (Foote, Pagni, and Alvares) correlation.
 ///
 /// .. math::
 ///
@@ -727,7 +729,7 @@ fn equation_2_13(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Chapter 2 - General fire dynamics tools and calculations.
+/// Chapter 2 - Predicting Hot Gas Layer Temperature and Smoke Layer Height in a Room Fire with Natural and Forced Ventilation.
 ///
 /// This module contains fundamental fire dynamics calculations including
 /// hot gas temperatures, smoke layer heights, heat transfer coefficients,
