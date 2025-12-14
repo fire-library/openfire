@@ -276,9 +276,9 @@ pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Section 3 - Placeholder section for demonstration.
+/// Section 3 - Thermal actions for temperature .
 ///
-/// This section contains placeholder equations for demonstration purposes.
+/// This section contains equations for thermal actions on structural elements exposed to fire.
 pub fn section_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_3_1))?;
     m.add_wrapped(wrap_pymodule!(equation_3_2))?;
