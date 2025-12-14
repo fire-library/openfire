@@ -76,11 +76,3 @@ Equation 3.6 - Hydrocarbon temperature-time curve
    :members:
    :undoc-members:
    :show-inheritance:
-
-Equation 3.7 - Coefficient of heat transfer by convection
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-.. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_7
-   :members:
-   :undoc-members:
-   :show-inheritance:
