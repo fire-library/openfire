@@ -25,7 +25,7 @@ def create_project_structure(project_name: str, target_dir: str) -> None:
 
 
 def create_main_script(project_name: str, target_dir: str) -> None:
-    """Create the main Streamlit application script."""
+    """Create the main fire engineering application script."""
     project_path = Path(target_dir).resolve() / project_name
     main_script = project_path / "main.py"
     
@@ -33,7 +33,7 @@ def create_main_script(project_name: str, target_dir: str) -> None:
         """
         {project_name} - Fire Engineering Tool
         
-        A Streamlit web application for fire engineering calculations
+        A web application for fire engineering calculations
         using the OpenFire library.
         """
         
@@ -337,15 +337,15 @@ def create_main_script(project_name: str, target_dir: str) -> None:
             This fire engineering tool was created using:
             
             - **OpenFire Library**: Comprehensive fire engineering calculations
-            - **Streamlit**: Modern web app framework for Python
             - **Python**: Programming language for scientific computing
+            - **Web Interface**: Modern interactive calculation interface
             
             ### How to Extend This Tool
             
             1. Add new calculation pages by creating functions like `your_calculation_page()`
             2. Add the new page to the sidebar navigation
             3. Implement calculations using OpenFire library functions
-            4. Use Streamlit components for interactive inputs and results display
+            4. Use web interface components for interactive inputs and results display
             
             ### OpenFire Documentation
             
@@ -354,7 +354,7 @@ def create_main_script(project_name: str, target_dir: str) -> None:
             """)
             
             st.markdown("---")
-            st.markdown("Built with ❤️ using OpenFire and Streamlit")
+            st.markdown("Built with ❤️ using OpenFire")
         
         
         if __name__ == "__main__":
@@ -364,7 +364,7 @@ def create_main_script(project_name: str, target_dir: str) -> None:
     with open(main_script, 'w') as f:
         f.write(content)
     
-    print(f"Created Streamlit application: {main_script}")
+    print(f"Created fire engineering application: {main_script}")
 
 
 def get_latest_ofire_version() -> str:
@@ -419,6 +419,223 @@ def create_requirements_file(project_name: str, target_dir: str) -> None:
     print(f"Created requirements file: {requirements_file}")
 
 
+def create_agents_guide(project_name: str, target_dir: str) -> None:
+    """Create an AGENTS.md file with guidance for AI coding agents."""
+    project_path = Path(target_dir).resolve() / project_name
+    agents_file = project_path / "AGENTS.md"
+    
+    content = dedent('''
+        # AI Agent Guide for Fire Engineering Projects
+        
+        This document provides guidance for AI coding agents working on fire engineering projects with users who have limited programming experience.
+        
+        ## Project Overview
+        
+        This is a **Python project** that uses **Streamlit** for the user interface. It is designed to create fire engineering calculation tools for fire safety professionals.
+        
+        ## Key Information for AI Agents
+        
+        ### Technology Stack
+        - **Language**: Python 3.8+
+        - **UI Framework**: Streamlit (web-based interface)
+        - **Fire Engineering Library**: OpenFire (ofire)
+        - **Environment**: Virtual environment (.venv) in project root
+        - **Package Manager**: pip with requirements.txt
+        
+        ### Project Structure
+        ```
+        project/
+        ├── .venv/              # Virtual environment (contains ofire library)
+        ├── main.py             # Main Streamlit application
+        ├── data/               # Input data files
+        ├── results/            # Output files
+        ├── scripts/            # Additional Python scripts
+        ├── requirements.txt    # Python dependencies
+        ├── README.md          # User documentation
+        └── AGENTS.md          # This file
+        ```
+        
+        ### OpenFire Library Usage
+        
+        **IMPORTANT**: For ALL fire engineering calculations, use the **ofire library** when possible.
+        
+        The ofire library is already installed in the virtual environment and provides:
+        
+        #### Available Modules
+        - `ofire.br_187` - BR 187 external fire spread calculations
+        - `ofire.bs9999` - BS 9999 fire safety calculations  
+        - `ofire.cibse_guide_e` - CIBSE Guide E fire safety engineering
+        - `ofire.fire_dynamics_tools` - General fire dynamics calculations
+        - `ofire.pd_7974` - PD 7974 fire safety engineering
+        - `ofire.sfpe_handbook` - SFPE Handbook calculations
+        - `ofire.tr_17` - TR 17 fire calculations
+        - `ofire.introduction_to_fire_dynamics` - Basic fire dynamics
+        
+        #### Example Usage
+        ```python
+        import ofire
+        
+        # Heat release rate calculation
+        hrr = ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover(
+            room_area=50.0, 
+            room_height=3.0
+        )
+        
+        # Smoke layer interface height
+        interface_height = ofire.fire_dynamics_tools.chapter_2.equation_2_10.height_smoke_layer_interface_natural_ventilation(
+            k=0.12, q=1000.0, t=90.0, a_c=250.0, h_c=4.5
+        )
+        ```
+        
+        ### Streamlit Application Guidelines
+        
+        #### Basic Structure
+        All fire engineering tools should follow this pattern:
+        
+        ```python
+        import streamlit as st
+        import ofire
+        
+        def main():
+            st.set_page_config(
+                page_title="Fire Engineering Tool",
+                page_icon="🔥",
+                layout="wide"
+            )
+            
+            st.title("🔥 Your Fire Engineering Tool")
+            
+            # Sidebar navigation for multiple calculation pages
+            st.sidebar.title("Navigation")
+            page = st.sidebar.selectbox("Select calculation:", ["Page 1", "Page 2"])
+            
+            if page == "Page 1":
+                calculation_page_1()
+            elif page == "Page 2":
+                calculation_page_2()
+        
+        def calculation_page_1():
+            st.header("Calculation Name")
+            
+            col1, col2 = st.columns([1, 1])
+            
+            with col1:
+                st.subheader("Input Parameters")
+                # Add input widgets here
+                param1 = st.number_input("Parameter 1", value=10.0)
+                
+                if st.button("Calculate", type="primary"):
+                    # Use ofire library for calculations
+                    result = ofire.module.function(param1)
+                    st.session_state.result = result
+            
+            with col2:
+                st.subheader("Results")
+                if hasattr(st.session_state, 'result'):
+                    st.metric("Result", f"{st.session_state.result:.2f}")
+        
+        if __name__ == "__main__":
+            main()
+        ```
+        
+        #### UI Best Practices
+        - Use `st.columns()` for side-by-side layout (inputs left, results right)
+        - Use `st.number_input()` for numerical parameters with appropriate min/max values
+        - Use `st.metric()` to display calculation results
+        - Use `st.session_state` to store calculation results between interactions
+        - Include help text for parameters: `help="Description of parameter"`
+        - Use `st.info()`, `st.warning()`, `st.error()` for informational messages
+        
+        ### Running the Application
+        
+        Users will run the application with:
+        ```bash
+        ofire run
+        ```
+        
+        This automatically activates the virtual environment and runs: `streamlit run main.py`
+        
+        ### Common Fire Engineering Calculations
+        
+        When users ask for fire engineering calculations, prioritize these areas:
+        
+        1. **Heat Release Rate**: Use CIBSE Guide E or SFPE methods
+        2. **Smoke Layer Analysis**: Use fire dynamics tools for interface height
+        3. **Visibility Analysis**: Calculate visibility through smoke
+        4. **Hot Gas Temperature**: Use appropriate correlations
+        5. **Evacuation Time**: SFPE or PD 7974 methods
+        6. **Fire Growth**: t-squared or other growth models
+        7. **Ventilation**: Natural or mechanical ventilation calculations
+        
+        ### Error Handling
+        
+        Always include proper error handling:
+        ```python
+        try:
+            result = ofire.module.function(parameters)
+            st.success("Calculation completed!")
+        except Exception as e:
+            st.error(f"Calculation error: {e}")
+            st.info("Please check input parameters are within valid ranges.")
+        ```
+        
+        ### File Operations
+        
+        For data input/output:
+        - Save results to `results/` directory
+        - Read input data from `data/` directory  
+        - Use `st.file_uploader()` for user file uploads
+        - Use `st.download_button()` for result downloads
+        
+        ### Documentation Standards
+        
+        - Add clear docstrings to all functions
+        - Include parameter descriptions with units
+        - Reference fire engineering standards (BS, CIBSE, SFPE, etc.)
+        - Provide methodology information in the UI
+        
+        ### User Experience Considerations
+        
+        Remember that users are fire engineers, not programmers:
+        - Use fire engineering terminology
+        - Provide clear parameter descriptions with units
+        - Include relevant engineering context and assumptions
+        - Show calculation methodology and references
+        - Validate inputs for realistic engineering values
+        - Provide meaningful error messages
+        
+        ### Testing and Validation
+        
+        When creating calculations:
+        1. Test with known values from fire engineering handbooks
+        2. Include reasonable default values
+        3. Set appropriate min/max limits on inputs
+        4. Compare results with manual calculations where possible
+        
+        ### Getting Help
+        
+        - OpenFire documentation: https://emberon-tech.github.io/openfire/
+        - Streamlit documentation: https://docs.streamlit.io/
+        - This project's README.md for user instructions
+        
+        ## Summary for AI Agents
+        
+        When helping fire engineers:
+        1. **Always use ofire library** for fire engineering calculations
+        2. **Use Streamlit** for all user interfaces
+        3. **Follow the established patterns** in main.py
+        4. **Focus on fire engineering needs**, not programming complexity
+        5. **Include proper documentation** and engineering context
+        6. **Test calculations** with realistic fire engineering values
+        7. **Make interfaces intuitive** for non-programmers
+    ''').strip()
+    
+    with open(agents_file, 'w') as f:
+        f.write(content)
+    
+    print(f"Created AI agent guide: {agents_file}")
+
+
 def create_readme(project_name: str, target_dir: str) -> None:
     """Create a README.md file."""
     project_path = Path(target_dir).resolve() / project_name
@@ -427,7 +644,7 @@ def create_readme(project_name: str, target_dir: str) -> None:
     content = dedent(f'''
         # {project_name}
         
-        A Streamlit web application for fire engineering calculations using the OpenFire library.
+        A web-based fire engineering application using the OpenFire library.
         
         ## Setup
         
@@ -436,16 +653,16 @@ def create_readme(project_name: str, target_dir: str) -> None:
            pip install -r requirements.txt
            ```
         
-        2. Run the Streamlit application:
+        2. Run the fire engineering application:
            ```bash
-           streamlit run main.py
+           ofire run
            ```
         
         3. Open your browser to the URL shown in the terminal (usually `http://localhost:8501`)
         
         ## Project Structure
         
-        - `main.py`: Main Streamlit application with fire engineering tools
+        - `main.py`: Main fire engineering application with calculation tools
         - `data/`: Input data files and datasets
         - `results/`: Calculation results and outputs
         - `scripts/`: Additional calculation scripts
@@ -455,7 +672,7 @@ def create_readme(project_name: str, target_dir: str) -> None:
         
         This fire engineering tool includes:
         
-        - **Interactive Web Interface**: User-friendly Streamlit interface
+        - **Interactive Web Interface**: User-friendly calculation interface
         - **Heat Release Rate Calculator**: CIBSE Guide E calculations
         - **Smoke Filling Analysis**: Room smoke filling estimations
         - **Extensible Framework**: Easy to add new calculations
@@ -480,7 +697,7 @@ def create_readme(project_name: str, target_dir: str) -> None:
         1. Create a new function in `main.py` following the pattern of existing pages
         2. Add the page to the sidebar navigation selectbox
         3. Implement your calculations using OpenFire library functions
-        4. Use Streamlit components for inputs and results display
+        4. Use the web interface components for inputs and results display
         
         Example:
         ```python
@@ -494,11 +711,12 @@ def create_readme(project_name: str, target_dir: str) -> None:
         For detailed documentation and examples, visit:
         [OpenFire Documentation](https://emberon-tech.github.io/openfire/)
         
-        ## Running in Development
+        ## Running Specific Files
         
-        For development with auto-reload:
+        To run a specific file or URL:
         ```bash
-        streamlit run main.py --server.runOnSave true
+        ofire run your_app.py
+        ofire run https://example.com/fire_app.py
         ```
     ''').strip()
     
@@ -687,6 +905,44 @@ def open_documentation() -> None:
         print(f"You can manually visit: {docs_url}")
 
 
+def run_fire_app(target: str = None) -> None:
+    """Run a fire engineering application."""
+    if target is None:
+        # Default to main.py
+        target = "main.py"
+        print("Running fire engineering app (main.py)")
+    elif target.startswith(('http://', 'https://')):
+        # URL provided
+        print(f"Running fire engineering app from URL: {target}")
+    elif os.path.exists(target):
+        # File path provided
+        print(f"Running fire engineering app: {target}")
+    else:
+        # Assume it's a file that might not exist yet
+        print(f"Running fire engineering app: {target}")
+    
+    try:
+        # Build the command to run the web app
+        cmd = [sys.executable, '-m', 'streamlit', 'run', target]
+        
+        print("Starting fire engineering web application...")
+        print("Press Ctrl+C to stop the application")
+        
+        # Run the app - this will block until the user stops it
+        subprocess.run(cmd, check=True)
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Error running fire engineering app: {e}")
+        if e.returncode == 2:
+            print("Required dependencies not installed. Please install with: pip install -r requirements.txt")
+        sys.exit(1)
+    except KeyboardInterrupt:
+        print("\nFire engineering application stopped")
+    except FileNotFoundError:
+        print("Error: Python not found in PATH")
+        sys.exit(1)
+
+
 def scaffold_new_project(project_name: str, target_dir: str, include_notebook: bool = False) -> None:
     """Scaffold a new OpenFire project with all required files and setup."""
     print(f"Creating OpenFire project: {project_name}")
@@ -700,6 +956,7 @@ def scaffold_new_project(project_name: str, target_dir: str, include_notebook: b
         create_main_script(project_name, target_dir)
         create_requirements_file(project_name, target_dir)
         create_readme(project_name, target_dir)
+        create_agents_guide(project_name, target_dir)
         
         if include_notebook:
             create_example_notebook(project_name, target_dir)
@@ -724,10 +981,10 @@ def scaffold_new_project(project_name: str, target_dir: str, include_notebook: b
         
         if sys.platform == "win32":
             print("2. activate.bat")
-            print("3. streamlit run main.py")
+            print("3. ofire run")
         else:
             print("2. source activate.sh  # or: source .venv/bin/activate")
-            print("3. streamlit run main.py")
+            print("3. ofire run")
         
         print("4. Open your browser to http://localhost:8501")
         
@@ -735,7 +992,7 @@ def scaffold_new_project(project_name: str, target_dir: str, include_notebook: b
             print("5. jupyter notebook example_calculations.ipynb")
         
         print("\nVirtual environment created with all dependencies installed!")
-        print("🔥 Your fire engineering Streamlit app is ready to run!")
+        print("🔥 Your fire engineering web application is ready to run!")
         print("For documentation, visit: https://emberon-tech.github.io/openfire/")
         
     except Exception as e:

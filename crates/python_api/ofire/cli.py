@@ -1,7 +1,7 @@
 """OpenFire CLI for scaffolding fire engineering projects."""
 
 import argparse
-from .project import scaffold_new_project, open_documentation
+from .project import scaffold_new_project, open_documentation, run_fire_app
 
 
 def open_docs(args):
@@ -16,6 +16,11 @@ def scaffold_project(args):
         target_dir=args.directory,
         include_notebook=args.notebook
     )
+
+
+def run_app(args):
+    """Run a fire engineering application."""
+    run_fire_app(target=args.target)
 
 
 def main():
@@ -47,6 +52,19 @@ def main():
         help='Include an example Jupyter notebook'
     )
     new_parser.set_defaults(func=scaffold_project)
+    
+    # Run command
+    run_parser = subparsers.add_parser(
+        'run',
+        help='Run a fire engineering application'
+    )
+    run_parser.add_argument(
+        'target',
+        nargs='?',
+        default=None,
+        help='File path or URL to run (default: main.py)'
+    )
+    run_parser.set_defaults(func=run_app)
     
     # Docs command
     docs_parser = subparsers.add_parser(
