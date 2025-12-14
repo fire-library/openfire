@@ -9,7 +9,6 @@ use ::openfire::eurocode_1_1_2::section_3::{
     equation_3_4 as rust_equation_3_4,
     equation_3_5 as rust_equation_3_5,
     equation_3_6 as rust_equation_3_6,
-    equation_3_7 as rust_equation_3_7,
 };
 
 // Equation 3.1 module functions
@@ -151,7 +150,7 @@ pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 3.5 module functions
 #[pyfunction]
-/// External fire curve.
+/// External temperature-time curve calculation.
 ///
 /// Args:
 ///     t (float): Time (minutes)
@@ -167,39 +166,27 @@ pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_5.net_radiative_heat_flux_surface(0.8, 0.8, 0.9, 5.67e-8, 650.0, 150.0)
-fn net_radiative_heat_flux_surface(
-    phi: f64,
-    epsilon_m: f64,
-    epsilon_f: f64,
-    sigma: f64,
-    delta_r: f64,
-    delta_m: f64,
-) -> f64 {
-    rust_equation_3_5::net_radiative_heat_flux_surface(phi, epsilon_m, epsilon_f, sigma, delta_r, delta_m)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_5.external_temp_time_curve(10.0)
+fn external_temp_time_curve(t: f64) -> f64 {
+    rust_equation_3_5::external_temp_time_curve(t)
 }
 
 #[pymodule]
-/// Equation 3.5 - Net radiative heat flux to surface calculation.
+/// Equation 3.5 - External temperature-time curve calculation.
 pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(net_radiative_heat_flux_surface, m)?)?;
+    m.add_function(wrap_pyfunction!(external_temp_time_curve, m)?)?;
     Ok(())
 }
 
 // Equation 3.6 module functions
 #[pyfunction]
-/// Net radiative heat flux to surface calculation for Equation 3.6.
+/// Hydrocarbon temperature-time curve calculation.
 ///
 /// Args:
-///     phi (float): View factor (dimensionless)
-///     epsilon_m (float): Member emissivity (dimensionless)
-///     epsilon_f (float): Fire emissivity (dimensionless)
-///     sigma (float): Stefan-Boltzmann constant (W/m²K⁴)
-///     delta_r (float): Radiation temperature (°C)
-///     delta_m (float): Member temperature (°C)
+///     t (float): Time (minutes)
 ///
 /// Returns:
-///     float: Net radiative heat flux (W/m²)
+///     float: Temperature (°C)
 ///
 /// Assumptions:
 ///     To be completed
@@ -209,22 +196,15 @@ pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_6.net_radiative_heat_flux_surface(0.8, 0.8, 0.9, 5.67e-8, 650.0, 150.0)
-fn net_radiative_heat_flux_surface(
-    phi: f64,
-    epsilon_m: f64,
-    epsilon_f: f64,
-    sigma: f64,
-    delta_r: f64,
-    delta_m: f64,
-) -> f64 {
-    rust_equation_3_6::net_radiative_heat_flux_surface(phi, epsilon_m, epsilon_f, sigma, delta_r, delta_m)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_6.hydrocarbon_temp_time_curve(10.0)
+fn hydrocarbon_temp_time_curve(t: f64) -> f64 {
+    rust_equation_3_6::hydrocarbon_temp_time_curve(t)
 }
 
 #[pymodule]
-/// Equation 3.6 - Net radiative heat flux to surface calculation.
+/// Equation 3.6 - Hydrocarbon temperature-time curve calculation.
 pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(net_radiative_heat_flux_surface, m)?)?;
+    m.add_function(wrap_pyfunction!(hydrocarbon_temp_time_curve, m)?)?;
     Ok(())
 }
 
