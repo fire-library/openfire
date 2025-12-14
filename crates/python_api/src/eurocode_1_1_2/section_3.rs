@@ -121,16 +121,13 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 3.4 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.4.
-///
-/// This is a placeholder implementation for demonstration purposes.
+/// Standard temperature-time curve calculation.
 ///
 /// Args:
-///     param_1 (float): First parameter (units)
-///     param_2 (float): Second parameter (units)
+///     t (float): Time (minutes)
 ///
 /// Returns:
-///     float: Calculated result (units)
+///     float: Temperature (°C)
 ///
 /// Assumptions:
 ///     To be completed
@@ -140,31 +137,27 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_4.calculate_placeholder(2.0, 3.0)
-fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    rust_equation_3_4::calculate_placeholder(param_1, param_2)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_4.standard_temp_time_curve(10.0)
+fn standard_temp_time_curve(t: f64) -> f64 {
+    rust_equation_3_4::standard_temp_time_curve(t)
 }
 
 #[pymodule]
-/// Equation 3.4 - Placeholder calculation.
+/// Equation 3.4 - Standard temperature-time curve calculation.
 pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
+    m.add_function(wrap_pyfunction!(standard_temp_time_curve, m)?)?;
     Ok(())
 }
 
 // Equation 3.5 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.5.
+/// External fire curve.
 ///
-/// This is a placeholder implementation for demonstration purposes.
-///
-
 /// Args:
-///     param_1 (float): First parameter (units)
-///     param_2 (float): Second parameter (units)
+///     t (float): Time (minutes)
 ///
 /// Returns:
-///     float: Calculated result (units)
+///     float: Temperature (°C)
 ///
 /// Assumptions:
 ///     To be completed
@@ -174,31 +167,39 @@ pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_5.calculate_placeholder(2.0, 8.0)
-fn equation_3_5_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    rust_equation_3_5::calculate_placeholder(param_1, param_2)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_5.net_radiative_heat_flux_surface(0.8, 0.8, 0.9, 5.67e-8, 650.0, 150.0)
+fn net_radiative_heat_flux_surface(
+    phi: f64,
+    epsilon_m: f64,
+    epsilon_f: f64,
+    sigma: f64,
+    delta_r: f64,
+    delta_m: f64,
+) -> f64 {
+    rust_equation_3_5::net_radiative_heat_flux_surface(phi, epsilon_m, epsilon_f, sigma, delta_r, delta_m)
 }
 
 #[pymodule]
-/// Equation 3.5 - Placeholder calculation.
+/// Equation 3.5 - Net radiative heat flux to surface calculation.
 pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
+    m.add_function(wrap_pyfunction!(net_radiative_heat_flux_surface, m)?)?;
     Ok(())
 }
 
 // Equation 3.6 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.6.
+/// Net radiative heat flux to surface calculation for Equation 3.6.
 ///
-/// This is a placeholder implementation for demonstration purposes.
-///
-
 /// Args:
-///     param_1 (float): First parameter (units)
-///     param_2 (float): Second parameter (units)
+///     phi (float): View factor (dimensionless)
+///     epsilon_m (float): Member emissivity (dimensionless)
+///     epsilon_f (float): Fire emissivity (dimensionless)
+///     sigma (float): Stefan-Boltzmann constant (W/m²K⁴)
+///     delta_r (float): Radiation temperature (°C)
+///     delta_m (float): Member temperature (°C)
 ///
 /// Returns:
-///     float: Calculated result (units)
+///     float: Net radiative heat flux (W/m²)
 ///
 /// Assumptions:
 ///     To be completed
@@ -208,16 +209,22 @@ pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> import math
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_6.calculate_placeholder(math.e, 1.0)
-fn equation_3_6_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    rust_equation_3_6::calculate_placeholder(param_1, param_2)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_6.net_radiative_heat_flux_surface(0.8, 0.8, 0.9, 5.67e-8, 650.0, 150.0)
+fn net_radiative_heat_flux_surface(
+    phi: f64,
+    epsilon_m: f64,
+    epsilon_f: f64,
+    sigma: f64,
+    delta_r: f64,
+    delta_m: f64,
+) -> f64 {
+    rust_equation_3_6::net_radiative_heat_flux_surface(phi, epsilon_m, epsilon_f, sigma, delta_r, delta_m)
 }
 
 #[pymodule]
-/// Equation 3.6 - Placeholder calculation.
+/// Equation 3.6 - Net radiative heat flux to surface calculation.
 pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
+    m.add_function(wrap_pyfunction!(net_radiative_heat_flux_surface, m)?)?;
     Ok(())
 }
 

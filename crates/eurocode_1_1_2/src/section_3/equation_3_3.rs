@@ -34,7 +34,7 @@ mod tests {
     #[test]
     fn test_net_radiative_heat_flux_surface() {
         let result = net_radiative_heat_flux_surface(0.8, 0.8, 0.9, 5.67e-8, 650.0, 150.0);
-        let expected = 22657.889;
-        assert!((result - expected).abs() < 0.01);
+        let expected = 22657.8893804928;
+        assert!((result - expected).abs() < 1e-6);
     }
 }
