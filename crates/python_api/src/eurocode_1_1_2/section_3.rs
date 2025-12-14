@@ -69,31 +69,35 @@ pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_2.equation_3_2_net_convective_heat_flux_surface(50.0, 650.0, 150.0)
-fn equation_3_2_net_convective_heat_flux_surface(alpha_c: f64, delta_g: f64, delta_m: f64) -> f64 {
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_2.net_convective_heat_flux_surface(50.0, 650.0, 150.0)
+fn net_convective_heat_flux_surface(alpha_c: f64, delta_g: f64, delta_m: f64) -> f64 {
     rust_equation_3_2::net_convective_heat_flux_surface(alpha_c, delta_g, delta_m)
 }
 
 #[pymodule]
 /// Equation 3.2 - Net convective heat flux per unit area of the surface.
 pub fn equation_3_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(equation_3_2_net_convective_heat_flux_surface, m)?)?;
+    m.add_function(wrap_pyfunction!(net_convective_heat_flux_surface, m)?)?;
     Ok(())
 }
 
 // Equation 3.3 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.3 (Equation 3.3).
+/// Net radiative heat flux per unit area of the surface (Equation 3.3).
 ///
-/// This is a placeholder implementation for demonstration purposes.
+/// This equation calculates the net radiative heat flux to a surface
+/// considering configuration factor, material properties, and temperature difference.
 ///
-
 /// Args:
-///     param_1 (float): First parameter (units)
-///     param_2 (float): Second parameter (units)
+///     phi (float): Configuration factor (dimensionless)
+///     epsilon_m (float): Surface emissivity of the member (dimensionless)
+///     epsilon_f (float): Emissivity of the fire (dimensionless)
+///     sigma (float): Stefan-Boltzmann constant (W/m²K⁴)
+///     delta_r (float): Effective radiation temperature of the fire environment (°C)
+///     delta_m (float): Surface temperature of the member (°C)
 ///
 /// Returns:
-///     float: Calculated result (units)
+///     float: Net radiative heat flux per unit area (W/m²)
 ///
 /// Assumptions:
 ///     To be completed
@@ -103,33 +107,15 @@ pub fn equation_3_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_3.calculate_placeholder(6.0, 2.0)
-fn equation_3_3_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    rust_equation_3_3::calculate_placeholder(param_1, param_2)
-}
-
-#[pyfunction]
-/// LaTeX equation representation for Equation 3.3.
-///
-/// Args:
-///     param_1 (str): Symbol for first parameter
-///     param_2 (str): Symbol for second parameter
-///
-/// Returns:
-///     str: LaTeX equation string
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.eurocode_1_1_2.section_3.equation_3_3.equation("x", "y")
-fn equation_3_3_equation(param_1: String, param_2: String) -> String {
-    rust_equation_3_3::equation(param_1, param_2)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_3.net_radiative_heat_flux_surface(0.8, 0.8, 0.9, 5.67e-8, 650.0, 150.0)
+fn net_radiative_heat_flux_surface(phi: f64, epsilon_m: f64, epsilon_f: f64, sigma: f64, delta_r: f64, delta_m: f64) -> f64 {
+    rust_equation_3_3::net_radiative_heat_flux_surface(phi, epsilon_m, epsilon_f, sigma, delta_r, delta_m)
 }
 
 #[pymodule]
-/// Equation 3.3 - Placeholder calculation.
+/// Equation 3.3 - Net radiative heat flux per unit area of the surface.
 pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(equation_3_3_calculate_placeholder, m)?)?;
-    m.add_function(wrap_pyfunction!(equation_3_3_equation, m)?)?;
+    m.add_function(wrap_pyfunction!(net_radiative_heat_flux_surface, m)?)?;
     Ok(())
 }
 
