@@ -1,7 +1,9 @@
 BR 187
 ======
 
-Chitty, R. (2014) External fire spread: building separation and boundary distances (BR 187, 2nd edn). Watford: BRE Trust
+.. rst-class:: small
+
+*Chitty, R. (2014) External fire spread: building separation and boundary distances (BR 187, 2nd edn). Watford: BRE Trust*
 
 BR 187 provides guidance on external fire spread calculations for building design.
 
