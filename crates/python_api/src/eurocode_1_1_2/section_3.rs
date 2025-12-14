@@ -208,40 +208,6 @@ pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
     Ok(())
 }
 
-// Equation 3.7 module functions
-#[pyfunction]
-/// Placeholder calculation for Equation 3.7.
-///
-/// This is a placeholder implementation for demonstration purposes.
-///
-
-/// Args:
-///     param_1 (float): First parameter (units)
-///     param_2 (float): Second parameter (units)
-///
-/// Returns:
-///     float: Calculated result (units)
-///
-/// Assumptions:
-///     To be completed
-///
-/// Limitations:
-///     To be completed
-///
-/// Example:
-///     >>> import ofire
-///     >>> import math
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_7.calculate_placeholder(math.pi/2, 0.0)
-fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
-    rust_equation_3_7::calculate_placeholder(param_1, param_2)
-}
-
-    #[pymodule]
-/// Equation 3.7 - Placeholder calculation.
-pub fn equation_3_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
-    Ok(())
-}
 
 #[pymodule]
 /// Section 3 - Placeholder section for demonstration.
@@ -254,6 +220,6 @@ pub fn section_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_3_4))?;
     m.add_wrapped(wrap_pymodule!(equation_3_5))?;
     m.add_wrapped(wrap_pymodule!(equation_3_6))?;
-    m.add_wrapped(wrap_pymodule!(equation_3_7))?;
+
     Ok(())
 }
