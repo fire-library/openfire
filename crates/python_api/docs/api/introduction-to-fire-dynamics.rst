@@ -1,5 +1,5 @@
-Introduction to Fire Dynamics:2011
-==================================
+Introduction to Fire Dynamics
+=============================
 
 Introductory fire dynamics calculations and concepts.
 

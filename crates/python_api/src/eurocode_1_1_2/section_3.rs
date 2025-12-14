@@ -18,6 +18,16 @@ use ::openfire::eurocode_1_1_2::section_3::{
 /// This equation determines the total net heat flux to a surface by combining
 /// convective and radiative components.
 ///
+/// .. math::
+///
+///    \dot{h}_{net} = \dot{h}_{net,c} + \dot{h}_{net,r}
+///
+/// where:
+///
+/// - :math:`\dot{h}_{net}` is the net heat flux per unit area (W/m²)
+/// - :math:`\dot{h}_{net,c}` is the net convective heat flux per unit area (W/m²)
+/// - :math:`\dot{h}_{net,r}` is the net radiative heat flux per unit area (W/m²)
+///
 /// Args:
 ///     h_net_c (float): Net convective heat flux per unit area (W/m²)
 ///     h_net_r (float): Net radiative heat flux per unit area (W/m²)
@@ -121,8 +131,15 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation 3.4 module functions
 #[pyfunction]
 /// Standard temperature-time curve calculation.
+////// .. math::
 ///
-/// Args:
+///    \theta_g = 20 + 345 \cdot \log_{10}(8t + 1)
+///
+/// where:
+///
+/// - :math:`\theta_g` is the gas temperature (°C)
+/// - :math:`t` is the time (minutes)
+////// Args:
 ///     t (float): Time (minutes)
 ///
 /// Returns:
@@ -151,8 +168,15 @@ pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation 3.5 module functions
 #[pyfunction]
 /// External temperature-time curve calculation.
+////// .. math::
 ///
-/// Args:
+///    \theta_g = 660 \cdot \left( 1 - 0.687 \cdot e^{-0.32t} - 0.313 \cdot e^{-3.8t} \right) + 20
+///
+/// where:
+///
+/// - :math:`\theta_g` is the gas temperature (°C)
+/// - :math:`t` is the time (minutes)
+////// Args:
 ///     t (float): Time (minutes)
 ///
 /// Returns:
@@ -181,8 +205,15 @@ pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation 3.6 module functions
 #[pyfunction]
 /// Hydrocarbon temperature-time curve calculation.
+////// .. math::
 ///
-/// Args:
+///    \theta_g = 1080 \cdot \left( 1 - 0.325 \cdot e^{-0.167t} - 0.675 \cdot e^{-2.5t} \right) + 20
+///
+/// where:
+///
+/// - :math:`\theta_g` is the gas temperature (°C)
+/// - :math:`t` is the time (minutes)
+////// Args:
 ///     t (float): Time (minutes)
 ///
 /// Returns:

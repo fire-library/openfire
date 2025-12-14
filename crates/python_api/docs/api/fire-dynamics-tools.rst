@@ -1,5 +1,5 @@
-Fire Dynamics Tools:2013
-========================
+Fire Dynamics Tools
+===================
 
 General fire dynamics tools and calculations.
 
