@@ -33,7 +33,7 @@ use ::openfire::eurocode_1_1_2::section_3::{
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_1.equation_3_1_net_heat_flux_surface(15000.0, 25000.0)
+///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_1.net_heat_flux_surface(15000.0, 25000.0)
 fn net_heat_flux_surface(h_net_c: f64, h_net_r: f64) -> f64 {
     rust_equation_3_1::net_heat_flux_surface(h_net_c, h_net_r)
 }
