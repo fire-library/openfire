@@ -11,16 +11,6 @@
 2. **Use Streamlit** for user interfaces
 3. **Follow patterns** in main.py
 
-## OpenFire Modules
-- `ofire.br_187`
-- `ofire.bs9999`
-- `ofire.cibse_guide_e`
-- `ofire.fire_dynamics_tools`
-- `ofire.pd_7974`
-- `ofire.sfpe_handbook`
-- `ofire.tr_17`
-- `ofire.introduction_to_fire_dynamics`
-
 ## Run Application
 ```bash
 ofire run
