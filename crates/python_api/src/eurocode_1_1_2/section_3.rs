@@ -14,7 +14,7 @@ use ::openfire::eurocode_1_1_2::section_3::{
 
 // Equation 3.1 module functions
 #[pyfunction]
-/// Net heat flux per unit area of the surface (Equation 3.1).
+/// Net heat flux per unit area of the surface.
 ///
 /// This equation determines the total net heat flux to a surface by combining
 /// convective and radiative components.
@@ -48,7 +48,7 @@ pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 3.2 module functions
 #[pyfunction]
-/// Net convective heat flux per unit area of the surface (Equation 3.2).
+/// Net convective heat flux per unit area of the surface.
 ///
 /// This equation calculates the net convective heat flux to a surface
 /// based on the heat transfer coefficient and temperature difference.
@@ -83,7 +83,7 @@ pub fn equation_3_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 3.3 module functions
 #[pyfunction]
-/// Net radiative heat flux per unit area of the surface (Equation 3.3).
+/// Net radiative heat flux per unit area of the surface.
 ///
 /// This equation calculates the net radiative heat flux to a surface
 /// considering configuration factor, material properties, and temperature difference.
@@ -121,7 +121,7 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 3.4 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.4 (Equation 3.4).
+/// Placeholder calculation for Equation 3.4.
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
@@ -141,38 +141,20 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_4.calculate_placeholder(2.0, 3.0)
-fn equation_3_4_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
+fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
     rust_equation_3_4::calculate_placeholder(param_1, param_2)
-}
-
-#[pyfunction]
-/// LaTeX equation representation for Equation 3.4.
-///
-/// Args:
-///     param_1 (str): Symbol for first parameter
-///     param_2 (str): Symbol for second parameter
-///
-/// Returns:
-///     str: LaTeX equation string
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.eurocode_1_1_2.section_3.equation_3_4.equation("a", "n")
-fn equation_3_4_equation(param_1: String, param_2: String) -> String {
-    rust_equation_3_4::equation(param_1, param_2)
 }
 
 #[pymodule]
 /// Equation 3.4 - Placeholder calculation.
 pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(equation_3_4_calculate_placeholder, m)?)?;
-    m.add_function(wrap_pyfunction!(equation_3_4_equation, m)?)?;
+    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
     Ok(())
 }
 
 // Equation 3.5 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.5 (Equation 3.5).
+/// Placeholder calculation for Equation 3.5.
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
@@ -197,34 +179,16 @@ fn equation_3_5_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
     rust_equation_3_5::calculate_placeholder(param_1, param_2)
 }
 
-#[pyfunction]
-/// LaTeX equation representation for Equation 3.5.
-///
-/// Args:
-///     param_1 (str): Symbol for first parameter
-///     param_2 (str): Symbol for second parameter
-///
-/// Returns:
-///     str: LaTeX equation string
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.eurocode_1_1_2.section_3.equation_3_5.equation("x", "y")
-fn equation_3_5_equation(param_1: String, param_2: String) -> String {
-    rust_equation_3_5::equation(param_1, param_2)
-}
-
 #[pymodule]
 /// Equation 3.5 - Placeholder calculation.
 pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(equation_3_5_calculate_placeholder, m)?)?;
-    m.add_function(wrap_pyfunction!(equation_3_5_equation, m)?)?;
+    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
     Ok(())
 }
 
 // Equation 3.6 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.6 (Equation 3.6).
+/// Placeholder calculation for Equation 3.6.
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
@@ -250,34 +214,16 @@ fn equation_3_6_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
     rust_equation_3_6::calculate_placeholder(param_1, param_2)
 }
 
-#[pyfunction]
-/// LaTeX equation representation for Equation 3.6.
-///
-/// Args:
-///     param_1 (str): Symbol for first parameter
-///     param_2 (str): Symbol for second parameter
-///
-/// Returns:
-///     str: LaTeX equation string
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.eurocode_1_1_2.section_3.equation_3_6.equation("x", "c")
-fn equation_3_6_equation(param_1: String, param_2: String) -> String {
-    rust_equation_3_6::equation(param_1, param_2)
-}
-
 #[pymodule]
 /// Equation 3.6 - Placeholder calculation.
 pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(equation_3_6_calculate_placeholder, m)?)?;
-    m.add_function(wrap_pyfunction!(equation_3_6_equation, m)?)?;
+    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
     Ok(())
 }
 
 // Equation 3.7 module functions
 #[pyfunction]
-/// Placeholder calculation for Equation 3.7 (Equation 3.7).
+/// Placeholder calculation for Equation 3.7.
 ///
 /// This is a placeholder implementation for demonstration purposes.
 ///
@@ -299,32 +245,14 @@ pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     >>> import ofire
 ///     >>> import math
 ///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_7.calculate_placeholder(math.pi/2, 0.0)
-fn equation_3_7_calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
+fn calculate_placeholder(param_1: f64, param_2: f64) -> f64 {
     rust_equation_3_7::calculate_placeholder(param_1, param_2)
 }
 
-#[pyfunction]
-/// LaTeX equation representation for Equation 3.7.
-///
-/// Args:
-///     param_1 (str): Symbol for first parameter
-///     param_2 (str): Symbol for second parameter
-///
-/// Returns:
-///     str: LaTeX equation string
-///
-/// Example:
-///     >>> import ofire
-///     >>> equation = ofire.eurocode_1_1_2.section_3.equation_3_7.equation("\\\\theta", "\\\\phi")
-fn equation_3_7_equation(param_1: String, param_2: String) -> String {
-    rust_equation_3_7::equation(param_1, param_2)
-}
-
-#[pymodule]
+    #[pymodule]
 /// Equation 3.7 - Placeholder calculation.
 pub fn equation_3_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(equation_3_7_calculate_placeholder, m)?)?;
-    m.add_function(wrap_pyfunction!(equation_3_7_equation, m)?)?;
+    m.add_function(wrap_pyfunction!(calculate_placeholder, m)?)?;
     Ok(())
 }
 
