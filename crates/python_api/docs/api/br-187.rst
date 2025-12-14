@@ -1,5 +1,5 @@
-BR 187:2014
-==============================
+BR 187
+======
 
 BR 187 provides guidance on external fire spread calculations for building design.
 
