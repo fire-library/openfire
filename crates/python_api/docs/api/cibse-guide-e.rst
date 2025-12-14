@@ -1,5 +1,5 @@
-CIBSE Guide E - Fire Safety Engineering
-=======================================
+CIBSE Guide E
+=============
 
 CIBSE Guide E provides guidance on fire safety engineering for buildings.
 

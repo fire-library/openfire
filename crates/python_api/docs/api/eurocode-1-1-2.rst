@@ -1,5 +1,5 @@
-Eurocode 1, Part 1-2
-====================
+Eurocode 1-1-2
+===================
 
 BS EN 1991-1-2:2002 - General Actions: Actions on structures exposed to fire.
 
