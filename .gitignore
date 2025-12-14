@@ -36,3 +36,6 @@ stubs/
 __pycache__/
 *.pyc
 *.pyo
+
+# VSCode
+.vscode/

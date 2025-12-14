@@ -2,11 +2,15 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 // Import CIBSE Guide E chapter 10 functions
-use ::openfire::cibse_guide_e::chapter_10::{
-    equation_10_1 as rust_equation_10_1, equation_10_2 as rust_equation_10_2,
-    equation_10_3 as rust_equation_10_3, equation_10_4 as rust_equation_10_4,
-    equation_10_7 as rust_equation_10_7, equation_10_8 as rust_equation_10_8,
-    equation_10_10 as rust_equation_10_10, equation_10_11 as rust_equation_10_11,
+use openfire::cibse_guide_e::chapter_10::{
+    equation_10_1 as rust_equation_10_1,
+    equation_10_2 as rust_equation_10_2,
+    equation_10_3 as rust_equation_10_3,
+    equation_10_4 as rust_equation_10_4,
+    equation_10_7 as rust_equation_10_7,
+    equation_10_8 as rust_equation_10_8,
+    equation_10_10 as rust_equation_10_10,
+    equation_10_11 as rust_equation_10_11,
     equation_10_12 as rust_equation_10_12,
 };
 

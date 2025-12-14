@@ -1,9 +1,11 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
-use ::openfire::fire_dynamics_tools::chapter_18::equation_18_1 as rust_equation_18_1;
-use ::openfire::fire_dynamics_tools::chapter_18::equation_18_2 as rust_equation_18_2;
-use ::openfire::fire_dynamics_tools::chapter_18::equation_18_3 as rust_equation_18_3;
+use openfire::fire_dynamics_tools::chapter_18::{
+    equation_18_1 as rust_equation_18_1,
+    equation_18_2 as rust_equation_18_2,
+    equation_18_3 as rust_equation_18_3,
+};
 
 #[pyfunction]
 /// Visibility through smoke (Equation 18-1).

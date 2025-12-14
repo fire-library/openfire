@@ -1,9 +1,9 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
-// Import introduction_to_fire_dynamics chapter 6 functions
-use ::openfire::introduction_to_fire_dynamics::chapter_6::equation_6_32 as rust_equation_6_32;
-use ::openfire::introduction_to_fire_dynamics::chapter_6::equation_6_33 as rust_equation_6_33;
+use openfire::introduction_to_fire_dynamics::chapter_6::{
+    equation_6_32 as rust_equation_6_32, equation_6_33 as rust_equation_6_33,
+};
 
 // Equation 6_32 module functions
 #[pyfunction]

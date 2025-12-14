@@ -2,7 +2,7 @@ use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
 // Import tr_17 section 2 equation 1 functions
-use ::openfire::tr17::section_2::equation_1 as rust_equation_1;
+use openfire::tr17::section_2::{equation_1 as rust_equation_1};
 
 #[pyfunction]
 /// Calculate non-dimensional heat release rate (Equation 1).

@@ -1,19 +1,21 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_1 as rust_equation_2_1;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_2 as rust_equation_2_2;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_3 as rust_equation_2_3;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_4 as rust_equation_2_4;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_5 as rust_equation_2_5;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_6 as rust_equation_2_6;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_7 as rust_equation_2_7;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_8 as rust_equation_2_8;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_9 as rust_equation_2_9;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_10 as rust_equation_2_10;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_11 as rust_equation_2_11;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_12 as rust_equation_2_12;
-use ::openfire::fire_dynamics_tools::chapter_2::equation_2_13 as rust_equation_2_13;
+use openfire::fire_dynamics_tools::chapter_2::{
+    equation_2_1 as rust_equation_2_1,
+    equation_2_2 as rust_equation_2_2,
+    equation_2_3 as rust_equation_2_3,
+    equation_2_4 as rust_equation_2_4,
+    equation_2_5 as rust_equation_2_5,
+    equation_2_6 as rust_equation_2_6,
+    equation_2_7 as rust_equation_2_7,
+    equation_2_8 as rust_equation_2_8,
+    equation_2_9 as rust_equation_2_9,
+    equation_2_10 as rust_equation_2_10,
+    equation_2_11 as rust_equation_2_11,
+    equation_2_12 as rust_equation_2_12,
+    equation_2_13 as rust_equation_2_13,
+};
 
 #[pyfunction]
 /// Calculate hot gas temperature increase for natural ventilation using the MQH method (Equation 2.1).

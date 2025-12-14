@@ -2,7 +2,7 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 // Import BR_187 chapter 1 functions
-use ::openfire::br_187::chapter_1::equation_1 as rust_equation_1;
+use openfire::br_187::chapter_1::{equation_1 as rust_equation_1};
 
 // Equation 1 module functions
 #[pyfunction]

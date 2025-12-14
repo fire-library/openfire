@@ -1,9 +1,11 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
-use ::openfire::fire_dynamics_tools::chapter_4::equation_4_1 as rust_equation_4_1;
-use ::openfire::fire_dynamics_tools::chapter_4::equation_4_2 as rust_equation_4_2;
-use ::openfire::fire_dynamics_tools::chapter_4::equation_4_3 as rust_equation_4_3;
+use openfire::fire_dynamics_tools::chapter_4::{
+    equation_4_1 as rust_equation_4_1,
+    equation_4_2 as rust_equation_4_2,
+    equation_4_3 as rust_equation_4_3,
+};
 
 #[pyfunction]
 /// Calculates wall fire flame height (Equation 4-1).

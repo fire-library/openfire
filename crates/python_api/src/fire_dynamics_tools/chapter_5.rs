@@ -1,7 +1,7 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
-use ::openfire::fire_dynamics_tools::chapter_5::equation_5_1 as rust_equation_5_1;
+use openfire::fire_dynamics_tools::chapter_5::{equation_5_1 as rust_equation_5_1};
 
 #[pyfunction]
 /// This equation calculates the thermal radiation incident flux from a point

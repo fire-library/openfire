@@ -2,9 +2,11 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 // Import BR_187 appendix A functions
-use ::openfire::br_187::appendix_a::{
-    equation_a1 as rust_equation_a1, equation_a2 as rust_equation_a2,
-    equation_a3 as rust_equation_a3, equation_a4 as rust_equation_a4,
+use openfire::br_187::appendix_a::{
+    equation_a1 as rust_equation_a1,
+    equation_a2 as rust_equation_a2,
+    equation_a3 as rust_equation_a3,
+    equation_a4 as rust_equation_a4,
     equation_a5 as rust_equation_a5,
 };
 
