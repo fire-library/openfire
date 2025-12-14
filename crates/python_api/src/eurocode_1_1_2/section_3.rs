@@ -18,6 +18,16 @@ use ::openfire::eurocode_1_1_2::section_3::{
 /// This equation determines the total net heat flux to a surface by combining
 /// convective and radiative components.
 ///
+/// .. math::
+///
+///    \dot{h}_{net} = \dot{h}_{net,c} + \dot{h}_{net,r}
+///
+/// where:
+///
+/// - :math:`\dot{h}_{net}` is the net heat flux per unit area (W/m²)
+/// - :math:`\dot{h}_{net,c}` is the net convective heat flux per unit area (W/m²)
+/// - :math:`\dot{h}_{net,r}` is the net radiative heat flux per unit area (W/m²)
+///
 /// Args:
 ///     h_net_c (float): Net convective heat flux per unit area (W/m²)
 ///     h_net_r (float): Net radiative heat flux per unit area (W/m²)
