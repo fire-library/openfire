@@ -9,7 +9,7 @@ use openfire::bs9999::chapter_15::{
 // Figure 6a module functions
 #[pyfunction]
 #[pyo3(name = "calculate_exit_width")]
-/// Calculate exit width for stairs serving upper floors only (BS9999 Chapter 15, Figure 6a).
+/// Calculate exit width for stairs serving upper floors only.
 ///
 /// This function calculates the required exit width for stairs that only serve floors above
 /// the ground level, based on BS9999 fire safety calculations.
@@ -55,8 +55,6 @@ fn calculate_exit_width_6a(s_up: f64, w_se: f64, n: f64, d: f64, x: f64) -> PyRe
 }
 
 #[pymodule]
-/// BS 9999 Chapter 15 Figure 6a - Exit width for stairs serving upper floors only.
-///
 /// Calculations for required exit width of stairs that only serve floors above
 /// the ground level, based on BS 9999 fire safety requirements.
 fn figure_6a(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -67,7 +65,7 @@ fn figure_6a(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Figure 6b module functions
 #[pyfunction]
 #[pyo3(name = "calculate_exit_width")]
-/// Calculate exit width for stairs serving upper and lower floors (BS9999 Chapter 15, Figure 6b).
+/// Calculate exit width for stairs serving upper and lower floors.
 ///
 /// This function calculates the required exit width for stairs that serve both floors above
 /// and below the ground level, based on BS9999 fire safety calculations.
@@ -113,8 +111,6 @@ fn calculate_exit_width_6b(b: f64, d: f64, s_up: f64, s_dn: f64, x: f64) -> PyRe
 }
 
 #[pymodule]
-/// BS 9999 Chapter 15 Figure 6b - Exit width for stairs serving upper and lower floors.
-///
 /// Calculations for required exit width of stairs that serve both floors above
 /// and below the ground level, based on BS 9999 fire safety requirements.
 fn figure_6b(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -125,7 +121,7 @@ fn figure_6b(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Figure 6c module functions
 #[pyfunction]
 #[pyo3(name = "calculate_exit_width")]
-/// Calculate exit width for complex stair configurations (BS9999 Chapter 15, Figure 6c).
+/// Calculate exit width for complex stair configurations.
 ///
 /// This function calculates the required exit width for stairs with complex configurations
 /// serving multiple floors above and below ground level, including considerations for
@@ -186,8 +182,6 @@ fn calculate_exit_width_6c(
 }
 
 #[pymodule]
-/// BS 9999 Chapter 15 Figure 6c - Exit width for complex stair configurations.
-///
 /// Calculations for required exit width of stairs with complex configurations
 /// serving multiple floors above and below ground level.
 fn figure_6c(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -196,8 +190,6 @@ fn figure_6c(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// BS 9999 Chapter 15 - Means of Escape.
-///
 /// This module provides calculations for means of escape from buildings
 /// as specified in BS 9999 Chapter 15, including exit width calculations
 /// for different stair configurations.

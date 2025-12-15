@@ -1,7 +1,7 @@
 BS 9999
 =======
 
-*British Standards Institution (BSI) (2017) BS 9999:2015 Fire safety in the design, management and use of buildings – Code of practice. London: BSI.*
+*British Standards Institution (BSI) (2017) BS 9999:2015 Fire safety in the design, management and use of buildings – Code of practice.*
 
 BS 9999 provides guidance on fire safety in the design, management and use of buildings.
 

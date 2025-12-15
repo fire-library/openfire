@@ -4,8 +4,6 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 #[pymodule]
-/// BS 9999 - Code of Practice for Fire Safety in Buildings.
-///
 /// This module provides calculations for fire safety in buildings
 /// as specified in BS 9999, the UK code of practice for fire safety design,
 /// management and use of buildings.
