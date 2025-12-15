@@ -11,8 +11,6 @@ BS EN 1991-1-2 provides general rules for the determination of thermal actions o
 - Methods for determining temperature distributions in structural members
 - Thermal actions for structural fire design
 
-This Eurocode is fundamental for structural fire engineering design across Europe and provides the basis for determining fire loads and thermal effects on building structures.
-
 .. automodule:: ofire.eurocode_1_1_2
    :members:
    :undoc-members:
