@@ -9,8 +9,7 @@ def open_docs(args):
 def scaffold_project(args):
     scaffold_new_project(
         project_name=args.name,
-        target_dir=args.directory,
-        include_notebook=args.notebook
+        target_dir=args.directory
     )
 
 
@@ -38,11 +37,6 @@ def main():
         '-d', '--directory',
         default='.',
         help='Directory to create the project in (default: current directory)'
-    )
-    new_parser.add_argument(
-        '--notebook',
-        action='store_true',
-        help='Include an example Jupyter notebook'
     )
     new_parser.set_defaults(func=scaffold_project)
     

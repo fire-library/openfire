@@ -83,10 +83,6 @@ def create_requirements_file(project_name: str, target_dir: str) -> None:
         # pandas>=1.3.0
         # matplotlib>=3.4.0
         # seaborn>=0.11.0
-        
-        # Jupyter notebook support (uncomment if needed)
-        # jupyter>=1.0.0
-        # ipywidgets>=7.6.0
     ''').strip()
     
     with open(requirements_file, 'w') as f:
@@ -288,98 +284,6 @@ def create_activation_script(project_name: str, target_dir: str, venv_path: Path
         print(f"Created activation script: {activate_script}")
 
 
-def create_example_notebook(project_name: str, target_dir: str) -> None:
-    """Create an example Jupyter notebook."""
-    project_path = Path(target_dir).resolve() / project_name
-    notebook_file = project_path / "example_calculations.ipynb"
-    
-    # Basic Jupyter notebook structure
-    notebook_content = {
-        "cells": [
-            {
-                "cell_type": "markdown",
-                "metadata": {},
-                "source": [
-                    f"# {project_name} - Fire Engineering Calculations\\n",
-                    "\\n",
-                    "This notebook demonstrates basic usage of the OpenFire library for fire engineering calculations."
-                ]
-            },
-            {
-                "cell_type": "code",
-                "execution_count": None,
-                "metadata": {},
-                "outputs": [],
-                "source": [
-                    "import ofire\\n",
-                    "import numpy as np\\n",
-                    "import pandas as pd\\n",
-                    "import matplotlib.pyplot as plt\\n",
-                    "\\n",
-                    "print('OpenFire library loaded successfully!')"
-                ]
-            },
-            {
-                "cell_type": "markdown",
-                "metadata": {},
-                "source": [
-                    "## Available Modules\\n",
-                    "\\n",
-                    "The OpenFire library provides the following calculation modules:\\n",
-                    "\\n",
-                    "- `ofire.br_187`: BR 187 calculations\\n",
-                    "- `ofire.bs9999`: BS 9999 calculations\\n",
-                    "- `ofire.cibse_guide_e`: CIBSE Guide E calculations\\n",
-                    "- `ofire.fire_dynamics_tools`: General fire dynamics tools\\n",
-                    "- `ofire.pd_7974`: PD 7974 calculations\\n",
-                    "- `ofire.sfpe_handbook`: SFPE Handbook calculations\\n",
-                    "- `ofire.tr_17`: TR 17 calculations\\n",
-                    "- `ofire.introduction_to_fire_dynamics`: Introductory calculations"
-                ]
-            },
-            {
-                "cell_type": "markdown",
-                "metadata": {},
-                "source": [
-                    "## Example Calculation\\n",
-                    "\\n",
-                    "Add your fire engineering calculations in the cells below."
-                ]
-            },
-            {
-                "cell_type": "code",
-                "execution_count": None,
-                "metadata": {},
-                "outputs": [],
-                "source": [
-                    "# Example: Uncomment and run a calculation\\n",
-                    "# room_area = 50.0  # m²\\n",
-                    "# room_height = 3.0  # m\\n",
-                    "# hrr = ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover(room_area, room_height)\\n",
-                    "# print(f'Heat Release Rate at Flashover: {hrr:.1f} kW')"
-                ]
-            }
-        ],
-        "metadata": {
-            "kernelspec": {
-                "display_name": "Python 3",
-                "language": "python",
-                "name": "python3"
-            },
-            "language_info": {
-                "name": "python",
-                "version": "3.8.0"
-            }
-        },
-        "nbformat": 4,
-        "nbformat_minor": 4
-    }
-    
-    with open(notebook_file, 'w') as f:
-        json.dump(notebook_content, f, indent=2)
-    
-    print(f"Created example notebook: {notebook_file}")
-
 
 def open_documentation() -> None:
     """Open the OpenFire documentation in the default browser."""
@@ -433,7 +337,7 @@ def run_fire_app(target: str = None) -> None:
         sys.exit(1)
 
 
-def scaffold_new_project(project_name: str, target_dir: str, include_notebook: bool = False) -> None:
+def scaffold_new_project(project_name: str, target_dir: str) -> None:
     """Scaffold a new OpenFire project with all required files and setup."""
     print(f"Creating OpenFire project: {project_name}")
     print(f"Target directory: {target_dir}")
@@ -448,9 +352,6 @@ def scaffold_new_project(project_name: str, target_dir: str, include_notebook: b
         create_readme(project_name, target_dir)
         create_agents_guide(project_name, target_dir)
         create_claude_guide(project_name, target_dir)
-        
-        if include_notebook:
-            create_example_notebook(project_name, target_dir)
         
         # Create virtual environment
         venv_path = create_virtual_environment(project_name, target_dir)
@@ -478,9 +379,6 @@ def scaffold_new_project(project_name: str, target_dir: str, include_notebook: b
             print("3. ofire run")
         
         print("4. Open your browser to http://localhost:8501")
-        
-        if include_notebook:
-            print("5. jupyter notebook example_calculations.ipynb")
         
         print("\nVirtual environment created with all dependencies installed!")
         print("🔥 Your fire engineering web application is ready to run!")
