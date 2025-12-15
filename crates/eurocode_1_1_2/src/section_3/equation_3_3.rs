@@ -9,7 +9,7 @@ pub fn net_radiative_heat_flux_surface(
     phi * epsilon_m
         * epsilon_f
         * sigma
-        * ((delta_r + 273.0).powf(4.0) - (delta_m + 273.0).powf(4.0))
+        * ((theta_r + 273.0).powf(4.0) - (theta_m + 273.0).powf(4.0))
 }
 
 pub fn net_radiative_heat_flux_surface_equation(

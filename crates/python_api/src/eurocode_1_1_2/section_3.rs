@@ -71,8 +71,8 @@ pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///
 /// Args:
 ///     alpha_c (float): Heat transfer coefficient (W/m²K)
-///     delta_g (float): Gas temperature in the vicinity of the exposed member (°C)
-///     delta_m (float): Member surface temperature (°C)
+///     theta_g (float): Gas temperature in the vicinity of the exposed member (°C)
+///     theta_m (float): Member surface temperature (°C)
 ///
 /// Returns:
 ///     float: Net convective heat flux per unit area (W/m²)
@@ -86,8 +86,8 @@ pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.eurocode_1_1_2.section_3.equation_3_2.net_convective_heat_flux_surface(50.0, 650.0, 150.0)
-fn net_convective_heat_flux_surface(alpha_c: f64, delta_g: f64, delta_m: f64) -> f64 {
-    rust_equation_3_2::net_convective_heat_flux_surface(alpha_c, delta_g, delta_m)
+fn net_convective_heat_flux_surface(alpha_c: f64, theta_g: f64, theta_m: f64) -> f64 {
+    rust_equation_3_2::net_convective_heat_flux_surface(alpha_c, theta_g, theta_m)
 }
 
 #[pymodule]
@@ -123,8 +123,8 @@ pub fn equation_3_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     epsilon_m (float): Surface emissivity of the member (dimensionless)
 ///     epsilon_f (float): Emissivity of the fire (dimensionless)
 ///     sigma (float): Stefan-Boltzmann constant (W/m²K⁴)
-///     delta_r (float): Effective radiation temperature of the fire environment (°C)
-///     delta_m (float): Surface temperature of the member (°C)
+///     theta_r (float): Effective radiation temperature of the fire environment (°C)
+///     theta_m (float): Surface temperature of the member (°C)
 ///
 /// Returns:
 ///     float: Net radiative heat flux per unit area (W/m²)

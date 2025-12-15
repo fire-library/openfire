@@ -6,10 +6,10 @@ pub fn hydrocarbon_temp_time_curve(t: f64) -> f64 {
         + 20.0
 }
 
-pub fn hydrocarbon_temp_time_curve_equation(t: String) -> String {
+pub fn hydrocarbon_temp_time_curve_equation(theta_g: String, t: String) -> String {
     format!(
         "{} = 1080 \\cdot \\left( 1 - 0.325 \\cdot e^{{-0.167 \\cdot {}}} - 0.675 \\cdot e^{{-2.5 \\cdot {}}} \\right) + 20",
-        t, t, t
+        theta_g, t, t
     )
 }
 

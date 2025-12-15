@@ -2,10 +2,10 @@ pub fn standard_temp_time_curve(t: f64) -> f64 {
     20.0 + 345.0 * (8.0 * t + 1.0).log10()
 }
 
-pub fn standard_temp_time_curve_equation(delta_g: String, t: String) -> String {
+pub fn standard_temp_time_curve_equation(theta_g: String, t: String) -> String {
     format!(
         "{} = 20 + 345 \\cdot \\log_{{10}}(8 \\cdot {} + 1)",
-        delta_g, t,
+        theta_g, t,
     )
 }
 
