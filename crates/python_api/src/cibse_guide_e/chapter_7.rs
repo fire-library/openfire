@@ -10,7 +10,7 @@ use openfire::cibse_guide_e::chapter_7::{
 
 // Equation 7_2 module functions
 #[pyfunction]
-/// Calculates the stair capacity (Equation 7.2).
+/// Calculates the stair capacity.
 ///
 /// This equation determines the maximum number of people that can evacuate
 /// through a stairway based on its width and number of floors served.
@@ -48,8 +48,6 @@ fn stair_capacity(w: f64, n: i32) -> PyResult<i32> {
 }
 
 #[pymodule]
-/// Equation 7.2 - Stair Capacity.
-///
 /// Calculates the maximum number of people that can evacuate
 /// through a stairway based on its width and number of floors served.
 fn equation_7_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -59,7 +57,7 @@ fn equation_7_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 7_3 module functions
 #[pyfunction]
-/// Calculates the required width of stair (Equation 7.3).
+/// Calculates the required width of stair.
 ///
 /// This equation determines the minimum stair width required to accommodate
 /// a given number of people across multiple floors during evacuation.
@@ -97,8 +95,6 @@ fn required_width_stair(p: i32, n: i32) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 7.3 - Required Width of Stair.
-///
 /// Calculates the minimum stair width required to accommodate
 /// a given number of people during evacuation.
 fn equation_7_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -108,7 +104,7 @@ fn equation_7_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 7_6 module functions
 #[pyfunction]
-/// Calculates the maximum flow rate of persons (Equation 7.6).
+/// Calculates the maximum flow rate of persons.
 ///
 /// This equation determines the maximum flow rate of people that can
 /// pass through a given width during evacuation.
@@ -142,8 +138,6 @@ fn maximum_flowrate_persons(w: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 7.6 - Maximum Flow Rate of Persons.
-///
 /// Calculates the maximum flow rate of people through a given width.
 fn equation_7_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(maximum_flowrate_persons, m)?)?;
@@ -152,7 +146,7 @@ fn equation_7_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 7_7 module functions
 #[pyfunction]
-/// Calculates the maximum people in stair (Equation 7.7).
+/// Calculates the maximum people in stair.
 ///
 /// This equation determines the maximum number of people that can be
 /// accommodated in a stairway at any given time.
@@ -190,8 +184,6 @@ fn maximum_people_in_stair(p: f64, a: f64, s: i32) -> PyResult<i32> {
 }
 
 #[pymodule]
-/// Equation 7.7 - Maximum People in Stair.
-///
 /// Calculates the maximum number of people that can be accommodated in a stairway.
 fn equation_7_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(maximum_people_in_stair, m)?)?;
@@ -200,7 +192,7 @@ fn equation_7_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 7_8 module functions
 #[pyfunction]
-/// Calculates the exit capacity of stair (Equation 7.8).
+/// Calculates the exit capacity of stair.
 ///
 /// This equation determines the number of people that can exit through
 /// a stairway within a given time period.
@@ -240,8 +232,6 @@ fn exit_capacity_stair(w_s: f64, t: f64, a: f64, s: i32) -> PyResult<i32> {
 }
 
 #[pymodule]
-/// Equation 7.8 - Exit Capacity of Stair.
-///
 /// Calculates the number of people that can exit through a stairway within a given time.
 fn equation_7_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(exit_capacity_stair, m)?)?;
@@ -250,7 +240,7 @@ fn equation_7_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 7_9 module functions
 #[pyfunction]
-/// Calculates the acceptance capacity of stair (Equation 7.9).
+/// Calculates the acceptance capacity of stair.
 ///
 /// This equation determines the number of people that can be accepted
 /// into a stairway from multiple floors during evacuation.
@@ -294,8 +284,6 @@ fn acceptance_capacity_stair(w_e: f64, t: f64, rho: f64, a: f64, s: i32) -> PyRe
 }
 
 #[pymodule]
-/// Equation 7.9 - Acceptance Capacity of Stair.
-///
 /// Calculates the number of people that can be accepted into a stairway from multiple floors.
 fn equation_7_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(acceptance_capacity_stair, m)?)?;
@@ -303,8 +291,6 @@ fn equation_7_9(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Chapter 7 - Means of Escape.
-///
 /// This chapter contains equations for calculating stair capacities,
 /// flow rates, and evacuation parameters for egress design.
 pub fn chapter_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
