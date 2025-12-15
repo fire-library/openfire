@@ -2,7 +2,7 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 // Import all eurocode_1_1_2 section 3 functions
-use ::openfire::eurocode_1_1_2::section_3::{
+use openfire::eurocode_1_1_2::section_3::{
     equation_3_1 as rust_equation_3_1, equation_3_2 as rust_equation_3_2,
     equation_3_3 as rust_equation_3_3, equation_3_4 as rust_equation_3_4,
     equation_3_5 as rust_equation_3_5, equation_3_6 as rust_equation_3_6,
