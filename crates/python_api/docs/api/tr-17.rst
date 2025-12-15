@@ -1,5 +1,5 @@
-TR 17 - Technical Report
-========================
+TR 17
+=====
 
 Technical report calculations and guidance.
 

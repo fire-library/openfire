@@ -1,5 +1,5 @@
-BS 9999 - Fire Safety in Buildings
-==================================
+BS 9999
+=======
 
 BS 9999 provides guidance on fire safety in the design, management and use of buildings.
 

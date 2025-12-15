@@ -5,13 +5,8 @@ use pyo3::prelude::*;
 use pyo3::wrap_pymodule;
 
 #[pymodule]
-/// BR 187 - External Fire Spread to Buildings.
-///
 /// This module provides calculations for external fire spread to buildings
 /// as specified in BR 187, the UK guidance document for external fire spread.
-///
-/// BR 187 provides methodologies for assessing the risk of fire spread between
-/// buildings and calculating thermal radiation exposure.
 ///
 /// Available modules:
 ///     chapter_1: Chapter 1 calculations

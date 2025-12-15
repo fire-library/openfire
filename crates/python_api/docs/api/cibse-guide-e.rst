@@ -1,5 +1,5 @@
-CIBSE Guide E - Fire Safety Engineering
-=======================================
+CIBSE Guide E
+=============
 
 CIBSE Guide E provides guidance on fire safety engineering for buildings.
 
@@ -138,7 +138,7 @@ Equation 10.1 - Maximum Volumetric Flow Rate
    :show-inheritance:
 
 Equation 10.2 - Minimum Separation Distance Between Vents
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.cibse_guide_e.chapter_10.equation_10_2
    :members:
@@ -186,7 +186,7 @@ Equation 10.10 - Limiting Average Air Velocity for Opposed Air Flow Ventilation
    :show-inheritance:
 
 Equation 10.11 - Limiting Average Air Velocity to Prevent Smoke Spread from Large Spaces
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.cibse_guide_e.chapter_10.equation_10_11
    :members:

@@ -3,6 +3,7 @@
 mod br_187;
 mod bs9999;
 mod cibse_guide_e;
+mod eurocode_1_1_2;
 mod fire_dynamics_tools;
 mod introduction_to_fire_dynamics;
 mod pd_7974;
@@ -25,6 +26,7 @@ use pyo3::wrap_pymodule;
 ///     br_187: BR 187 calculations
 ///     bs9999: BS 9999 fire safety calculations  
 ///     cibse_guide_e: CIBSE Guide E calculations
+///     eurocode_1_1_2: Eurocode 1, Part 1-2 calculations
 ///     fire_dynamics_tools: General fire dynamics tools
 ///     introduction_to_fire_dynamics: Introductory fire dynamics
 ///     sfpe_handbook: SFPE Handbook calculations
@@ -39,6 +41,7 @@ fn ofire(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(br_187::br_187))?;
     m.add_wrapped(wrap_pymodule!(bs9999::bs9999))?;
     m.add_wrapped(wrap_pymodule!(cibse_guide_e::cibse_guide_e))?;
+    m.add_wrapped(wrap_pymodule!(eurocode_1_1_2::eurocode_1_1_2))?;
     m.add_wrapped(wrap_pymodule!(fire_dynamics_tools::fire_dynamics_tools))?;
     m.add_wrapped(wrap_pymodule!(
         introduction_to_fire_dynamics::introduction_to_fire_dynamics
