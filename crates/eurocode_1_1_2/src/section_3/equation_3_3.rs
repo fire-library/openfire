@@ -3,8 +3,8 @@ pub fn net_radiative_heat_flux_surface(
     epsilon_m: f64,
     epsilon_f: f64,
     sigma: f64,
-    delta_r: f64,
-    delta_m: f64,
+    theta_r: f64,
+    theta_m: f64,
 ) -> f64 {
     phi * epsilon_m
         * epsilon_f
