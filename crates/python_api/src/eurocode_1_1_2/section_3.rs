@@ -161,9 +161,10 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation 3.4 module functions
 #[pyfunction]
 /// Standard temperature-time curve calculation.
-////// .. math::
 ///
-///    \theta_g = 20 + 345 \cdot \log_{10}(8t + 1)
+/// .. math::
+///
+///    \theta_g = 20 + 345 \cdot \log_{10}(8 \cdot t + 1)
 ///
 /// where:
 ///
