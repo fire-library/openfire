@@ -16,11 +16,6 @@ def create_project_structure(project_name: str, target_dir: str) -> None:
     # Create main project directory
     project_path.mkdir(parents=True, exist_ok=True)
     
-    # Create subdirectories
-    (project_path / "data").mkdir(exist_ok=True)
-    (project_path / "results").mkdir(exist_ok=True)
-    (project_path / "scripts").mkdir(exist_ok=True)
-    
     print(f"Created project structure in: {project_path}")
 
 
@@ -161,9 +156,6 @@ def create_readme(project_name: str, target_dir: str) -> None:
         ## Project Structure
         
         - `main.py`: Main fire engineering application with calculation tools
-        - `data/`: Input data files and datasets
-        - `results/`: Calculation results and outputs
-        - `scripts/`: Additional calculation scripts
         - `requirements.txt`: Python package dependencies
         
         ## Features
