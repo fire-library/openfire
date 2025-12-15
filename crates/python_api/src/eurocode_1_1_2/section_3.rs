@@ -78,10 +78,10 @@ pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     float: Net convective heat flux per unit area (W/m²)
 ///
 /// Assumptions:
-///     To be completed
+///     None stated in the document
 ///
 /// Limitations:
-///     To be completed
+///     None stated in the document
 ///
 /// Example:
 ///     >>> import ofire
@@ -130,10 +130,10 @@ pub fn equation_3_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     float: Net radiative heat flux per unit area (W/m²)
 ///
 /// Assumptions:
-///     To be completed
+///     None stated in the document
 ///
 /// Limitations:
-///     To be completed
+///     None stated in the document
 ///
 /// Example:
 ///     >>> import ofire
@@ -147,7 +147,7 @@ fn net_radiative_heat_flux_surface(
     theta_m: f64,
 ) -> f64 {
     rust_equation_3_3::net_radiative_heat_flux_surface(
-        phi, epsilon_m, epsilon_f, sigma, delta_r, delta_m,
+        phi, epsilon_m, epsilon_f, sigma, theta_r, theta_m,
     )
 }
 
@@ -177,10 +177,10 @@ pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     float: Temperature (°C)
 ///
 /// Assumptions:
-///     To be completed
+///     None stated in the document
 ///
 /// Limitations:
-///     To be completed
+///     None stated in the document
 ///
 /// Example:
 ///     >>> import ofire
@@ -216,10 +216,10 @@ pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     float: Temperature (°C)
 ///
 /// Assumptions:
-///     To be completed
+///     None stated in the document
 ///
 /// Limitations:
-///     To be completed
+///     None stated in the document
 ///
 /// Example:
 ///     >>> import ofire
@@ -255,10 +255,10 @@ pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     float: Temperature (°C)
 ///
 /// Assumptions:
-///     To be completed
+///     None stated in the document
 ///
 /// Limitations:
-///     To be completed
+///     None stated in the document
 ///
 /// Example:
 ///     >>> import ofire
