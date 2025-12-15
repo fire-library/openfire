@@ -3,6 +3,8 @@ Fire Dynamics Tools
 
 General fire dynamics tools and calculations.
 
+These tools are published by the U.S. Nuclear Regulatory Commission (U.S. NRC) and available at: https://www.nrc.gov/reading-rm/doc-collections/nuregs/staff/sr1805/s1/index
+
 .. automodule:: ofire.fire_dynamics_tools
    :members:
    :undoc-members:
