@@ -23,18 +23,28 @@ def main():
     
     # Sidebar for navigation
     st.sidebar.title("Navigation")
-    page = st.sidebar.selectbox(
-        "Select a calculation:",
-        ["Welcome", "Heat Release Rate", "Smoke Layer Analysis", "About"]
-    )
+    
+    # Initialize session state for page selection
+    if 'current_page' not in st.session_state:
+        st.session_state.current_page = "Welcome"
+    
+    # Create navigation buttons
+    if st.sidebar.button("🏠 Welcome", use_container_width=True):
+        st.session_state.current_page = "Welcome"
+    
+    if st.sidebar.button("🔥 Smoke Layer Analysis", use_container_width=True):
+        st.session_state.current_page = "Smoke Layer Analysis"
+    
+    if st.sidebar.button("🏢 EmberonTech", use_container_width=True):
+        st.session_state.current_page = "EmberonTech"
+    
+    page = st.session_state.current_page
     
     if page == "Welcome":
         welcome_page()
-    elif page == "Heat Release Rate":
-        heat_release_rate_page()
     elif page == "Smoke Layer Analysis":
         smoke_filling_page()
-    elif page == "About":
+    elif page == "EmberonTech":
         about_page()
 
 
@@ -45,7 +55,6 @@ def welcome_page():
     st.markdown("""
     This fire engineering tool provides calculations for:
     
-    - **Heat Release Rate**: Calculate HRR at flashover using CIBSE Guide E
     - **Smoke Layer Analysis**: Calculate smoke layer interface height and properties using Fire Dynamics Tools
     - **Custom Calculations**: Add your own fire engineering calculations
     
@@ -67,67 +76,6 @@ def welcome_page():
         - `ofire.introduction_to_fire_dynamics`: Introductory calculations
         """)
 
-
-def heat_release_rate_page():
-    """Heat release rate calculation page."""
-    st.header("Heat Release Rate at Flashover")
-    st.markdown("Calculate the heat release rate at flashover using CIBSE Guide E, Chapter 6.")
-    
-    col1, col2 = st.columns([1, 1])
-    
-    with col1:
-        st.subheader("Input Parameters")
-        room_area = st.number_input(
-            "Room Floor Area (m²)",
-            min_value=1.0,
-            max_value=10000.0,
-            value=50.0,
-            step=1.0,
-            help="Floor area of the room in square meters"
-        )
-        
-        room_height = st.number_input(
-            "Room Height (m)",
-            min_value=1.0,
-            max_value=50.0,
-            value=3.0,
-            step=0.1,
-            help="Height of the room in meters"
-        )
-        
-        if st.button("Calculate HRR", type="primary"):
-            try:
-                # Example calculation - replace with actual ofire function when available
-                # hrr = ofire.cibse_guide_e.chapter_6.equation_6_7.heat_release_rate_flashover(
-                #     room_area, room_height
-                # )
-                
-                # Placeholder calculation for demonstration
-                hrr = room_area * room_height * 250  # Simplified example
-                
-                st.session_state.hrr_result = hrr
-                st.success("Calculation completed!")
-                
-            except Exception as e:
-                st.error(f"Calculation error: {{e}}")
-    
-    with col2:
-        st.subheader("Results")
-        if hasattr(st.session_state, 'hrr_result'):
-            st.metric(
-                "Heat Release Rate at Flashover",
-                f"{{st.session_state.hrr_result:,.0f}} kW",
-                help="Heat release rate at the onset of flashover"
-            )
-            
-            # Additional information
-            st.info("""
-            **Note**: This calculation is based on CIBSE Guide E methodology.
-            Replace the placeholder calculation with the actual OpenFire function
-            when implementing your specific requirements.
-            """)
-        else:
-            st.info("Enter room parameters and click 'Calculate HRR' to see results.")
 
 
 def smoke_filling_page():
@@ -298,31 +246,181 @@ def smoke_filling_page():
 
 
 def about_page():
-    """Display information about the application."""
-    st.header("About {project_name}")
+    """Display information about EmberonTech."""
     
+    # Shameless self-promotion alert! 
+    st.info("🤷‍♂️ **Shameless plug**: This page is basically us showing off. Feel free to delete the entire `about_page()` function and remove the EmberonTech tab if you'd rather not have our marketing material in your app!")
+    
+    # Hero section
     st.markdown("""
-    This fire engineering tool was created using:
-    
-    - **OpenFire Library**: Comprehensive fire engineering calculations
-    - **Python**: Programming language for scientific computing
-    - **Web Interface**: Modern interactive calculation interface
-    
-    ### How to Extend This Tool
-    
-    1. Add new calculation pages by creating functions like `your_calculation_page()`
-    2. Add the new page to the sidebar navigation
-    3. Implement calculations using OpenFire library functions
-    4. Use web interface components for interactive inputs and results display
-    
-    ### OpenFire Documentation
-    
-    Visit [OpenFire Documentation](https://emberon-tech.github.io/openfire/) for detailed
-    information about available calculations and usage examples.
-    """)
+    <div style="text-align: center; padding: 2rem 0;">
+        <h1 style="color: #ffffff; font-size: 3rem; margin-bottom: 0.5rem;">🚀 EmberonTech</h1>
+        <h3 style="color: #cccccc; font-weight: normal; margin-bottom: 2rem;">Specialized Technology Consultancy for Fire Engineering</h3>
+        <p style="font-size: 1.2rem; color: #e0e0e0; max-width: 600px; margin: 0 auto;">
+            Based in Edinburgh, we build complex applications that transform how organizations work in fire engineering.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("---")
-    st.markdown("Built with ❤️ using OpenFire")
+    
+    # Our Expertise section
+    st.subheader("🎯 Our Expertise")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        **🔥 Fire Engineering Applications**  
+        Custom software solutions tailored to fire safety professionals
+        
+        **📊 Calculation Tools**  
+        Interactive web applications for complex fire engineering calculations
+        """)
+    
+    with col2:
+        st.markdown("""
+        **📋 Training & Code Review**  
+        Expert training and comprehensive code review services
+        
+        **🔄 Legacy System Modernization**  
+        Updating Excel-based workflows to modern web applications
+        """)
+    
+    st.markdown("---")
+    
+    # Services section with tabs
+    st.subheader("🛠️ Services We Offer")
+    
+    tab1, tab2, tab3 = st.tabs(["💻 Development", "🔍 Consulting", "📚 Training"])
+    
+    with tab1:
+        st.markdown("""
+        ### Custom Application Development
+        
+        - 🎯 **Bespoke fire engineering calculation tools**
+        
+        **Examples:**
+        - 🔒 Private team tools accessible only through your organization's VPN
+        - 📱 Mobile-optimized applications for on-site calculations and inspections
+        - 🎨 Interactive dashboards replacing complex Excel-based calculation sheets
+        """)
+    
+    with tab2:
+        st.markdown("""
+        ### Technical Consulting
+        
+        - 🔍 **Code review and optimization of existing tools**
+        - 📋 **Technical due diligence for fire engineering software**
+        - 📈 **Performance analysis and scalability improvements**
+        
+        **Examples:**
+        - 🛡️ Comprehensive code reviews to identify security vulnerabilities and performance bottlenecks
+        - 📊 Performance optimization reducing calculation times from minutes to seconds
+        """)
+    
+    with tab3:
+        st.markdown("""
+        ### Training & Support
+        
+        - 🎓 **Technical training for development teams**
+        - 🔧 **Ongoing maintenance and feature development**
+        
+        **Examples:**
+        - 📚 OpenFire library training workshops for engineering teams and researchers
+        - 👨‍💻 Python, Rust, or Elixir programming courses tailored for fire engineering professionals
+        - �🔄 Long-term maintenance contracts with regular feature updates and bug fixes
+        """)
+    
+    st.markdown("---")
+    
+    # Why choose us section
+    st.subheader("🌟 Why Choose EmberonTech?")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.info("""
+        **🧠 Domain Expertise**  
+        Deep understanding of fire engineering principles and industry workflows
+        
+        **⚡ Technical Excellence**  
+        Modern development practices with robust, scalable solutions. Our team has experience building applications that handle millions of users and complex data processing at scale.
+        """)
+    
+    with col2:
+        st.success("""
+        **🎯 Industry Focus**  
+        Exclusive specialization in fire engineering and safety applications
+        
+        **🚀 Innovation-Driven**  
+        Cutting-edge solutions using the latest technologies and engineering best practices
+        
+        **⚡ Production-Grade Quality**  
+        You get battle-tested, production-grade code built by experienced engineers.
+        """)
+    
+    st.markdown("---")
+    
+    # Contact section
+    st.subheader("📞 Get In Touch")
+    
+    st.markdown("""
+    <div style="
+        text-align: center; 
+        padding: 2.5rem 2rem; 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin: 2rem 0;
+    ">
+        <div style="
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        ">
+            <h2 style="
+                color: #ffffff; 
+                margin-bottom: 1rem; 
+                font-size: 2rem;
+                font-weight: 600;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            ">🚀 Ready to modernize your fire engineering workflows?</h2>
+            <p style="
+                font-size: 1.2rem; 
+                margin-bottom: 0;
+                color: rgba(255,255,255,0.95);
+                line-height: 1.6;
+                font-weight: 300;
+            ">
+                Transform your organization with custom solutions designed for modern fire engineers.
+            </p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Contact information
+    st.markdown("""
+    <div style="text-align: center; margin: 2rem 0;">
+        <p style="font-size: 1.2rem; color: #e0e0e0; margin-bottom: 1rem; font-weight: 400;">
+            Let's discuss how we can solve your fire engineering challenges.
+        </p>
+        <p style="font-size: 1.4rem; color: #ffffff; margin-bottom: 0.5rem;">
+            📧 <a href="mailto:info@emberontech.com" style="color: #66b3ff; text-decoration: none; font-weight: 600;">
+                info@emberontech.com
+            </a>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("---")
+    st.markdown("""
+    <div style="text-align: center; color: #666; font-style: italic;">
+        Built with ❤️ using OpenFire by EmberonTech
+    </div>
+    """, unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
