@@ -2,11 +2,53 @@
 
 import json
 import os
+import re
 import subprocess
 import sys
 import webbrowser
 from pathlib import Path
 from textwrap import dedent
+
+
+def validate_project_name(project_name: str) -> str:
+    """Validate and sanitize the project name to prevent path traversal attacks.
+    
+    Args:
+        project_name: The project name to validate
+        
+    Returns:
+        str: The validated project name
+        
+    Raises:
+        ValueError: If the project name is invalid
+    """
+    if not project_name or not project_name.strip():
+        raise ValueError("Project name cannot be empty")
+    
+    project_name = project_name.strip()
+    
+    # Check for path traversal attempts
+    if '..' in project_name or '/' in project_name or '\\' in project_name:
+        raise ValueError("Project name cannot contain path separators or parent directory references")
+    
+    # Check for reserved names on Windows
+    reserved_names = {
+        'CON', 'PRN', 'AUX', 'NUL', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 
+        'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 
+        'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'
+    }
+    if project_name.upper() in reserved_names:
+        raise ValueError(f"Project name '{project_name}' is reserved on Windows systems")
+    
+    # Validate characters: allow alphanumeric, hyphens, underscores, and spaces
+    if not re.match(r'^[a-zA-Z0-9_\-\s]+$', project_name):
+        raise ValueError("Project name can only contain letters, numbers, hyphens, underscores, and spaces")
+    
+    # Check length
+    if len(project_name) > 100:
+        raise ValueError("Project name is too long (maximum 100 characters)")
+    
+    return project_name
 
 
 def create_project_structure(project_name: str, target_dir: str) -> None:
@@ -27,7 +69,7 @@ def create_main_script(project_name: str, target_dir: str) -> None:
     # Read template file
     template_path = Path(__file__).parent / "templates" / "main.py"
     try:
-        with open(template_path, 'r') as f:
+        with open(template_path, 'r', encoding='utf-8') as f:
             template_content = f.read()
     except FileNotFoundError:
         # Fallback content if template file is missing
@@ -37,7 +79,7 @@ def create_main_script(project_name: str, target_dir: str) -> None:
     # Format template with project name
     content = template_content.format(project_name=project_name)
     
-    with open(main_script, 'w') as f:
+    with open(main_script, 'w', encoding='utf-8') as f:
         f.write(content)
     
     print(f"Created fire engineering application: {main_script}")
@@ -62,8 +104,7 @@ def get_latest_ofire_version() -> str:
     except (subprocess.TimeoutExpired, subprocess.SubprocessError):
         pass
     
-    # Fallback to a reasonable version if we can't determine the latest
-    return ">=0.1.0"
+    return "0.1.0"
 
 
 def create_requirements_file(project_name: str, target_dir: str) -> None:
@@ -85,7 +126,7 @@ def create_requirements_file(project_name: str, target_dir: str) -> None:
         # seaborn>=0.11.0
     ''').strip()
     
-    with open(requirements_file, 'w') as f:
+    with open(requirements_file, 'w', encoding='utf-8') as f:
         f.write(content)
     
     print(f"Created requirements file: {requirements_file}")
@@ -98,7 +139,7 @@ def create_claude_guide(project_name: str, target_dir: str) -> None:
     
     content = "Always read @AGENTS.md"
     
-    with open(claude_file, 'w') as f:
+    with open(claude_file, 'w', encoding='utf-8') as f:
         f.write(content)
     
     print(f"Created Claude guide: {claude_file}")
@@ -112,14 +153,14 @@ def create_agents_guide(project_name: str, target_dir: str) -> None:
     # Read the template file
     template_path = Path(__file__).parent / "templates" / "agents_template.md"
     try:
-        with open(template_path, 'r') as f:
+        with open(template_path, 'r', encoding='utf-8') as f:
             content = f.read()
     except FileNotFoundError:
         # Fallback content if template file is missing
         content = "# AI Agent Guide\n\nAlways use ofire library for fire engineering calculations."
         print(f"Warning: Template file not found at {template_path}, using fallback content")
     
-    with open(agents_file, 'w') as f:
+    with open(agents_file, 'w', encoding='utf-8') as f:
         f.write(content)
     
     print(f"Created AI agent guide: {agents_file}")
@@ -206,7 +247,7 @@ def create_readme(project_name: str, target_dir: str) -> None:
         ```
     ''').strip()
     
-    with open(readme_file, 'w') as f:
+    with open(readme_file, 'w', encoding='utf-8') as f:
         f.write(content)
     
     print(f"Created README: {readme_file}")
@@ -270,14 +311,14 @@ def create_activation_script(project_name: str, target_dir: str, venv_path: Path
         # Windows batch script
         activate_script = project_path / "activate.bat"
         content = f"@echo off\ncall \"{venv_path}\\Scripts\\activate.bat\"\necho Virtual environment activated!\n"
-        with open(activate_script, 'w') as f:
+        with open(activate_script, 'w', encoding='utf-8') as f:
             f.write(content)
         print(f"Created activation script: {activate_script}")
     else:
         # Unix shell script
         activate_script = project_path / "activate.sh"
         content = f"#!/bin/bash\nsource \"{venv_path}/bin/activate\"\necho \"Virtual environment activated!\"\n"
-        with open(activate_script, 'w') as f:
+        with open(activate_script, 'w', encoding='utf-8') as f:
             f.write(content)
         # Make executable
         activate_script.chmod(0o755)
@@ -339,10 +380,15 @@ def run_fire_app(target: str = None) -> None:
 
 def scaffold_new_project(project_name: str, target_dir: str) -> None:
     """Scaffold a new OpenFire project with all required files and setup."""
-    print(f"Creating OpenFire project: {project_name}")
-    print(f"Target directory: {target_dir}")
-    
     try:
+        # Validate project name for security
+        validated_project_name = validate_project_name(project_name)
+        
+        print(f"Creating OpenFire project: {validated_project_name}")
+        print(f"Target directory: {target_dir}")
+        
+        # Use validated name for all operations
+        project_name = validated_project_name
         # Create project structure
         create_project_structure(project_name, target_dir)
         
@@ -384,6 +430,10 @@ def scaffold_new_project(project_name: str, target_dir: str) -> None:
         print("🔥 Your fire engineering web application is ready to run!")
         print("For documentation, visit: https://emberon-tech.github.io/openfire/")
         
+    except ValueError as e:
+        # Handle validation errors specifically
+        print(f"\nInvalid project name: {e}")
+        sys.exit(1)
     except Exception as e:
         print(f"\nError creating project: {e}")
         sys.exit(1)

@@ -1,4 +1,5 @@
 import argparse
+from importlib.metadata import version, PackageNotFoundError
 from .project import scaffold_new_project, open_documentation, run_fire_app
 
 
@@ -15,6 +16,15 @@ def scaffold_project(args):
 
 def run_app(args):
     run_fire_app(target=args.target)
+
+
+def show_version(args):
+    """Show the OpenFire CLI version."""
+    try:
+        pkg_version = version('ofire')
+        print(f"OpenFire CLI v{pkg_version}")
+    except PackageNotFoundError:
+        print("OpenFire CLI version unknown (package not found)")
 
 
 def main():
@@ -62,7 +72,7 @@ def main():
         'version',
         help='Show OpenFire version'
     )
-    version_parser.set_defaults(func=lambda args: print("OpenFire CLI v1.0.0"))
+    version_parser.set_defaults(func=show_version)
     
     args = parser.parse_args()
     
