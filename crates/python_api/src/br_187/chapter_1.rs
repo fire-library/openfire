@@ -44,8 +44,6 @@ fn calculate_ventilation_factor(a_s: f64, a: f64, h: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// BR 187 Chapter 1 Equation 1 - Ventilation factor calculations.
-///
 /// This module provides functions for calculating ventilation factors
 /// used in external fire spread assessments.
 fn equation_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -54,8 +52,6 @@ fn equation_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// BR 187 Chapter 1 - External fire spread fundamentals.
-///
 /// This chapter provides fundamental calculations for external fire spread
 /// assessment including ventilation factors and building geometry considerations.
 pub fn chapter_1(m: &Bound<'_, PyModule>) -> PyResult<()> {

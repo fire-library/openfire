@@ -11,7 +11,7 @@ use openfire::cibse_guide_e::chapter_6::{
 
 // Equation 6_7 module functions
 #[pyfunction]
-/// Calculates the heat release rate at flashover (Equation 6.7).
+/// Calculates the heat release rate at flashover.
 ///
 /// This equation determines the minimum heat release rate required to achieve flashover
 /// conditions in a compartment fire, based on the ventilation characteristics.
@@ -47,8 +47,6 @@ fn heat_release_rate_flashover(a_vo: f64, h_o: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 6.7 - Heat Release Rate at Flashover.
-///
 /// Calculates the minimum heat release rate required to achieve flashover
 /// conditions in a compartment fire based on ventilation characteristics.
 fn equation_6_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -58,7 +56,7 @@ fn equation_6_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 6_55 module functions
 #[pyfunction]
-/// Calculates the mean flame height (Equation 6.55).
+/// Calculates the mean flame height.
 ///
 /// This equation determines the average height of flames in a compartment fire
 /// based on the total heat release rate.
@@ -92,8 +90,6 @@ fn mean_flame_height(q_t: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 6.55 - Mean Flame Height.
-///
 /// Calculates the average height of flames in a compartment fire
 /// based on the total heat release rate.
 fn equation_6_55(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -103,7 +99,7 @@ fn equation_6_55(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 6_57 module functions
 #[pyfunction]
-/// Calculates the height of flame above opening (Equation 6.57).
+/// Calculates the height of flame above opening.
 ///
 /// This equation determines the height of flames extending above a window or door
 /// opening during a compartment fire, based on the burning rate and opening geometry.
@@ -141,8 +137,6 @@ fn height_of_flame_aboveopening(r: f64, w: f64, h_o: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 6.57 - Height of Flame Above Opening.
-///
 /// Calculates the height of flames extending above a window or door
 /// opening during a compartment fire.
 fn equation_6_57(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -152,7 +146,7 @@ fn equation_6_57(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 6_58 module functions
 #[pyfunction]
-/// Calculates the ventilation-controlled rate of burning (Equation 6.58).
+/// Calculates the ventilation-controlled rate of burning.
 ///
 /// This equation determines the burning rate when the fire is limited by the
 /// available ventilation, considering the total area, opening characteristics,
@@ -197,8 +191,6 @@ fn vent_controlled_rate_of_burning(a_t: f64, a_o: f64, h_o: f64, w: f64, d: f64)
 }
 
 #[pymodule]
-/// Equation 6.58 - Ventilation-Controlled Rate of Burning.
-///
 /// Calculates the burning rate when the fire is limited by the
 /// available ventilation in the compartment.
 fn equation_6_58(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -207,8 +199,6 @@ fn equation_6_58(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// Chapter 6 - Fire and Smoke.
-///
 /// This chapter contains equations for fire dynamics and smoke behavior
 /// in compartment fires, including flashover conditions, flame heights,
 /// and ventilation-controlled burning rates.

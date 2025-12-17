@@ -47,8 +47,6 @@ fn radiation_intensity(sigma: f64, emissivity: f64, temperature: f64) -> PyResul
 }
 
 #[pymodule]
-/// BR 187 Appendix A Equation A1 - Radiation intensity calculations.
-///
 /// Calculates thermal radiation intensity from fire sources using
 /// the Stefan-Boltzmann law.
 fn equation_a1(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -94,8 +92,6 @@ fn radiation_intensity_at_receiver(phi: f64, i_s: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// BR 187 Appendix A Equation A2 - Radiation intensity at receiver calculations.
-///
 /// Calculates the thermal radiation intensity received at a target location
 /// considering geometric view factors and source intensity.
 fn equation_a2(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -106,7 +102,7 @@ fn equation_a2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation A3 module functions
 #[pyfunction]
 #[pyo3(name = "x")]
-/// Calculate dimensionless width parameter (Equation A3).
+/// Calculate dimensionless width parameter.
 ///
 /// .. math::
 ///
@@ -136,7 +132,7 @@ fn x_a3(w: f64, s: f64) -> PyResult<f64> {
 
 #[pyfunction]
 #[pyo3(name = "y")]
-/// Calculate dimensionless height parameter (Equation A3).
+/// Calculate dimensionless height parameter.
 ///
 /// .. math::
 ///
@@ -166,7 +162,7 @@ fn y_a3(h: f64, s: f64) -> PyResult<f64> {
 
 #[pyfunction]
 #[pyo3(name = "phi")]
-/// Calculate view factor using dimensionless parameters (Equation A3).
+/// Calculate view factor using dimensionless parameters.
 ///
 /// Calculates the view factor for parallel source and receiver surfaces
 /// that are centre aligned using dimensionless parameters X and Y calculated
@@ -201,8 +197,6 @@ fn phi_a3(x: f64, y: f64, additive: bool) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// BR 187 Appendix A Equation A3 - Parallel source and receiver centre aligned.
-///
 /// Provides view factor calculations for parallel source and receiver surfaces
 /// that are centre aligned.
 fn equation_a3(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -215,7 +209,7 @@ fn equation_a3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation A4 module functions
 #[pyfunction]
 #[pyo3(name = "x")]
-/// Calculate dimensionless width parameter (Equation A4).
+/// Calculate dimensionless width parameter.
 ///
 /// .. math::
 ///
@@ -245,7 +239,7 @@ fn x_a4(w: f64, s: f64) -> PyResult<f64> {
 
 #[pyfunction]
 #[pyo3(name = "y")]
-/// Calculate dimensionless height parameter (Equation A4).
+/// Calculate dimensionless height parameter.
 ///
 /// .. math::
 ///
@@ -275,7 +269,7 @@ fn y_a4(h: f64, s: f64) -> PyResult<f64> {
 
 #[pyfunction]
 #[pyo3(name = "phi")]
-/// Calculate view factor using alternative method (Equation A4).
+/// Calculate view factor using alternative method.
 ///
 /// Calculates the view factor for parallel source and receiver surfaces
 /// that are corner aligned.
@@ -308,8 +302,6 @@ fn phi_a4(x: f64, y: f64, additive: bool) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// BR 187 Appendix A Equation A4 - Parallel source and receiver corner aligned.
-///
 /// Provides view factor calculations for parallel source and receiver surfaces
 /// that are corner aligned.
 fn equation_a4(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -322,7 +314,7 @@ fn equation_a4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 // Equation A5 module functions
 #[pyfunction]
 #[pyo3(name = "x")]
-/// Calculate dimensionless width parameter (Equation A5).
+/// Calculate dimensionless width parameter.
 ///
 /// .. math::
 ///
@@ -352,7 +344,7 @@ fn x_a5(w: f64, s: f64) -> PyResult<f64> {
 
 #[pyfunction]
 #[pyo3(name = "y")]
-/// Calculate dimensionless height parameter (Equation A5).
+/// Calculate dimensionless height parameter.
 ///
 /// .. math::
 ///
@@ -382,7 +374,7 @@ fn y_a5(h: f64, s: f64) -> PyResult<f64> {
 
 #[pyfunction]
 #[pyo3(name = "phi")]
-/// Calculate view factor for specific geometric configuration (Equation A5).
+/// Calculate view factor for specific geometric configuration.
 ///
 /// Calculates the view factor for perpendicular source and receiver surfaces
 /// that are corner aligned.
@@ -415,8 +407,6 @@ fn phi_a5(x: f64, y: f64, additive: bool) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// BR 187 Appendix A Equation A5 - Perpendicular source and receiver corner aligned.
-///
 /// Provides view factor calculations for perpendicular source and receiver surfaces
 /// that are corner aligned.
 fn equation_a5(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -427,8 +417,6 @@ fn equation_a5(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 
 #[pymodule]
-/// BR 187 Appendix A - Thermal radiation calculations.
-///
 /// This appendix provides comprehensive calculations for thermal radiation
 /// from fire sources, including radiation intensity calculations and view
 /// factor determinations for various geometric configurations.

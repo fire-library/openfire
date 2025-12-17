@@ -1,6 +1,8 @@
 CIBSE Guide E
 =============
 
+*Chartered Institution of Building Services Engineers (CIBSE) (2019) CIBSE Guide E: Fire safety engineering. London: CIBSE.*
+
 CIBSE Guide E provides guidance on fire safety engineering for buildings.
 
 .. automodule:: ofire.cibse_guide_e
