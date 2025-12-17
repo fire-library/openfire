@@ -12,7 +12,7 @@ use openfire::cibse_guide_e::chapter_10::{
 
 // Equation 10_1 module functions
 #[pyfunction]
-/// Calculates the maximum volumetric flow rate (Equation 10.1).
+/// Calculates the maximum volumetric flow rate.
 ///
 /// This equation determines the maximum volumetric flow rate through
 /// an opening based on discharge coefficient, opening diameter, and temperature difference.
@@ -54,8 +54,6 @@ fn max_volumetric_flow_rate(gamma: f64, d: f64, t_s: f64, t_0: f64) -> PyResult<
 }
 
 #[pymodule]
-/// Equation 10.1 - Maximum Volumetric Flow Rate.
-///
 /// Calculates the maximum volumetric flow rate through an opening
 /// based on temperature and geometric parameters.
 fn equation_10_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -65,7 +63,7 @@ fn equation_10_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_2 module functions
 #[pyfunction]
-/// Calculates the minimum separation distance between vents (Equation 10.2).
+/// Calculates the minimum separation distance between vents.
 ///
 /// This equation determines the minimum separation distance
 /// between exhaust vents based on the escape velocity.
@@ -99,8 +97,6 @@ fn min_separation_dist(v_e: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.2 - Minimum Separation Distance Between Vents.
-///
 /// Calculates the minimum separation distance based on escape velocity.
 fn equation_10_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(min_separation_dist, m)?)?;
@@ -109,7 +105,7 @@ fn equation_10_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_3 module functions
 #[pyfunction]
-/// Calculates the volumetric flow rate (Equation 10.3).
+/// Calculates the volumetric flow rate.
 ///
 /// This equation determines the volumetric flow rate of smoke
 /// based on mass flow rate, temperature, and density parameters.
@@ -149,8 +145,6 @@ fn volumetric_flow_rate(m: f64, t_s: f64, rho_0: f64, t_0: f64) -> PyResult<f64>
 }
 
 #[pymodule]
-/// Equation 10.3 - Volumetric Flow Rate.
-///
 /// Calculates the volumetric flow rate based on mass flow rate and temperature parameters.
 fn equation_10_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(volumetric_flow_rate, m)?)?;
@@ -159,7 +153,7 @@ fn equation_10_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_4 module functions
 #[pyfunction]
-/// Calculates the time to burning of skin due to radiant heat (Equation 10.4).
+/// Calculates the time to burning of skin due to radiant heat.
 ///
 /// This equation determines the time time to burning of skin
 /// due to radiant heat.
@@ -193,8 +187,6 @@ fn time_burning_skin(q: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.4 - Time to Burning Skin.
-///
 /// Calculates the time required for skin to reach a burning condition based on heat flux.
 fn equation_10_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(time_burning_skin, m)?)?;
@@ -203,7 +195,7 @@ fn equation_10_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_7 module functions
 #[pyfunction]
-/// Calculates the visibility (furthest distance at which an object can be perceived) (Equation 10.7).
+/// Calculates the visibility (furthest distance at which an object can be perceived).
 ///
 /// This equation determines the furthest distance at which an object can be perceived
 /// based on the optical density per unit length and a visibility coefficient.
@@ -239,8 +231,6 @@ fn visibility(k: f64, d: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.7 - Visibility.
-///
 /// Calculates the optical density based on visibility distance and extinction coefficient.
 fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(visibility, m)?)?;
@@ -249,7 +239,7 @@ fn equation_10_7(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_8 module functions
 #[pyfunction]
-/// Calculates the fractional effective dose (Equation 10.8).
+/// Calculates the fractional effective dose.
 ///
 /// This equation determines the fractional effective dose for toxicity
 /// assessment based on mass concentration, exposure time, and lethal exposure dose.
@@ -287,8 +277,6 @@ fn fractional_effective_dose(m_f: f64, t: f64, lc_50: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.8 - Fractional Effective Dose.
-///
 /// Calculates the fractional effective dose for toxicity assessment.
 fn equation_10_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(fractional_effective_dose, m)?)?;
@@ -297,7 +285,7 @@ fn equation_10_8(m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 // Equation 10_10 module functions
 #[pyfunction]
-/// Calculates the limiting average air velocity for opposed air flow ventilation (Equation 10.10).
+/// Calculates the limiting average air velocity for opposed air flow ventilation.
 ///
 /// This equation determines the limiting average velocity for opposed air flow ventilation
 /// towards the fire compartment, sufficient to prevent the outflow of smoke
@@ -338,8 +326,6 @@ fn limiting_velocity_10_10(g: f64, h: f64, t_f: f64, t_0: f64) -> PyResult<f64> 
 }
 
 #[pymodule]
-/// Equation 10.10 - Limiting Average Air Velocity for Opposed Air Flow Ventilation.
-///
 /// Calculates the limiting average air velocity based on buoyancy forces and temperature difference.
 fn equation_10_10(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(limiting_velocity_10_10, m)?)?;
@@ -386,8 +372,6 @@ fn limiting_velocity_10_11(q: f64, z: f64) -> PyResult<f64> {
 }
 
 #[pymodule]
-/// Equation 10.11 - Limiting Average Air Velocity to Prevent Smoke Spread from Large Spaces.
-///
 /// Calculates the limiting velocity based on heat release rate and height above fire source.
 fn equation_10_11(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(limiting_velocity_10_11, m)?)?;
@@ -453,8 +437,6 @@ fn limiting_velocity_10_12(
 }
 
 #[pymodule]
-/// Equation 10.12 - Limiting Average Inlet Air Velocity to Prevent Smoke Spread Upstream.
-///
 /// Calculates the limiting velocity incorporating thermal properties and environmental conditions.
 fn equation_10_12(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(limiting_velocity_10_12, m)?)?;
