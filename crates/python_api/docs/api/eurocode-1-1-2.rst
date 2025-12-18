@@ -1,7 +1,7 @@
-Eurocode 1-1-2
+Eurocode 1. Part 1-2
 ===================
 
-BS EN 1991-1-2:2002 - General Actions: Actions on structures exposed to fire.
+*British Standards Institution (BSI) (2002) BS EN 1991-1-2:2002 Eurocode 1: Actions on structures – Part 1-2: General actions – Actions on structures exposed to fire*
 
 BS EN 1991-1-2 provides general rules for the determination of thermal actions on structures exposed to fire and their application for structural analysis. The standard specifies:
 
@@ -71,6 +71,14 @@ Equation 3.6 - Hydrocarbon temperature-time curve
 """""""""""""""""""""""""""""""""""""""""""""""""
 
 .. automodule:: ofire.eurocode_1_1_2.section_3.equation_3_6
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Annex E - Fire load densities
+------------------------------------------
+
+.. automodule:: ofire.eurocode_1_1_2.annex_e
    :members:
    :undoc-members:
    :show-inheritance:

@@ -45,7 +45,6 @@ fn net_heat_flux_surface(h_net_c: f64, h_net_r: f64) -> f64 {
 }
 
 #[pymodule]
-/// Equation 3.1 - Net heat flux per unit area of the surface.
 pub fn equation_3_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(net_heat_flux_surface, m)?)?;
     Ok(())
@@ -91,7 +90,6 @@ fn net_convective_heat_flux_surface(alpha_c: f64, theta_g: f64, theta_m: f64) ->
 }
 
 #[pymodule]
-/// Equation 3.2 - Net convective heat flux per unit area of the surface.
 pub fn equation_3_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(net_convective_heat_flux_surface, m)?)?;
     Ok(())
@@ -152,7 +150,6 @@ fn net_radiative_heat_flux_surface(
 }
 
 #[pymodule]
-/// Equation 3.3 - Net radiative heat flux per unit area of the surface.
 pub fn equation_3_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(net_radiative_heat_flux_surface, m)?)?;
     Ok(())
@@ -191,7 +188,6 @@ fn standard_temp_time_curve(t: f64) -> f64 {
 }
 
 #[pymodule]
-/// Equation 3.4 - Standard temperature-time curve calculation.
 pub fn equation_3_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(standard_temp_time_curve, m)?)?;
     Ok(())
@@ -230,7 +226,6 @@ fn external_temp_time_curve(t: f64) -> f64 {
 }
 
 #[pymodule]
-/// Equation 3.5 - External temperature-time curve calculation.
 pub fn equation_3_5(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(external_temp_time_curve, m)?)?;
     Ok(())
@@ -269,15 +264,12 @@ fn hydrocarbon_temp_time_curve(t: f64) -> f64 {
 }
 
 #[pymodule]
-/// Equation 3.6 - Hydrocarbon temperature-time curve calculation.
 pub fn equation_3_6(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(hydrocarbon_temp_time_curve, m)?)?;
     Ok(())
 }
 
 #[pymodule]
-/// Section 3 - Thermal actions for temperature .
-///
 /// This section contains equations for thermal actions on structural elements exposed to fire.
 pub fn section_3(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_3_1))?;
