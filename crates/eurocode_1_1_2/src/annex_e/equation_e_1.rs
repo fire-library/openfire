@@ -76,12 +76,17 @@ mod tests {
     #[test]
     fn test_design_fire_load() {
         let delta_n_variable = delta_n(0.61,
-            1.0, 0.87, 0.87,
-            0.87, 0.61, 0.61,
-            0.9, 1.0, 1.0);
+            1.0,
+            0.87, 
+            0.87,
+            0.87,
+            0.61,
+            0.61,
+            0.9,
+            1.0,
+            1.0);
         let result = design_fire_load(780.0, 0.8, 1.1, 0.78, delta_n_variable);
-        let expected = 135.7102224;
-        assert_eq!(result, expected);
-        // assert!((result - expected).abs() < 1e-6);
+        let expected = 72.02141503058;
+        assert!((result - expected).abs() < 1e-6);
     }
 }
