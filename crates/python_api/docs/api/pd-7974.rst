@@ -1,0 +1,92 @@
+BS 7974 & PD 7974
+=================
+
+BS 7974 and the PD 7974 document suite provide guidance on the application of fire safety engineering principles to the design of buildings.
+
+.. automodule:: ofire.pd_7974
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Part 1 - Initiation and Development of Fire
+-------------------------------------------
+
+.. automodule:: ofire.pd_7974.part_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Section 8 - Fire Growth and Heat Release Rate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.pd_7974.part_1.section_8
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation Modules
+^^^^^^^^^^^^^^^^
+
+Equation 28 - Heat Release Rate at Flashover (Thomas)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_28
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 29 - Heat Release Rate at Flashover (McCaffrey)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_29
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 33 - Ventilation-Controlled Heat Release Rate
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_33
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 4 - Fuel-Controlled Heat Release Rate
+""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_4
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 41 - Maximum Gas Temperature
+"""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_41
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 42 - Opening Factor
+""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_42
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 43 - Gas Temperature
+""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_43
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 44 - Fuel Load Density Parameter
+"""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.pd_7974.part_1.section_8.equation_44
+   :members:
+   :undoc-members:
+   :show-inheritance:

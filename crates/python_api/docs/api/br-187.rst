@@ -1,0 +1,75 @@
+BR 187
+======
+
+*Chitty, R. (2014) External fire spread: building separation and boundary distances (BR 187, 2nd edn). Watford: BRE Trust*
+
+BR 187 provides guidance on external fire spread calculations for building design.
+
+.. automodule:: ofire.br_187
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Chapter 1 - External Fire Spread Fundamentals
+----------------------------------------------
+
+.. automodule:: ofire.br_187.chapter_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 1 - Ventilation Factor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.br_187.chapter_1.equation_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Appendix A - Thermal Radiation Calculations
+--------------------------------------------
+
+.. automodule:: ofire.br_187.appendix_a
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation A1 - Radiation Intensity from Fire Sources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.br_187.appendix_a.equation_a1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation A2 - Radiation Intensity at Receiver
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.br_187.appendix_a.equation_a2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation A3 - Parallel Source and Receiver Centre Aligned
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.br_187.appendix_a.equation_a3
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation A4 - Parallel Source and Receiver Corner Aligned
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.br_187.appendix_a.equation_a4
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation A5 - Perpendicular Source and Receiver Corner Aligned
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.br_187.appendix_a.equation_a5
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,58 @@
+name: Build Documentation (Test Only)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Create virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
+          echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
+
+      - name: Install documentation dependencies
+        run: |
+          pip install -r crates/python_api/docs/docs-requirements.txt
+
+      - name: Install ofire package for API docs
+        run: |
+          cd crates/python_api
+          pip install maturin
+          maturin develop
+
+      - name: Verify ofire installation
+        run: |
+          python -c "import ofire; print('ofire modules:', dir(ofire))"
+
+      - name: Build documentation with Sphinx
+        run: |
+          sphinx-build -b html crates/python_api/docs crates/python_api/_build
+
+      - name: Check documentation build
+        run: |
+          echo "Documentation built successfully"
+          ls -la crates/python_api/_build

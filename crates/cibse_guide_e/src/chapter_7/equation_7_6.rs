@@ -1,0 +1,18 @@
+pub fn maximum_flowrate_persons(w: f64) -> f64 {
+    1.333 * w
+}
+
+pub fn equation(f: String, w: String) -> String {
+    format!("{} = 1.333 \\cdot {}", f, w,)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        let result = maximum_flowrate_persons(1.2);
+        assert_eq!(result, 1.5996);
+    }
+}

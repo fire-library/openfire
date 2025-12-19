@@ -1,0 +1,25 @@
+TR 17
+=====
+
+Technical report calculations and guidance.
+
+.. automodule:: ofire.tr_17
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Section 2
+---------
+
+.. automodule:: ofire.tr_17.section_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 1 - Non-dimensional Heat Release Rate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.tr_17.section_2.equation_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
