@@ -30,7 +30,29 @@ keywords = [
 [project.scripts]
 ofire = "ofire.cli:main"
 
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0",
+    "pytest-subprocess>=1.5.0",
+    "pytest-xdist>=3.0.0",
+]
+
 [project.urls]
 Homepage = "https://www.openfiresoftware.com/"
 Documentation = "https://emberon-tech.github.io/openfire/"
-Repository = "https://github.com/emberon-tech/openfire"
+Repository = "https://github.com/emberon-tech/openfire/"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
