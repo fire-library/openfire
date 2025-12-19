@@ -42,6 +42,7 @@ Project Structure
    :caption: Contents:
 
    installation
+   cli
    guide/index
    api/index
 
