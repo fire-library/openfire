@@ -4,8 +4,16 @@ pub fn pressure_difference_stack_effect(t_0: f64, t_s: f64, z: f64) -> f64 {
     3460.0 * (1.0 / (t_0_abs) - 1.0 / (t_s_abs)) * z
 }
 
-pub fn pressure_difference_stack_effect_equation(delta_p_so: String, t_0: String, t_s: String, z: String) -> String {
-    format!("{} = 3460 \\cdot \\left(\\frac{{1}}{{{} + 273}} - \\frac{{1}}{{{} + 273}}\\right) \\cdot {}", delta_p_so, t_0, t_s, z)
+pub fn pressure_difference_stack_effect_equation(
+    delta_p_so: String,
+    t_0: String,
+    t_s: String,
+    z: String,
+) -> String {
+    format!(
+        "{} = 3460 \\cdot \\left(\\frac{{1}}{{{} + 273}} - \\frac{{1}}{{{} + 273}}\\right) \\cdot {}",
+        delta_p_so, t_0, t_s, z
+    )
 }
 
 #[cfg(test)]
