@@ -5,7 +5,7 @@ pub fn pressure_difference_fire_compartment(t_0: f64, t_f: f64, z: f64) -> f64 {
 }
 
 pub fn pressure_difference_fire_compartment_equation(delta_p_so: String, t_0: String, t_f: String, z: String) -> String {
-    format!("{} = 3460 * (1 / ({} + 273) - 1 / ({} + 273)) * {}", delta_p_so, t_0, t_f, z)
+    format!("{} = 3460 \\cdot \\left(\\frac{{1}}{{{} + 273}} - \\frac{{1}}{{{} + 273}}\\right) \\cdot {}", delta_p_so, t_0, t_f, z)
 }
 
 #[cfg(test)]

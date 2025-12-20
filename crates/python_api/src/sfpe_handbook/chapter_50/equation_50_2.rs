@@ -42,33 +42,6 @@ fn pressure_difference_stack_effect_alt(t_0: f64, t_s: f64, z: f64) -> PyResult<
     Ok(rust_equation_50_2::pressure_difference_stack_effect_alt(t_0, t_s, z))
 }
 
-#[pyfunction]
-/// LaTeX equation string for pressure difference due to stack effect (alternate).
-///
-/// Returns the LaTeX representation of Equation 50.2 with custom variable names.
-///
-/// Args:
-///     delta_p_so (str): Symbol for pressure difference
-///     t_0 (str): Symbol for outdoor temperature
-///     t_s (str): Symbol for shaft temperature
-///     z (str): Symbol for height
-///
-/// Returns:
-///     str: LaTeX equation string
-///
-/// Example:
-///     >>> import ofire
-///     >>> eq = ofire.sfpe_handbook.chapter_50.equation_50_2.pressure_difference_stack_effect_alt_equation("ΔP", "T_out", "T_shaft", "h")
-///     >>> print(eq)
-fn pressure_difference_stack_effect_alt_equation(
-    delta_p_so: String,
-    t_0: String,
-    t_s: String,
-    z: String,
-) -> PyResult<String> {
-    Ok(rust_equation_50_2::pressure_difference_stack_effect_alt_equation(delta_p_so, t_0, t_s, z))
-}
-
 #[pymodule]
 /// Equation 50.2 - Pressure difference due to stack effect (alternate formulation).
 ///
