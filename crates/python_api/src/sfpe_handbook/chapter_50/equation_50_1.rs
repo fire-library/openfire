@@ -1,11 +1,10 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
-// Import sfpe_handbook chapter 50 equation_50_1 functions
 use openfire::sfpe_handbook::chapter_50::equation_50_1 as rust_equation_50_1;
 
 #[pyfunction]
-/// Pressure difference due to stack effect (Equation 50.1).
+/// Pressure difference due to stack effect.
 ///
 /// This function calculates the pressure difference between indoor and outdoor
 /// environments due to stack effect.
