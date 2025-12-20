@@ -29,11 +29,11 @@ use openfire::sfpe_handbook::chapter_50::equation_50_1 as rust_equation_50_1;
 ///     float: Pressure difference due to stack effect (Pa)
 ///
 /// Assumptions:
-///    To be completed.
+///     To be completed.
 ///
 /// Limitations:
-///    Not applicable for complicated buildings, with shafts of various heights
-///    and different shafts temperatures.
+///     Not applicable for complicated buildings, with shafts of various heights
+///     and different shafts temperatures.
 ///
 /// Example:
 ///     >>> import ofire
