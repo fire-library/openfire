@@ -38,8 +38,8 @@ use openfire::sfpe_handbook::chapter_50::equation_50_2 as rust_equation_50_2;
 ///     >>> import ofire
 ///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_2.pressure_difference_fire_compartment(20.0, 800.0, 1.52)
 ///     >>> print(f"{result:.2f} Pa")
-fn pressure_difference_fire_compartment(t_0: f64, t_s: f64, z: f64) -> PyResult<f64> {
-    Ok(rust_equation_50_2::pressure_difference_fire_compartment(t_0, t_s, z))
+fn pressure_difference_fire_compartment(t_0: f64, t_f: f64, z: f64) -> PyResult<f64> {
+    Ok(rust_equation_50_2::pressure_difference_fire_compartment(t_0, t_f, z))
 }
 
 #[pymodule]
