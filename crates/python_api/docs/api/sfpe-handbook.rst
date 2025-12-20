@@ -47,3 +47,11 @@ Equation 50.1 - Pressure Difference Due to Stack Effect
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.2 - Pressure Difference between a Fire Compartment and its Surroundings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
