@@ -31,3 +31,19 @@ Heat Release Rate Correlations
    :members:
    :undoc-members:
    :show-inheritance:
+
+Chapter 50 - Smoke Control
+-------------------------
+
+.. automodule:: ofire.sfpe_handbook.chapter_50
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 50.1 - Pressure Difference Due to Stack Effect
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_1
+   :members:
+   :undoc-members:
+   :show-inheritance:
