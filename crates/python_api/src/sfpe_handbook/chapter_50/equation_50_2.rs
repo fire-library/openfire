@@ -36,15 +36,13 @@ use openfire::sfpe_handbook::chapter_50::equation_50_2 as rust_equation_50_2;
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_2.pressure_difference_fire_compartment(-18.0, 21.0, 30.0)
+///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_2.pressure_difference_fire_compartment(20.0, 800.0, 1.52)
 ///     >>> print(f"{result:.2f} Pa")
 fn pressure_difference_fire_compartment(t_0: f64, t_s: f64, z: f64) -> PyResult<f64> {
     Ok(rust_equation_50_2::pressure_difference_fire_compartment(t_0, t_s, z))
 }
 
 #[pymodule]
-/// This module contains the alternate implementation of stack effect pressure difference
-/// calculation from the SFPE Handbook, using the same formulation as Equation 50.1.
 pub fn equation_50_2(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(pressure_difference_fire_compartment, m)?)?;
     Ok(())

@@ -44,8 +44,6 @@ fn pressure_difference_stack_effect(t_0: f64, t_s: f64, z: f64) -> PyResult<f64>
 }
 
 #[pymodule]
-/// This module contains the implementation of Equation 50.1 from the SFPE Handbook,
-/// which calculates pressure differences due to stack effect in buildings.
 pub fn equation_50_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(pressure_difference_stack_effect, m)?)?;
     Ok(())

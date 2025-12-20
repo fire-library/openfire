@@ -41,7 +41,7 @@ Chapter 50 - Smoke Control
    :show-inheritance:
 
 Equation 50.1 - Pressure Difference Due to Stack Effect
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_1
    :members:
@@ -49,7 +49,7 @@ Equation 50.1 - Pressure Difference Due to Stack Effect
    :show-inheritance:
 
 Equation 50.2 - Pressure Difference between a Fire Compartment and its Surroundings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_2
    :members:
