@@ -55,3 +55,11 @@ Equation 50.2 - Pressure Difference between a Fire Compartment and its Surroundi
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.4 - Pressure Exerted by a Wind on a Wall
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_4
+   :members:
+   :undoc-members:
+   :show-inheritance:
