@@ -29,7 +29,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_4 as rust_equation_50_4;
 ///     float: Pressure exerted by wind (Pa)
 ///
 /// Assumptions:
-///     The pressure coefficient :math: `C_w` depends on wind direction, building geometry and local obstructions.
+///     The pressure coefficient `C_w` depends on wind direction, building geometry and local obstructions.
 ///
 /// Limitations:
 ///     None stated.
