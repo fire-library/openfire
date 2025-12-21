@@ -1,4 +1,4 @@
-pub fn pressure_difference_fire_compartment(t_0: f64, t_f: f64, z: f64) -> f64 {
+pub fn pressure_difference(t_0: f64, t_f: f64, z: f64) -> f64 {
     let t_0_abs = t_0 + 273.0;
     let t_f_abs = t_f + 273.0;
     3460.0 * (1.0 / (t_0_abs) - 1.0 / (t_f_abs)) * z
