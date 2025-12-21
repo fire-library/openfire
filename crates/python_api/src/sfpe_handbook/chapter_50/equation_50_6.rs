@@ -34,6 +34,12 @@ use openfire::sfpe_handbook::chapter_50::equation_50_6 as rust_equation_50_6;
 /// Returns:
 ///     float: Pressure difference (Pa)
 ///
+/// Assumptions:
+///     None stated.
+///
+/// Limitations:
+///     The flow coefficient was determined experimentally at 0.94 for multiple cars and 0.83 for a single car.
+///
 /// Example:
 ///     >>> import ofire
 ///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_6.pressure_difference(0.8, 6.0, 5.0, 2.5, 1.0, 1.0, 0.84)
