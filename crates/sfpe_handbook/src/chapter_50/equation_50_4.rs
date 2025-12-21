@@ -20,7 +20,7 @@ mod tests {
 
     #[test]
     fn test_pressure_exerted_wind() {
-        let result = pressure_exerted_wind(0.8, 1.2, 15.0);
+        let result = wind_pressure(0.8, 1.2, 15.0);
         let expected = 108.0;
         assert!((result - expected).abs() < 1e-6);
     }

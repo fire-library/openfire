@@ -22,7 +22,7 @@ mod tests {
 
     #[test]
     fn test_pressure_difference_fire_compartment() {
-        let result = pressure_difference_fire_compartment(20.0, 800.0, 1.52);
+        let result = pressure_difference(20.0, 800.0, 1.52);
         let expected = 13.04809010;
         assert!((result - expected).abs() < 1e-6);
     }
