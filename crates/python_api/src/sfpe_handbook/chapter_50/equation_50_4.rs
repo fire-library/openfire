@@ -5,8 +5,6 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_4 as rust_equation_50_4;
 
 #[pyfunction]
-/// Pressure exerted by wind on the building's wall.
-///
 /// This function calculates the pressure exerted by wind on a building's wall surface.
 ///
 /// .. math::
