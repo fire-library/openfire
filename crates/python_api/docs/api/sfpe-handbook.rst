@@ -63,3 +63,19 @@ Equation 50.4 - Pressure Exerted by Wind on a Wall
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.6 - Upper Limit Pressure Difference for Piston Effect
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_6
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 50.7 - Effective Area for Elevator with Enclosed Lobbies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_7
+   :members:
+   :undoc-members:
+   :show-inheritance:
