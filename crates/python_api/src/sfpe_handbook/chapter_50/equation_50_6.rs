@@ -23,7 +23,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_6 as rust_equation_50_6;
 /// - :math:`C_c` is the flow coefficient for flow around car (dimensionless)
 ///
 /// Args:
-///     rho (float): Air density in hoistway(kg/m³)
+///     rho (float): Air density in hoistway (kg/m³)
 ///     a_s (float): Cross-sectional area of the shaft (m²)
 ///     a_e (float): Effective area (m²)
 ///     u (float): Elevator car velocity (m/s)
