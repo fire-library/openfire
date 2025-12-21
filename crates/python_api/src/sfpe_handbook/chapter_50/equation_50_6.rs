@@ -5,7 +5,7 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_6 as rust_equation_50_6;
 
 #[pyfunction]
-/// This function calculates upper limit pressure diffence due to piston effect from the shaft to the building
+/// This function calculates upper limit pressure difference due to piston effect from the shaft to the building
 ///
 /// .. math::
 ///
