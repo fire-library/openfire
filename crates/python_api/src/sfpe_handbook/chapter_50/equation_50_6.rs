@@ -13,7 +13,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_6 as rust_equation_50_6;
 ///
 /// where:
 ///
-/// - :math:`\Delta P_{usi}` is the upper limmit pressure difference (Pa)
+/// - :math:`\Delta P_{usi}` is the upper limit pressure difference (Pa)
 /// - :math:`\rho` is the air density in hoistway (kg/m³)
 /// - :math:`A_s` is the cross-sectional area of the shaft (m²)
 /// - :math:`A_e` is the effective area (m²)
