@@ -37,16 +37,14 @@ use openfire::sfpe_handbook::chapter_50::equation_50_1 as rust_equation_50_1;
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_1.pressure_difference_stack_effect(-18.0, 21.0, 30.0)
+///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_1.pressure_difference(-18.0, 21.0, 30.0)
 ///     >>> print(f"{result:.2f} Pa")
-fn pressure_difference_stack_effect(t_0: f64, t_s: f64, z: f64) -> PyResult<f64> {
-    Ok(rust_equation_50_1::pressure_difference_stack_effect(
-        t_0, t_s, z,
-    ))
+fn pressure_difference(t_0: f64, t_s: f64, z: f64) -> PyResult<f64> {
+    Ok(rust_equation_50_1::pressure_difference(t_0, t_s, z))
 }
 
 #[pymodule]
 pub fn equation_50_1(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(pressure_difference_stack_effect, m)?)?;
+    m.add_function(wrap_pyfunction!(pressure_difference, m)?)?;
     Ok(())
 }
