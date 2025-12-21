@@ -32,8 +32,8 @@ mod tests {
 
     #[test]
     fn test_pressure_difference() {
-        let result = pressure_difference(0.8, 6.0, 5.0, 2.5, 1.0, 1.0, 0.84);
-        let expected = 35.71428571;
+        let result = pressure_difference(0.8, 2.0, 1.5, 2.5, 1.0, 1.0, 0.84);
+        let expected = 31.88775510;
         assert!((result - expected).abs() < 1e-6);
     }
 }
