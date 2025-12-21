@@ -1,4 +1,4 @@
-pub fn pressure_exerted_wind(c_w: f64, rho_0: f64, u_h: f64) -> f64 {
+pub fn wind_pressure(c_w: f64, rho_0: f64, u_h: f64) -> f64 {
     0.5 * c_w * rho_0 * u_h.powf(2.0)
 }
 
