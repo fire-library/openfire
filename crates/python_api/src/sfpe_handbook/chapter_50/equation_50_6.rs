@@ -44,8 +44,18 @@ use openfire::sfpe_handbook::chapter_50::equation_50_6 as rust_equation_50_6;
 ///     >>> import ofire
 ///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_6.pressure_difference(0.8, 6.0, 5.0, 2.5, 1.0, 1.0, 0.84)
 ///     >>> print(f"{result:.2f} Pa")
-fn pressure_difference(rho: f64, a_s: f64, a_e: f64, u: f64, a_a: f64, a_ir: f64, c_c: f64) -> PyResult<f64> {
-    Ok(rust_equation_50_6::pressure_difference(rho, a_s, a_e, u, a_a, a_ir, c_c))
+fn pressure_difference(
+    rho: f64,
+    a_s: f64,
+    a_e: f64,
+    u: f64,
+    a_a: f64,
+    a_ir: f64,
+    c_c: f64,
+) -> PyResult<f64> {
+    Ok(rust_equation_50_6::pressure_difference(
+        rho, a_s, a_e, u, a_a, a_ir, c_c,
+    ))
 }
 
 #[pymodule]

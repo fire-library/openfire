@@ -5,7 +5,7 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_7 as rust_equation_50_7;
 
 #[pyfunction]
-/// This function calculates the effective area for smoke control systems (Equation 50-7).
+/// This function calculates the effective area for an elevator with enclosed lobbies.
 ///
 /// .. math::
 ///
@@ -14,17 +14,23 @@ use openfire::sfpe_handbook::chapter_50::equation_50_7 as rust_equation_50_7;
 /// where:
 ///
 /// - :math:`A_{effective}` is the effective area (m²)
-/// - :math:`A_{sr}` is the smoke removal area (m²)
-/// - :math:`A_{ir}` is the air intake/return area (m²)
-/// - :math:`A_{io}` is the inlet/outlet area (m²)
+/// - :math:`A_{sr}` is the leakage area between shaft and lobby (m²)
+/// - :math:`A_{ir}` is the leakage area between building and lobby(m²)
+/// - :math:`A_{io}` is the leakage area between the building and outside (m²)
 ///
 /// Args:
-///     a_sr (float): Smoke removal area (m²)
-///     a_ir (float): Air intake/return area (m²)
-///     a_io (float): Inlet/outlet area (m²)
+///     a_sr (float): Leakage area between shaft and lobby (m²)
+///     a_ir (float): Leakage area between building and lobby (m²)
+///     a_io (float): Leakage area between building and outside (m²)
 ///
 /// Returns:
 ///     float: Effective area (m²)
+///
+/// Assumptions:
+///     None stated.
+///
+/// Limitations:
+///     None stated.
 ///
 /// Example:
 ///     >>> import ofire
