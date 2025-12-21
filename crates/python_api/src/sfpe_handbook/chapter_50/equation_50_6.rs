@@ -13,23 +13,23 @@ use openfire::sfpe_handbook::chapter_50::equation_50_6 as rust_equation_50_6;
 ///
 /// where:
 ///
-/// - :math:`\Delta P_{usi}` is the pressure difference (Pa)
-/// - :math:`\rho` is the air density (kg/m³)
-/// - :math:`A_s` is the supply air area (m²)
-/// - :math:`A_e` is the exhaust air area (m²)
-/// - :math:`u` is the air velocity (m/s)
-/// - :math:`A_a` is the air inlet area (m²)
-/// - :math:`A_{ir}` is the air return area (m²)
-/// - :math:`C_c` is the contraction coefficient (dimensionless)
+/// - :math:`\Delta P_{usi}` is the upper limmit pressure difference (Pa)
+/// - :math:`\rho` is the air density in hoistway (kg/m³)
+/// - :math:`A_s` is the cross-sectional area of the shaft (m²)
+/// - :math:`A_e` is the effective area (m²)
+/// - :math:`u` is the elevator car velocity (m/s)
+/// - :math:`A_a` is the free area around the elevator car (m²)
+/// - :math:`A_{ir}` is the leakage area between building and lobby (m²)
+/// - :math:`C_c` is the flow coefficient for flow around car (dimensionless)
 ///
 /// Args:
-///     rho (float): Air density (kg/m³)
-///     a_s (float): Supply air area (m²)
-///     a_e (float): Exhaust air area (m²)
-///     u (float): Air velocity (m/s)
-///     a_a (float): Air inlet area (m²)
-///     a_ir (float): Air return area (m²)
-///     c_c (float): Contraction coefficient (dimensionless)
+///     rho (float): Air density in hoistway(kg/m³)
+///     a_s (float): Cross-sectional area of the shaft (m²)
+///     a_e (float): Effective area (m²)
+///     u (float): Elevator car velocity (m/s)
+///     a_a (float): Free area around the elevator car (m²)
+///     a_ir (float): Leakage area between building and lobby (m²)
+///     c_c (float): Flow coefficient for flow around car (dimensionless)
 ///
 /// Returns:
 ///     float: Pressure difference (Pa)
