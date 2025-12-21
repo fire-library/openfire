@@ -1,11 +1,11 @@
-pub fn wind_pressure(c_w: f64, rho_0: f64, u_h: f64) -> f64 {
-    0.5 * c_w * rho_0 * u_h.powf(2.0)
+pub fn effective_area(a_sr: f64, a_ir: f64, a_io: f64) -> f64 {
+    (1.0 / a_sr.powf(2.0) + 1.0 / a_ir.powf(2.0) + 1.0 / a_io.powf(2.0)).powf(-0.5)
 }
 
-pub fn wind_pressure_equation(p_w: String, c_w: String, rho_0: String, u_h: String) -> String {
+pub fn effective_area_equation(a_sr: String, a_ir: String, a_io: String) -> String {
     format!(
-        "{} = 0.5 \\cdot {} \\cdot {} \\cdot {}^2",
-        p_w, c_w, rho_0, u_h
+        "{} = \\left(\\frac{1}{{{}}}^2 + \\frac{1}{{{}}}^2 + \\frac{1}{{{}}}^2\\right)^{{-0.5}}",
+        "A_{effective}", a_sr, a_ir, a_io
     )
 }
 
@@ -14,9 +14,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_wind_pressure() {
-        let result = wind_pressure(0.8, 1.2, 15.0);
-        let expected = 108.0;
+    fn test_effective_area() {
+        let result = effective_area(0.5, 0.75, 2.5);
+        let expected = 0.41038174;
         assert!((result - expected).abs() < 1e-6);
     }
 }
