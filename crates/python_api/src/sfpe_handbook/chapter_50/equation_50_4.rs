@@ -37,11 +37,11 @@ use openfire::sfpe_handbook::chapter_50::equation_50_4 as rust_equation_50_4;
 ///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_4.pressure_exerted_wind(0.8, 1.2, 15.0)
 ///     >>> print(f"{result:.2f} Pa")
 fn wind_pressure(c_w: f64, rho_0: f64, u_h: f64) -> PyResult<f64> {
-    Ok(rust_equation_50_4::pressure_exerted_wind(c_w, rho_0, u_h))
+    Ok(rust_equation_50_4::wind_pressure(c_w, rho_0, u_h))
 }
 
 #[pymodule]
 pub fn equation_50_4(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(pressure_exerted_wind, m)?)?;
+    m.add_function(wrap_pyfunction!(wind_pressure, m)?)?;
     Ok(())
 }
