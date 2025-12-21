@@ -38,7 +38,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_4 as rust_equation_50_4;
 ///     >>> import ofire
 ///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_4.pressure_exerted_wind(0.8, 1.2, 15.0)
 ///     >>> print(f"{result:.2f} Pa")
-fn pressure_exerted_wind(c_w: f64, rho_0: f64, u_h: f64) -> PyResult<f64> {
+fn wind_pressure(c_w: f64, rho_0: f64, u_h: f64) -> PyResult<f64> {
     Ok(rust_equation_50_4::pressure_exerted_wind(c_w, rho_0, u_h))
 }
 
