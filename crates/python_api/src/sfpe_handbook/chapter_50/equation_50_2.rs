@@ -5,8 +5,6 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_2 as rust_equation_50_2;
 
 #[pyfunction]
-/// Pressure difference between a fire compartment and its surroundings.
-///
 /// This function calculates the pressure difference between a fire compartment and its surroundings.
 ///
 /// .. math::
