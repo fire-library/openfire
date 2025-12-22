@@ -26,7 +26,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_6 as rust_equation_50_6;
 ///     rho (float): Air density in hoistway (kg/m³)
 ///     a_s (float): Cross-sectional area of the shaft (m²)
 ///     a_e (float): Effective area (m²)
-///     u (float): Elevator car velocity (m/s)
+///     U (float): Elevator car velocity (m/s)
 ///     a_a (float): Free area around the elevator car (m²)
 ///     a_ir (float): Leakage area between building and lobby (m²)
 ///     c_c (float): Flow coefficient for flow around car (dimensionless)
