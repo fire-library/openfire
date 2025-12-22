@@ -13,7 +13,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_7 as rust_equation_50_7;
 ///
 /// where:
 ///
-/// - :math:`A_{effective}` is the effective area (m²)
+/// - :math:`A_{e}` is the effective area (m²)
 /// - :math:`A_{sr}` is the leakage area between shaft and lobby (m²)
 /// - :math:`A_{ir}` is the leakage area between building and lobby (m²)
 /// - :math:`A_{io}` is the leakage area between the building and outside (m²)
