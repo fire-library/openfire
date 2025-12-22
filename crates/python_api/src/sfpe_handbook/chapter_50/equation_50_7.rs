@@ -9,7 +9,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_7 as rust_equation_50_7;
 ///
 /// .. math::
 ///
-///    A_{effective} = \left(\frac{1}{A_{sr}^2} + \frac{1}{A_{ir}^2} + \frac{1}{A_{io}^2}\right)^{-0.5}
+///    A_{e} = \left(\frac{1}{A_{sr}^2} + \frac{1}{A_{ir}^2} + \frac{1}{A_{io}^2}\right)^{-0.5}
 ///
 /// where:
 ///
