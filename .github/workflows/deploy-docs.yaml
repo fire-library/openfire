@@ -53,6 +53,14 @@ jobs:
         run: |
           python -c "import ofire; print('ofire modules:', dir(ofire))"
 
+      - name: Install cargo-llvm-cov for coverage
+        run: |
+          cargo install cargo-llvm-cov
+
+      - name: Generate coverage report
+        run: |
+          cargo llvm-cov --html --output-dir crates/python_api/docs/_static/coverage --workspace --exclude python_api
+
       - name: Build documentation with Sphinx
         run: |
           sphinx-build -b html crates/python_api/docs crates/python_api/_build
