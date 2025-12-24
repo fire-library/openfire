@@ -1,7 +1,7 @@
 Definitions
 ===========
 
-Quick reference for key terms and concepts used in fire engineering.
+Quick reference for key terms and concepts used within the OpenFire documentation.
 
 .. _stack-effect:
 
