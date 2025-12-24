@@ -55,6 +55,7 @@ Useful maintenance:
 - Format: `cargo fmt` (optional but recommended before commits).
 - Lint: `cargo clippy --workspace --all-targets -- -D warnings` (not enforced by CI but helpful).
 - Clean build: `cargo clean` (if caching issues suspected).
+- Coverage: `cargo llvm-cov --html --output-dir crates/python_api/docs/_static/coverage --workspace --exclude python_api` to generate test coverage reports.
 
 ## Python bindings (PyO3/maturin)
 
@@ -129,10 +130,31 @@ Hidden gotchas and dependencies:
 - `.github/workflows/` – `test.yaml`, `docs.yaml`, `python-release.yaml`.
 - `README.md` – brief overview of workspace.
 
+## Test Coverage Requirements
+
+All calculation functions that perform fire safety engineering computations **MUST** have 100% test coverage. This includes mathematical equation implementations, fire dynamics calculations, heat transfer calculations, and smoke movement algorithms.
+
+**Excluding code from coverage**: Use `#[cfg(not(coverage))]` to mark functions that should not be included in coverage analysis, such as equation functions that return string representations of mathematical equations.
+
+Example:
+```rust
+// This function returns a string representation and can be excluded
+#[cfg(not(coverage))]
+pub fn equation_string() -> &'static str {
+    "Q = m * c_p * ΔT"
+}
+
+// This calculation function MUST have 100% test coverage
+pub fn heat_transfer(mass: f64, specific_heat: f64, temp_diff: f64) -> f64 {
+    mass * specific_heat * temp_diff
+}
+```
+
 ## Success checklist before opening a PR
 
 - `cargo build` and `cargo test --workspace` (or `--lib` if iterating due to doctest warning) pass locally.
 - If touching Python binding or docs: venv active, `maturin develop` succeeds, `sphinx-build` succeeds.
+- All calculation functions have 100% test coverage (check with `cargo llvm-cov --workspace --exclude python_api`).
 - Optional: `cargo fmt` and `cargo clippy` clean locally.
 
 Prefer following these instructions verbatim. Search the codebase only if something here is incomplete or behaves differently in your environment.

@@ -187,6 +187,26 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 ///     1738.9 kW
 ```
 
+## Test Coverage Requirements
+
+All calculation functions that perform fire safety engineering computations **MUST** have 100% test coverage. This includes mathematical equation implementations, fire dynamics calculations, heat transfer calculations, and smoke movement algorithms.
+
+**Excluding code from coverage**: Use `#[cfg(not(coverage))]` to mark functions that should not be included in coverage analysis, such as equation functions that return string representations of mathematical equations.
+
+Example:
+```rust
+// This function returns a string representation and can be excluded
+#[cfg(not(coverage))]
+pub fn equation_string() -> &'static str {
+    "Q = m * c_p * ΔT"
+}
+
+// This calculation function MUST have 100% test coverage
+pub fn heat_transfer(mass: f64, specific_heat: f64, temp_diff: f64) -> f64 {
+    mass * specific_heat * temp_diff
+}
+```
+
 ## Important Notes
 
 1. **Don't duplicate equation lists** - they appear in docs navigation
@@ -195,6 +215,7 @@ pub fn module_name(m: &Bound<'_, PyModule>) -> PyResult<()> {
 4. **Include proper spacing** - empty lines matter for reStructuredText rendering
 5. **Test compilation** - run `maturin develop` to verify syntax
 6. **Follow style guidelines** - Use factual language and show executable code without outputs
+7. **Test coverage** - Ensure all calculation functions have 100% test coverage
 
 ## Exposing Documentation in Sphinx
 
