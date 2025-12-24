@@ -21,12 +21,15 @@ pub fn phi(x: f64, y: f64, additive: bool) -> f64 {
     if additive { total } else { -total }
 }
 
+#[cfg(not(coverage))]
 pub fn x_equation(x: &str, w: &str, s: &str) -> String {
     format!("{} = \\frac{{{}}}{{2 \\cdot {}}}", x, w, s)
 }
+#[cfg(not(coverage))]
 pub fn y_equation(y: &str, h: &str, s: &str) -> String {
     format!("{} = \\frac{{{}}}{{2 \\cdot {}}}", y, h, s)
 }
+#[cfg(not(coverage))]
 pub fn phi_equation(phi_symbol: &str, x: &str, y: &str) -> String {
     format!(
             "{} = \\frac{{2}}{{\\pi}}\\left(\\frac{{{}}}{{\\sqrt{{1+{}^2}}}}\\tan^{{-1}}\\left(\\frac{{{}}}{{\\sqrt{{1+{}^2}}}}\\right)+

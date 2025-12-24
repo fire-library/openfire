@@ -2,6 +2,7 @@ pub fn visibility(k: f64, alpha_m: f64, m_p: f64) -> f64 {
     k / (alpha_m * m_p)
 }
 
+#[cfg(not(coverage))]
 pub fn visibility_equation(s: String, k: String, alpha_m: String, m_p: String) -> String {
     format!("{} = \\frac{{ {} }}{{ {} \\cdot {} }}", s, k, alpha_m, m_p)
 }

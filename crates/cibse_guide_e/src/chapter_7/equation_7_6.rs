@@ -2,6 +2,7 @@ pub fn maximum_flowrate_persons(w: f64) -> f64 {
     1.333 * w
 }
 
+#[cfg(not(coverage))]
 pub fn equation(f: String, w: String) -> String {
     format!("{} = 1.333 \\cdot {}", f, w,)
 }

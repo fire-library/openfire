@@ -2,6 +2,7 @@ pub fn floor_area_of_compartment_with_core(w1: f64, w2: f64, c1: f64, c2: f64) -
     w1 * w2 - c1 * c2
 }
 
+#[cfg(not(coverage))]
 pub fn floor_area_of_compartment_with_core_equation(
     a_f: String,
     w1: String,
@@ -24,6 +25,7 @@ pub fn internal_surface_area_of_compartment_with_core(
     2.0 * a_f + 2.0 * h * (w1 + w2 + c1 + c2) - a_o
 }
 
+#[cfg(not(coverage))]
 pub fn internal_surface_area_of_compartment_with_core_equation(
     a_net: String,
     a_f: String,
@@ -50,6 +52,7 @@ pub fn ratio_depth_over_height_compartment_with_core(
 ) -> f64 {
     ((w2 - c2) * ao_w1) / ((w1 - c1) * ao)
 }
+#[cfg(not(coverage))]
 pub fn ratio_depth_over_height_compartment_with_core_equation(
     d: String,
     w: String,

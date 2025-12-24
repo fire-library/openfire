@@ -2,3 +2,6 @@
 name = "introduction_to_fire_dynamics"
 version = "0.1.0"
 edition = "2024"
+
+[lints]
+workspace = true

@@ -4,6 +4,7 @@ pub fn acceptance_capacity_stair(w_e: f64, t: f64, rho: f64, a: f64, s: i32) -> 
     result.floor() as i32
 }
 
+#[cfg(not(coverage))]
 pub fn equation(n_in: String, w_e: String, t: String, p: String, a: String, s: String) -> String {
     format!(
         "{} = 1.2 \\cdot {} \\cdot {} + {} \\cdot {} \\cdot ({} - 1)",

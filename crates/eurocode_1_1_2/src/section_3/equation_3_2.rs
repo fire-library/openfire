@@ -2,6 +2,7 @@ pub fn net_convective_heat_flux_surface(alpha_c: f64, theta_g: f64, theta_m: f64
     alpha_c * (theta_g - theta_m)
 }
 
+#[cfg(not(coverage))]
 pub fn net_convective_heat_flux_surface_equation(
     h_net_c: String,
     alpha_c: String,

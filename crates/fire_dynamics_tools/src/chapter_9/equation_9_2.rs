@@ -13,6 +13,7 @@ pub fn maximum_centerline_temperature_rise_plume(
     top / bottom
 }
 
+#[cfg(not(coverage))]
 pub fn maximum_centerline_temperature_rise_plume_equation(
     delta_t_p: String,
     t_a: String,

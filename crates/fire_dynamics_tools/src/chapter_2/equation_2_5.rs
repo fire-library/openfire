@@ -2,6 +2,7 @@ pub fn heat_transfer_coefficient_shorttimes_or_thickwalls(k: f64, rho: f64, c: f
     (k * rho * c / t).powf(0.5)
 }
 
+#[cfg(not(coverage))]
 pub fn heat_transfer_coefficient_shorttimes_or_thickwalls_equation(
     h_k: String,
     k: String,

@@ -28,3 +28,6 @@ eurocode_1_1_2 = { path = "./crates/eurocode_1_1_2" }
 [workspace]
 members = ["crates/*"]
 resolver = "2"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(coverage)'] }

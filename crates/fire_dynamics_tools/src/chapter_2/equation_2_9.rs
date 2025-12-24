@@ -4,6 +4,7 @@ pub fn convective_heat_transfer_coefficient(k: f64, rho: f64, c: f64, t: f64, de
     0.4 * left.max(right)
 }
 
+#[cfg(not(coverage))]
 pub fn convective_heat_transfer_coefficient_equation(
     h_k: String,
     k: String,

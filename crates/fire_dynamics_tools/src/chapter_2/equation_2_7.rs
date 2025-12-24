@@ -9,6 +9,7 @@ pub fn nondimensional_hot_gas_temperature_increase(
     0.63 * ((q) / (m * c_p * t_a)).powf(0.72) * ((h_k * a_t) / (m * c_p)).powf(-0.36)
 }
 
+#[cfg(not(coverage))]
 pub fn nondimensional_hot_gas_temperature_increase_equation(
     delta_t_g_over_t_a: String,
     q: String,

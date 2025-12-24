@@ -12,6 +12,7 @@ pub fn net_radiative_heat_flux_surface(
         * ((theta_r + 273.0).powf(4.0) - (theta_m + 273.0).powf(4.0))
 }
 
+#[cfg(not(coverage))]
 pub fn net_radiative_heat_flux_surface_equation(
     h_net_r: String,
     phi: String,

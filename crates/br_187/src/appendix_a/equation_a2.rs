@@ -5,6 +5,7 @@ pub fn radiation_intensity_at_receiver(phi: f64, i_s: f64) -> f64 {
     phi * i_s
 }
 
+#[cfg(not(coverage))]
 pub fn radiation_intensity_at_receiver_equation(q_symbol: &str, phi: &str, i_s: &str) -> String {
     format!("{} = {} \\cdot {}", q_symbol, phi, i_s)
 }

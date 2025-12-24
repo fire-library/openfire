@@ -2,6 +2,7 @@ pub fn thermal_penetration_time(rho: f64, c_p: f64, k: f64, delta: f64) -> f64 {
     ((c_p * rho) / (k)) * (delta / 2.0).powf(2.0)
 }
 
+#[cfg(not(coverage))]
 pub fn thermal_penetration_time_equation(
     t_p: String,
     rho: String,

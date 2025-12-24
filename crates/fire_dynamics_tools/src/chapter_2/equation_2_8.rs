@@ -2,6 +2,7 @@ pub fn hot_gas_temperature_increase(q: f64, m: f64, c_p: f64, h_k: f64, a_t: f64
     q / ((m * c_p) + (h_k * a_t))
 }
 
+#[cfg(not(coverage))]
 pub fn hot_gas_temperature_increase_equation(
     result: String,
     q: String,

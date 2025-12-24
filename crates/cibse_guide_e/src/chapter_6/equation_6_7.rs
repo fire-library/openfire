@@ -2,6 +2,7 @@ pub fn heat_release_rate_flashover(a_vo: f64, h_o: f64) -> f64 {
     600.0 * a_vo * h_o.powf(0.5)
 }
 
+#[cfg(not(coverage))]
 pub fn equation(q_f: String, a_vo: String, h_o: String) -> String {
     format!("{} = 600 \\cdot {} \\sqrt {{{}}}", q_f, a_vo, h_o,)
 }

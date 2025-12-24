@@ -44,6 +44,8 @@ Project Structure
    installation
    guide/index
    api/index
+   coverage
+
 
 Contributing
 ------------

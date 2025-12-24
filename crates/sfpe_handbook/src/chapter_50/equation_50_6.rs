@@ -10,6 +10,7 @@ pub fn pressure_difference(
     (rho / 2.0) * ((a_s * a_e * u) / (a_a * a_ir * c_c)).powf(2.0)
 }
 
+#[cfg(not(coverage))]
 pub fn pressure_difference_equation(
     delta_p_usi: String,
     rho: String,

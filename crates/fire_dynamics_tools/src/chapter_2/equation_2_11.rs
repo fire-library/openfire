@@ -6,6 +6,7 @@ pub fn k_constant_smoke_layer_height(rho_g: f64, rho_a: f64, g: f64, c_p: f64, t
     (0.21 / rho_g) * right_side
 }
 
+#[cfg(not(coverage))]
 pub fn k_constant_smoke_layer_height_equation(
     k: String,
     rho_g: String,

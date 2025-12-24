@@ -2,6 +2,7 @@ pub fn k_constant_smoke_layer_height(rho_g: f64) -> f64 {
     0.076 / rho_g
 }
 
+#[cfg(not(coverage))]
 pub fn k_constant_smoke_layer_height_equation(k: String, rho_g: String) -> String {
     format!("{} = \\frac{{0.076}}{{{}}} ", k, rho_g,)
 }

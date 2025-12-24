@@ -46,6 +46,11 @@ html_theme_options = {
 # HTML static path
 html_static_path = ['_static']
 
+# HTML context for global template variables
+html_context = {
+    'coverage_report_url': '_static/coverage/html/index.html'
+}
+
 # HTML title
 html_title = f"{project} {release}"
 

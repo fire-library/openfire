@@ -2,6 +2,7 @@ pub fn wind_pressure(c_w: f64, rho_0: f64, u_h: f64) -> f64 {
     0.5 * c_w * rho_0 * u_h.powf(2.0)
 }
 
+#[cfg(not(coverage))]
 pub fn wind_pressure_equation(p_w: String, c_w: String, rho_0: String, u_h: String) -> String {
     format!(
         "{} = 0.5 \\cdot {} \\cdot {} \\cdot {}^2",

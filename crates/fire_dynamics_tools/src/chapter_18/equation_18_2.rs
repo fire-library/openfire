@@ -2,6 +2,7 @@ pub fn concentration_particulates(m_p: f64, v: f64) -> f64 {
     m_p / v
 }
 
+#[cfg(not(coverage))]
 pub fn concentration_particulates_equation(m_p: String, m_p_big: String, v: String) -> String {
     format!("{} = \\frac{{ {} }}{{ {} }}", m_p, m_p_big, v)
 }

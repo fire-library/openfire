@@ -4,6 +4,7 @@ pub fn pressure_difference(t_0: f64, t_s: f64, z: f64) -> f64 {
     3460.0 * (1.0 / (t_0_abs) - 1.0 / (t_s_abs)) * z
 }
 
+#[cfg(not(coverage))]
 pub fn pressure_difference_equation(
     delta_p_so: String,
     t_0: String,

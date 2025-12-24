@@ -2,6 +2,7 @@ pub fn thermal_radiation_point_source(q: f64, r: f64, x_r: f64) -> f64 {
     (x_r * q) / (4.0 * std::f64::consts::PI * r.powf(2.0))
 }
 
+#[cfg(not(coverage))]
 pub fn thermal_radiation_point_source_equation(
     q_rad: String,
     q: String,

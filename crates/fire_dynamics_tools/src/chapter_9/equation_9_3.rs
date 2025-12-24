@@ -2,6 +2,7 @@ pub fn virtual_origin_over_diameter(d: f64, q: f64) -> f64 {
     -1.02 + 0.083 * q.powf(2.0 / 5.0) / d
 }
 
+#[cfg(not(coverage))]
 pub fn virtual_origin_over_diameter_equation(z_o_over_d: String, d: String, q: String) -> String {
     format!(
         "{} = -1.02 + 0.083 \\frac{{ {}^{{2/5}} }}{{ {} }}",

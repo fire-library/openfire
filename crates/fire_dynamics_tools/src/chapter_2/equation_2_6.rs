@@ -15,6 +15,7 @@ pub fn hot_gas_temperature_increase(
     left * parentheses
 }
 
+#[cfg(not(coverage))]
 pub fn hot_gas_temperature_increase_equation(
     delta_t_g: String,
     k: String,

@@ -3,6 +3,7 @@ pub fn stair_capacity(w: f64, n: i32) -> i32 {
     result.floor() as i32
 }
 
+#[cfg(not(coverage))]
 pub fn equation(p: String, w: String, n: String) -> String {
     format!(
         "{} = 200 \\cdot {} + 50 \\cdot ({} - 0.3) \\cdot ({} - 1)",

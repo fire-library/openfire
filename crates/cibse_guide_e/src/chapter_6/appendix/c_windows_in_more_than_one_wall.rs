@@ -4,6 +4,7 @@ pub fn area_of_floor(w1: f64, w2: f64) -> f64 {
     common::area_of_floor(w1, w2)
 }
 
+#[cfg(not(coverage))]
 pub fn area_of_floor_equation(a_f: String, w1: String, w2: String) -> String {
     common::area_of_floor_equation(a_f, w1, w2)
 }
@@ -14,6 +15,7 @@ pub fn sum_area_of_openings_per_wall(dimensions_of_openings_wall_per_wall: Vec<(
     common::sum_areas_of_openings(vector_of_areas_wall1)
 }
 
+#[cfg(not(coverage))]
 pub fn sum_area_of_openings_per_wall_equation(
     a_o: String,
     areas_of_openings: Vec<String>,
@@ -25,6 +27,7 @@ pub fn sum_area_of_openigs(areas_of_openings: Vec<f64>) -> f64 {
     common::sum_areas_of_openings(areas_of_openings)
 }
 
+#[cfg(not(coverage))]
 pub fn sum_area_of_openings_equation(a_o: String, areas_of_openings: Vec<String>) -> String {
     common::sum_areas_of_openings_equation(a_o, areas_of_openings)
 }
@@ -33,6 +36,7 @@ pub fn ratio_depth_over_height(w1: f64, w2: f64, ao_w1: f64, ao: f64) -> f64 {
     (w2 / w1) * (ao_w1 / ao)
 }
 
+#[cfg(not(coverage))]
 pub fn ratio_depth_over_height_equation(
     d: String,
     w: String,

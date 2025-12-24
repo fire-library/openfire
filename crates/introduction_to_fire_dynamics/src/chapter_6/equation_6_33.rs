@@ -2,6 +2,7 @@ pub fn time_to_ignition(rho: f64, c: f64, tau: f64, temp_ig: f64, temp_0: f64, q
     rho * c * tau * (temp_ig - temp_0) / q_r
 }
 
+#[cfg(not(coverage))]
 pub fn time_to_ignition_equation(
     t_ig: String,
     rho: String,

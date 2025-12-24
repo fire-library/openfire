@@ -4,6 +4,7 @@ pub fn exit_capacity_stair(w_s: f64, t: f64, a: f64, s: i32) -> i32 {
     result.floor() as i32
 }
 
+#[cfg(not(coverage))]
 pub fn equation(n_in: String, w_s: String, t: String, a: String, s: String) -> String {
     format!(
         "{} = 1.333 \\cdot {} \\cdot {} + 3.5 \\cdot {} \\cdot ({} - 1)",

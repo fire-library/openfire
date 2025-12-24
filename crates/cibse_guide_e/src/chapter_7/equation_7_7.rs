@@ -4,6 +4,7 @@ pub fn maximum_people_in_stair(p: f64, a: f64, s: i32) -> i32 {
     result.floor() as i32
 }
 
+#[cfg(not(coverage))]
 pub fn equation(n_c: String, p: String, a: String, s: String) -> String {
     format!("{} = {} \\cdot {} \\cdot {}", n_c, p, a, s)
 }

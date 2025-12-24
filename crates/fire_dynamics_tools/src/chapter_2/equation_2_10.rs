@@ -10,6 +10,7 @@ pub fn height_smoke_layer_interface_natural_ventilation(
     (top_left / bottom_left + 1.0 / h_c.powf(2.0 / 3.0)).powf(-3.0 / 2.0)
 }
 
+#[cfg(not(coverage))]
 pub fn height_smoke_layer_interface_natural_ventilation_equation(
     z: String,
     k: String,

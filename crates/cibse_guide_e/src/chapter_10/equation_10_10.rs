@@ -2,6 +2,7 @@ pub fn limiting_velocity(g: f64, h: f64, t_f: f64, t_0: f64) -> f64 {
     0.64 * (g * h * (t_f - t_0) / t_f).powf(0.5)
 }
 
+#[cfg(not(coverage))]
 pub fn equation(v_e: String, g: String, h: String, t_f: String, t_0: String) -> String {
     format!(
         "{} = 0.64 \\space ({} \\space {} \\space \\frac{{{} - {}}}{{{}}}) ^ {{0.5}}",

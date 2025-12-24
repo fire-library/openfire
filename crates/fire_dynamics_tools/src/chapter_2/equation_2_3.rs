@@ -2,6 +2,7 @@ pub fn heat_transfer_coefficient_longtimes_or_thinwalls(k: f64, delta: f64) -> f
     k / delta
 }
 
+#[cfg(not(coverage))]
 pub fn heat_transfer_coefficient_longtimes_or_thinwalls_equation(
     h_k: String,
     k: String,

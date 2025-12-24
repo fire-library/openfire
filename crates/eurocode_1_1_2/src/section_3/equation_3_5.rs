@@ -6,6 +6,7 @@ pub fn external_temp_time_curve(t: f64) -> f64 {
         + 20.0
 }
 
+#[cfg(not(coverage))]
 pub fn external_temp_time_curve_equation(theta_g: String, t: String) -> String {
     format!(
         "{} = 660 \\cdot \\left( 1 - 0.687 \\cdot e^{{-0.32 \\cdot {}}} - 0.313 \\cdot e^{{-3.8 \\cdot {}}} \\right) + 20",

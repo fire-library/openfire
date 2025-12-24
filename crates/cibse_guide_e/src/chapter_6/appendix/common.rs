@@ -2,6 +2,7 @@ pub fn area_of_floor(w1: f64, w2: f64) -> f64 {
     w1 * w2
 }
 
+#[cfg(not(coverage))]
 pub fn area_of_floor_equation(a_f: String, w1: String, w2: String) -> String {
     format!("{} = {} \\cdot {}", a_f, w1, w2,)
 }
@@ -10,6 +11,7 @@ pub fn area_of_opening(wo: f64, ho: f64) -> f64 {
     wo * ho
 }
 
+#[cfg(not(coverage))]
 pub fn area_of_opening_equation(a_o: String, w_o: String, h_o: String) -> String {
     format!("{} = {} \\cdot {}", a_o, w_o, h_o,)
 }
@@ -18,6 +20,7 @@ pub fn internal_surface_area(a_f: f64, h: f64, w1: f64, w2: f64, a_o: f64) -> f6
     2.0 * a_f + 2.0 * h * (w1 + w2) - a_o
 }
 
+#[cfg(not(coverage))]
 pub fn internal_surface_area_equation(
     a_net: String,
     a_f: String,
@@ -36,6 +39,7 @@ pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
     w2 / w1
 }
 
+#[cfg(not(coverage))]
 pub fn ratio_depth_over_width_equation(d_over_w: String, w1: String, w2: String) -> String {
     format!("{} = {} / {}", d_over_w, w2, w1)
 }
@@ -51,6 +55,7 @@ pub fn sum_areas_of_openings(areas_of_openings: Vec<f64>) -> f64 {
     areas_of_openings.iter().sum()
 }
 
+#[cfg(not(coverage))]
 pub fn sum_areas_of_openings_equation(a_o: String, areas_of_openings: Vec<String>) -> String {
     let formatted_areas = areas_of_openings.join(" + ");
     format!("{} = {}", a_o, formatted_areas)
@@ -60,6 +65,7 @@ pub fn sum_width_of_compartment_openings(widths_of_openings: Vec<f64>) -> f64 {
     widths_of_openings.iter().sum()
 }
 
+#[cfg(not(coverage))]
 pub fn sum_width_of_compartment_openings_equation(
     w_o: String,
     widths_of_openings: Vec<String>,
@@ -75,6 +81,7 @@ pub fn equivalent_height_for_compartment_openings(
     equivalent_area_of_openings / equivalent_width_of_openings
 }
 
+#[cfg(not(coverage))]
 pub fn equivalent_height_for_compartment_openings_equation(
     h_o: String,
     a_o: String,

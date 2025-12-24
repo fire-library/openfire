@@ -2,6 +2,7 @@ pub fn limiting_velocity(k: f64, g: f64, q: f64, omega: f64, rho: f64, c: f64, t
     k * ((g * q) / (omega * rho * c * t)).powf(1.0 / 3.0)
 }
 
+#[cfg(not(coverage))]
 pub fn equation(
     v_e: String,
     k: String,

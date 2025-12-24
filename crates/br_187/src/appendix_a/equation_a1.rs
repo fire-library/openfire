@@ -33,6 +33,7 @@ pub fn radiation_intensity(sigma: f64, emissivity: f64, temperature: f64) -> f64
     sigma * emissivity * temperature.powi(4)
 }
 
+#[cfg(not(coverage))]
 pub fn radiation_intensity_equation(
     q_symbol: &str,
     sigma: &str,

@@ -14,6 +14,7 @@ pub fn hot_gas_temperature_increase(
     6.85 * (q.powf(2.0) / ((area_av_times_hv) * (a_t * h_k))).powf(1.0 / 3.0)
 }
 
+#[cfg(not(coverage))]
 pub fn hot_gas_temperature_increase_equation(
     delta_t_g: String,
     q: String,

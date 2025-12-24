@@ -2,6 +2,7 @@ pub fn density_hot_gas_layer(t_g: f64) -> f64 {
     353.0 / t_g
 }
 
+#[cfg(not(coverage))]
 pub fn density_hot_gas_layer_equation(rho_g: String, t_g: String) -> String {
     format!("{} = \\frac{{353.0}}{{{}}} ", rho_g, t_g,)
 }
