@@ -42,3 +42,32 @@ pub fn ratio_depth_over_width(w1: f64, w2: f64) -> f64 {
 pub fn ratio_depth_over_width_equation(d_over_w: String, w1: String, w2: String) -> String {
     common::ratio_depth_over_width_equation(d_over_w, w1, w2)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_area_of_floor() {
+        let result = area_of_floor(4.5, 3.5);
+        assert_eq!(result, 15.75);
+    }
+
+    #[test]
+    fn test_area_of_opening() {
+        let result = area_of_opening(0.9, 2.1);
+        assert_eq!(result, 1.8900000000000001);
+    }
+
+    #[test]
+    fn test_internal_surface_area() {
+        let result = internal_surface_area(15.75, 3.0, 4.5, 3.5, 1.89);
+        assert_eq!(result, 77.61);
+    }
+
+    #[test]
+    fn test_ratio_depth_over_width() {
+        let result = ratio_depth_over_width(4.5, 3.5);
+        assert_eq!(result, 0.7777777777777778)
+    }
+}

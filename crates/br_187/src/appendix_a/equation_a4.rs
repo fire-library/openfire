@@ -69,4 +69,14 @@ mod tests {
 
         assert!((expected - result).abs() < f64::EPSILON);
     }
+
+    #[test]
+    fn test_phi_negative() {
+        let x = 0.4;
+        let y = 0.2;
+        let expected = 0.022519707332293974;
+        let result = phi(x, y, false);
+
+        assert!((expected - result).abs() > -f64::EPSILON);
+    }
 }

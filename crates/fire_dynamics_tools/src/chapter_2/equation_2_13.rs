@@ -19,11 +19,6 @@ mod tests {
 
         let expected_result = 0.706;
 
-        assert!(
-            (result - expected_result).abs() < 1e-4,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
-        );
+        assert!((result - expected_result).abs() < 1e-4,);
     }
 }

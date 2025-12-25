@@ -56,6 +56,26 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_area_of_floor() {
+        let result = area_of_floor(4.5, 3.5);
+        assert_eq!(result, 15.75);
+    }
+
+    #[test]
+    fn test_sum_area_of_openings_per_wall() {
+        let dimensions = vec![(2.0, 3.0), (1.5, 4.0), (5.0, 0.5)];
+        let result = sum_area_of_openings_per_wall(dimensions);
+        assert!((result - 14.5).abs() < 1e-10);
+    }
+
+    #[test]
+    fn test_sum_area_of_openigs() {
+        let areas_of_openings = vec![1.2, 3.4, 5.6];
+        let result = sum_area_of_openigs(areas_of_openings);
+        assert!((result - 10.2).abs() < 1e-10);
+    }
+
+    #[test]
     fn test_ratio_depth_over_height() {
         let w1 = 2.0;
         let w2 = 4.0;

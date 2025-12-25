@@ -68,4 +68,22 @@ mod tests {
         let result = heating_regime(0.236);
         assert_eq!(result, BurningRegime::Crossover);
     }
+
+    #[test]
+    fn test_burning_regime_to_string_ventilation_controlled() {
+        let regime = BurningRegime::VentilationControlled;
+        assert_eq!(regime.to_string(), "Ventilation Controlled");
+    }
+
+    #[test]
+    fn test_burning_regime_to_string_fuel_controlled() {
+        let regime = BurningRegime::FuelControlled;
+        assert_eq!(regime.to_string(), "Fuel Controlled");
+    }
+
+    #[test]
+    fn test_burning_regime_to_string_crossover() {
+        let regime = BurningRegime::Crossover;
+        assert_eq!(regime.to_string(), "Transition / Crossover");
+    }
 }

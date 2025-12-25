@@ -30,11 +30,6 @@ mod tests {
         let result = heat_transfer_coefficient_shorttimes_or_thickwalls(k, rho, c, t);
         let expected_result = 0.05585696018;
 
-        assert!(
-            (result - expected_result).abs() < 1.0e-6,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
-        );
+        assert!((result - expected_result).abs() < 1.0e-6,);
     }
 }

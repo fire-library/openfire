@@ -19,11 +19,6 @@ mod tests {
 
         let result = concentration_particulates(m_p, v);
 
-        assert!(
-            (result - expected).abs() < 1e-4,
-            "Result should be approximately {}, but got {}",
-            expected,
-            result
-        );
+        assert!((result - expected).abs() < 1e-4,);
     }
 }

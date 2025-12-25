@@ -42,11 +42,6 @@ mod tests {
 
         let result = nondimensional_hot_gas_temperature_increase(q, m, t_a, h_k, a_t, c_p);
 
-        assert!(
-            (result - expected_result).abs() < 1e-6,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
-        );
+        assert!((result - expected_result).abs() < 1e-6,);
     }
 }

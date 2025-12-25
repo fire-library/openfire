@@ -52,3 +52,43 @@ pub fn equivalent_height_for_compartment_openings_equation(
 ) -> String {
     common::equivalent_height_for_compartment_openings_equation(h_o, a_o, w_o)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_area_of_floor() {
+        let result = area_of_floor(4.5, 3.5);
+        assert_eq!(result, 15.75);
+    }
+
+    #[test]
+    fn test_areas_of_openings_multiple_openings() {
+        let openings_dimensions = vec![(2.0, 3.0), (1.5, 4.0), (5.0, 0.5)];
+        let result = areas_of_openings_multiple_openings(openings_dimensions);
+        assert_eq!(result, vec![6.0, 6.0, 2.5]);
+    }
+
+    #[test]
+    fn test_sum_areas_of_openings() {
+        let areas_of_openings = vec![1.2, 3.4, 5.6];
+        let result = sum_areas_of_openings(areas_of_openings);
+        assert!((result - 10.2).abs() < 1e-10);
+    }
+
+    #[test]
+    fn test_sum_width_of_compartment_openings() {
+        let widths_of_openings = vec![2.0, 3.0, 5.0];
+        let result = sum_width_of_compartment_openings(widths_of_openings);
+        assert!((result - 10.0).abs() < 1e-10);
+    }
+
+    #[test]
+    fn test_equivalent_height_for_compartment_openings() {
+        let equivalent_area = 10.0;
+        let equivalent_width = 2.0;
+        let result = equivalent_height_for_compartment_openings(equivalent_area, equivalent_width);
+        assert!((result - 5.0).abs() < 1e-10);
+    }
+}

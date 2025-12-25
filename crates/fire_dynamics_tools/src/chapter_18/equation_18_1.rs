@@ -20,11 +20,6 @@ mod tests {
 
         let result = visibility(k, alpha_m, m_p);
 
-        assert!(
-            (result - expected).abs() < 1e-4,
-            "Result should be approximately {}, but got {}",
-            expected,
-            result
-        );
+        assert!((result - expected).abs() < 1e-4,);
     }
 }

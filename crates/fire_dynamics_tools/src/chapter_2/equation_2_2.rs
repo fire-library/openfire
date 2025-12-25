@@ -30,11 +30,6 @@ mod tests {
         let result = comparment_interior_surface_area(w_c, l_c, h_c, a_v);
         let expected_result = 118.75;
 
-        assert!(
-            (result - expected_result).abs() < 1.0e-6,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
-        );
+        assert!((result - expected_result).abs() < 1.0e-6,);
     }
 }

@@ -22,11 +22,6 @@ mod tests {
 
         let result = virtual_origin_over_diameter(d, q);
 
-        assert!(
-            (result - expected).abs() < 1e-4,
-            "Result should be approximately {}, but got {}",
-            expected,
-            result
-        );
+        assert!((result - expected).abs() < 1e-4,);
     }
 }

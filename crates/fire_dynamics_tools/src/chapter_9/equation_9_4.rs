@@ -18,11 +18,6 @@ mod tests {
 
         let result = effective_diameter(a_f);
 
-        assert!(
-            (result - expected).abs() < 1e-4,
-            "Result should be approximately {}, but got {}",
-            expected,
-            result
-        );
+        assert!((result - expected).abs() < 1e-4,);
     }
 }

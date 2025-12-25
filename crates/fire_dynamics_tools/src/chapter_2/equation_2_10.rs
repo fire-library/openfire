@@ -40,11 +40,6 @@ mod tests {
 
         let result = height_smoke_layer_interface_natural_ventilation(k, q, time_values, a_c, h_c);
 
-        assert!(
-            (result - expected_results).abs() < 1e-8,
-            "Result should be approximately {}, but got {}",
-            expected_results,
-            result
-        );
+        assert!((result - expected_results).abs() < 1e-8,);
     }
 }

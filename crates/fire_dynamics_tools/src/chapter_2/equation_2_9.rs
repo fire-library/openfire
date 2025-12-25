@@ -34,11 +34,6 @@ mod tests {
 
         let result = convective_heat_transfer_coefficient(k, rho, c, t, delta);
 
-        assert!(
-            (result - expected_result).abs() < 1e-6,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
-        );
+        assert!((result - expected_result).abs() < 1e-6,);
     }
 }

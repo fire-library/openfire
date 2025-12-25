@@ -29,12 +29,8 @@ mod tests {
 
         let result = thermal_penetration_time(rho, c_p, k, delta);
         let expected_result = 21937.5;
+        let diff = (result - expected_result).abs();
 
-        assert!(
-            (result - expected_result).abs() < 1.0e-6,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
-        );
+        assert!(diff < 1.0e-6,);
     }
 }

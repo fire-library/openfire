@@ -49,11 +49,6 @@ mod tests {
         let result = hot_gas_temperature_increase(k, rho, c, t, m, c_p, q);
         let expected_result = 285.8385048;
 
-        assert!(
-            (result - expected_result).abs() < 1e-6,
-            "Result should be approximately {}, but got {}",
-            expected_result,
-            result
-        );
+        assert!((result - expected_result).abs() < 1e-6,);
     }
 }

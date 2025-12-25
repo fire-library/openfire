@@ -18,12 +18,6 @@ mod tests {
 
         let result = wall_fire_flame_height(q);
 
-        assert!(
-            (result - expected).abs() < 1e-4,
-            "For input {}, result should be approximately {}, but got {}",
-            q,
-            expected,
-            result
-        );
+        assert!((result - expected).abs() < 1e-4,);
     }
 }

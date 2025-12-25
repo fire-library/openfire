@@ -47,11 +47,6 @@ mod tests {
 
         let result = maximum_centerline_temperature_rise_plume(t_a, q_c, g, c_p, rho_a, z, z_o);
 
-        assert!(
-            (result - expected).abs() < 1e-4,
-            "Result should be approximately {}, but got {}",
-            expected,
-            result
-        );
+        assert!((result - expected).abs() < 1e-4,);
     }
 }
