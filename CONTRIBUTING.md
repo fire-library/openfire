@@ -4,6 +4,22 @@ Thank you for your interest in contributing to OpenFire! This guide will help yo
 
 ## Getting Started
 
+### Join Our Discord Community
+
+**The best place to start contributing is by joining our Discord server!**
+
+`Join our Discord server <https://discord.gg/mTjAVzd8>`_
+
+Our Discord community is where:
+
+- New contributors get welcomed and oriented
+- Development discussions happen in real-time
+- You can ask questions about the codebase
+- Project maintainers coordinate development efforts
+- Contributors share ideas for new features and improvements
+
+Whether you're fixing a bug, adding new fire engineering standards, improving documentation, or just exploring the codebase, connecting with the community first will help you get started on the right track.
+
 ### Prerequisites
 
 - **Rust**: Install from [rustup.rs](https://rustup.rs/)
