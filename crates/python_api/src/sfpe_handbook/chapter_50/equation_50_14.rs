@@ -1,7 +1,6 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
-// Import sfpe_handbook chapter 50 equation_50_14 functions
 use openfire::sfpe_handbook::chapter_50::equation_50_14 as rust_equation_50_14;
 
 #[pyfunction]
