@@ -13,7 +13,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_14 as rust_equation_50_14;
 ///
 /// where:
 ///
-/// - :math:`F_{d}` is the total door opening force (N)
+/// - :math:`F` is the total door opening force (N)
 /// - :math:`F_{dc}` is the door closer force (N)
 /// - :math:`W` is the door width (m)
 /// - :math:`A` is the door area (m)
