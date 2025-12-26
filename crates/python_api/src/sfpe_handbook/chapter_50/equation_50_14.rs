@@ -23,7 +23,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_14 as rust_equation_50_14;
 /// Args:
 ///     f_dc (float): Door closer force (N)
 ///     W (float): Door width (m)
-///     A (float): Door area (m)
+///     A (float): Door area (m^2)
 ///     delta_p (float): Pressure difference across the door (Pa)
 ///     d (float): Distance from door knob to knob side of the door (m)
 ///
