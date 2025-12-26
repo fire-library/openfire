@@ -3,6 +3,21 @@ OpenFire Documentation
 
 Fire safety engineering tools implemented in Rust with Python bindings.
 
+Join Our Community
+-------------------
+
+🔥 **Join the OpenFire Discord Community!** 🔥
+
+Connect with fire safety engineers, ask questions, stay up-to-date with the latest developments, and participate in discussions about OpenFire and fire engineering in general.
+
+`Join our Discord server <https://discord.gg/mTjAVzd8>`_
+
+- Get help with OpenFire usage and fire engineering calculations
+- Discuss new features and improvements
+- Share your projects and use cases
+- Connect with other fire safety professionals
+- Get announcements about new releases and updates
+
 Overview
 --------
 
@@ -13,8 +28,7 @@ Key Features
 
 - **High Performance**: Implemented in Rust for maximum speed and memory safety
 - **Python Integration**: Easy-to-use Python API for rapid development  
-- **Fire Dynamics**: Tools for fire dynamics calculations
-- **Safety Engineering**: Comprehensive fire safety analysis tools
+- **Building Blocks**: Tools for creating all types of fire safety engineering calculations
 
 Quick Start
 -----------
