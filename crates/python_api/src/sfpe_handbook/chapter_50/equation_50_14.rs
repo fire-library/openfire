@@ -8,7 +8,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_14 as rust_equation_50_14;
 ///
 /// .. math::
 ///
-///    F_{d} = F_{dc} + \frac{w \times a \times \Delta p}{2 \times (w - d)}
+///    F = F_{dc} + \frac{W \cdot A \cdot \Delta p}{2 (W - d)}
 ///
 /// where:
 ///
