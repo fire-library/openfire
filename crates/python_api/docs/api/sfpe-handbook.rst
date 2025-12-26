@@ -43,6 +43,8 @@ Chapter 50 - Smoke Control
 Equation 50.1 - Pressure Difference Due to Stack Effect
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+This equation calculates the pressure difference due to :ref:`stack effect <stack-effect>`.
+
 .. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_1
    :members:
    :undoc-members:
@@ -50,6 +52,8 @@ Equation 50.1 - Pressure Difference Due to Stack Effect
 
 Equation 50.2 - Pressure Difference between a Fire Compartment and its Surroundings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This equation calculates the pressure difference due to :ref:`stack effect <stack-effect>` between a fire compartment and its surroundings.
 
 .. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_2
    :members:
