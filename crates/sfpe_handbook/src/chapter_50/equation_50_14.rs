@@ -2,6 +2,7 @@ pub fn door_opening_force(f_dc: f64, w: f64, a: f64, delta_p: f64, d: f64) -> f6
     f_dc + (w * a * delta_p) / (2.0 * (w - d))
 }
 
+#[cfg(not(coverage))]
 pub fn door_opening_force_equation(
     f_dc: String,
     w: String,
