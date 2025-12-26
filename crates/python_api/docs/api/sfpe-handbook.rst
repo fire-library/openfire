@@ -83,3 +83,11 @@ Equation 50.7 - Effective Area for Elevator with Enclosed Lobbies
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.14 - Door Opening Force Resulting from Pressure Differences
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_14
+   :members:
+   :undoc-members:
+   :show-inheritance:
