@@ -10,7 +10,7 @@ Join Our Community
 
 Connect with fire safety engineers, ask questions, stay up-to-date with the latest developments, and participate in discussions about OpenFire and fire engineering in general.
 
-`Join our Discord server <https://discord.gg/mTjAVzd8>`_
+`Join our Discord server <https://discord.gg/TeBRS5ew3y>`_
 
 - Get help with OpenFire usage and fire engineering calculations
 - Discuss new features and improvements
