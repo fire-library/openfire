@@ -12,7 +12,7 @@ pub fn pressure_difference_equation(
     z: String,
 ) -> String {
     format!(
-        "{} = 3460 \\cdot \\left(\\frac{{1}}{{{} + 273}} - \\frac{{1}}{{{} + 273}}\\right) \\cdot {}",
+        "{} = 3460 \\cdot \\left(\\dfrac{{1}}{{{} + 273}} - \\dfrac{{1}}{{{} + 273}}\\right) \\cdot {}",
         delta_p_so, t_0, t_f, z
     )
 }
