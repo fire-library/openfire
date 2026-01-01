@@ -21,6 +21,14 @@ The library implements individual equations and calculation methods from establi
 - **Fully Tested**: Reliable calculations you can trust in critical applications
 - **Flexible**: No opinionated workflows - use the equations you need
 
+## Installation Requirements
+
+Before installing OpenFire, you'll need:
+
+- **Python**: [Download and install Python](https://www.python.org/downloads/) (version 3.8 or higher)
+- **Rust**: [Install Rust](https://rustup.rs/)
+  - **Windows users**: Additional Visual Studio Build Tools are required. See the [Windows installation guide](https://rust-lang.github.io/rustup/installation/windows-msvc.html) for complete setup instructions.
+
 ## Quick Start
 
 ### Python Installation

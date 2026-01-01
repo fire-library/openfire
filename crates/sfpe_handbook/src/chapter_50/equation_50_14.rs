@@ -11,7 +11,7 @@ pub fn door_opening_force_equation(
     d: String,
 ) -> String {
     format!(
-        "{} = {} + \\frac{{{} \\cdot {} \\cdot {}}}{{2 ({} - {})}}",
+        "{} = {} + \\dfrac{{{} \\cdot {} \\cdot {}}}{{2 ({} - {})}}",
         "F_{door}", f_dc, w, a, delta_p, w, d
     )
 }

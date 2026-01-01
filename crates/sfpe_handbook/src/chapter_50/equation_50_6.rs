@@ -22,7 +22,7 @@ pub fn pressure_difference_equation(
     c_c: String,
 ) -> String {
     format!(
-        "{} = \\frac{{{}}}{{2}} \\cdot \\left(\\frac{{{} \\cdot {} \\cdot {}}}{{{} \\cdot {} \\cdot {}}}\\right)^2",
+        "{} = \\dfrac{{{}}}{{2}} \\cdot \\left(\\dfrac{{{} \\cdot {} \\cdot {}}}{{{} \\cdot {} \\cdot {}}}\\right)^2",
         delta_p_usi, rho, a_s, a_e, u, a_a, a_ir, c_c
     )
 }
