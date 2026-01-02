@@ -4,41 +4,48 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_16 as rust_equation_50_16;
 
 #[pyfunction]
-/// Mock implementation for equation 50-16 (placeholder function).
+/// Flow area factor for pressurization systems.
+///
+/// This equation calculates the flow area factor based on stairwell bottom area,
+/// building outside opening area, and temperature conditions.
 ///
 /// .. math::
 ///
-///    result = \dfrac{x \cdot y}{2}
+///    F_r = 1 + \frac{A_{sb}^2 \times (T_b + 273)}{A_{bo}^2 \times (T_s + 273)}
 ///
 /// where:
 ///
-/// - :math:`result` is the calculated result (units TBD)
-/// - :math:`x` is the first parameter (units TBD)
-/// - :math:`y` is the second parameter (units TBD)
+/// - :math:`F_r` is the flow area factor (dimensionless)
+/// - :math:`A_{sb}` is the stairwell bottom opening area (m²)
+/// - :math:`T_b` is the building interior temperature (°C)
+/// - :math:`A_{bo}` is the building outside opening area (m²)
+/// - :math:`T_s` is the stairwell temperature (°C)
 ///
 /// Args:
-///     x (float): First parameter (units TBD)
-///     y (float): Second parameter (units TBD)
+///     a_sb (float): Stairwell bottom opening area (m²)
+///     a_bo (float): Building outside opening area (m²)
+///     t_b (float): Building interior temperature (°C)
+///     t_s (float): Stairwell temperature (°C)
 ///
 /// Returns:
-///     float: Calculated result (units TBD)
+///     float: Flow area factor (dimensionless)
 ///
 /// Assumptions:
-///     Mock implementation - replace with actual equation 50-16.
+///     To be completed
 ///
 /// Limitations:
-///     Mock implementation - replace with actual equation 50-16.
+///     To be completed
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_16.placeholder_function(4.0, 6.0)
+///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_16.factor(0.005, 0.005, 15.0, 5.0)
 ///     >>> print(f"{result:.6f}")
-fn placeholder_function(x: f64, y: f64) -> PyResult<f64> {
-    Ok(rust_equation_50_16::placeholder_function(x, y))
+fn factor(a_sb: f64, a_bo: f64, t_b: f64, t_s: f64) -> PyResult<f64> {
+    Ok(rust_equation_50_16::factor(a_sb, a_bo, t_b, t_s))
 }
 
 #[pymodule]
 pub fn equation_50_16(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(placeholder_function, m)?)?;
+    m.add_function(wrap_pyfunction!(factor, m)?)?;
     Ok(())
 }
