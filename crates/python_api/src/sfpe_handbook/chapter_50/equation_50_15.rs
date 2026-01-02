@@ -4,32 +4,36 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_15 as rust_equation_50_15;
 
 #[pyfunction]
-/// Mock implementation for equation 50-15 (placeholder function).
+/// Height limit above which acceptable pressurization is not possible for an idealized building.
 ///
 /// .. math::
 ///
-///    result = a + b \cdot c
+///    H_m = 0.000289 \times \frac{F_r \times (\Delta p_{max} - \Delta p_{min})}{\left|\frac{1}{T_0 + 273} - \frac{1}{T_s + 273}\right|}
 ///
 /// where:
 ///
-/// - :math:`result` is the calculated result (units TBD)
-/// - :math:`a` is the first parameter (units TBD)
-/// - :math:`b` is the second parameter (units TBD)
-/// - :math:`c` is the third parameter (units TBD)
+/// - :math:`H_m` is the height limit (m)
+/// - :math:`F_r` is the flow area factor (dimensionless)
+/// - :math:`\Delta p_{max}` is the maximum design pressure difference (Pa)
+/// - :math:`\Delta p_{min}` is the minimum design pressure difference (Pa)
+/// - :math:`T_0` is the ambient temperature (°C)
+/// - :math:`T_s` is the stairwell temperature (°C)
 ///
 /// Args:
-///     a (float): First parameter (units TBD)
-///     b (float): Second parameter (units TBD)
-///     c (float): Third parameter (units TBD)
+///     f_r (float): Flow area factor (dimensionless)
+///     delta_p_max (float): Maximum design pressure difference (Pa)
+///     delta_p_min (float): Minimum design pressure difference (Pa)
+///     t_0 (float): Ambient temperature (°C)
+///     t_s (float): Stairwell temperature (°C)
 ///
 /// Returns:
-///     float: Calculated result (units TBD)
+///     float: Height limit (m)
 ///
 /// Assumptions:
-///     Mock implementation - replace with actual equation 50-15.
+///     Standard atmospheric pressure at sea level is assumed.
 ///
 /// Limitations:
-///     Mock implementation - replace with actual equation 50-15.
+///     This equation has been derived for idealised buildings. More likely to apply with systems with treated supply air.
 ///
 /// Example:
 ///     >>> import ofire
