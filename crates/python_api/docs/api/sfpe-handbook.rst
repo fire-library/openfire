@@ -91,3 +91,19 @@ Equation 50.14 - Door Opening Force Resulting from Pressure Differences
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.15 - Height Limit for Pressurization Systems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_15
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 50.16 - Flow Area Factor for Pressurization Systems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_16
+   :members:
+   :undoc-members:
+   :show-inheritance:
