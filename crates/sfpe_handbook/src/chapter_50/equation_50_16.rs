@@ -4,15 +4,8 @@ pub fn placeholder_function(x: f64, y: f64) -> f64 {
 }
 
 #[cfg(not(coverage))]
-pub fn placeholder_function_equation(
-    result: String,
-    x: String,
-    y: String,
-) -> String {
-    format!(
-        "{} = \\dfrac{{{} \\cdot {}}}{{2}}",
-        result, x, y
-    )
+pub fn placeholder_function_equation(result: String, x: String, y: String) -> String {
+    format!("{} = \\dfrac{{{} \\cdot {}}}{{2}}", result, x, y)
 }
 
 #[cfg(test)]

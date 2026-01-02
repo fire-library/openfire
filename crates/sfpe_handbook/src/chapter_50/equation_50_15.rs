@@ -1,5 +1,6 @@
 pub fn height_limit(f_r: f64, delta_p_max: f64, delta_p_min: f64, t_0: f64, t_s: f64) -> f64 {
-    0.000289 * ((f_r * (delta_p_max - delta_p_min)) / (1/(t_0 + 273) - 1/(t_s + 273)).abs())
+    0.000289
+        * ((f_r * (delta_p_max - delta_p_min)) / (1.0 / (t_0 + 273.0) - 1.0 / (t_s + 273.0)).abs())
 }
 
 #[cfg(not(coverage))]
@@ -23,8 +24,8 @@ mod tests {
 
     #[test]
     fn test_height_limit() {
-        let result = height_limit(1.0, 2.0, 3.0, 4.0, 5.0);
-        let expected = 7.0;
+        let result = height_limit(2.0, 75.0, 25.0, 0.0, 25.0);
+        let expected = 94.0452240;
         assert!((result - expected).abs() < 1e-6);
     }
 }

@@ -33,14 +33,20 @@ use openfire::sfpe_handbook::chapter_50::equation_50_15 as rust_equation_50_15;
 ///
 /// Example:
 ///     >>> import ofire
-///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_15.placeholder_function(1.0, 2.0, 3.0)
+///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_15.height_limit(2.0, 75.0, 25.0, 0.0, 25.0)
 ///     >>> print(f"{result:.6f}")
-fn placeholder_function(a: f64, b: f64, c: f64) -> PyResult<f64> {
-    Ok(rust_equation_50_15::placeholder_function(a, b, c))
+fn height_limit(f_r: f64, delta_p_max: f64, delta_p_min: f64, t_0: f64, t_s: f64) -> PyResult<f64> {
+    Ok(rust_equation_50_15::height_limit(
+        f_r,
+        delta_p_max,
+        delta_p_min,
+        t_0,
+        t_s,
+    ))
 }
 
 #[pymodule]
 pub fn equation_50_15(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(placeholder_function, m)?)?;
+    m.add_function(wrap_pyfunction!(height_limit, m)?)?;
     Ok(())
 }
