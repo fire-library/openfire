@@ -27,6 +27,3 @@ Each example page includes:
 - Typical parameter values
 - Assessment criteria
 - Multiple configuration comparisons
-
-.. note::
-   More examples will be added as the Python API is developed. Check back regularly for updates.

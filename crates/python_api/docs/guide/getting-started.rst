@@ -42,6 +42,6 @@ After installation, you can import and use OpenFire in your Python projects. Her
 Next Steps
 ----------
 
-- Check out the :doc:`examples` for practical use cases
+- Check out the :doc:`../examples/index` for practical use cases
 - Browse the :doc:`../api/index` for detailed function documentation
 - Visit our `GitHub repository <https://github.com/fire-library/openfire>`_ for the latest updates
