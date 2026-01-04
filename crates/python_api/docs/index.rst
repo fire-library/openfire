@@ -57,6 +57,7 @@ Project Structure
 
    installation
    guide/index
+   examples/index
    api/index
    definitions
    coverage
