@@ -13,6 +13,9 @@ Available Example Categories
 
    thermal-radiation-examples
    fire-dynamics-examples
+   introduction-to-fire-dynamics-examples
+   pd-7974-examples
+   sfpe-handbook-examples
 
 Getting Started
 ---------------
