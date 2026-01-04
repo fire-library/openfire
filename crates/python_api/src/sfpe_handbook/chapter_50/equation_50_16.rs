@@ -4,7 +4,7 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_16 as rust_equation_50_16;
 
 #[pyfunction]
-/// Flow area factor for pressurization systems, relevant for the calculation of the maximum height limit (equation 50.15).
+/// Flow area factor for pressurization systems, relevant for the calculation of the maximum height limit.
 ///
 /// .. math::
 ///
