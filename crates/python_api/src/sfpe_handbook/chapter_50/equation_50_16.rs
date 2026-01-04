@@ -4,10 +4,7 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_16 as rust_equation_50_16;
 
 #[pyfunction]
-/// Flow area factor for pressurization systems.
-///
-/// This equation calculates the flow area factor based on stairwell bottom area,
-/// building outside opening area, and temperature conditions.
+/// Flow area factor for pressurization systems, relevant for the calculation of the maximum height limit (equation 50.15).
 ///
 /// .. math::
 ///
@@ -31,10 +28,10 @@ use openfire::sfpe_handbook::chapter_50::equation_50_16 as rust_equation_50_16;
 ///     float: Flow area factor (dimensionless)
 ///
 /// Assumptions:
-///     To be completed
+///     None stated.
 ///
 /// Limitations:
-///     To be completed
+///     Refer to the SFPE Handbook for details. To determine `A_{sb}` and `A_{bo}`, the specifc layout of the lobbies and stairwells as well as the leakage paths must be understood.
 ///
 /// Example:
 ///     >>> import ofire
