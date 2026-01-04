@@ -1,5 +1,5 @@
-BR 187 Thermal Radiation Examples
-=================================
+BR 187
+======
 
 This page demonstrates practical examples of thermal radiation calculations using BR 187 equations.
 

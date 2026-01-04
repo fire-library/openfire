@@ -1,5 +1,5 @@
-Fire Dynamics Examples
-======================
+Fire Dynamics Tools
+===================
 
 This page will contain practical examples of fire dynamics calculations using OpenFire.
 
