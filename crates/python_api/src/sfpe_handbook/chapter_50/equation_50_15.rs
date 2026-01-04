@@ -8,12 +8,12 @@ use openfire::sfpe_handbook::chapter_50::equation_50_15 as rust_equation_50_15;
 ///
 /// .. math::
 ///
-///    H_m = 0.000289 \times \frac{F_r \times (\Delta p_{max} - \Delta p_{min})}{\left|\frac{1}{T_0 + 273} - \frac{1}{T_s + 273}\right|}
+///    H_m = 0.000289 \times \frac{F_R \times (\Delta p_{max} - \Delta p_{min})}{\left|\frac{1}{T_0 + 273} - \frac{1}{T_s + 273}\right|}
 ///
 /// where:
 ///
 /// - :math:`H_m` is the height limit (m)
-/// - :math:`F_r` is the flow area factor (dimensionless)
+/// - :math:`F_R` is the flow area factor (dimensionless)
 /// - :math:`\Delta p_{max}` is the maximum design pressure difference (Pa)
 /// - :math:`\Delta p_{min}` is the minimum design pressure difference (Pa)
 /// - :math:`T_0` is the ambient temperature (°C)
