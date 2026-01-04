@@ -1,6 +1,7 @@
 pub fn height_limit(f_r: f64, delta_p_max: f64, delta_p_min: f64, t_0: f64, t_s: f64) -> f64 {
-    0.000289
-        * ((f_r * (delta_p_max - delta_p_min)) / (1.0 / (t_0 + 273.0) - 1.0 / (t_s + 273.0)).abs())
+    let numerator = f_r * (delta_p_max - delta_p_min);
+    let denominator = (1.0 / (t_0 + 273.0) - 1.0 / (t_s + 273.0)).abs();
+    0.000289 * (numerator / denominator)
 }
 
 #[cfg(not(coverage))]

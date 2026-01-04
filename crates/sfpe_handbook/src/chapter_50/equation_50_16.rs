@@ -1,5 +1,7 @@
 pub fn factor(a_sb: f64, a_bo: f64, t_b: f64, t_s: f64) -> f64 {
-    1.0 + (a_sb.powf(2.0) * (t_b + 273.0))/(a_bo.powf(2.0) * (t_s + 273.0))
+    let numerator = a_sb.powf(2.0) * (t_b + 273.0);
+    let denominator = a_bo.powf(2.0) * (t_s + 273.0);
+    1.0 + numerator / denominator
 }
 
 #[cfg(not(coverage))]
