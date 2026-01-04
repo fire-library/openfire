@@ -31,7 +31,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_16 as rust_equation_50_16;
 ///     None stated.
 ///
 /// Limitations:
-///     Refer to the SFPE Handbook for details. To determine `A_{sb}` and `A_{bo}`, the specifc layout of the lobbies and stairwells as well as the leakage paths must be understood.
+///     Refer to the SFPE Handbook for details. To determine :math:`A_{SB}` and :math:`A_{BO}`, the specifc layout of the lobbies and stairwells as well as the leakage paths must be understood.
 ///
 /// Example:
 ///     >>> import ofire
