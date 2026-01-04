@@ -13,7 +13,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_16 as rust_equation_50_16;
 /// where:
 ///
 /// - :math:`F_r` is the flow area factor (dimensionless)
-/// - :math:`A_{sb}` is the stairwell bottom opening area (m²)
+/// - :math:`A_{SB}` is the stairwell bottom opening area (m²)
 /// - :math:`T_b` is the building interior temperature (°C)
 /// - :math:`A_{bo}` is the building outside opening area (m²)
 /// - :math:`T_s` is the stairwell temperature (°C)
