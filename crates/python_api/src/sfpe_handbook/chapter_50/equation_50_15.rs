@@ -13,7 +13,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_15 as rust_equation_50_15;
 /// where:
 ///
 /// - :math:`H_m` is the height limit (m)
-/// - :math:`F_r` is the flow area factor (dimensionless)
+/// - :math:`F_R` is the flow area factor (dimensionless)
 /// - :math:`\Delta p_{max}` is the maximum design pressure difference (Pa)
 /// - :math:`\Delta p_{min}` is the minimum design pressure difference (Pa)
 /// - :math:`T_0` is the ambient temperature (°C)
