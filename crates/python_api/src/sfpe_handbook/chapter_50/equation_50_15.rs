@@ -8,7 +8,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_15 as rust_equation_50_15;
 ///
 /// .. math::
 ///
-///    H_m = 0.000289 \times \frac{F_r \times (\Delta p_{max} - \Delta p_{min})}{\left|\frac{1}{T_0 + 273} - \frac{1}{T_s + 273}\right|}
+///    H_m = 0.000289 \times \frac{F_R \times (\Delta p_{max} - \Delta p_{min})}{\left|\frac{1}{T_0 + 273} - \frac{1}{T_s + 273}\right|}
 ///
 /// where:
 ///
