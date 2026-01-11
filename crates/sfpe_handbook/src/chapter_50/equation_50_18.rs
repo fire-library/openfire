@@ -18,10 +18,10 @@ mod tests {
     #[test]
     fn test_fed() {
         let c_i = vec![0.001, 0.003];
-        let delta_t_i = vec![1.0, 2.0];
+        let delta_t_i = vec![1.0, 1.0];
         let lc_t50 = 0.015;
         let result = fed(c_i, delta_t_i, lc_t50);
-        let expected = 0.466666667;
+        let expected = 0.266666667;
         assert!((result - expected).abs() < 1e-6);
     }
 }
