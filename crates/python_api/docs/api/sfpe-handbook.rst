@@ -107,3 +107,11 @@ Equation 50.16 - Flow Area Factor for Pressurization Systems
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.18 - Fractional Effective Dose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_18
+   :members:
+   :undoc-members:
+   :show-inheritance:
