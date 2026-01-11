@@ -3,5 +3,9 @@ name = "fire_dynamics_tools"
 version = "0.1.0"
 edition = "2024"
 
+[dependencies]
+sfpe_handbook = { path = "../sfpe_handbook" }
+cibse_guide_e = { path = "../cibse_guide_e" }
+
 [lints]
 workspace = true
