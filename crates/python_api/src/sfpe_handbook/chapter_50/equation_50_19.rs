@@ -8,7 +8,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_19 as rust_equation_50_19;
 ///
 /// .. math::
 ///
-///    S_i = \frac{K}{2.303 \times \delta m \times C_i}
+///    S_i = \frac{K}{2.303 {\delta}_m C_i}
 ///
 /// where:
 ///
