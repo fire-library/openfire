@@ -107,3 +107,26 @@ Equation 50.16 - Flow Area Factor for Pressurization Systems
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.18 - Fractional Effective Dose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_18
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Equation 50.19 - Visibility Through Uniform Smoke
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_19
+   :members:
+   :undoc-members:
+   :show-inheritance:
+Equation 50.20 - Visibility Through Smoke (Percent Obscuration)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_20
+   :members:
+   :undoc-members:
+   :show-inheritance:

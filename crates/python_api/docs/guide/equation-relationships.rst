@@ -61,8 +61,18 @@ Visibility
 
 These equations calculate visibility distance through smoke but use different formulations:
 
-- :func:`ofire.cibse_guide_e.chapter_10.equation_10_7.visibility` - CIBSE Guide E, Chapter 10, Equation 10.7 (uses extinction coefficient and optical density: k/(2.303×d))
-- :func:`ofire.fire_dynamics_tools.chapter_18.equation_18_1.visibility` - Fire Dynamics Tools, Chapter 18, Equation 18.1 (uses extinction coefficient, mass extinction coefficient, and particulate concentration: k/(αₘ×mₚ))
+- :func:`ofire.cibse_guide_e.chapter_10.equation_10_7.visibility` - CIBSE Guide E, Chapter 10, Equation 10.7
+- :func:`ofire.fire_dynamics_tools.chapter_18.equation_18_1.visibility` - Fire Dynamics Tools, Chapter 18, Equation 18.1
+
+Fractional Effective Dose
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Group 3: Fractional Effective Dose Calculations*
+
+These equations calculate the fractional effective dose (FED), representing accumulated toxic exposure over time as a fraction of the lethal dose, but use different formulations:
+
+- :func:`ofire.sfpe_handbook.chapter_50.equation_50_18.fed` - SFPE Handbook, Chapter 50, Equation 50-18
+- :func:`ofire.cibse_guide_e.chapter_10.equation_10_8.fractional_effective_dose` - CIBSE Guide E, Chapter 10, Equation 10-8
 
 Contributing to Equation Relationships
 ---------------------------------------
