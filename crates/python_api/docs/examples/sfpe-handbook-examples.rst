@@ -1,16 +1,6 @@
 SFPE Handbook
 =============
 
-This page will contain practical examples using SFPE Handbook calculations.
+This page contains practical examples using SFPE Handbook calculations, organized by chapter.
 
-Coming Soon
------------
-
-Examples for SFPE Handbook calculations will be added as the Python API is expanded to include more SFPE Handbook modules.
-
-.. code-block:: python
-
-   import ofire
-
-   # Example: SFPE Handbook calculations
-   # (Examples will be added as modules are implemented)
+.. include:: sfpe-handbook/chapter-50.rst
