@@ -15,12 +15,12 @@ use openfire::sfpe_handbook::chapter_50::equation_50_18 as rust_equation_50_18;
 /// - :math:`FED` is the fractional effective dose (dimensionless)
 /// - :math:`C_i` is the mass concentration of material burned at the end of time interval i (g/m³)
 /// - :math:`\Delta t_i` is the time interval i (s)
-/// - :math:`LC_{t50}` is the lethal exposure dose from test data (mg/m³ or ppm)
+/// - :math:`LC_{t50}` is the lethal exposure dose from test data (g/m³)
 ///
 /// Args:
 ///     c_i (list[float]): Concentration values at each time interval (g/m³)
 ///     delta_t_i (float): Time intervals (s)
-///     lc_t50 (float): Lethal exposure dose from test data (mg/m³ or ppm)
+///     lc_t50 (float): Lethal exposure dose from test data (g/m³)
 ///
 /// Returns:
 ///     float: Fractional effective dose (dimensionless)
