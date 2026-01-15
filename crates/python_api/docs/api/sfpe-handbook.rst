@@ -123,3 +123,10 @@ Equation 50.19 - Visibility Through Uniform Smoke
    :members:
    :undoc-members:
    :show-inheritance:
+Equation 50.20 - Visibility Through Smoke (Percent Obscuration)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_20
+   :members:
+   :undoc-members:
+   :show-inheritance:
