@@ -8,13 +8,13 @@ use openfire::sfpe_handbook::chapter_50::equation_50_19 as rust_equation_50_19;
 ///
 /// .. math::
 ///
-///    S_i = \frac{K}{2.303 \times \delta m \times C_i}
+///    S_i = \frac{K}{2.303 {\delta}_m C_i}
 ///
 /// where:
 ///
 /// - :math:`S_i` is the visibility through smoke (m)
 /// - :math:`K` is the proportionality constant (dimensionless)
-/// - :math:`\delta m` is the mass optical density (m²/g)
+/// - :math:`{\delta}_m` is the mass optical density (m²/g)
 /// - :math:`C_i` is the mass concentration of fuel burned (g/m³)
 ///
 /// Args:
