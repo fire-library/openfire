@@ -8,7 +8,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_20 as rust_equation_50_20;
 ///
 /// .. math::
 ///
-///    S_i = -\frac{K \times L}{\ln(1 - \frac{\lambda}{100})}
+///    S_i = -\frac{K L}{\ln(1 - \frac{\lambda}{100})}
 ///
 /// where:
 ///
