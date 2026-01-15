@@ -13,14 +13,14 @@ use openfire::sfpe_handbook::chapter_50::equation_50_19 as rust_equation_50_19;
 /// where:
 ///
 /// - :math:`S_i` is the visibility through smoke (m)
-/// - :math:`K` is the Bouguer-Beer law constant (dimensionless)
-/// - :math:`\delta m` is the mass extinction coefficient (m²/g)
-/// - :math:`C_i` is the mass concentration of particulates (g/m³)
+/// - :math:`K` is the proportionality constant (dimensionless)
+/// - :math:`\delta m` is the mass optical density (m²/g)
+/// - :math:`C_i` is the mass concentration of fuel burned (g/m³)
 ///
 /// Args:
-///     k (float): Bouguer-Beer law constant (dimensionless)
-///     delta_m (float): Mass extinction coefficient (m²/g)
-///     c_i (float): Mass concentration of particulates (g/m³)
+///     k (float): Proportionality constant (dimensionless)
+///     delta_m (float): Mass optical density (m²/g)
+///     c_i (float): Mass concentration of fuel burned (g/m³)
 ///
 /// Returns:
 ///     float: Visibility through smoke (m)

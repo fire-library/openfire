@@ -4,7 +4,7 @@ use pyo3::wrap_pyfunction;
 use openfire::sfpe_handbook::chapter_50::equation_50_18 as rust_equation_50_18;
 
 #[pyfunction]
-/// Fractional Effective Dose (FED) calculation for for evaluation exposure to smoke.
+/// Fractional Effective Dose (FED) calculation for evaluation of exposure to smoke.
 ///
 /// .. math::
 ///
@@ -19,7 +19,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_18 as rust_equation_50_18;
 ///
 /// Args:
 ///     c_i (list[float]): Concentration values at each time interval (g/m³)
-///     delta_t_i (list[float]): Time intervals (s)
+///     delta_t_i (float): Time intervals (s)
 ///     lc_t50 (float): Lethal exposure dose from test data (mg/m³ or ppm)
 ///
 /// Returns:
