@@ -29,7 +29,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_19 as rust_equation_50_19;
 ///     The calculated visibility can be thought of as visibility if smoke is uniform.
 ///
 /// Limitations:
-///     See assumptions above. Assumes uniform smoke and, utilises the proportionality constant K, commonly taken as 8 for illumnated signs and 3 for non-illuminated.
+///     See assumptions above. Assumes uniform smoke and, utilises the proportionality constant K, commonly taken as 8 for illuminated signs and 3 for non-illuminated.
 ///
 /// Example:
 ///     >>> import ofire
