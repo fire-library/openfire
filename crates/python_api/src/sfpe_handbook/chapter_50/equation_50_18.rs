@@ -34,7 +34,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_18 as rust_equation_50_18;
 /// Example:
 ///     >>> import ofire
 ///     >>> c_i = [0.001, 0.002, 0.003]
-///     >>> delta_t_i = [1.0, 1.0, 1.0]
+///     >>> delta_t_i = 1.0
 ///     >>> lc_t50 = 10.0
 ///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_18.fed(c_i, delta_t_i, lc_t50)
 ///     >>> print(f"{result:.2f}")
