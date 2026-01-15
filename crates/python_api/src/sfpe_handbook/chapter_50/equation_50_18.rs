@@ -8,7 +8,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_18 as rust_equation_50_18;
 ///
 /// .. math::
 ///
-///    FED = \frac{\sum (C_i \Delta t_i)}{LC_{t50}}
+///    FED = \frac{\sum (C_i \Delta t_i)}{LCt_{50}}
 ///
 /// where:
 ///
