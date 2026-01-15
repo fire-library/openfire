@@ -1,20 +1,17 @@
-pub fn factor(a_sb: f64, a_bo: f64, t_b: f64, t_s: f64) -> f64 {
-    let numerator = a_sb.powf(2.0) * (t_b + 273.0);
-    let denominator = a_bo.powf(2.0) * (t_s + 273.0);
-    1.0 + numerator / denominator
+pub fn visibility(k: f64, delta_m: f64, c_i: f64) -> f64 {
+    k / (2.303 * delta_m * c_i)
 }
 
 #[cfg(not(coverage))]
-pub fn factor_equation(
-    f_r: String,
-    a_sb: String,
-    t_b: String,
-    a_bo: String,
-    t_s: String,
+pub fn visibility_equation(
+    s_i: String,
+    k: String,
+    delta_m: String,
+    c_i: String,
 ) -> String {
     format!(
-        "{} = 1 + \\frac{{ {}^2 \\times ( {} + 273 ) }}{{ {}^2 \\times ( {} + 273 ) }}",
-        f_r, a_sb, t_b, a_bo, t_s
+        "{} = \\frac{{{}}}{{2.303 \\times {} \\times {}}}",
+        s_i, k, delta_m, c_i, 
     )
 }
 
@@ -23,9 +20,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_factor() {
-        let result = factor(0.005, 0.005, 15.0, 5.0);
-        let expected = 2.035971223;
+    fn test_visibility() {
+        let result = visibility(8.0, 0.22, 1.0);
+        let expected = 15.78968144;
         assert!((result - expected).abs() < 1e-6);
     }
 }
