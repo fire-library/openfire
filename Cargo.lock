@@ -83,10 +83,6 @@ version = "0.1.0"
 [[package]]
 name = "fire_dynamics_tools"
 version = "0.1.0"
-dependencies = [
- "cibse_guide_e",
- "sfpe_handbook",
-]
 
 [[package]]
 name = "generic-array"

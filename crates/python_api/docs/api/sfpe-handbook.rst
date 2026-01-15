@@ -115,3 +115,11 @@ Equation 50.18 - Fractional Effective Dose
    :members:
    :undoc-members:
    :show-inheritance:
+
+Equation 50.19 - Visibility Through Uniform Smoke
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_19
+   :members:
+   :undoc-members:
+   :show-inheritance:

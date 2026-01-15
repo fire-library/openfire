@@ -38,7 +38,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_18 as rust_equation_50_18;
 ///     >>> lc_t50 = 10.0
 ///     >>> result = ofire.sfpe_handbook.chapter_50.equation_50_18.fed(c_i, delta_t_i, lc_t50)
 ///     >>> print(f"{result:.2f}")
-fn fed(c_i: Vec<f64>, delta_t_i: Vec<f64>, lc_t50: f64) -> PyResult<f64> {
+fn fed(c_i: Vec<f64>, delta_t_i: f64, lc_t50: f64) -> PyResult<f64> {
     Ok(rust_equation_50_18::fed(c_i, delta_t_i, lc_t50))
 }
 
