@@ -1,5 +1,5 @@
 Chapter 50
-==========
+----------
 
 Example 2: Door Opening Force
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
