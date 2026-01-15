@@ -3,15 +3,10 @@ pub fn visibility(k: f64, delta_m: f64, c_i: f64) -> f64 {
 }
 
 #[cfg(not(coverage))]
-pub fn visibility_equation(
-    s_i: String,
-    k: String,
-    delta_m: String,
-    c_i: String,
-) -> String {
+pub fn visibility_equation(s_i: String, k: String, delta_m: String, c_i: String) -> String {
     format!(
         "{} = \\frac{{{}}}{{2.303 \\times {} \\times {}}}",
-        s_i, k, delta_m, c_i, 
+        s_i, k, delta_m, c_i,
     )
 }
 
