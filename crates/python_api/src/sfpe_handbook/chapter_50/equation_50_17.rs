@@ -29,7 +29,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_17 as rust_equation_50_17;
 ///     None stated.
 ///
 /// Limitations:
-///     This equation applies to untreated pressurization air. A heat transfer factor of :math:`\eta = 0.15` is suggested in the abscence of better data.
+///     This equation applies to untreated pressurization air. A heat transfer factor of :math:`\eta = 0.15` is suggested in the absence of better data.
 ///
 /// Example:
 ///     >>> import ofire
