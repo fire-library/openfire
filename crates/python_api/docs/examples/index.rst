@@ -9,7 +9,7 @@ Available Example Categories
 ----------------------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    thermal-radiation-examples
    fire-dynamics-examples
