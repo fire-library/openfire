@@ -13,7 +13,7 @@ use openfire::sfpe_handbook::chapter_50::equation_50_17 as rust_equation_50_17;
 /// where:
 ///
 /// - :math:`T_S` is the stairwell temperature (°C)
-/// - :math:`T_0` is the outdoors temperature (°C)  
+/// - :math:`T_0` is the outdoors temperature (°C)
 /// - :math:`\eta` is the heat transfer factor (dimensionless)
 /// - :math:`T_B` is the building temperature (°C)
 ///
