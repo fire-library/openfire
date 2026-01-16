@@ -2,6 +2,7 @@ pub mod equation_50_1;
 pub mod equation_50_14;
 pub mod equation_50_15;
 pub mod equation_50_16;
+pub mod equation_50_17;
 pub mod equation_50_18;
 pub mod equation_50_19;
 pub mod equation_50_2;
@@ -24,6 +25,7 @@ pub fn chapter_50(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(equation_50_14::equation_50_14))?;
     m.add_wrapped(wrap_pymodule!(equation_50_15::equation_50_15))?;
     m.add_wrapped(wrap_pymodule!(equation_50_16::equation_50_16))?;
+    m.add_wrapped(wrap_pymodule!(equation_50_17::equation_50_17))?;
     m.add_wrapped(wrap_pymodule!(equation_50_18::equation_50_18))?;
     m.add_wrapped(wrap_pymodule!(equation_50_19::equation_50_19))?;
     m.add_wrapped(wrap_pymodule!(equation_50_20::equation_50_20))?;
