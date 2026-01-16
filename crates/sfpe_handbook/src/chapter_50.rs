@@ -2,6 +2,7 @@ pub mod equation_50_1;
 pub mod equation_50_14;
 pub mod equation_50_15;
 pub mod equation_50_16;
+pub mod equation_50_17;
 pub mod equation_50_18;
 pub mod equation_50_19;
 pub mod equation_50_2;

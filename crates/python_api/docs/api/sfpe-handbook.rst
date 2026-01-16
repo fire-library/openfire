@@ -108,6 +108,14 @@ Equation 50.16 - Flow Area Factor for Pressurization Systems
    :undoc-members:
    :show-inheritance:
 
+Equation 50.17 - Stairwell Temperature for Untreated Pressurization Air
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: ofire.sfpe_handbook.chapter_50.equation_50_17
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Equation 50.18 - Fractional Effective Dose
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
