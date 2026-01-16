@@ -100,7 +100,7 @@ Example 2: Door Opening Force
    print("=" * 72)
 
 
-Example 3: Simple Stairwell Pressurisation in a Simple Building
+Example 3: Simple Stairwell Pressurization in a Simple Building
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Part 1
