@@ -98,3 +98,30 @@ Example 2: Door Opening Force
    print("  - All calculations performed in SI units (m, Pa, N).")
    print("  - OpenFire function: ofire.sfpe_handbook.chapter_50.equation_50_14.door_opening_force")
    print("=" * 72)
+
+
+Example 3: Simple Stairwell Pressurisation in a Simple Building
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Part 1
+^^^^^^
+
+.. code-block:: python
+
+   # Code to be added soon
+
+
+Part 2
+^^^^^^
+
+.. code-block:: python
+
+   # Code to be added soon
+
+
+Part 3
+^^^^^^
+
+.. code-block:: python
+
+   # Code to be added soon
