@@ -63,6 +63,8 @@ These equations calculate visibility distance through smoke but use different fo
 
 - :func:`ofire.cibse_guide_e.chapter_10.equation_10_7.visibility` - CIBSE Guide E, Chapter 10, Equation 10.7
 - :func:`ofire.fire_dynamics_tools.chapter_18.equation_18_1.visibility` - Fire Dynamics Tools, Chapter 18, Equation 18.1
+- :func:`ofire.sfpe_handbook.chapter_50.equation_50_19.visibility` - SFPE Handbook, Chapter 50, Equation 50-19 (from mass concentration)
+- :func:`ofire.sfpe_handbook.chapter_50.equation_50_20.visibility` - SFPE Handbook, Chapter 50, Equation 50-20 (from percent obscuration)
 
 Fractional Effective Dose
 ~~~~~~~~~~~~~~~~~~~~~~~~~
