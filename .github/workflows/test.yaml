@@ -1,4 +1,4 @@
-name: Cargo Build & Test
+name: Build & Test
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build_and_test:
-    name: Rust project - latest
+  rust_tests:
+    name: Rust Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -37,3 +37,76 @@ jobs:
 
       - name: Run all tests in workspace
         run: cargo test --workspace --verbose
+
+  cli_tests:
+    name: CLI Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        exclude:
+          # Reduce matrix size by testing fewer Python versions on non-Linux
+          - os: windows-latest
+            python-version: '3.8'
+          - os: windows-latest
+            python-version: '3.9'
+          - os: macos-latest
+            python-version: '3.8'
+          - os: macos-latest
+            python-version: '3.9'
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        
+      - name: Cache Rust dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            ./target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          
+      - name: Cache Python dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+          
+      - name: Install system dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          
+      - name: Install maturin
+        run: pip install maturin
+        
+      - name: Build and install Python package
+        working-directory: ./crates/python_api
+        run: |
+          maturin develop --release
+          
+      - name: Install test dependencies
+        working-directory: ./crates/python_api
+        run: pip install -e ".[test]"
+        
+      - name: Run CLI tests
+        working-directory: ./crates/python_api
+        run: pytest tests/ -v --tb=short
+        
+      - name: Run CLI tests in parallel (Linux only)
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
+        working-directory: ./crates/python_api
+        run: pytest tests/ -n auto -v
