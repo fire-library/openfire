@@ -14,7 +14,7 @@ pub fn height_limit_equation(
     t_s: String,
 ) -> String {
     format!(
-        "{} = 0.000289 \\times \\frac{{ {} \\times ( {} - {} ) }}{{ \\left| \\frac{{1}}{{ {} + 273}} - \\frac{{1}}{{ {} + 273}} \\right| }}",
+        "{} = 0.000289 \\times \\dfrac{{ {} \\times ( {} - {} ) }}{{ \\left| \\dfrac{{1}}{{ {} + 273}} - \\dfrac{{1}}{{ {} + 273}} \\right| }}",
         h_m, f_r, delta_p_max, delta_p_min, t_0, t_s
     )
 }
