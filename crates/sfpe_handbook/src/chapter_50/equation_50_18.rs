@@ -6,7 +6,7 @@ pub fn fed(c_i: Vec<f64>, delta_t: f64, lc_t50: f64) -> f64 {
 #[cfg(not(coverage))]
 pub fn fed_equation(fed: String, c_i: String, delta_t: String, lc_t50: String) -> String {
     format!(
-        "{} = \\frac{{ \\sum {} \\times {} }}{{ {} }}",
+        "{} = \\dfrac{{ \\sum {} \\times {} }}{{ {} }}",
         fed, c_i, delta_t, lc_t50
     )
 }

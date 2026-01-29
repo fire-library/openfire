@@ -13,7 +13,7 @@ pub fn factor_equation(
     t_s: String,
 ) -> String {
     format!(
-        "{} = 1 + \\frac{{ {}^2 \\times ( {} + 273 ) }}{{ {}^2 \\times ( {} + 273 ) }}",
+        "{} = 1 + \\dfrac{{ {}^2 \\times ( {} + 273 ) }}{{ {}^2 \\times ( {} + 273 ) }}",
         f_r, a_sb, t_b, a_bo, t_s
     )
 }

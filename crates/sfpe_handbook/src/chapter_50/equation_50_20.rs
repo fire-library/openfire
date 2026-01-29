@@ -5,7 +5,7 @@ pub fn visibility(k: f64, l: f64, lambda: f64) -> f64 {
 #[cfg(not(coverage))]
 pub fn visibility_equation(s_i: String, k: String, l: String, lambda: String) -> String {
     format!(
-        "{} = \\frac{{{} \\times {}}}{{\\ln(1 - \\frac{{{}}}{{100}})}}",
+        "{} = \\dfrac{{{} \\times {}}}{{\\ln(1 - \\dfrac{{{}}}{{100}})}}",
         s_i, k, l, lambda,
     )
 }
